@@ -1,0 +1,244 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card>
+      <nb-card-header>Cadastrar Lojista</nb-card-header>
+      <nb-card-body>
+        <form (submit)="onFormSubmit()" [formGroup]="myForm">
+          <div class="form-group">
+            <label for="nome" class="label">Nome completo <span>*</span></label>
+            <input
+              required
+              formControlName="nome"
+              nbInput
+              fullWidth
+              id="nome"
+              [status]="isInvalidControl('nome') && 'danger'"
+            />
+            <small class="error" *ngIf="isInvalidControl('nome')">{{
+              getErrorMessage("nome")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="cnpj" class="label">CNPJ <span>*</span></label>
+            <input
+              required
+              [imask]="{ mask: '00.000.000/0000-00' }"
+              formControlName="cnpj"
+              nbInput
+              fullWidth
+              id="cnpj"
+              placeholder="00.000.000/0000-00"
+              [status]="isInvalidControl('cnpj') && 'danger'"
+            />
+            <small class="error" *ngIf="isInvalidControl('cnpj')">{{
+              getErrorMessage("cnpj")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="cpf" class="label">CPF <span>*</span></label>
+            <input
+              required
+              [status]="isInvalidControl('cpf') && 'danger'"
+              [imask]="{ mask: '000.000.000-00' }"
+              formControlName="cpf"
+              nbInput
+              fullWidth
+              id="cpf"
+              placeholder="000.000.000-00"
+            />
+            <small class="error" *ngIf="isInvalidControl('cpf')">{{
+              getErrorMessage("cpf")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="cep" class="label">CEP <span>*</span></label>
+            <input
+              required
+              [status]="isInvalidControl('cep') && 'danger'"
+              [imask]="{ mask: '00000-000' }"
+              formControlName="cep"
+              nbInput
+              fullWidth
+              id="cep"
+              placeholder="00000-000"
+              (blur)="onFocusOut()"
+            />
+            <small class="error" *ngIf="isInvalidControl('cep')">{{
+              getErrorMessage("cep")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="municipio" class="label"
+              >Município <span>*</span>
+            </label>
+            <input
+              required
+              [status]="isInvalidControl('municipio') && 'danger'"
+              formControlName="municipio"
+              nbInput
+              fullWidth
+              id="municipio"
+              (blur)="onFocusOut()"
+            />
+            <small class="error" *ngIf="isInvalidControl('municipio')">{{
+              getErrorMessage("municipio")
+            }}</small>
+          </div>
+
+          <div class="form-group">
+            <label for="logradouro" class="label"
+              >Logradouro <span>*</span></label
+            >
+            <input
+              required
+              [status]="isInvalidControl('logradouro') && 'danger'"
+              formControlName="logradouro"
+              nbInput
+              fullWidth
+              id="logradouro"
+            />
+            <small class="error" *ngIf="isInvalidControl('logradouro')">{{
+              getErrorMessage("logradouro")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="bairro" class="label">Bairro <span>*</span></label>
+            <input
+              required
+              [status]="isInvalidControl('bairro') && 'danger'"
+              formControlName="bairro"
+              nbInput
+              fullWidth
+              id="bairro"
+            />
+            <small class="error" *ngIf="isInvalidControl('bairro')">{{
+              getErrorMessage("bairro")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="numero" class="label">Número <span>*</span></label>
+            <input
+              required
+              [status]="isInvalidControl('numero') && 'danger'"
+              formControlName="numero"
+              nbInput
+              fullWidth
+              id="numero"
+            />
+            <small class="error" *ngIf="isInvalidControl('numero')">{{
+              getErrorMessage("numero")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="pontoReferencia" class="label"
+              >Ponto de Referência</label
+            >
+            <input
+              [status]="isInvalidControl('pontoReferencia') && 'danger'"
+              formControlName="pontoReferencia"
+              nbInput
+              fullWidth
+              id="pontoReferencia"
+            />
+            <small class="error" *ngIf="isInvalidControl('pontoReferencia')">{{
+              getErrorMessage("pontoReferencia")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="celular" class="label">Celular <span>*</span></label>
+            <input
+              required
+              [status]="isInvalidControl('celular') && 'danger'"
+              [imask]="{ mask: '(00) 00000-0000' }"
+              formControlName="celular"
+              nbInput
+              fullWidth
+              id="celular"
+              placeholder="(99) 99999-9999"
+            />
+            <small class="error" *ngIf="isInvalidControl('celular')">{{
+              getErrorMessage("celular")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="telefone" class="label">Telefone</label>
+            <input
+              required
+              [status]="isInvalidControl('telefone') && 'danger'"
+              [imask]="{ mask: '(00) 0000-0000' }"
+              formControlName="telefone"
+              nbInput
+              fullWidth
+              id="telefone"
+              placeholder="(99) 9999-9999"
+            />
+            <small class="error" *ngIf="isInvalidControl('telefone')">{{
+              getErrorMessage("telefone")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="email" class="label">E-mail <span>*</span></label>
+            <input
+              required
+              [status]="isInvalidControl('email') && 'danger'"
+              formControlName="email"
+              type="email"
+              nbInput
+              fullWidth
+              id="email"
+            />
+            <small class="error" *ngIf="isInvalidControl('email')">{{
+              getErrorMessage("email")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="sexo" class="label">Sexo <span>*</span></label>
+            <nb-select id="sexo" fullWidth formControlName="sexo">
+              <nb-option value="1">Masculino</nb-option>
+              <nb-option value="2">Feminino</nb-option>
+            </nb-select>
+            <small class="error" *ngIf="isInvalidControl('sexo')">{{
+              getErrorMessage("sexo")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="estadoCivil" class="label"
+              >Estado Civil <span>*</span></label
+            >
+            <nb-select id="estadoCivil" fullWidth formControlName="estadoCivil">
+              <nb-option value="1">Solteiro</nb-option>
+              <nb-option value="2">Casado</nb-option>
+            </nb-select>
+            <small class="error" *ngIf="isInvalidControl('estadoCivil')">{{
+              getErrorMessage("estadoCivil")
+            }}</small>
+          </div>
+          <div class="form-group">
+            <label for="orgaoExpedidor" class="label"
+              >Orgão Expedidor <span>*</span></label
+            >
+            <nb-select
+              id="orgaoExpedidor"
+              fullWidth
+              formControlName="orgaoExpedidor"
+            >
+              <nb-option value="1">SSP</nb-option>
+              <nb-option value="2">Outro</nb-option>
+            </nb-select>
+            <small class="error" *ngIf="isInvalidControl('orgaoExpedidor')">{{
+              getErrorMessage("orgaoExpedidor")
+            }}</small>
+          </div>
+          <button
+            type="submit"
+            nbButton
+            status="primary"
+            [disabled]="myForm.invalid"
+          >
+            Enviar
+          </button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

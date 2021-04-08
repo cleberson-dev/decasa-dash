@@ -1,0 +1,30 @@
+{
+  "municipio": {
+    "id": 2
+  },
+  "estadoCivil": {
+    "id": 2
+  },
+  "sexo": {
+    "id": 1
+  },
+  "orgaoExpedidor": {
+    "id": 2
+  },
+  "uf": {
+    "id": 10,
+    "nome": "MARANHÃO",
+    "sigla": "MA"
+  },
+  "nome": "Emanoel",
+  "cnpj": "123456789", // validar
+  "logradouro": "rua fulano de tal",
+  "numero": "11",
+  "bairro": "bairro fulano de tal",
+  "pontoReferencia": "perto de lugarl tal", // opcional
+  "celular": "12345678",
+  "telefone": "1234578", // opcional
+  "email": "teste@hotmail.com", // validar
+  "cep": ""
+  
+}
