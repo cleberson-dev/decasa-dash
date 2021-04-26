@@ -14,6 +14,7 @@
    NbSidebarModule,
    NbToastrModule,
    NbWindowModule,
+   NbCardModule
  } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -35,7 +36,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
      }),
      CoreModule.forRoot(),
      ThemeModule.forRoot(),
-     NbEvaIconsModule
+     NbEvaIconsModule,
+     NbCardModule
    ],
    bootstrap: [AppComponent],
  })
