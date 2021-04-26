@@ -11,7 +11,10 @@ ul {
       padding: 0.5rem 0;
       padding-left: calc(0.5rem - 5px);
       border-left: 5px solid transparent;
-      &:hover { background-color: rgba(0, 0, 0, 0.04); }
+      &:hover { 
+        background-color: rgba(0, 0, 0, 0.04);
+        span { color: #3366ff; } 
+      }
     }
 
     &:last-child { border-bottom-style: none; }
