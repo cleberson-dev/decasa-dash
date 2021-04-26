@@ -20,10 +20,8 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { MinhaPaginaComponent } from './minha-pagina/minha-pagina.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IMaskModule } from 'angular-imask';
-import { ProdutoLojistaComponent } from '../produto-lojista/produto-lojista.component';
-import { MatTreeModule } from '@angular/material/tree';
-import { DefaultTreeviewEventParser, DefaultTreeviewI18n, TreeviewConfig, TreeviewEventParser, TreeviewI18n, TreeviewModule } from 'ngx-treeview';
-import { TreeComponent } from '../tree/tree.component';
+import { ProdutoLojistaComponent } from '../components/produto-lojista/produto-lojista.component';
+import { TreeComponent } from '../components/tree/tree.component';
 
 @NgModule({
   imports: [
@@ -41,22 +39,14 @@ import { TreeComponent } from '../tree/tree.component';
     NbSelectModule,
     NbSpinnerModule,
     NbTabsetModule,
-    MatTreeModule,
     NbIconModule,
-    NbListModule,
-    TreeviewModule,
-    NbIconModule
+    NbListModule
   ],
   declarations: [
     PagesComponent,
     MinhaPaginaComponent,
     ProdutoLojistaComponent,
     TreeComponent
-  ],
-  providers: [
-    TreeviewConfig,
-    { provide: TreeviewI18n, useClass: DefaultTreeviewI18n },
-    { provide: TreeviewEventParser, useClass: DefaultTreeviewEventParser }
   ]
 })
 export class PagesModule {

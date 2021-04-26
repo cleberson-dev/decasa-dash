@@ -5,8 +5,8 @@ import { CepService } from '../../cep.service';
 import telefone from 'telefone';
 import { ValidationErrors } from '@angular/forms';
 import { NbMenuItem } from '@nebular/theme';
-import { IProdutoLojista } from '../../produto-lojista/produto-lojista.component';
-import { TreeItem } from '../../tree/tree.component';
+import { IProdutoLojista } from '../../components/produto-lojista/produto-lojista.component';
+import { TreeItem } from '../../components/tree/tree.component';
 
 
 @Component({
