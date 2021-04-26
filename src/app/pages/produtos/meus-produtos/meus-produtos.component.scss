@@ -1,0 +1,50 @@
+.wrapper {
+  display: flex;
+  min-height: 100%;
+}
+
+::ng-deep li.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+ul li.menu-item {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.left {
+  width: 150px;
+  border-right: 1px solid #edf1f7;
+  padding: 10px;
+  width: 250px;
+  box-sizing: content-box;
+}
+
+.right {
+  width: 100%;
+
+  .filters {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+  }
+
+  .actions {
+    border-bottom: 1px solid #edf1f7;
+    padding: 0.75rem 1rem;
+  }
+
+  .product-list {
+    max-height: 325px;
+    overflow-y: scroll;
+  }
+
+  .product-list ::ng-deep nb-list-item:hover {
+    background-color: rgb(0, 0, 0, 0.04);
+  }
+}
+
+.category-title {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}

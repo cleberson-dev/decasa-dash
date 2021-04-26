@@ -21,6 +21,7 @@ import { IMaskModule } from 'angular-imask';
 import { ProdutoLojistaComponent } from '../components/produto-lojista/produto-lojista.component';
 import { TreeComponent } from '../components/tree/tree.component';
 import { NotFoundComponent } from '../components/not-found/not-found.component';
+import { MeusProdutosComponent } from './produtos/meus-produtos/meus-produtos.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { NotFoundComponent } from '../components/not-found/not-found.component';
     ProdutosPageComponent,
     ProdutoLojistaComponent,
     TreeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MeusProdutosComponent
   ]
 })
 export class PagesModule {

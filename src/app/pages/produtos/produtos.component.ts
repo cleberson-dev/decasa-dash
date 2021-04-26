@@ -4,10 +4,6 @@ import { cnpj, cpf } from 'cpf-cnpj-validator';
 import { CepService } from '../../cep.service';
 import telefone from 'telefone';
 import { ValidationErrors } from '@angular/forms';
-import { NbMenuItem } from '@nebular/theme';
-import { IProdutoLojista } from '../../components/produto-lojista/produto-lojista.component';
-import { TreeItem } from '../../components/tree/tree.component';
-
 
 @Component({
   selector: 'decasa-produtos',
@@ -15,56 +11,6 @@ import { TreeItem } from '../../components/tree/tree.component';
   styleUrls: ['./produtos.component.scss']
 })
 export class ProdutosPageComponent {
-  produtos: IProdutoLojista[] =[ 
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #1',
-      marca: 'Marca #1',
-      modelo: 'Modelo #1',
-      preco: 19.99  
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-      preco: 19.99  
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-      preco: 19.99  
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-      preco: 19.99  
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-      preco: 19.99  
-    },
-  ];
-
-  smartGroup: NbMenuItem[] = [
-    { 
-      title: 'Todos',
-      icon: 'grid',
-      selected: true,
-    },
-    { 
-      title: 'Outra',
-      icon: 'bar-chart-2-outline'
-    },
-  ];
-
   myForm = this.fb.group({
     categoria: ['', [Validators.required]],
     unidadeMedida: ['', [Validators.required]],
@@ -80,23 +26,6 @@ export class ProdutosPageComponent {
     profundidade: ['', [Validators.required]]
   });
   
-  treeItems: TreeItem[] = [
-    { 
-      name: 'Videogames',
-      icon: 'bookmark', 
-      value: "1", 
-      children: [ 
-        { name: "Sub-categoria #1", value: "11", icon: 'folder-outline' },  
-        { name: "Sub-categoria #2", value: "12", icon: 'folder-outline' },  
-      ] 
-    },
-    { 
-      name: 'Móveis',
-      icon: 'bookmark',
-      value: "2"
-    },
-  ]
-
   constructor(
     private cepService: CepService,
     private fb: FormBuilder,
@@ -121,9 +50,6 @@ export class ProdutosPageComponent {
     console.log(body);
   }
 
-  onItemSelected(name: string) {
-    alert(name);
-  }
 
   cepValidator(control: AbstractControl): ValidationErrors | null {
     const cep = control.value + '';

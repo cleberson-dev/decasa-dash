@@ -1,56 +1,9 @@
 <nb-card>
   <nb-tabset fullWidth>
     <nb-tab tabTitle="Meus produtos" style="padding: 0;">
-      <div class="wrapper">
-        <div class="left">
-          <nb-menu [items]="smartGroup"></nb-menu>
-          
-          <h5 class="category-title">Categorias</h5>
-          <ngx-tree [items]="treeItems" (itemSelected)="onItemSelected($event)"></ngx-tree>
-        </div>
-        <div class="right">
-          <div class="actions">
-            <button nbButton><nb-icon icon="plus-outline"></nb-icon> Adicionar produto</button>
-          </div>
-          <div class="filters">
-            <nb-select style="min-width: 200px">
-              <nb-option value=""></nb-option>
-              <nb-option value="0">Categoria 1</nb-option>
-              <nb-option value="1">Categoria 2</nb-option>
-            </nb-select>
-            <input nbInput />
-          </div>
-          <div class="product-list">
-            <nb-list>
-              <nb-list-item *ngFor="let produto of produtos"> 
-                <ngx-produto-lojista   
-                  [produto]="produto"
-                ></ngx-produto-lojista>
-              </nb-list-item>
-            </nb-list>
-          </div>
-        </div>
-      </div>
+      <tab-meus-produtos></tab-meus-produtos>
     </nb-tab>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     <nb-tab tabTitle="Criar" [lazyLoad]="true">
       <form (submit)="onFormSubmit()" [formGroup]="myForm">
         <div class="form-group">
