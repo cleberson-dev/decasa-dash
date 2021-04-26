@@ -8,33 +8,43 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'Cadastrar Lojista',
-    icon: 'edit-outline',
-    link: '/pages/criar',
-  },
-  {
-    title: 'Meus Produtos',
-    icon: 'shopping-bag-outline',
-    link: '/pages/forms/layouts',
-  },
-  {
-    title: 'Atividades',
+    title: 'Pedidos',
     icon: 'activity-outline',
     link: '/pages/forms/layouts',
   },
   {
-    title: 'Clientes',
+    title: 'Vendas',
     icon: 'cube-outline',
     link: '/pages/forms/layouts',
   },
   {
-    title: 'Fornecedores',
+    title: 'Estoque',
     icon: 'email-outline',
     link: '/pages/forms/layouts',
   },
   {
-    title: 'Vendas',
+    title: 'Financeiro',
     icon: 'shopping-cart-outline',
+    link: '/pages/forms/layouts',
+  },
+  {
+    title: 'Colaboradores',
+    icon: 'shopping-cart-outline',
+    link: '/pages/forms/layouts',
+  },
+  {
+    title: 'Produtos',
+    icon: 'edit-outline',
+    link: '/pages/produtos',
+  },
+  {
+    title: 'Fornecedores',
+    icon: 'shopping-cart-outline',
+    link: '/pages/forms/layouts',
+  },
+  {
+    title: 'Configurações',
+    icon: 'settings-outline',
     link: '/pages/forms/layouts',
   },
   // {

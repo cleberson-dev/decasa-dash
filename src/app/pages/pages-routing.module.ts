@@ -15,7 +15,7 @@ const routes: Routes = [{
       component: ECommerceComponent,
     },
     {
-      path: 'criar',
+      path: 'produtos',
       component: MinhaPaginaComponent
     },
     {

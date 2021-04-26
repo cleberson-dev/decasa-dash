@@ -1,73 +1,128 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { LojistaService } from '../../lojista.service';
 import { cnpj, cpf } from 'cpf-cnpj-validator';
 import { CepService } from '../../cep.service';
 import telefone from 'telefone';
 import { ValidationErrors } from '@angular/forms';
+import { NbMenuItem } from '@nebular/theme';
+import { IProdutoLojista } from '../../produto-lojista/produto-lojista.component';
+import { TreeItem } from '../../tree/tree.component';
+
 
 @Component({
   selector: 'ngx-minha-pagina',
   templateUrl: './minha-pagina.component.html',
   styleUrls: ['./minha-pagina.component.scss']
 })
-export class MinhaPaginaComponent implements OnInit {
+export class MinhaPaginaComponent {
+  produtos: IProdutoLojista[] =[ 
+    {
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      nome: 'Produto #1',
+      marca: 'Marca #1',
+      modelo: 'Modelo #1',
+      preco: 19.99  
+    },
+    {
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      nome: 'Produto #2',
+      marca: 'Marca #2',
+      modelo: 'Modelo #2',
+      preco: 19.99  
+    },
+    {
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      nome: 'Produto #2',
+      marca: 'Marca #2',
+      modelo: 'Modelo #2',
+      preco: 19.99  
+    },
+    {
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      nome: 'Produto #2',
+      marca: 'Marca #2',
+      modelo: 'Modelo #2',
+      preco: 19.99  
+    },
+    {
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      nome: 'Produto #2',
+      marca: 'Marca #2',
+      modelo: 'Modelo #2',
+      preco: 19.99  
+    },
+  ];
+
+  smartGroup: NbMenuItem[] = [
+    { 
+      title: 'Todos',
+      icon: 'grid',
+      selected: true,
+    },
+    { 
+      title: 'Outra',
+      icon: 'bar-chart-2-outline'
+    },
+  ];
 
   myForm = this.fb.group({
-    nome: ['', [Validators.required, Validators.maxLength(50)]],
-    cnpj: ['', [Validators.required, this.cnpjValidator]],
-    cpf: ['', [Validators.required, this.cpfValidator]],
-    email: ['', [Validators.required, Validators.email]],
-    cep: ['', [Validators.required, this.cepValidator]],
-    municipio: [{ value: '', disabled: true }, [Validators.required]],
-    logradouro: ['', [Validators.required, Validators.maxLength(50)]],
-    numero: ['', [Validators.required, , Validators.maxLength(10)]],
-    bairro: ['', [Validators.required, Validators.maxLength(50)]],
-    celular: ['', [Validators.required, this.cellphoneNumberValidator]],
-    telefone: ['', [this.phoneNumberValidator]],
-    pontoReferencia: ['', [Validators.maxLength(50)]],
-    sexo: ['', [Validators.required]],
-    estadoCivil: ['', [Validators.required]],
-    orgaoExpedidor: ['', [Validators.required]],
-    // missing: uf_rg, representante
+    categoria: ['', [Validators.required]],
+    unidadeMedida: ['', [Validators.required]],
+    descricao: ['', [Validators.required]],
+    quantidadeApresentacao: ['', [Validators.required]],
+    detalhe: ['', [Validators.required]],
+    manualInstrucao: ['', [Validators.required]],
+    videoDemonstrativo: ['', [Validators.required, ]],
+    cnp: ['', [Validators.required,]],
+    pesoGrama: ['', [Validators.required]],
+    altura: ['', [Validators.required]],
+    largura: ['', [Validators.required]],
+    profundidade: ['', [Validators.required]]
   });
+  
+  treeItems: TreeItem[] = [
+    { 
+      name: 'Videogames',
+      icon: 'bookmark', 
+      value: "1", 
+      children: [ 
+        { name: "Sub-categoria #1", value: "11", icon: 'folder-outline' },  
+        { name: "Sub-categoria #2", value: "12", icon: 'folder-outline' },  
+      ] 
+    },
+    { 
+      name: 'Móveis',
+      icon: 'bookmark',
+      value: "2"
+    },
+  ]
 
   constructor(
-    private lojistaService: LojistaService,
     private cepService: CepService,
     private fb: FormBuilder,
-  ) { }
-
-  ngOnInit(): void {
-    // this.lojistaService.get()
-    //   .subscribe(lojistas => console.log(lojistas));
-  }
+  ) {}
 
   onFormSubmit() {
     const body = {
-      nome: this.myForm.controls['nome'].value,
-      cnpj: this.myForm.controls['cnpj'].value,
-      logradouro: this.myForm.controls['logradouro'].value,
-      numero: this.myForm.controls['numero'].value,
-      bairro: this.myForm.controls['bairro'].value,
-      pontoReferencia: this.myForm.controls['pontoReferencia'].value,
-      celular: this.myForm.controls['celular'].value,
-      telefone: this.myForm.controls['telefone'].value, 
-      email: this.myForm.controls['email'].value,
-      cep: this.myForm.controls['cep'].value,
-      municipio: this.myForm.controls['municipio'].value,
-      estadoCivil: {
-        id: Number(this.myForm.controls['estadoCivil'].value)
-      },
-      sexo: {
-        id: Number(this.myForm.controls['sexo'].value)
-      },
-      orgaoExpedidor: {
-        id: Number(this.myForm.controls['orgaoExpedidor'].value)
-      }
+      categoria: this.myForm.controls['categoria'].value,
+      unidadeMedida: this.myForm.controls['unidadeMedida'].value,
+      descricao: this.myForm.controls['descricao'].value ,
+      quantidadeApresentacao: this.myForm.controls['quantidadeApresentacao'].value,
+      detalhe: this.myForm.controls['detalhe'].value,
+      manualInstrucao: this.myForm.controls['manualInstrucao'].value,
+      videoDemonstrativo: this.myForm.controls['videoDemonstrativo'].value,
+      cnp: this.myForm.controls['cnp'].value,
+      pesoGrama: this.myForm.controls['pesoGrama'].value,
+      altura: this.myForm.controls['altura'].value,
+      largura: this.myForm.controls['largura'].value,
+      profundidade: this.myForm.controls['profundidade'].value
     }
 
     console.log(body);
+  }
+
+  onItemSelected(name: string) {
+    alert(name);
   }
 
   cepValidator(control: AbstractControl): ValidationErrors | null {

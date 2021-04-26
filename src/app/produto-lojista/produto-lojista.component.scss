@@ -1,0 +1,27 @@
+.produto-lojista {
+  width: fit-content;
+
+  display: flex;
+
+
+  .img-wrapper {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+
+    img { max-width: 100%; max-height: 100%; }
+  }
+
+  .info {
+    margin-left: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .nome {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+}

@@ -15,7 +15,9 @@
    NbToastrModule,
    NbWindowModule,
  } from '@nebular/theme';
- 
+ import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { TreeComponent } from './tree/tree.component';
+
  @NgModule({
    declarations: [AppComponent],
    imports: [
@@ -34,6 +36,7 @@
      }),
      CoreModule.forRoot(),
      ThemeModule.forRoot(),
+     NbEvaIconsModule
    ],
    bootstrap: [AppComponent],
  })
