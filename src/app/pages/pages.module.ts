@@ -15,7 +15,7 @@ import {
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
-import { MinhaPaginaComponent } from './minha-pagina/minha-pagina.component';
+import { ProdutosPageComponent } from './produtos/produtos.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IMaskModule } from 'angular-imask';
 import { ProdutoLojistaComponent } from '../components/produto-lojista/produto-lojista.component';
@@ -41,7 +41,7 @@ import { NotFoundComponent } from '../components/not-found/not-found.component';
   ],
   declarations: [
     PagesComponent,
-    MinhaPaginaComponent,
+    ProdutosPageComponent,
     ProdutoLojistaComponent,
     TreeComponent,
     NotFoundComponent

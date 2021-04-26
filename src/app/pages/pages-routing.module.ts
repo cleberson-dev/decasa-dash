@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from '../components/not-found/not-found.component';
-import { MinhaPaginaComponent } from './minha-pagina/minha-pagina.component';
+import { ProdutosPageComponent } from './produtos/produtos.component';
 
 const routes: Routes = [{
   path: '',
@@ -11,7 +11,7 @@ const routes: Routes = [{
   children: [
     {
       path: 'produtos',
-      component: MinhaPaginaComponent
+      component: ProdutosPageComponent
     },
     {
       path: '',

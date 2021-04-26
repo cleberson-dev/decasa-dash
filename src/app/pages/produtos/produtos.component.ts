@@ -10,11 +10,11 @@ import { TreeItem } from '../../components/tree/tree.component';
 
 
 @Component({
-  selector: 'ngx-minha-pagina',
-  templateUrl: './minha-pagina.component.html',
-  styleUrls: ['./minha-pagina.component.scss']
+  selector: 'decasa-produtos',
+  templateUrl: './produtos.component.html',
+  styleUrls: ['./produtos.component.scss']
 })
-export class MinhaPaginaComponent {
+export class ProdutosPageComponent {
   produtos: IProdutoLojista[] =[ 
     {
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
