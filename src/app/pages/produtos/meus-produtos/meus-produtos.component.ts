@@ -87,7 +87,7 @@ export class MeusProdutosComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.currentProductsPage = Number(params.p);
+      this.currentProductsPage = Number(params.p || 1);
     });
   }
 
