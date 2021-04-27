@@ -18,6 +18,11 @@ export interface IProdutoLojista {
 })
 export class ProdutoLojistaComponent implements OnInit {
   @Input() produto: IProdutoLojista;
+
+  items = [
+    { title: 'Arroz' },
+    { title: 'Feijão' },
+  ]
   
   constructor() { }
 

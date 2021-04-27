@@ -9,7 +9,8 @@ import {
   NbSpinnerModule,
   NbTabsetModule,
   NbListModule,
-  NbIconModule
+  NbIconModule,
+  NbContextMenuModule
 } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
@@ -38,7 +39,8 @@ import { MeusProdutosComponent } from './produtos/meus-produtos/meus-produtos.co
     NbSpinnerModule,
     NbTabsetModule,
     NbIconModule,
-    NbListModule
+    NbListModule,
+    NbContextMenuModule
   ],
   declarations: [
     PagesComponent,
