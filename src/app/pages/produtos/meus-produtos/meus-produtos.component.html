@@ -25,6 +25,11 @@
           ></ngx-produto-lojista>
         </nb-list-item>
       </nb-list>
+      <pagination
+        [currentPage]="currentProductsPage"
+        [totalItems]="100"
+        [itemsPerPage]="10"
+      ></pagination>
     </div>
   </div>
 </div>

@@ -1,0 +1,18 @@
+<div class="pagination">
+  <a [class]="{ invisible: !hasPrev }" 
+    routerLink="."
+    [queryParams]="{p: currentPage - 1}"  
+  ><nb-icon icon="arrow-ios-back"></nb-icon></a>
+  <a *ngFor="let page of pageGenerator()" 
+    routerLink="."
+    [queryParams]="{p: page}" 
+    [class]="{ current: page === currentPage }"
+  >
+    {{ page }}
+  </a>
+  <a 
+    [class]="{ invisible: !hasNext }"  
+    routerLink="."
+    [queryParams]="{p: currentPage + 1}" 
+    ><nb-icon icon="arrow-ios-forward"></nb-icon></a>
+</div>

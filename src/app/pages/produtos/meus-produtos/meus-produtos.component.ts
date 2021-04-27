@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
 import { NbMenuItem } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
@@ -9,6 +10,8 @@ import { TreeItem } from '../../../components/tree/tree.component'
   styleUrls: ['./meus-produtos.component.scss']
 })
 export class MeusProdutosComponent implements OnInit {
+
+  currentProductsPage: number;
 
   produtos: IProdutoLojista[] =[ 
     {
@@ -77,9 +80,14 @@ export class MeusProdutosComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.currentProductsPage = Number(params.p);
+    });
   }
 
   onItemSelected(name: string) {

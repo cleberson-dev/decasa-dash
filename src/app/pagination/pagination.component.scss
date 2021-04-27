@@ -1,0 +1,34 @@
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+a {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  text-decoration: none;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: #222b45;
+
+  &:hover {
+    background: rgba(0, 0, 0, .04);
+  }
+}
+
+a.current {
+  background-color: #3366ff;
+  color: white;
+}
+
+a.invisible {
+  visibility: hidden;
+}
