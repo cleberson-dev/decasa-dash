@@ -27,7 +27,7 @@ export class MeusProdutosComponent implements OnInit {
       nome: 'Produto #2',
       marca: 'Marca #2',
       modelo: 'Modelo #2',
-      preco: 19.99  
+      preco: 1.99 
     },
     {
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',

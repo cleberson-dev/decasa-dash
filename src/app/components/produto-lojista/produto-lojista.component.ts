@@ -30,4 +30,9 @@ export class ProdutoLojistaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get formattedPrice(): string {
+    const exp = /\d+\.\d{2}/;
+    return 'R$' + `${this.produto.preco}`.match(exp)[0].replace('.', ',');
+  }
+
 }
