@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { cnpj, cpf } from 'cpf-cnpj-validator';
-import { CepService } from '../../cep.service';
-import telefone from 'telefone';
+import { CepService } from '../../services/cep.service';
+import telefone from 'telefone';  
 import { ValidationErrors } from '@angular/forms';
 
 @Component({
