@@ -7,7 +7,7 @@
   </div>
   <div class="right">
     <div class="actions">
-      <button nbButton><nb-icon icon="plus-outline"></nb-icon> Adicionar produto</button>
+      <button nbButton (click)="open(dialog)"><nb-icon icon="plus-outline"></nb-icon> Adicionar produto</button>
     </div>
     <div class="filters">
       <nb-select style="min-width: 200px" selected="">
@@ -33,3 +33,42 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>
+      Adicionar novos produtos 
+    </nb-card-header>
+    <nb-card-body>
+      <div class="filters">
+        <nb-select style="min-width: 200px" selected="">
+          <nb-option value="">Todos</nb-option>
+          <nb-option value="0">Categoria 1</nb-option>
+          <nb-option value="1">Categoria 2</nb-option>
+        </nb-select>
+        <input nbInput placeholder="Pesquise aqui..." />
+      </div>
+      <div class="product-list">
+        <nb-list>
+          <nb-list-item *ngFor="let produto of produtos"> 
+            <ngx-produto-lojista   
+              [produto]="produto"
+            ></ngx-produto-lojista>
+          </nb-list-item>
+        </nb-list>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="dialog-footer">
+        <button nbButton status="primary">
+          <nb-icon icon="plus"></nb-icon>
+          Adicionar
+        </button>
+        <button (click)="ref.close()" nbButton style="margin-left: 1rem;">
+          Cancelar
+        </button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
-import { NbMenuItem } from '@nebular/theme';
+import { NbDialogService, NbMenuItem } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
 
 @Component({
@@ -82,8 +82,9 @@ export class MeusProdutosComponent implements OnInit {
   ];
 
   constructor(
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private dialogService: NbDialogService
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -95,4 +96,7 @@ export class MeusProdutosComponent implements OnInit {
     alert(name);
   }
 
+  open(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog, { context: 'this is some additional data passed to dialog' });
+  }
 }
