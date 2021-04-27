@@ -7,6 +7,7 @@ export interface IProdutoLojista {
   modelo: string;
   preco: number;
   unidade?: string;
+  categories?: string[];
 }
 
 

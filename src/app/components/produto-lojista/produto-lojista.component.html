@@ -4,7 +4,10 @@
   </div>
   <div class="info">
     <p class="nome">{{ produto.nome }}</p>
-    <p class="preco">{{ produto.preco }} <span>por {{ produto.unidade || 'unidade' }}</span></p>
+    <div *ngIf="produto.categories && produto.categories.length > 0" class="categories">
+      <div *ngFor="let category of produto.categories">{{ category }}</div>
+    </div>
   </div>
+  <p class="preco">R${{ produto.preco }} <span>por {{ produto.unidade || 'unidade' }}</span></p>
   <button [nbContextMenu]="items" style="align-self: center" nbButton ghost><nb-icon icon="more-vertical"></nb-icon></button>
 </div>
