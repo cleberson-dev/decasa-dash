@@ -6,7 +6,7 @@
     <ngx-tree [items]="treeItems" (itemSelected)="onItemSelected($event)"></ngx-tree>
   </div>
   <div class="right">
-    <div class="actions">
+    <div class="actions"> 
       <button nbButton (click)="open(dialog)"><nb-icon icon="plus-outline"></nb-icon> Adicionar produto</button>
     </div>
     <div class="filters">
@@ -49,7 +49,7 @@
         </nb-select>
         <input nbInput placeholder="Pesquise aqui..." />
       </div>
-      <div class="product-list">
+      <div class="dialog product-list">
         <nb-list>
           <nb-list-item *ngFor="let produto of produtos"> 
             <ngx-produto-lojista   
