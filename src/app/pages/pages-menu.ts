@@ -29,8 +29,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Colaboradores',
-    icon: 'shopping-cart-outline',
-    link: '/forms/layouts',
+    icon: 'people-outline',
+    link: '/colaboradores',
   },
   {
     title: 'Produtos',

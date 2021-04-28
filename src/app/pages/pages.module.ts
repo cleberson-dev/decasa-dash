@@ -24,6 +24,7 @@ import { TreeComponent } from '../components/tree/tree.component';
 import { NotFoundComponent } from '../components/not-found/not-found.component';
 import { MeusProdutosComponent } from './produtos/meus-produtos/meus-produtos.component';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { ColaboradoresComponent } from './colaboradores/colaboradores.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
     TreeComponent,
     NotFoundComponent,
     MeusProdutosComponent,
-    PaginationComponent
+    PaginationComponent,
+    ColaboradoresComponent
   ]
 })
 export class PagesModule {
