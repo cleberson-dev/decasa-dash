@@ -1,10 +1,10 @@
 <nb-card>
   <nb-tabset fullWidth>
-    <nb-tab tabTitle="Meus produtos" style="padding: 0;">
-      <tab-meus-produtos></tab-meus-produtos>
+    <nb-tab tabTitle="Meus produtos" style="padding: 0;" [active]="tabs.meusProdutos">
+      <tab-meus-produtos (requestClick)="changeTab($event)"></tab-meus-produtos>
     </nb-tab>
     
-    <nb-tab tabTitle="Criar" [lazyLoad]="true">
+    <nb-tab tabTitle="Solicitar" [lazyLoad]="true" [active]="tabs.solicitar">
       <form (submit)="onFormSubmit()" [formGroup]="myForm">
         <div class="form-group">
           <label for="categoria" class="label">Categoria <span>*</span></label>

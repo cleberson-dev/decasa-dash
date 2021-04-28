@@ -61,11 +61,17 @@
     </nb-card-body>
     <nb-card-footer>
       <div class="dialog-footer">
-        <button nbButton status="primary">
-          <nb-icon icon="plus"></nb-icon>
-          Adicionar
-        </button>
-        <button (click)="ref.close()" nbButton style="margin-left: 1rem;">
+        <div>
+          <button nbButton status="primary">
+            <nb-icon icon="plus"></nb-icon>
+            Adicionar
+          </button>
+          <button 
+            nbButton ghost
+            class="criar-link" 
+            (click)="btnClickHandler(ref)">Não encontrou? Solicite um novo produto</button>
+        </div>
+        <button class="cancel-btn" (click)="ref.close()" nbButton style="margin-left: 1rem;">
           Cancelar
         </button>
       </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
 import { NbDialogService, NbMenuItem } from '@nebular/theme';
@@ -81,6 +81,9 @@ export class MeusProdutosComponent implements OnInit {
     },
   ];
 
+
+  @Output() requestClick = new EventEmitter();
+
   constructor(
     private route: ActivatedRoute,
     private dialogService: NbDialogService
@@ -98,5 +101,10 @@ export class MeusProdutosComponent implements OnInit {
 
   open(dialog: TemplateRef<any>) {
     this.dialogService.open(dialog, { context: 'this is some additional data passed to dialog' });
+  }
+
+  btnClickHandler(ref: any) {
+    this.requestClick.emit('solicitar');
+    ref.close();
   }
 }

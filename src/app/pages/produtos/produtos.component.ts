@@ -25,6 +25,11 @@ export class ProdutosPageComponent {
     largura: ['', [Validators.required]],
     profundidade: ['', [Validators.required]]
   });
+
+  tabs = {
+    meusProdutos: true,
+    solicitar: false
+  }
   
   constructor(
     private cepService: CepService,
@@ -48,6 +53,13 @@ export class ProdutosPageComponent {
     }
 
     console.log(body);
+  }
+
+  changeTab(name: string) {
+    this.tabs = {
+      meusProdutos: name === 'meusProdutos',
+      solicitar: name === 'solicitar'
+    }
   }
 
 
