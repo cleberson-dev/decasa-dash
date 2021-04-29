@@ -36,45 +36,8 @@
 
 
 <ng-template #dialog let-data let-ref="dialogRef">
-  <nb-card>
-    <nb-card-header>
-      Adicionar novos produtos 
-    </nb-card-header>
-    <nb-card-body>
-      <div class="filters">
-        <nb-select style="min-width: 200px" selected="">
-          <nb-option value="">Todos</nb-option>
-          <nb-option value="0">Categoria 1</nb-option>
-          <nb-option value="1">Categoria 2</nb-option>
-        </nb-select>
-        <input nbInput placeholder="Pesquise aqui..." />
-      </div>
-      <div class="dialog product-list">
-        <nb-list>
-          <nb-list-item *ngFor="let produto of produtos"> 
-            <ngx-produto-lojista   
-              [produto]="produto"
-            ></ngx-produto-lojista>
-          </nb-list-item>
-        </nb-list>
-      </div>
-    </nb-card-body>
-    <nb-card-footer>
-      <div class="dialog-footer">
-        <div>
-          <button nbButton status="primary">
-            <nb-icon icon="plus"></nb-icon>
-            Adicionar
-          </button>
-          <button 
-            nbButton ghost
-            class="criar-link" 
-            (click)="btnClickHandler(ref)">Não encontrou? Solicite um novo produto</button>
-        </div>
-        <button class="cancel-btn" (click)="ref.close()" nbButton style="margin-left: 1rem;">
-          Cancelar
-        </button>
-      </div>
-    </nb-card-footer>
-  </nb-card>
+  <ngx-modal-adicionar
+    (cancelBtnClick)="ref.close()"
+    (requestBtnClick)="btnClickHandler(ref)"
+  ></ngx-modal-adicionar>
 </ng-template>

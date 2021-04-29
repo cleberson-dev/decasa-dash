@@ -13,7 +13,7 @@ export class MeusProdutosComponent implements OnInit {
 
   currentProductsPage: number;
 
-  produtos: IProdutoLojista[] =[ 
+  produtos: IProdutoLojista[] = [ 
     {
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
       nome: 'Produto #1',
