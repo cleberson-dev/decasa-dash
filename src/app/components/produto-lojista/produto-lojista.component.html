@@ -8,6 +8,6 @@
       <div *ngFor="let category of produto.categories">{{ category }}</div>
     </div>
   </div>
-  <p class="preco">{{ formattedPrice }} <span>por {{ produto.unidade || 'unidade' }}</span></p>
+  <p *ngIf="produto.preco" class="preco">{{ formattedPrice }} <span>por {{ produto.unidade || 'unidade' }}</span></p>
   <button [nbContextMenu]="items" style="align-self: center" nbButton ghost><nb-icon icon="more-vertical"></nb-icon></button>
 </div>
