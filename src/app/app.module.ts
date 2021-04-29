@@ -14,12 +14,18 @@
    NbSidebarModule,
    NbToastrModule,
    NbWindowModule,
-   NbCardModule
+   NbCardModule,
+   NbLayoutModule,
+   NbInputModule,
+   NbIconModule,
+   NbButtonModule,
+   NbCheckboxModule
  } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { LoginComponent } from './pages/login/login.component';
 
  @NgModule({
-   declarations: [AppComponent],
+   declarations: [AppComponent, LoginComponent],
    imports: [
      BrowserModule,
      BrowserAnimationsModule,
@@ -37,7 +43,12 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
      CoreModule.forRoot(),
      ThemeModule.forRoot(),
      NbEvaIconsModule,
-     NbCardModule
+     NbCardModule,
+     NbLayoutModule,
+     NbInputModule,
+     NbIconModule,
+     NbButtonModule,
+     NbCheckboxModule
    ],
    bootstrap: [AppComponent],
  })

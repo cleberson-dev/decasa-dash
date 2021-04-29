@@ -1,0 +1,42 @@
+<nb-layout windowMode>
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-header>
+        <a routerLink="/">
+          <button nbButton ghost>
+            <nb-icon status="primary" icon="arrow-back"></nb-icon>
+          </button>
+        </a>
+      </nb-card-header>
+      <nb-card-body style="padding: 0">
+        <div class="wrapper">
+          <div class="login-page">
+            <h1>Entre no Marketplace</h1>
+            <p>Olá! Me dê suas credenciais para entrar na nossa plataforma</p>
+            <form>
+              <div class="form-control-group">
+                <label>Endereço de e-mail</label>
+                <input nbInput fullWidth />
+              </div>
+
+              <div class="form-control-group">
+                <span class="label-with-link">
+                  <label>Senha</label>
+                  <a routerLink="/esqueci-senha"></a>
+                </span>
+                <input nbInput fullWidth />
+              </div>
+
+              <div class="checkboxes">
+                <nb-checkbox status="basic">Lembrar-me</nb-checkbox>
+              </div>
+
+              <button nbButton status="primary">Entrar</button>
+            </form>
+          </div>
+          <div class="illustration"></div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
