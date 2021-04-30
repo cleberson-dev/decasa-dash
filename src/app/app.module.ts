@@ -23,6 +23,7 @@
  } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './pages/login/login.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 
  @NgModule({
    declarations: [AppComponent, LoginComponent],

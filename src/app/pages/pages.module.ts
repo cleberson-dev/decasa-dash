@@ -23,9 +23,10 @@ import { ProdutoLojistaComponent } from '../components/produto-lojista/produto-l
 import { TreeComponent } from '../components/tree/tree.component';
 import { NotFoundComponent } from '../components/not-found/not-found.component';
 import { MeusProdutosComponent } from './produtos/meus-produtos/meus-produtos.component';
-import { PaginationComponent } from '../pagination/pagination.component';
+import { PaginationComponent } from '../components/pagination/pagination.component';
 import { ColaboradoresComponent } from './colaboradores/colaboradores.component';
 import { ModalAdicionarComponent } from './produtos/modal-adicionar/modal-adicionar.component';
+import { CheckboxComponent } from '../components/checkbox/checkbox.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { ModalAdicionarComponent } from './produtos/modal-adicionar/modal-adicio
     MeusProdutosComponent,
     PaginationComponent,
     ColaboradoresComponent,
-    ModalAdicionarComponent
+    ModalAdicionarComponent,
+    CheckboxComponent
   ]
 })
 export class PagesModule {
