@@ -1,14 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
   @Input() currentPage: number = 1;
   @Input() totalItems: number;
   @Input() itemsPerPage: number;
+
+  pageNumbers: number[];
 
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
@@ -22,18 +24,12 @@ export class PaginationComponent implements OnInit {
     return this.currentPage < this.totalPages;
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  *pageGenerator() {
-    let pageNumber = 1;
-
-    while (pageNumber <= this.totalPages) {
-      yield pageNumber;
-      pageNumber += 1;
+  constructor() {
+    for (let i = 1; i <= this.totalPages; i += 1) {
+      this.pageNumbers.push(i);
     }
   }
+
+  
 
 }

@@ -3,13 +3,15 @@
     routerLink="."
     [queryParams]="{p: currentPage - 1}"  
   ><nb-icon icon="arrow-ios-back"></nb-icon></a>
-  <a *ngFor="let page of pageGenerator()" 
+
+  <a *ngFor="let page of pageNumbers" 
     routerLink="."
     [queryParams]="{p: page}" 
     [class]="{ current: page === currentPage }"
   >
     {{ page }}
   </a>
+
   <a 
     [class]="{ invisible: !hasNext }"  
     routerLink="."
