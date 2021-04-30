@@ -1,0 +1,41 @@
+span::before {
+  content: '';
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  border: 1px solid #e4e9f2;
+}
+
+.checked::before {
+  background-color: #598bff;
+}
+.checked:hover::before {
+  background-color: darken(#598bff, 15%);
+}
+
+
+
+
+
+
+span::before {
+  background-color: #f7f9fc;
+}
+span:hover::before {
+  background-color: #edf1f7;
+}
+
+
+span {
+  position: relative;
+  cursor: pointer;
+}
+
+.icon {
+  position: absolute;
+  color: white;
+  left: 0;
+  top: 0;
+}
