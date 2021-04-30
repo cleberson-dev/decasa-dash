@@ -9,5 +9,5 @@
     </div>
   </div>
   <p *ngIf="produto.preco" class="preco">{{ formattedPrice }} <span>por {{ produto.unidade || 'unidade' }}</span></p>
-  <button [nbContextMenu]="items" style="align-self: center" nbButton ghost><nb-icon icon="more-vertical"></nb-icon></button>
+  <button *ngIf="options.length > 0" [nbContextMenu]="options" style="align-self: center" nbButton ghost><nb-icon icon="more-vertical"></nb-icon></button>
 </div>

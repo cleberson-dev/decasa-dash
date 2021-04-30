@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { cnpj, cpf } from 'cpf-cnpj-validator';
 import { CepService } from '../../services/cep.service';
 import telefone from 'telefone';  
 import { ValidationErrors } from '@angular/forms';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'decasa-produtos',
   templateUrl: './produtos.component.html',
   styleUrls: ['./produtos.component.scss']
 })
-export class ProdutosPageComponent {
+export class ProdutosPageComponent implements OnInit {
   myForm = this.fb.group({
     categoria: ['', [Validators.required]],
     unidadeMedida: ['', [Validators.required]],
@@ -30,10 +31,16 @@ export class ProdutosPageComponent {
     meusProdutos: true,
     solicitar: false
   }
+
+  ngOnInit() {
+    this.apiService.getMostSoldProducts()
+      .subscribe(console.log);
+  }
   
   constructor(
     private cepService: CepService,
     private fb: FormBuilder,
+    private apiService: ApiService
   ) {}
 
   onFormSubmit() {

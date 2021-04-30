@@ -11,6 +11,9 @@ export interface IProdutoLojista {
 }
 
 
+type Option = {
+  title: string;
+};
 
 @Component({
   selector: 'ngx-produto-lojista',
@@ -19,11 +22,7 @@ export interface IProdutoLojista {
 })
 export class ProdutoLojistaComponent implements OnInit {
   @Input() produto: IProdutoLojista;
-
-  items = [
-    { title: 'Arroz' },
-    { title: 'Feijão' },
-  ]
+  @Input() options: Option[] = [];
   
   constructor() { }
 
