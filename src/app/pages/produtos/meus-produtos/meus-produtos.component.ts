@@ -81,6 +81,11 @@ export class MeusProdutosComponent implements OnInit {
     },
   ];
 
+  options = [
+    { title: 'Arroz' },
+    { title: 'Feijão' },
+  ];
+
 
   @Output() requestClick = new EventEmitter();
 
