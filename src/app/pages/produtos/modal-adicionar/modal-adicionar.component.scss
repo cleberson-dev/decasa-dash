@@ -17,7 +17,6 @@
 .product-list {
   max-height: 325px;
   overflow-y: scroll;
-  padding-bottom: 4rem;
 }
 
 .dialog.product-list {
@@ -32,6 +31,8 @@
 .filters {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.75rem 1rem;
   padding-top: 0rem;
+  border-bottom: 1px solid #edf1f7;
 }

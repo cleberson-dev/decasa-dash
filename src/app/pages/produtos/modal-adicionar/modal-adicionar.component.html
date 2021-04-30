@@ -9,15 +9,19 @@
         <nb-option value="0">Categoria 1</nb-option>
         <nb-option value="1">Categoria 2</nb-option>
       </nb-select>
+      <p><b>{{ selectedProducts.length }} produtos selecionados</b></p>
       <input nbInput placeholder="Pesquise aqui..." />
     </div>
     <div class="dialog product-list">
       <nb-list *ngIf="produtos.length > 0">
-        <nb-list-item *ngFor="let produto of produtos">
-          <nb-checkbox (checkedChange)="produto.selected = $event"></nb-checkbox>
+        <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of produtos">
+          <ngx-checkbox 
+            [defaultValue]="!!produto.selected"
+            (change)="produto.selected = $event"
+          ></ngx-checkbox>
           <div 
             (click)="produto.selected = !produto.selected"
-            [class]="{ selected: produto.selected, product: true }">
+            class="product">
             <ngx-produto-lojista   
               [produto]="produto"
             ></ngx-produto-lojista>
@@ -29,7 +33,7 @@
   <nb-card-footer>
     <div class="dialog-footer">
       <div>
-        <button nbButton status="primary">
+        <button nbButton status="primary" (click)="onAddButton()">
           <nb-icon icon="plus"></nb-icon>
           Adicionar
         </button>

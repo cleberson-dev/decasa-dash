@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@an
 import { NbDialogRef } from '@nebular/theme';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
 
+type AddProductItem = IProdutoLojista & { selected?: boolean };
+
 @Component({
   selector: 'ngx-modal-adicionar',
   templateUrl: './modal-adicionar.component.html',
@@ -12,7 +14,7 @@ export class ModalAdicionarComponent implements OnInit {
   @Output() cancelBtnClick = new EventEmitter();
   @Output() requestBtnClick = new EventEmitter();
 
-  produtos: (IProdutoLojista | { selected?: boolean })[] = [ 
+  produtos: AddProductItem[] = [ 
     {
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
       nome: 'Produto #1',
@@ -47,9 +49,17 @@ export class ModalAdicionarComponent implements OnInit {
     },
   ];
 
+  get selectedProducts() {
+    return this.produtos.filter(produto => produto.selected);
+  }
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onAddButton() {
+    console.log(this.selectedProducts.map(produto => produto.nome));
   }
 
 }
