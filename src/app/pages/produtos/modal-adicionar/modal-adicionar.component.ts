@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { NbDialogRef } from '@nebular/theme';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
 
-type AddProductItem = IProdutoLojista & { selected?: boolean };
+export type AddProductItem = IProdutoLojista & { selected?: boolean };
 
 @Component({
   selector: 'ngx-modal-adicionar',
@@ -10,13 +9,13 @@ type AddProductItem = IProdutoLojista & { selected?: boolean };
   styleUrls: ['./modal-adicionar.component.scss']
 })
 export class ModalAdicionarComponent implements OnInit {
+  @Input() ref: TemplateRef<any>;
 
-  @Output() cancelBtnClick = new EventEmitter();
-  @Output() requestBtnClick = new EventEmitter();
+  foto = 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
 
   produtos: AddProductItem[] = [ 
     {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      foto: this.foto,
       nome: 'Produto #1',
       marca: 'Marca #1',
       modelo: 'Modelo #1',
@@ -24,25 +23,25 @@ export class ModalAdicionarComponent implements OnInit {
       selected: true
     },
     {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      foto: this.foto,
       nome: 'Produto #2',
       marca: 'Marca #2',
       modelo: 'Modelo #2',
     },
     {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      foto: this.foto,
       nome: 'Produto #2',
       marca: 'Marca #2',
       modelo: 'Modelo #2',
     },
     {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      foto: this.foto,
       nome: 'Produto #2',
       marca: 'Marca #2',
       modelo: 'Modelo #2',
     },
     {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      foto: this.foto,
       nome: 'Produto #2',
       marca: 'Marca #2',
       modelo: 'Modelo #2',
@@ -53,13 +52,13 @@ export class ModalAdicionarComponent implements OnInit {
     return this.produtos.filter(produto => produto.selected);
   }
 
-  constructor() { }
+
+  step = 1;
 
   ngOnInit(): void {
   }
 
-  onAddButton() {
-    console.log(this.selectedProducts.map(produto => produto.nome));
+  changeScreen() {
+    this.step += 1;
   }
-
 }

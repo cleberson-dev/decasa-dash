@@ -1,0 +1,38 @@
+.selected {
+  background-color: rgba(0, 0, 255, 0.1);
+  color: white;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .criar-link {
+    text-decoration: none;
+    margin-left: 10px;
+  }
+}
+
+.product-list {
+  max-height: 325px;
+  overflow-y: scroll;
+}
+
+.dialog.product-list {
+  width: 80vw;
+}
+
+.product {
+  width: 100%;
+  padding: 1rem;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  padding-top: 0rem;
+  border-bottom: 1px solid #edf1f7;
+}

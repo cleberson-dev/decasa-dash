@@ -1,0 +1,16 @@
+<nb-card>
+    <nb-card-header>Definir preços</nb-card-header>
+    <nb-card-body style="width: 70vw">
+        <nb-list>
+            <nb-list-item style="width: 100%" *ngFor="let product of selectedProducts">
+                <ngx-produto-lojista>
+                    [produto]="product"
+                </ngx-produto-lojista>
+                <input nbInput type="number" [value]="product.preco || 0" />
+            </nb-list-item>
+        </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="primary">Adicionar</button>
+    </nb-card-footer>
+</nb-card>

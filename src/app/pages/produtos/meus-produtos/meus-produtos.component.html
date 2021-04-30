@@ -38,7 +38,6 @@
 
 <ng-template #dialog let-data let-ref="dialogRef">
   <ngx-modal-adicionar
-    (cancelBtnClick)="ref.close()"
-    (requestBtnClick)="btnClickHandler(ref)"
+    [ref]="ref"
   ></ngx-modal-adicionar>
 </ng-template>

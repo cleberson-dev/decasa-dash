@@ -27,6 +27,8 @@ import { PaginationComponent } from '../components/pagination/pagination.compone
 import { ColaboradoresComponent } from './colaboradores/colaboradores.component';
 import { ModalAdicionarComponent } from './produtos/modal-adicionar/modal-adicionar.component';
 import { CheckboxComponent } from '../components/checkbox/checkbox.component';
+import { ModalAdicionarPasso1Component } from './produtos/modal-adicionar/passo1-selecionar-produtos/passo1-selecionar-produtos.component';
+import { Passo2DefinirPrecosComponent } from './produtos/modal-adicionar/passo2-definir-precos/passo2-definir-precos.component';
 
 @NgModule({
   imports: [
@@ -56,7 +58,9 @@ import { CheckboxComponent } from '../components/checkbox/checkbox.component';
     PaginationComponent,
     ColaboradoresComponent,
     ModalAdicionarComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    ModalAdicionarPasso1Component,
+    Passo2DefinirPrecosComponent
   ]
 })
 export class PagesModule {
