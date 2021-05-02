@@ -10,7 +10,8 @@ import {
   NbTabsetModule,
   NbListModule,
   NbIconModule,
-  NbContextMenuModule
+  NbContextMenuModule,
+  NbStepperModule
 } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
@@ -27,8 +28,6 @@ import { PaginationComponent } from '../components/pagination/pagination.compone
 import { ColaboradoresComponent } from './colaboradores/colaboradores.component';
 import { ModalAdicionarComponent } from './produtos/modal-adicionar/modal-adicionar.component';
 import { CheckboxComponent } from '../components/checkbox/checkbox.component';
-import { ModalAdicionarPasso1Component } from './produtos/modal-adicionar/passo1-selecionar-produtos/passo1-selecionar-produtos.component';
-import { Passo2DefinirPrecosComponent } from './produtos/modal-adicionar/passo2-definir-precos/passo2-definir-precos.component';
 
 @NgModule({
   imports: [
@@ -46,7 +45,8 @@ import { Passo2DefinirPrecosComponent } from './produtos/modal-adicionar/passo2-
     NbTabsetModule,
     NbIconModule,
     NbListModule,
-    NbContextMenuModule
+    NbContextMenuModule,
+    NbStepperModule
   ],
   declarations: [
     PagesComponent,
@@ -58,9 +58,7 @@ import { Passo2DefinirPrecosComponent } from './produtos/modal-adicionar/passo2-
     PaginationComponent,
     ColaboradoresComponent,
     ModalAdicionarComponent,
-    CheckboxComponent,
-    ModalAdicionarPasso1Component,
-    Passo2DefinirPrecosComponent
+    CheckboxComponent
   ]
 })
 export class PagesModule {

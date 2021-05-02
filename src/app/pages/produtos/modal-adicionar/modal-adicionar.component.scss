@@ -19,9 +19,6 @@
   overflow-y: scroll;
 }
 
-.dialog.product-list {
-  width: 80vw;
-}
 
 .product {
   width: 100%;
@@ -35,4 +32,8 @@
   padding: 0.75rem 1rem;
   padding-top: 0rem;
   border-bottom: 1px solid #edf1f7;
+}
+
+.stepper .header {
+  background-color: blue;
 }

@@ -1,4 +1,63 @@
-<ngx-modal-adicionar-passo1
+<nb-card>
+  <nb-stepper orientation="horizontal">
+    <nb-step label="Selecionar produtos">
+      <div class="filters">
+        <nb-select style="min-width: 200px" selected="">
+          <nb-option value="">Todos</nb-option>
+          <nb-option value="0">Categoria 1</nb-option>
+          <nb-option value="1">Categoria 2</nb-option>
+        </nb-select>
+        <input nbInput placeholder="Pesquise aqui..." />
+      </div>
+      <div class="dialog product-list" style="width: 80vw">
+        <nb-list *ngIf="produtos.length > 0">
+          <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of produtos">
+            <ngx-checkbox [defaultValue]="!!produto.selected" (change)="produto.selected = $event"></ngx-checkbox>
+            <div (click)="produto.selected = !produto.selected" class="product">
+              <ngx-produto-lojista [produto]="produto"></ngx-produto-lojista>
+            </div>
+          </nb-list-item>
+        </nb-list>
+      </div>
+      <div class="dialog-footer">
+        <div>
+          <button class="cancel-btn" (click)="onHandler()" nbButton style="margin-left: 1rem;">
+            Cancelar
+          </button>
+          <button nbButton ghost class="criar-link" (click)="onHandler()">Não encontrou? Solicite um novo
+            produto</button>
+        </div>
+        
+        <div>
+          <b style="margin-right: 1rem">{{ selectedProducts.length }} produtos selecionados</b>
+          <button nbButton status="primary" (click)="onHandler()" nbStepperNext>
+            <nb-icon icon="arrow-ios-forward"></nb-icon>
+            Próximo
+          </button>
+        </div>
+      </div>
+    </nb-step>
+
+    <nb-step label="Definir Preços">
+      <div style="width: 80vw">
+        <!-- <nb-list>
+          <nb-list-item *ngFor="let product of produtos">
+              <ngx-produto-lojista>
+                  [produto]="product"
+              </ngx-produto-lojista>
+              <input nbInput type="number" [value]="product.preco || 0" />
+          </nb-list-item>
+        </nb-list> -->
+        <h1>Second Step</h1>
+        <button nbButton status="primary">Adicionar</button>
+      </div>
+    </nb-step>
+  </nb-stepper>
+</nb-card>
+
+
+
+<!-- <ngx-modal-adicionar-passo1
   *ngIf="step == 1; else elseBlock"
   (cancelBtnClick)="changeScreen()"
   (requestBtnClick)="changeScreen()"
@@ -7,4 +66,5 @@
 ></ngx-modal-adicionar-passo1>
 <ng-template #elseBlock>
   <ngx-modal-adicionar-passo2 [selectedProducts]="selectedProducts"></ngx-modal-adicionar-passo2>
-</ng-template>
+</ng-template> -->
+
