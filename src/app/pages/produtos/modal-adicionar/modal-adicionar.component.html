@@ -65,7 +65,18 @@
           </nb-list-item>
         </nb-list> -->
         <h1>Second Step</h1>
-        <button nbButton status="primary">Adicionar</button>
+        <div class="dialog-footer">
+          <button 
+            nbStepperPrevious
+            class="cancel-btn" nbButton>
+            Anterior
+          </button>
+          
+          <button nbButton status="primary" (click)="onHandler()" nbStepperNext>
+            <nb-icon icon="arrow-ios-forward"></nb-icon>
+            Finalizar
+          </button>
+        </div>
       </div>
     </nb-step>
   </nb-stepper>
