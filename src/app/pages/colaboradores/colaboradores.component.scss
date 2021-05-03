@@ -1,0 +1,56 @@
+.buttons-container {
+  margin-bottom: 1.5rem;
+}
+
+.buttons-container button {
+  width: 18rem;
+  margin: 0.5rem 0;
+}
+
+.buttons-container button:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.card .card__header {
+  background-color: #3366ff;
+  color: #fff;
+  padding: 0.8rem 1.3rem;
+}
+
+.card .card__body {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1rem;
+}
+
+.card img {
+  max-width: 90px;
+  max-height: 90px;
+  border-radius: 0.2rem;
+}
+
+.collaborator {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+}
+
+.collaborator .collaborator__name {
+  margin-bottom: 0.5rem;
+}
+
+.status-danger {
+  height: 11rem;
+}
+
+@media (max-width: 960px) {
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+}
