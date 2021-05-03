@@ -6,13 +6,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiService {
 
-  url = 'http://homologacao.appdecasa.com.br:8080/produtos-0.0.1';
+  url = 'http://localhost:8081';
 
   constructor(
     private http: HttpClient
   ) { }
 
   getMostSoldProducts() {
-    return this.http.get(this.url + '/produtos/MaisVendido');
+    return this.http.get(this.url + '/produtos');
   }
 }
