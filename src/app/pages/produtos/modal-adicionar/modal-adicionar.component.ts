@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { NbDialogRef } from '@nebular/theme';
 import { delay } from 'rxjs/operators';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
 import { ApiService } from '../../../services/api.service';
@@ -12,7 +13,7 @@ export type AddProductItem = IProdutoLojista & { selected?: boolean };
   styleUrls: ['./modal-adicionar.component.scss']
 })
 export class ModalAdicionarComponent implements OnInit {
-  @Input() ref: TemplateRef<any>;
+  @Input() ref: NbDialogRef<any>;
   @Input() departments: Department[];
 
   produtos: AddProductItem[] = [];
