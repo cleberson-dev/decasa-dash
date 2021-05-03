@@ -20,8 +20,8 @@
     "docs:serve": "compodoc -p src/tsconfig.app.json -d docs -s",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
     "postinstall": "ngcc --properties es2015 es5 browser module main --first-only --create-ivy-entry-points --tsconfig \"./src/tsconfig.app.json\"",
-    "api": "cd ~/code/_repos/api-produtos && ./gradlew bootRun",
-    "fullstack": "concurrently \"ng serve --open\" \"npm run api\"",
+    "api": "cd ~/code/_projects/decasa-api && ./gradlew bootRun",
+    "fullstack": "concurrently \"ng serve\" \"npm run api\"",
     "desktop": "ng build --base-href ./ && electron electron.js",
     "package": "electron-forge package",
     "make": "electron-forge make"
