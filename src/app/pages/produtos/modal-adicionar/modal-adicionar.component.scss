@@ -34,8 +34,10 @@
   border-bottom: 1px solid #edf1f7;
 }
 
-.stepper .header {
-  background-color: blue;
+.add-stepper ::ng-deep .header {
+  width: 50%;
+  margin: auto;
+  margin-top: 1rem;
 }
 
 .no-items {
