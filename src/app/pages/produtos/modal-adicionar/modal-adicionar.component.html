@@ -2,15 +2,20 @@
   <nb-stepper orientation="horizontal">
     <nb-step label="Selecionar produtos">
       <div class="filters">
-        <nb-select style="min-width: 200px" selected="">
-          <nb-option value="">Todos</nb-option>
-          <nb-option value="0">Categoria 1</nb-option>
-          <nb-option value="1">Categoria 2</nb-option>
+        <nb-select style="min-width: 200px" (selected)="onSelectedChange($event)">
+          <nb-option-group *ngFor="let dep of departments" [title]="dep.name">
+            <nb-option *ngFor="let cat of dep.categories" [value]="cat.id">{{ cat.name }}</nb-option>
+          </nb-option-group>
         </nb-select>
         <input nbInput placeholder="Pesquise aqui..." />
       </div>
-      <div class="dialog product-list" style="width: 80vw">
-        <nb-list *ngIf="produtos.length > 0">
+      <div 
+        class="dialog product-list" 
+        style="width: 80vw; min-height: 50vh"
+      >
+        <nb-list
+          *ngIf="produtos.length > 0; else noItems"
+        >
           <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of produtos">
             <ngx-checkbox [defaultValue]="!!produto.selected" (change)="produto.selected = $event"></ngx-checkbox>
             <div (click)="produto.selected = !produto.selected" class="product">
@@ -18,6 +23,16 @@
             </div>
           </nb-list-item>
         </nb-list>
+        <ng-template #noItems>
+          <div class="no-items">
+            <span style="font-size: 2rem; font-weight: bold;">Sem itens</span>
+            <button nbButton status="primary">
+              <nb-icon icon="plus"></nb-icon>
+              Não encontrou? Solicite um novo produto
+            </button>
+          </div>
+        </ng-template>
+        
       </div>
       <div class="dialog-footer">
         <div>

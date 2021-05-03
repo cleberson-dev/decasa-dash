@@ -5,30 +5,31 @@
   padding: 1rem;
 }
 
-a {
+button {
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  text-decoration: none;
   font-family: "Open Sans", sans-serif;
   font-size: 0.8125rem;
   line-height: 1.5rem;
   font-weight: 600;
   color: #222b45;
+  outline: none;
+  border: none;
 
   &:hover {
     background: rgba(0, 0, 0, .04);
   }
 }
 
-a.current {
+button.current {
   background-color: #3366ff;
   color: white;
 }
 
-a.invisible {
+button.invisible {
   visibility: hidden;
 }

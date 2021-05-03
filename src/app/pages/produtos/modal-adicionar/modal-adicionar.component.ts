@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { delay } from 'rxjs/operators';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
+import { ApiService } from '../../../services/api.service';
+import { Department } from '../produtos.component';
 
 export type AddProductItem = IProdutoLojista & { selected?: boolean };
 
@@ -10,47 +13,48 @@ export type AddProductItem = IProdutoLojista & { selected?: boolean };
 })
 export class ModalAdicionarComponent implements OnInit {
   @Input() ref: TemplateRef<any>;
+  @Input() departments: Department[];
 
-  produtos: AddProductItem[] = [ 
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #1',
-      marca: 'Marca #1',
-      modelo: 'Modelo #1',
-      categories: ['Videogames', 'Móveis'],
-      selected: true
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-    },
-  ];
+  produtos: AddProductItem[] = [];
+  loading: boolean = false;
+  selectedCategory: string = '';
+
+  constructor(
+    private apiService: ApiService
+  ) {}
 
   get selectedProducts() {
     return this.produtos.filter(produto => produto.selected);
   }
 
   ngOnInit(): void {
+    this.loading = true;
+    this.apiService.getAllProducts()
+      .subscribe((data: any) => {
+        this.produtos = data.content.map(p => ({
+          nome: p.descricao,
+          marca: p.modelo.marca.descricao,
+          modelo: p.modelo.descricao,
+          categories: [ p.categoria.descricao + ' - ' + p.categoria.departamento.descricao ],
+          foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+        }));
+      })
+    this.loading = false;
+  }
+
+  onSelectedChange(e: any) {
+    this.loading = true;
+    this.apiService.getProductsByCategory(e)
+      .subscribe((data: any) => {
+        this.produtos = data.content.map(p => ({
+          nome: p.descricao,
+          marca: p.modelo.marca.descricao,
+          modelo: p.modelo.descricao,
+          categories: [ p.categoria.descricao + ' - ' + p.categoria.departamento.descricao ],
+          foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+        }));
+      })
+    this.loading = false;
   }
 
   onHandler() {

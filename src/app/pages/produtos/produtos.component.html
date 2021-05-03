@@ -1,7 +1,11 @@
 <nb-card>
   <nb-tabset fullWidth>
     <nb-tab tabTitle="Meus produtos" style="padding: 0;" [active]="tabs.meusProdutos">
-      <tab-meus-produtos (requestClick)="changeTab($event)"></tab-meus-produtos>
+      <tab-meus-produtos
+        [departments]="departments"
+        [departmentTree]="departmentTree"
+        (requestClick)="changeTab($event)"
+      ></tab-meus-produtos>
     </nb-tab>
     
     <nb-tab tabTitle="Solicitar" [lazyLoad]="true" [active]="tabs.solicitar">

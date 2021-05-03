@@ -1,20 +1,16 @@
 <div class="pagination">
-  <a [class]="{ invisible: !hasPrev }" 
-    routerLink="."
-    [queryParams]="{p: currentPage - 1}"  
-  ><nb-icon icon="arrow-ios-back"></nb-icon></a>
+  <button [class]="{ invisible: !hasPrev }" 
+    (click)="pageChange.emit(currentPage - 1)" 
+  ><nb-icon icon="arrow-ios-back"></nb-icon></button>
 
-  <a *ngFor="let page of pageNumbers" 
-    routerLink="."
-    [queryParams]="{p: page}" 
+  <button *ngFor="let page of pageNumbers" 
     [class]="{ current: page === currentPage }"
   >
     {{ page }}
-  </a>
+  </button>
 
-  <a 
+  <button 
     [class]="{ invisible: !hasNext }"  
-    routerLink="."
-    [queryParams]="{p: currentPage + 1}" 
-    ><nb-icon icon="arrow-ios-forward"></nb-icon></a>
+    (click)="pageChange.emit(currentPage + 1)" 
+    ><nb-icon icon="arrow-ios-forward"></nb-icon></button>
 </div>

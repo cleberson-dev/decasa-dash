@@ -36,7 +36,6 @@ ul li.menu-item {
 }
 
 .product-list {
-  max-height: 325px;
   overflow-y: scroll;
   padding-bottom: 4rem;
 }
@@ -72,4 +71,16 @@ ul li.menu-item {
 
 .dialog.product-list {
   width: 80vw;
+}
+
+.no-items {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.department-tree ::ng-deep ul {
+  max-height: 40vh;
 }

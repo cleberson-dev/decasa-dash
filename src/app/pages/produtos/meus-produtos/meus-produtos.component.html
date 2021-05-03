@@ -3,22 +3,25 @@
     <nb-menu [items]="smartGroup"></nb-menu>
     
     <h5 class="category-title">Departamentos</h5>
-    <ngx-tree [items]="treeItems" (itemSelected)="onItemSelected($event)"></ngx-tree>
+    <ngx-tree 
+      [items]="departmentTree" 
+      (itemSelected)="onItemSelected($event)"
+      class="department-tree"
+    ></ngx-tree>
   </div>
   <div class="right">
     <div class="actions"> 
       <button nbButton (click)="open(dialog)"><nb-icon icon="plus-outline"></nb-icon> Adicionar produto</button>
     </div>
     <div class="filters">
-      <nb-select style="min-width: 200px" selected="">
-        <nb-option value="">Todos</nb-option>
-        <nb-option value="0">Categoria 1</nb-option>
-        <nb-option value="1">Categoria 2</nb-option>
+      <nb-select style="min-width: 200px" selected="0">
+        <nb-option value="0">Mais vendidos</nb-option>
+        <nb-option value="1">Ordem Alfabética</nb-option>
       </nb-select>
       <input nbInput placeholder="Pesquise aqui..." />
     </div>
-    <div class="product-list">
-      <nb-list>
+    <div class="product-list" style="height: 325px">
+      <nb-list *ngIf="produtos && produtos.length > 0; else noProducts">
         <nb-list-item *ngFor="let produto of produtos"> 
           <ngx-produto-lojista   
             [produto]="produto"
@@ -26,10 +29,14 @@
           ></ngx-produto-lojista>
         </nb-list-item>
       </nb-list>
+      <ng-template #noProducts>
+        <div class="no-items">Sem itens</div>
+      </ng-template>
       <pagination
-        [currentPage]="currentProductsPage"
-        [totalItems]="100"
-        [itemsPerPage]="10"
+        [currentPage]="pagination.currentPage"
+        [totalItems]="pagination.totalItems"
+        [itemsPerPage]="pagination.itemsPerPage"
+        (pageChange)="onPageChange($event)"
       ></pagination>
     </div>
   </div>
@@ -39,5 +46,6 @@
 <ng-template #dialog let-data let-ref="dialogRef">
   <ngx-modal-adicionar
     [ref]="ref"
+    [departments]="departments"
   ></ngx-modal-adicionar>
 </ng-template>

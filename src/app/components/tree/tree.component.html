@@ -1,32 +1,30 @@
-<div class="tree">
-  <ul *ngIf="items.length > 0">
-    <li *ngFor="let node of items"
-        [style.cursor]="isExpandable(node) ? 'default' : 'pointer'"
-        [class]="{ active: !isExpandable(node) && node.active }"
-        (click)="!isExpandable(node) && handleItem(node.value)"
-    >
-      <div class="wrapper">
-        <button 
-          (click)="toggle(node)"
-          [disabled]="!isExpandable(node)"
-        >
-          <nb-icon 
-            *ngIf="isExpandable(node)" 
-            [icon]="node.expanded ? 'arrow-ios-downward' : 'arrow-ios-forward'">
-          </nb-icon>
-        </button>
-        <nb-icon *ngIf="node.icon" [icon]="node.icon" status="basic"></nb-icon>
-        <span>{{ node.name }}</span>
-      </div>
-      <ul *ngIf="isExpandable(node) && node.expanded">
-        <li 
-          *ngFor="let nodeChild of node.children" 
-          [class]="{ active: !isExpandable(nodeChild) && node.active }"
-          (click)="handleItem(nodeChild.value)">
-          <nb-icon *ngIf="nodeChild.icon" [icon]="nodeChild.icon" status="basic"></nb-icon>
-          <span>{{ nodeChild.name }}</span>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
+<ul *ngIf="items.length > 0">
+  <li *ngFor="let node of items"
+      [style.cursor]="isExpandable(node) ? 'default' : 'pointer'"
+      [class]="{ active: !isExpandable(node) && node.active }"
+      (click)="!isExpandable(node) && handleItem(node.value)"
+  >
+    <div class="wrapper">
+      <button 
+        (click)="toggle(node)"
+        [disabled]="!isExpandable(node)"
+      >
+        <nb-icon 
+          *ngIf="isExpandable(node)" 
+          [icon]="node.expanded ? 'arrow-ios-downward' : 'arrow-ios-forward'">
+        </nb-icon>
+      </button>
+      <nb-icon *ngIf="node.icon" [icon]="node.icon" status="basic"></nb-icon>
+      <span>{{ node.name }}</span>
+    </div>
+    <ul *ngIf="isExpandable(node) && node.expanded">
+      <li 
+        *ngFor="let nodeChild of node.children" 
+        [class]="{ active: !isExpandable(nodeChild) && node.active }"
+        (click)="handleItem(nodeChild.value)">
+        <nb-icon *ngIf="nodeChild.icon" [icon]="nodeChild.icon" status="basic"></nb-icon>
+        <span>{{ nodeChild.name }}</span>
+      </li>
+    </ul>
+  </li>
+</ul>

@@ -1,8 +1,10 @@
-import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
 import { NbDialogService, NbMenuItem } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
+import { ApiService } from '../../../services/api.service';
+import { Department } from '../produtos.component';
 
 @Component({
   selector: 'tab-meus-produtos',
@@ -10,47 +12,13 @@ import { TreeItem } from '../../../components/tree/tree.component'
   styleUrls: ['./meus-produtos.component.scss']
 })
 export class MeusProdutosComponent implements OnInit {
+  @Input() departments: Department[];
+  @Input() departmentTree: TreeItem[];
+  @Output() requestClick = new EventEmitter();
 
   currentProductsPage: number;
 
-  produtos: IProdutoLojista[] = [ 
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #1',
-      marca: 'Marca #1',
-      modelo: 'Modelo #1',
-      preco: 19.99,
-      categories: ['Videogames', 'Móveis']
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-      preco: 1.99 
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-      preco: 19.99  
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-      preco: 19.99  
-    },
-    {
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      nome: 'Produto #2',
-      marca: 'Marca #2',
-      modelo: 'Modelo #2',
-      preco: 19.99  
-    },
-  ];
+  produtos: IProdutoLojista[];
 
   smartGroup: NbMenuItem[] = [
     { 
@@ -64,44 +32,66 @@ export class MeusProdutosComponent implements OnInit {
     },
   ];
 
-  treeItems: TreeItem[] = [
-    { 
-      name: 'Videogames',
-      icon: 'bookmark', 
-      value: "1", 
-      children: [ 
-        { name: "Sub-categoria #1", value: "11", icon: 'folder-outline' },  
-        { name: "Sub-categoria #2", value: "12", icon: 'folder-outline' },  
-      ] 
-    },
-    { 
-      name: 'Móveis',
-      icon: 'bookmark',
-      value: "2"
-    },
-  ];
-
   options = [
     { title: 'Arroz' },
     { title: 'Feijão' },
   ];
 
-
-  @Output() requestClick = new EventEmitter();
-
-  constructor(
-    private route: ActivatedRoute,
-    private dialogService: NbDialogService
-  ) {}
-
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.currentProductsPage = Number(params.p || 1);
-    });
+  currentCategory = 1;
+  loading: boolean = false;
+  pagination = {
+    currentPage: 1,
+    totalItems: 1,
+    itemsPerPage: 1
   }
 
-  onItemSelected(name: string) {
-    alert(name);
+  constructor(
+    private dialogService: NbDialogService,
+    private apiService: ApiService
+  ) {
+  }
+
+  onPageChange(page: number) {
+    return this.apiService
+      .getProductsByCategory(
+        this.currentCategory + '',
+        { page }
+      )
+      .subscribe(this.handleFetch);
+  }
+
+  handleFetch(data: any) {
+    this.produtos = data.content.map(p => ({
+      nome: p.descricao,
+      marca: p.modelo.marca.descricao,
+      modelo: p.modelo.descricao,
+      categories: [ p.categoria.descricao + ' - ' + p.categoria.departamento.descricao ],
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+    }));
+
+    this.pagination = {
+      ...this.pagination,
+      itemsPerPage: data.size,
+      totalItems: data.totalElements 
+    }
+
+    console.log(this.produtos, this.pagination);
+  }
+
+  ngOnInit(): void {
+    this.apiService
+      .getProductsByCategory(
+        this.currentCategory + '', 
+        { page: 1, itemsPerPage: 10 }
+      )
+      .subscribe(this.handleFetch);
+    ;
+  }
+
+  onItemSelected(value: string) {
+    this.currentCategory = Number(value);
+    this.apiService.getProductsByCategory(this.currentCategory + '')
+      .subscribe(this.handleFetch);
   }
 
   open(dialog: TemplateRef<any>) {

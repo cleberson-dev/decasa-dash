@@ -5,6 +5,16 @@ import { CepService } from '../../services/cep.service';
 import telefone from 'telefone';  
 import { ValidationErrors } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
+import { TreeItem } from '../../components/tree/tree.component';
+
+export type Department = {
+  id: number;
+  name: string;
+  categories: { 
+    id: number;
+    name: string; 
+  }[];
+}
 
 @Component({
   selector: 'decasa-produtos',
@@ -32,9 +42,34 @@ export class ProdutosPageComponent implements OnInit {
     solicitar: false
   }
 
+  departments: Department[] = [];
+  departmentTree: TreeItem[] = [];
+
   ngOnInit() {
-    this.apiService.getMostSoldProducts()
-      .subscribe(console.log);
+    this.apiService.getCategories()
+      .subscribe((data: any) => {
+        data.content.forEach(categoria => {
+          const cur = this.departments.find(d => d.id === categoria.departamento.id);
+          if (cur) {
+            cur.categories.push({ id: categoria.id, name: categoria.descricao });
+          } else {
+            this.departments.push({
+              id: categoria.departamento.id,
+              name: categoria.departamento.descricao,
+              categories: [{ id: categoria.id, name: categoria.descricao }]
+            });
+          }
+        });
+
+        this.departmentTree = this.departments.map(department => ({
+          name: department.name,
+          icon: 'bookmark',
+          value: department.id + '',
+          children: department.categories.map(cat => ({
+            name: cat.name, value: cat.id + '', icon: 'folder-outline', active: false
+          }))
+        }));
+      });
   }
   
   constructor(
