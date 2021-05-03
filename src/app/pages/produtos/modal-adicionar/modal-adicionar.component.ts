@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
 import { delay } from 'rxjs/operators';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
@@ -58,8 +59,8 @@ export class ModalAdicionarComponent implements OnInit {
     this.loading = false;
   }
 
-  onHandler() {
-    
+  onSubmitHandler() {
+    console.log(this.selectedProducts);
   }
 
 }
