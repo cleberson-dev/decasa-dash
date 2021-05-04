@@ -34,5 +34,10 @@ export class TreeComponent implements OnInit {
 
   handleItem(value: string) {
     this.itemSelected.emit(value);
+    this.items = this.items.map(item => ({ 
+      ...item, 
+      active: item.value === value,
+      children: item.children?.map(cat => ({ ...cat, active: cat.value === value }))
+    }));
   }
 }
