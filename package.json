@@ -45,6 +45,7 @@
     "@nebular/eva-icons": "^7.0.0",
     "@nebular/security": "7.0.0",
     "@nebular/theme": "7.0.0",
+    "@ngrx/store": "^11.1.1",
     "@swimlane/ngx-charts": "^14.0.0",
     "angular-br-filters": "^0.7.0",
     "angular-epic-spinners": "^2.0.0",

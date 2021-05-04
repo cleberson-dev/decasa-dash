@@ -35,9 +35,9 @@
           <ng-template #noItems>
             <div class="no-items">
               <p style="font-size: 2rem; font-weight: bold;">Sem itens</p>
-              <button nbButton status="primary">
+              <button nbButton status="primary" (click)="requestProductBtnClick.emit()">
                 <nb-icon icon="plus"></nb-icon>
-                Não encontrou? Solicite um novo produto
+                Não encontrou? Solicite um produto
               </button>
             </div>
           </ng-template>

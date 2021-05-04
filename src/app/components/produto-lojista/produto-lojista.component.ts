@@ -1,15 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
-export interface IProdutoLojista {
-  id: number;
-  foto: string;
-  nome: string;
-  marca: string;
-  modelo: string;
-  preco?: number;
-  unidade?: string;
-  categories?: string[];
-}
+import { ResumidoProdutoLojista } from '../../types';
 
 
 type Option = {
@@ -22,7 +12,7 @@ type Option = {
   styleUrls: ['./produto-lojista.component.scss']
 })
 export class ProdutoLojistaComponent implements OnInit {
-  @Input() produto: IProdutoLojista;
+  @Input() produto: ResumidoProdutoLojista;
   @Input() options: Option[] = [];
   
   constructor() { }

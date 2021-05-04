@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
-import { delay } from 'rxjs/operators';
-import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
 import { ApiService } from '../../../services/api.service';
+import { ResumidoProdutoLojista } from '../../../types';
 import { Department } from '../produtos.component';
 
-export type AddProductItem = IProdutoLojista & { selected?: boolean };
+export type AddProductItem = ResumidoProdutoLojista & { selected?: boolean };
 
 @Component({
   selector: 'ngx-modal-adicionar',
@@ -19,7 +18,7 @@ export class ModalAdicionarComponent implements OnInit {
   @Output() requestProductBtnClick = new EventEmitter();
 
   produtos: AddProductItem[] = [];
-  productsToDefinePrices: IProdutoLojista[] = [];
+  productsToDefinePrices: ResumidoProdutoLojista[] = [];
   priceForms: FormGroup = new FormGroup({});
   loading: boolean = false;
   selectedCategory: string = '';
@@ -35,14 +34,27 @@ export class ModalAdicionarComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.apiService.getAllProducts()
-      .pipe(delay(5000))
       .subscribe((data: any) => {
-        this.produtos = data.content.map(p => ({
+        this.produtos = data.content.map((p): AddProductItem => ({
           id: p.id,
           nome: p.descricao,
-          marca: p.modelo.marca.descricao,
-          modelo: p.modelo.descricao,
-          categories: [ p.categoria.descricao + ' - ' + p.categoria.departamento.descricao ],
+          marca: {
+            id: p.modelo.marca.id,
+            nome: p.modelo.marca.descricao
+          },
+          modelo: {
+            id: p.modelo.id,
+            nome: p.modelo.descricao
+          },
+          categoria: {
+            id: p.categoria.id,
+            nome: p.categoria.descricao
+          },
+          departamento: {
+            id: p.categoria.departamento.id,
+            nome: p.categoria.departamento.descricao
+          },
+          selected: false,
           foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
         }));
       })
@@ -53,12 +65,26 @@ export class ModalAdicionarComponent implements OnInit {
     this.loading = true;
     this.apiService.getProductsByCategory(e)
       .subscribe((data: any) => {
-        this.produtos = data.content.map(p => ({
+        this.produtos = data.content.map((p): AddProductItem => ({
           id: p.id,
           nome: p.descricao,
-          marca: p.modelo.marca.descricao,
-          modelo: p.modelo.descricao,
-          categories: [ p.categoria.descricao + ' - ' + p.categoria.departamento.descricao ],
+          marca: {
+            id: p.modelo.marca.id,
+            nome: p.modelo.marca.descricao
+          },
+          modelo: {
+            id: p.modelo.id,
+            nome: p.modelo.descricao
+          },
+          categoria: {
+            id: p.categoria.id,
+            nome: p.categoria.descricao
+          },
+          departamento: {
+            id: p.categoria.departamento.id,
+            nome: p.categoria.departamento.descricao
+          },
+          selected: false,
           foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
         }));
       })

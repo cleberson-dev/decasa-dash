@@ -23,9 +23,10 @@
  } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './pages/login/login.component';
-import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromProdutosPlataforma from './store/reducers/produtos-plataforma.reducers';
 
- @NgModule({
+@NgModule({
    declarations: [AppComponent, LoginComponent],
    imports: [
      BrowserModule,
@@ -49,7 +50,8 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
      NbInputModule,
      NbIconModule,
      NbButtonModule,
-     NbCheckboxModule
+     NbCheckboxModule,
+     StoreModule.forRoot({ produtosPlataforma: fromProdutosPlataforma.reducer })
    ],
    bootstrap: [AppComponent],
  })

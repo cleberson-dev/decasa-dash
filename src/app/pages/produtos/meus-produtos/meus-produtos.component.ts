@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
 import { NbDialogService, NbMenuItem } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
 import { ApiService } from '../../../services/api.service';
 import { Department } from '../produtos.component';
+import { ResumidoProdutoLojista } from '../../../types';
+import { AddProductItem } from '../modal-adicionar/modal-adicionar.component';
 
 @Component({
   selector: 'tab-meus-produtos',
@@ -16,7 +17,7 @@ export class MeusProdutosComponent implements OnInit {
   @Output() requestClick = new EventEmitter();
   
   currentProductsPage: number;
-  products: IProdutoLojista[] = [];
+  products: ResumidoProdutoLojista[] = [];
   
   smartGroup: NbMenuItem[] = [
     { 
@@ -54,11 +55,26 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   handleFetch(data: any) {
-    this.products = data.content.map(p => ({
+    this.products = data.content.map((p): AddProductItem => ({
+      id: p.id,
       nome: p.descricao,
-      marca: p.modelo.marca.descricao,
-      modelo: p.modelo.descricao,
-      categories: [ p.categoria.descricao + ' - ' + p.categoria.departamento.descricao ],
+      marca: {
+        id: p.modelo.marca.id,
+        nome: p.modelo.marca.descricao
+      },
+      modelo: {
+        id: p.modelo.id,
+        nome: p.modelo.descricao
+      },
+      categoria: {
+        id: p.categoria.id,
+        nome: p.categoria.descricao
+      },
+      departamento: {
+        id: p.categoria.departamento.id,
+        nome: p.categoria.departamento.descricao
+      },
+      selected: false,
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     }));
 
