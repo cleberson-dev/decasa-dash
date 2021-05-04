@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
 import { delay } from 'rxjs/operators';
@@ -16,6 +16,7 @@ export type AddProductItem = IProdutoLojista & { selected?: boolean };
 export class ModalAdicionarComponent implements OnInit {
   @Input() ref: NbDialogRef<any>;
   @Input() departments: Department[];
+  @Output() requestProductBtnClick = new EventEmitter();
 
   produtos: AddProductItem[] = [];
   productsToDefinePrices: IProdutoLojista[] = [];
