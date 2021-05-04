@@ -1,4 +1,4 @@
-<ul *ngIf="items.length > 0">
+<ul class="top-list" *ngIf="items.length > 0">
   <li *ngFor="let node of items"
       [style.cursor]="isExpandable(node) ? 'default' : 'pointer'"
       [class]="{ active: !isExpandable(node) && node.active }"

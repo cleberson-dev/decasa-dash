@@ -1,7 +1,6 @@
 ul {
   list-style: none;
   padding-left: 0;
-  overflow-y: scroll;
   
   li {
     border-bottom: 1px solid #edf1f7;
@@ -64,4 +63,8 @@ span {
 ul > li.active > .wrapper, ul ul > li.active {
   background-color: #eef2fd;
   border-left-color: #3366ff;
+}
+
+.top-list {
+  overflow-y: scroll;
 }
