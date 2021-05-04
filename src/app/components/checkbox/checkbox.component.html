@@ -3,6 +3,9 @@
   (click)="handleClick()"
   [class]="{ checked: checked }"
 >
-  <nb-icon class="icon" icon="checkmark"></nb-icon>
+  <nb-icon 
+    [style]="{ display: checked ? 'inline' : 'none' }" 
+    class="icon" 
+    icon="checkmark"></nb-icon>
   <ng-content></ng-content>
 </span>
