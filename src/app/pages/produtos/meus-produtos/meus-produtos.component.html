@@ -40,7 +40,7 @@
         <ng-template #noProducts>
           <div class="no-items">
             <p style="font-size: 2rem; font-weight: bold;">Sem itens</p>
-            <button nbButton status="primary" (click)="requestProductBtnClick.emit()">
+            <button nbButton status="primary" (click)="open(dialog)">
               <nb-icon icon="plus"></nb-icon>
               Adicionar novos produtos
             </button>
