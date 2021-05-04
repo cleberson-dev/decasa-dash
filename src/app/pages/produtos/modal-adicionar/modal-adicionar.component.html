@@ -4,6 +4,7 @@
     <nb-step label="Selecionar produtos">
       <div class="filters">
         <nb-select style="min-width: 200px" [(selected)]="selectedCategory">
+          <nb-option value="">Selecione uma categoria</nb-option>
           <nb-option-group *ngFor="let dep of departments" [title]="dep.name">
             <nb-option *ngFor="let cat of dep.categories" [value]="cat.id">{{ cat.name }}</nb-option>
           </nb-option-group>
