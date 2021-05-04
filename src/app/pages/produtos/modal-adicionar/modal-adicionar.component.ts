@@ -24,11 +24,19 @@ const modelos = {
 }
 
 const categorias = {
-  smartphones: { id: 1, nome: 'Smartphone' },
-  sofas: { id: 2, nome: 'Sofás' },
-  geladeiras: { id: 3, nome: 'Geladeiras' },
-  guitarras: { id: 4, nome: 'Guitarras' },
-  roupas: { id: 5, nome: 'Roupas' },
+  smartphones: { id: 1, nome: 'Smartphones' },
+  tablets: { id: 2, nome: 'Tablets' },
+  fixos: { id: 3, nome: 'Telefones Fixos' },
+  notebooks: { id: 4, nome: 'Notebooks' },
+  aio: { id: 5, nome: 'Computadores All-in-One' },
+  workstations: { id: 6, nome: 'Workstations' },
+  roupas: { id: 7, nome: 'Roupas' },
+  calcados: { id: 8, nome: 'Calçados' },
+  acessorios: { id: 9, nome: 'Acessórios' },
+  relogios: { id: 10, nome: 'Relógios' },
+  geladeiras: { id: 11, nome: 'Geladeiras' },
+  fogoes: { id: 12, nome: 'Fogões' },
+  sofas: { id: 13, nome: 'Sofás' },
 }
 
 const departamentos = {
@@ -83,7 +91,7 @@ export class ModalAdicionarComponent implements OnInit {
       nome: 'Produto #4',
       marca: marcas.fender,
       modelo: modelos.galaxy,
-      categoria: categorias.guitarras,
+      categoria: categorias.sofas,
       departamento: departamentos.informatica,
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     },
