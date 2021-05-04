@@ -28,7 +28,7 @@
           <nb-list *ngIf="filteredProducts.length > 0; else noItems">
             <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of filteredProducts">
               <ngx-checkbox [defaultValue]="!!produto.selected" (change)="produto.selected = $event"></ngx-checkbox>
-              <div (click)="produto.selected = !produto.selected" class="product">
+              <div class="product">
                 <ngx-produto-lojista [produto]="produto"></ngx-produto-lojista>
               </div>
             </nb-list-item>
@@ -79,7 +79,11 @@
               <label>{{ product.nome }}</label>
               <div>
                 <span style="margin-right: 8px;"><b>R$</b></span>
-                <input nbInput type="number" required min="0" step="0.01" [formControlName]="product.id" />
+                <input 
+                  nbInput type="number" required 
+                  min="0" step="0.01" pattern="^\d*(\.\d{0,2})?$" 
+                  [formControlName]="product.id" 
+                />
               </div>
           </div>
         </div>
@@ -90,7 +94,7 @@
             Voltar
           </button>
           
-          <button nbButton status="primary" (click)="handleSubmitClick()" nbStepperNext>
+          <button [disabled]="priceForms.invalid" nbButton status="primary" (click)="handleSubmitClick()" nbStepperNext>
             <nb-icon icon="arrow-ios-forward"></nb-icon>
             Finalizar
           </button>

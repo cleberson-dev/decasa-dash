@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
 import { ApiService } from '../../../services/api.service';
 import { ResumidoProdutoLojista } from '../../../types';
@@ -186,6 +186,7 @@ export class ModalAdicionarComponent implements OnInit {
   }
 
   handleSubmitClick() {
+    console.log(this.priceForms);
     this.submitClick.emit(
       this.productsToDefinePrices.map(product => ({
         ...product,
@@ -200,7 +201,10 @@ export class ModalAdicionarComponent implements OnInit {
       .filter(produto => produto.selected);
     this.priceForms = new FormGroup(
       Object.fromEntries(
-        this.productsToDefinePrices.map((p) => [''+p.id, new FormControl(0)])
+        this.productsToDefinePrices.map((p) => [
+          ''+p.id, 
+          new FormControl('', [Validators.required, Validators.min(0)])
+        ])
       )
     );
   }
