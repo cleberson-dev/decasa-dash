@@ -47,6 +47,7 @@
     "@nebular/theme": "7.0.0",
     "@swimlane/ngx-charts": "^14.0.0",
     "angular-br-filters": "^0.7.0",
+    "angular-epic-spinners": "^2.0.0",
     "angular-imask": "^6.0.7",
     "angular2-chartjs": "0.4.1",
     "bootstrap": "4.3.1",

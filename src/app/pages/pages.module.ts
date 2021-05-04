@@ -28,6 +28,7 @@ import { PaginationComponent } from '../components/pagination/pagination.compone
 import { ColaboradoresComponent } from './colaboradores/colaboradores.component';
 import { ModalAdicionarComponent } from './produtos/modal-adicionar/modal-adicionar.component';
 import { CheckboxComponent } from '../components/checkbox/checkbox.component';
+import { SpringSpinnerModule } from 'angular-epic-spinners';
 
 @NgModule({
   imports: [
@@ -46,7 +47,8 @@ import { CheckboxComponent } from '../components/checkbox/checkbox.component';
     NbIconModule,
     NbListModule,
     NbContextMenuModule,
-    NbStepperModule
+    NbStepperModule,
+    SpringSpinnerModule
   ],
   declarations: [
     PagesComponent,

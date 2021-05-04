@@ -10,31 +10,40 @@
         </nb-select>
         <input nbInput placeholder="Pesquise aqui..." />
       </div>
-      <div 
-        class="dialog product-list" 
-        style="width: 80vw; min-height: 50vh"
-      >
-        <nb-list
-          *ngIf="produtos.length > 0; else noItems"
-        >
-          <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of produtos">
-            <ngx-checkbox [defaultValue]="!!produto.selected" (change)="produto.selected = $event"></ngx-checkbox>
-            <div (click)="produto.selected = !produto.selected" class="product">
-              <ngx-produto-lojista [produto]="produto"></ngx-produto-lojista>
-            </div>
-          </nb-list-item>
-        </nb-list>
-        <ng-template #noItems>
-          <div class="no-items">
-            <span style="font-size: 2rem; font-weight: bold;">Sem itens</span>
-            <button nbButton status="primary">
-              <nb-icon icon="plus"></nb-icon>
-              Não encontrou? Solicite um novo produto
-            </button>
-          </div>
-        </ng-template>
-        
+      
+      <div *ngIf="loading; else notLoading" class="loading-container">
+        <app-spring-spinner
+          [animationDuration]="1000"
+          [size]="60"
+          [color]="'#ff1d5e'"
+        ></app-spring-spinner>
       </div>
+
+      <ng-template #notLoading>
+        <div 
+          class="dialog product-list" 
+          style="width: 80vw; min-height: 50vh"
+        >
+          <nb-list *ngIf="produtos.length > 0; else noItems">
+            <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of produtos">
+              <ngx-checkbox [defaultValue]="!!produto.selected" (change)="produto.selected = $event"></ngx-checkbox>
+              <div (click)="produto.selected = !produto.selected" class="product">
+                <ngx-produto-lojista [produto]="produto"></ngx-produto-lojista>
+              </div>
+            </nb-list-item>
+          </nb-list>
+          <ng-template #noItems>
+            <div class="no-items">
+              <p style="font-size: 2rem; font-weight: bold;">Sem itens</p>
+              <button nbButton status="primary">
+                <nb-icon icon="plus"></nb-icon>
+                Não encontrou? Solicite um novo produto
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </ng-template>
+      
       <div class="dialog-footer">
         <div>
           <button class="cancel-btn" (click)="ref.close()" nbButton style="margin-left: 1rem;">

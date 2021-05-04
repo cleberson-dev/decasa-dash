@@ -35,6 +35,7 @@ export class ModalAdicionarComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.apiService.getAllProducts()
+      .pipe(delay(5000))
       .subscribe((data: any) => {
         this.produtos = data.content.map(p => ({
           id: p.id,
