@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from '../components/not-found/not-found.component';
 import { ProdutosPageComponent } from './produtos/produtos.component';
 import { ColaboradoresComponent } from './colaboradores/colaboradores.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 const routes: Routes = [{
   path: '',
@@ -17,6 +18,10 @@ const routes: Routes = [{
     {
       path: 'colaboradores',
       component: ColaboradoresComponent
+    },
+    {
+      path: 'pedidos',
+      component: PedidosComponent
     },
     {
       path: '',

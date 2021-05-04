@@ -29,6 +29,7 @@ import { ColaboradoresComponent } from './colaboradores/colaboradores.component'
 import { ModalAdicionarComponent } from './produtos/modal-adicionar/modal-adicionar.component';
 import { CheckboxComponent } from '../components/checkbox/checkbox.component';
 import { SpringSpinnerModule } from 'angular-epic-spinners';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { SpringSpinnerModule } from 'angular-epic-spinners';
     PaginationComponent,
     ColaboradoresComponent,
     ModalAdicionarComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    PedidosComponent
   ]
 })
 export class PagesModule {

@@ -10,7 +10,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Pedidos',
     icon: 'activity-outline',
-    link: '/forms/layouts',
+    link: '/pedidos',
   },
   {
     title: 'Vendas',
