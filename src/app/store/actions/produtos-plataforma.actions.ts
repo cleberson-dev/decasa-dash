@@ -1,11 +1,11 @@
 import { createAction, props } from "@ngrx/store";
-import { IProdutoLojista } from "../../components/produto-lojista/produto-lojista.component";
+import { ProdutoLojista } from "../../types";
 
 type FetchPayload = {
   number: number;
   size: number;
   totalElements: number;
-  content: IProdutoLojista[];
+  content: ProdutoLojista[];
 }
 
 export const fetch = createAction(
