@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
 import { delay } from 'rxjs/operators';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
@@ -18,6 +18,8 @@ export class ModalAdicionarComponent implements OnInit {
   @Input() departments: Department[];
 
   produtos: AddProductItem[] = [];
+  productsToDefinePrices: IProdutoLojista[] = [];
+  priceForms: FormGroup = new FormGroup({});
   loading: boolean = false;
   selectedCategory: string = '';
 
@@ -34,6 +36,7 @@ export class ModalAdicionarComponent implements OnInit {
     this.apiService.getAllProducts()
       .subscribe((data: any) => {
         this.produtos = data.content.map(p => ({
+          id: p.id,
           nome: p.descricao,
           marca: p.modelo.marca.descricao,
           modelo: p.modelo.descricao,
@@ -49,6 +52,7 @@ export class ModalAdicionarComponent implements OnInit {
     this.apiService.getProductsByCategory(e)
       .subscribe((data: any) => {
         this.produtos = data.content.map(p => ({
+          id: p.id,
           nome: p.descricao,
           marca: p.modelo.marca.descricao,
           modelo: p.modelo.descricao,
@@ -60,7 +64,17 @@ export class ModalAdicionarComponent implements OnInit {
   }
 
   onSubmitHandler() {
-    console.log(this.selectedProducts);
+    console.log(this.priceForms);
   }
 
+  nextBtnHandler() {
+    this.productsToDefinePrices = this.produtos
+      .filter(produto => produto.selected);
+    this.priceForms = new FormGroup(
+      Object.fromEntries(
+        this.productsToDefinePrices.map((p) => [''+p.id, new FormControl(0)])
+      )
+    );
+    console.log(this.priceForms);
+  }
 }

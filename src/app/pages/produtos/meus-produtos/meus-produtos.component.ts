@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { IProdutoLojista } from '../../../components/produto-lojista/produto-lojista.component';
 import { NbDialogService, NbMenuItem } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
@@ -22,7 +21,7 @@ export class MeusProdutosComponent implements OnInit {
 
   smartGroup: NbMenuItem[] = [
     { 
-      title: 'Todos',
+      title: 'Mais Vendidos',
       icon: 'grid',
       selected: true,
     },

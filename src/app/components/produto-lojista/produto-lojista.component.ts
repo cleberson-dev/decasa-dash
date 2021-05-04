@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 export interface IProdutoLojista {
+  id: number;
   foto: string;
   nome: string;
   marca: string;

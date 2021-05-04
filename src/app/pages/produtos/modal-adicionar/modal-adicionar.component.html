@@ -46,7 +46,12 @@
         
         <div>
           <b style="margin-right: 1rem">{{ selectedProducts.length }} produtos selecionados</b>
-          <button nbButton status="primary" [disabled]="selectedProducts.length === 0" nbStepperNext>
+          <button 
+            nbButton nbStepperNext
+            status="primary"
+            (click)="nextBtnHandler()"
+            [disabled]="selectedProducts.length === 0" 
+          >
             <nb-icon icon="arrow-ios-forward"></nb-icon>
             Próximo
           </button>
@@ -58,21 +63,21 @@
 
 
     <nb-step label="Definir Preços">
-      <div style="width: 80vw">
-        <nb-list>
-          <nb-list-item *ngFor="let product of selectedProducts">
-              <!-- <ngx-produto-lojista>
-                  [produto]="product"
-              </ngx-produto-lojista> -->
+      <form style="width: 80vw" [formGroup]="priceForms">
+        <div class="price-form-list">
+          <div class="price-form-group" *ngFor="let product of productsToDefinePrices">
               <label>{{ product.nome }}</label>
-              <input nbInput type="number" [value]="product.preco || 0" />
-          </nb-list-item>
-        </nb-list>
+              <div>
+                <span style="margin-right: 8px;"><b>R$</b></span>
+                <input nbInput type="number" step="0.01" [formControlName]="product.id" />
+              </div>
+          </div>
+        </div>
         <div class="dialog-footer">
           <button 
             nbStepperPrevious
             class="cancel-btn" nbButton>
-            Anterior
+            Voltar
           </button>
           
           <button nbButton status="primary" (click)="onSubmitHandler()" nbStepperNext>
@@ -80,7 +85,7 @@
             Finalizar
           </button>
         </div>
-      </div>
+      </form>
     </nb-step>
   </nb-stepper>
 </nb-card>

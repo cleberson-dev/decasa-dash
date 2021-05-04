@@ -7,6 +7,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 1.25rem;
 
   .criar-link {
     text-decoration: none;
@@ -47,4 +48,19 @@
   align-items: center;
   height: 100%;
   width: 100%;
+}
+
+form {
+  border-top: 1px solid #DCDCDC;
+}
+
+.price-form-list {
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.price-form-group {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
 }
