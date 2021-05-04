@@ -22,7 +22,7 @@ export class ProdutoLojistaComponent implements OnInit {
 
   get formattedPrice(): string {
     const exp = /\d+\.\d{2}/;
-    return 'R$' + `${this.produto.preco}`.match(exp)[0].replace('.', ',');
+    return 'R$' + `${this.produto.preco.toFixed(2)}`.match(exp)[0].replace('.', ',');
   }
 
 }

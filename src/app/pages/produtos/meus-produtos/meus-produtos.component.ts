@@ -46,7 +46,7 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   onPageChange(page: number) {
-    return this.apiService
+    this.apiService
       .getProductsByCategory(
         this.currentCategory + '',
         { page }
@@ -88,11 +88,11 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService
-      .getProductsByCategory(
-        this.currentCategory + '',
-      )
-      .subscribe(this.handleFetch);
+    // this.apiService
+    //   .getProductsByCategory(
+    //     this.currentCategory + '',
+    //   )
+    //   .subscribe(this.handleFetch);
   }
 
   onItemSelected(value: string) {
@@ -109,5 +109,10 @@ export class MeusProdutosComponent implements OnInit {
   btnClickHandler(ref: any) {
     this.requestClick.emit('solicitar');
     ref.close();
+  }
+
+  onSubmitHandler(products: AddProductItem[]) {
+    console.log(products);
+    this.products.push(...products);
   }
 }
