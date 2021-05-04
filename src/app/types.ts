@@ -3,6 +3,14 @@ type IdentifiableObject = {
   nome: string;
 }
 
+export type Colaborador = {
+  id: number;
+  nome: string;
+  summary: string;
+  description: string;
+  foto?: string;
+}
+
 export type Produto = {
   id: number;
   nome: string;
