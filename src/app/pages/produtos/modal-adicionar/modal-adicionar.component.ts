@@ -106,6 +106,11 @@ export class ModalAdicionarComponent implements OnInit {
     private apiService: ApiService
   ) {}
 
+  get filteredProducts() {
+    console.log(this.selectedCategory);
+    return this.selectedCategory !== '' ? this.produtos.filter(produto => String(produto.categoria.id) === String(this.selectedCategory)) : this.produtos;
+  }
+
   get selectedProducts() {
     return this.produtos.filter(produto => produto.selected);
   }
@@ -142,31 +147,33 @@ export class ModalAdicionarComponent implements OnInit {
 
   onSelectedChange(e: any) {
     this.loading = true;
-    this.apiService.getProductsByCategory(e)
-      .subscribe((data: any) => {
-        this.produtos = data.content.map((p): AddProductItem => ({
-          id: p.id,
-          nome: p.descricao,
-          marca: {
-            id: p.modelo.marca.id,
-            nome: p.modelo.marca.descricao
-          },
-          modelo: {
-            id: p.modelo.id,
-            nome: p.modelo.descricao
-          },
-          categoria: {
-            id: p.categoria.id,
-            nome: p.categoria.descricao
-          },
-          departamento: {
-            id: p.categoria.departamento.id,
-            nome: p.categoria.departamento.descricao
-          },
-          selected: false,
-          foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
-        }));
-      })
+    console.log('Selected change', e);
+    this.selectedCategory = String(e);
+    // this.apiService.getProductsByCategory(String(e))
+    //   .subscribe((data: any) => {
+    //     this.produtos = data.content.map((p): AddProductItem => ({
+    //       id: p.id,
+    //       nome: p.descricao,
+    //       marca: {
+    //         id: p.modelo.marca.id,
+    //         nome: p.modelo.marca.descricao
+    //       },
+    //       modelo: {
+    //         id: p.modelo.id,
+    //         nome: p.modelo.descricao
+    //       },
+    //       categoria: {
+    //         id: p.categoria.id,
+    //         nome: p.categoria.descricao
+    //       },
+    //       departamento: {
+    //         id: p.categoria.departamento.id,
+    //         nome: p.categoria.departamento.descricao
+    //       },
+    //       selected: false,
+    //       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+    //     }));
+    //   })
     this.loading = false;
   }
 

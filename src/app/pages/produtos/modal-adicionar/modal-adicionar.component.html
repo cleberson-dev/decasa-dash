@@ -3,7 +3,7 @@
   <nb-stepper class="add-stepper" orientation="horizontal">
     <nb-step label="Selecionar produtos">
       <div class="filters">
-        <nb-select style="min-width: 200px" (selected)="onSelectedChange($event)">
+        <nb-select style="min-width: 200px" [(selected)]="selectedCategory">
           <nb-option-group *ngFor="let dep of departments" [title]="dep.name">
             <nb-option *ngFor="let cat of dep.categories" [value]="cat.id">{{ cat.name }}</nb-option>
           </nb-option-group>
@@ -24,8 +24,8 @@
           class="dialog product-list" 
           style="width: 80vw; min-height: 50vh"
         >
-          <nb-list *ngIf="produtos.length > 0; else noItems">
-            <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of produtos">
+          <nb-list *ngIf="filteredProducts.length > 0; else noItems">
+            <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of filteredProducts">
               <ngx-checkbox [defaultValue]="!!produto.selected" (change)="produto.selected = $event"></ngx-checkbox>
               <div (click)="produto.selected = !produto.selected" class="product">
                 <ngx-produto-lojista [produto]="produto"></ngx-produto-lojista>
