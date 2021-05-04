@@ -42,7 +42,51 @@ export class ProdutosPageComponent implements OnInit {
     solicitar: false
   }
 
-  departments: Department[] = [];
+  departments: Department[] = [
+    { 
+      name: 'Celulares', 
+      id: 1, 
+      categories: [
+        { name: 'Smartphones', id: 1 },
+        { name: 'Tablets', id: 2 },
+        { name: 'Telefones Fixos', id: 3 },
+      ]
+    },
+    { 
+      name: 'Informática', 
+      id: 2, 
+      categories: [
+        { name: 'Notebooks', id: 4 },
+        { name: 'Computadores All-in-One', id: 5 },
+        { name: 'Workstations', id: 6 },
+      ]
+    },
+    { 
+      name: 'Moda', 
+      id: 3, 
+      categories: [
+        { name: 'Roupas', id: 7 },
+        { name: 'Calçados', id: 8 },
+        { name: 'Acessórios', id: 9 },
+        { name: 'Relógios', id: 10 },
+      ]
+    },
+    { 
+      name: 'Eletrodomésticos', 
+      id: 4, 
+      categories: [
+        { name: 'Geladeiras', id: 11 },
+        { name: 'Fogões', id: 12 },
+      ]
+    },
+    { 
+      name: 'Móveis', 
+      id: 5, 
+      categories: [
+        { name: 'Sofás', id: 13 }
+      ]
+    }
+  ];
   departmentTree: TreeItem[] = [
     { 
       name: 'Celulares', 
