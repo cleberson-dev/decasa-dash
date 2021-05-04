@@ -43,7 +43,56 @@ export class ProdutosPageComponent implements OnInit {
   }
 
   departments: Department[] = [];
-  departmentTree: TreeItem[] = [];
+  departmentTree: TreeItem[] = [
+    { 
+      name: 'Celulares', 
+      value: "1", 
+      icon: 'bookmark', 
+      children: [
+        { name: 'Smartphones', value: "1", icon: 'folder-outline' },
+        { name: 'Tablets', value: "2", icon: 'folder-outline' },
+        { name: 'Telefones Fixos', value: "3", icon: 'folder-outline' },
+      ]
+    },
+    { 
+      name: 'Informática', 
+      value: "2", 
+      icon: 'bookmark', 
+      children: [
+        { name: 'Notebooks', value: "4", icon: 'folder-outline' },
+        { name: 'Computadores All-in-One', value: "5", icon: 'folder-outline' },
+        { name: 'Workstations', value: "6", icon: 'folder-outline' },
+      ]
+    },
+    { 
+      name: 'Moda', 
+      value: "3", 
+      icon: 'bookmark', 
+      children: [
+        { name: 'Roupas', value: "7", icon: 'folder-outline' },
+        { name: 'Calçados', value: "8", icon: 'folder-outline' },
+        { name: 'Acessórios', value: "9", icon: 'folder-outline' },
+        { name: 'Relógios', value: "10", icon: 'folder-outline' },
+      ]
+    },
+    { 
+      name: 'Eletrodomésticos', 
+      value: "4", 
+      icon: 'bookmark', 
+      children: [
+        { name: 'Geladeiras', value: "11", icon: 'folder-outline' },
+        { name: 'Fogões', value: "12", icon: 'folder-outline' },
+      ]
+    },
+    { 
+      name: 'Móveis', 
+      value: "5", 
+      icon: 'bookmark', 
+      children: [
+        { name: 'Sofás', value: "13", icon: 'folder-outline' }
+      ]
+    },
+  ];
 
   ngOnInit() {
     this.apiService.getCategories()

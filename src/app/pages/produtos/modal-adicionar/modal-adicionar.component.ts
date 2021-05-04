@@ -188,6 +188,5 @@ export class ModalAdicionarComponent implements OnInit {
         this.productsToDefinePrices.map((p) => [''+p.id, new FormControl(0)])
       )
     );
-    console.log(this.priceForms);
   }
 }
