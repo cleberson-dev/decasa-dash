@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Colaborador } from '../../types';
 
 @Component({
@@ -11,36 +13,63 @@ export class ColaboradoresComponent implements OnInit {
     {
       id: 1,
       nome: 'Eva',
-      summary: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
-      description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
+      resumo: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
+      descricao: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
       foto: '/assets/images/eva.png'
     },
     {
       id: 2,
       nome: 'Lee',
-      summary: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
-      description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
+      resumo: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
+      descricao: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
       foto: '/assets/images/lee.png'
     },
     {
       id: 3,
       nome: 'Jack',
-      summary: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
-      description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
+      resumo: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
+      descricao: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
       foto: '/assets/images/jack.png'
     },
     {
       id: 4,
       nome: 'Nick',
-      summary: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
-      description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
+      resumo: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
+      descricao: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
       foto: '/assets/images/nick.png'
     },
-  ]
+  ];
 
-  constructor() { }
+  addColaboradorForm = this.fb.group({
+    nome: ['', Validators.required],
+    descricao: ['', Validators.required]
+  });
+
+  constructor(
+    private dialogService: NbDialogService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  open(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog);
+  }
+
+  onSubmit(ref: NbDialogRef<any>) {
+    console.log(this.addColaboradorForm);
+    const pics = ['eva', 'jack', 'kate', 'lee', 'nick'];
+    const id = this.colaboradores.slice(-1)[0].id + 1
+    this.colaboradores.push({
+      id,
+      nome: this.addColaboradorForm.controls['nome'].value,
+      resumo: this.addColaboradorForm.controls['descricao'].value,
+      descricao: this.addColaboradorForm.controls['descricao'].value,
+      foto: `/assets/images/` + pics[id % 5] + '.png'
+    })
+    this.addColaboradorForm.reset();
+    ref.close();
   }
 
 }

@@ -6,8 +6,8 @@ type IdentifiableObject = {
 export type Colaborador = {
   id: number;
   nome: string;
-  summary: string;
-  description: string;
+  resumo: string;
+  descricao: string;
   foto?: string;
 }
 

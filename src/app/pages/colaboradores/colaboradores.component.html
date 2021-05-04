@@ -1,5 +1,5 @@
 <div class="buttons-container">
-  <button nbButton status="primary">
+  <button nbButton status="primary" (click)="open(dialog)">
     <nb-icon icon="plus-outline"></nb-icon>Adicionar Colaborador
   </button>
 
@@ -21,7 +21,7 @@
 
           <div class="collaborator">
             <span class="collaborator__description">
-              {{ colaborador.summary }}
+              {{ colaborador.resumo }}
             </span>
           </div>
         </nb-card-body>
@@ -33,9 +33,31 @@
           >{{ colaborador.nome }} | Mais detalhes</nb-card-header
         >
         <nb-card-body class="card__body">
-          {{ colaborador.description }}
+          {{ colaborador.descricao }}
         </nb-card-body>
       </nb-card>
     </nb-card-back>
   </nb-reveal-card>
 </div>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Adicionar novo colaborador</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="addColaboradorForm" (submit)="onSubmit(ref)">
+        <input nbInput fullWidth placeholder="Nome" formControlName="nome" />
+        <input 
+          nbInput 
+          fullWidth 
+          placeholder="Descrição" 
+          formControlName="descricao"
+          style="margin: 1.25rem 0" 
+        />
+        <div>
+          <button nbButton [disabled]="addColaboradorForm.invalid" status="primary" type="submit">Adicionar</button>
+          <button nbButton style="margin-left: 8px;" status="basic" (click)="ref.close()">Voltar</button>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
