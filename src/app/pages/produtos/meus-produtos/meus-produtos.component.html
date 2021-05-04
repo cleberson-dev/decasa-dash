@@ -14,7 +14,8 @@
       <button nbButton (click)="open(dialog)"><nb-icon icon="plus-outline"></nb-icon> Adicionar produto</button>
     </div>
     <div class="filters">
-      <nb-select style="min-width: 200px" selected="0">
+      <nb-select style="min-width: 200px" selected="">
+        <nb-option value=""><i>Orderne por</i></nb-option>
         <nb-option value="0">Mais vendidos</nb-option>
         <nb-option value="1">Ordem Alfabética</nb-option>
       </nb-select>
