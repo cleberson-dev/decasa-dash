@@ -14,11 +14,10 @@ export class MeusProdutosComponent implements OnInit {
   @Input() departments: Department[];
   @Input() departmentTree: TreeItem[];
   @Output() requestClick = new EventEmitter();
-
+  
   currentProductsPage: number;
-
-  produtos: IProdutoLojista[];
-
+  products: IProdutoLojista[] = [];
+  
   smartGroup: NbMenuItem[] = [
     { 
       title: 'Mais Vendidos',
@@ -29,11 +28,6 @@ export class MeusProdutosComponent implements OnInit {
       title: 'Outra',
       icon: 'bar-chart-2-outline'
     },
-  ];
-
-  options = [
-    { title: 'Arroz' },
-    { title: 'Feijão' },
   ];
 
   currentCategory = 1;
@@ -60,7 +54,7 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   handleFetch(data: any) {
-    this.produtos = data.content.map(p => ({
+    this.products = data.content.map(p => ({
       nome: p.descricao,
       marca: p.modelo.marca.descricao,
       modelo: p.modelo.descricao,
@@ -74,20 +68,19 @@ export class MeusProdutosComponent implements OnInit {
       totalItems: data.totalElements 
     }
 
-    console.log(this.produtos, this.pagination);
+    console.log(this.products, this.pagination);
   }
 
   ngOnInit(): void {
     this.apiService
       .getProductsByCategory(
-        this.currentCategory + '', 
-        { page: 1, itemsPerPage: 10 }
+        this.currentCategory + '',
       )
       .subscribe(this.handleFetch);
-    ;
   }
 
   onItemSelected(value: string) {
+    console.log('Item clicked', value);
     this.currentCategory = Number(value);
     this.apiService.getProductsByCategory(this.currentCategory + '')
       .subscribe(this.handleFetch);

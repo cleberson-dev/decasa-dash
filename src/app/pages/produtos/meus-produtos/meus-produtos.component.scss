@@ -84,3 +84,11 @@ ul li.menu-item {
 .department-tree ::ng-deep ul {
   max-height: 40vh;
 }
+
+.loading-container {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
