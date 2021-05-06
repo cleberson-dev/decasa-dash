@@ -58,6 +58,12 @@ export class CriarPedidosComponent implements OnInit {
     }
   ];
 
+  columns = ['Nome', 'Sobrenome'];
+  
+  data = [
+    ['Cleberson', 'Ferreira Rodrigues Junior']
+  ];
+
   addedProducts: AddProductItem[] = [];
 
   selectedCategory = '';

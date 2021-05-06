@@ -32,6 +32,7 @@ import { SpringSpinnerModule } from 'angular-epic-spinners';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { CriarPedidosComponent } from './pedidos/criar-pedidos/criar-pedidos.component';
+import { TableComponent } from '../components/table/table.component';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { CriarPedidosComponent } from './pedidos/criar-pedidos/criar-pedidos.com
     ModalAdicionarComponent,
     CheckboxComponent,
     PedidosComponent,
-    CriarPedidosComponent
+    CriarPedidosComponent,
+    TableComponent
   ]
 })
 export class PagesModule {
