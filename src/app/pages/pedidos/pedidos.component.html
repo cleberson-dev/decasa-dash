@@ -1,1 +1,37 @@
-<p>pedidos works!</p>
+<button nbButton status="primary">Realizar novo pedido</button>
+
+<nb-card [class]="{ card: true, expanded: expanded }">
+  <nb-card-header class="card-header" (click)="expanded = !expanded">
+    Em fase de cotação
+    <nb-icon [icon]="expanded ? 'arrow-up' : 'arrow-down'"></nb-icon>
+  </nb-card-header>
+  <nb-card-body class="card-body">
+    <!-- <nb-list>
+      <nb-list-item
+        class="pedido-list-item"
+        *ngFor="let pedido of pedidos" 
+        (click)="open(dialog)">
+        <time>{{ pedido.data }}</time>
+        <span class="codigo">{{ pedido.codigo }}</span>
+      </nb-list-item>
+    </nb-list> -->
+    <ng2-smart-table 
+      [settings]="tableSettings" 
+      [source]="tableSource"
+    ></ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+<nb-card class="card">
+  <nb-card-header>Realizados</nb-card-header>
+</nb-card>
+
+<nb-card class="card">
+  <nb-card-header>Algum outro status</nb-card-header>
+</nb-card>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    Olá
+  </nb-card>
+</ng-template>

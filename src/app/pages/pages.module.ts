@@ -30,6 +30,7 @@ import { ModalAdicionarComponent } from './produtos/modal-adicionar/modal-adicio
 import { CheckboxComponent } from '../components/checkbox/checkbox.component';
 import { SpringSpinnerModule } from 'angular-epic-spinners';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { PedidosComponent } from './pedidos/pedidos.component';
     NbListModule,
     NbContextMenuModule,
     NbStepperModule,
-    SpringSpinnerModule
+    SpringSpinnerModule,
+    Ng2SmartTableModule
   ],
   declarations: [
     PagesComponent,

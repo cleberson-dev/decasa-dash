@@ -1,0 +1,32 @@
+.card {
+  margin-top: 1rem;
+}
+
+.card.expanded .card-body {
+  display: block;
+}
+
+.card-body {
+  display: none;
+  padding: 0 1rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+time {
+  color: #8f8f8f;
+  font-size: 0.9rem;
+}
+
+.pedido-list-item {
+
+
+  .codigo {
+    margin-left: 5px;
+    font-weight: bold;
+  }
+}
