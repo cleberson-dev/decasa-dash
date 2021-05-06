@@ -1,0 +1,98 @@
+<form class="row">
+  <div class="col-12">
+    <nb-card>
+      <nb-card-header>Realizar novo pedido</nb-card-header>
+      <nb-card-body>
+        <h4>Produtos</h4>
+        <nb-list [formGroup]="quantityForm">
+          <nb-list-item *ngIf="addedProducts.length > 0" class="product-list-header">
+            <div>Nome</div>
+            <div>Quantidade</div>
+          </nb-list-item>
+          <nb-list-item class="product-input" *ngFor="let product of addedProducts">
+            {{ product.nome }}
+            <input nbInput type="number" [formControlName]="''+product.id" />
+          </nb-list-item>
+        </nb-list>
+        <button 
+          type="button" nbButton status="primary" 
+          (click)="open(dialog)"
+        >
+          <nb-icon icon="plus"></nb-icon>
+          Adicionar produtos
+        </button>
+
+
+
+        <h4>Fornecedores</h4>
+        
+
+        <button 
+          nbButton status="danger"
+          [disabled]="quantityForm.invalid"
+          (click)="onFormSubmit($event)"
+        >
+          Prosseguir
+        </button>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</form>
+
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <div class="row">
+    <div class="col-12">
+      <nb-card>
+        <nb-card-header>Adicionar produtos</nb-card-header>
+        <div class="filters">
+          <nb-select style="min-width: 200px" [(selected)]="selectedCategory">
+            <nb-option value="">Selecione uma categoria</nb-option>
+            <nb-option-group *ngFor="let dep of departments" [title]="dep.name">
+              <nb-option *ngFor="let cat of dep.categories" [value]="cat.id">{{ cat.name }}</nb-option>
+            </nb-option-group>
+          </nb-select>
+          <input nbInput placeholder="Pesquise aqui..." />
+        </div>
+  
+        <div 
+          class="dialog product-list" 
+          style="width: 80vw; min-height: 50vh"
+        >
+          <nb-list *ngIf="filteredProducts.length > 0; else noItems">
+            <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of filteredProducts">
+              <ngx-checkbox [defaultValue]="!!produto.selected" (change)="produto.selected = $event"></ngx-checkbox>
+              <div class="product">
+                <ngx-produto-lojista [produto]="produto"></ngx-produto-lojista>
+              </div>
+            </nb-list-item>
+          </nb-list>
+          <ng-template #noItems>
+            <div class="no-items">
+              <p style="font-size: 2rem; font-weight: bold;">Sem itens</p>
+            </div>
+          </ng-template>
+        </div>
+        
+        <nb-card-footer class="dialog-footer">
+          <button class="cancel-btn" (click)="ref.close()" nbButton style="margin-left: 1rem;">
+            Cancelar
+          </button>
+          
+          <div>
+            <b style="margin-right: 1rem">{{ selectedProducts.length }} produtos selecionados</b>
+            <button 
+              nbButton
+              status="primary"
+              (click)="handleProductDialog(ref)"
+              [disabled]="selectedProducts.length === 0" 
+            >
+              <nb-icon icon="arrow-ios-forward"></nb-icon>
+              Adicionar
+            </button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

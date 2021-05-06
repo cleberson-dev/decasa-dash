@@ -1,4 +1,6 @@
-<button nbButton status="primary">Realizar novo pedido</button>
+<a routerLink="criar">
+  <button nbButton status="primary">Realizar novo pedido</button>
+</a>
 
 <nb-card [class]="{ card: true, expanded: expanded }">
   <nb-card-header class="card-header" (click)="expanded = !expanded">
@@ -6,7 +8,7 @@
     <nb-icon [icon]="expanded ? 'arrow-up' : 'arrow-down'"></nb-icon>
   </nb-card-header>
   <nb-card-body class="card-body">
-    <!-- <nb-list>
+    <nb-list>
       <nb-list-item
         class="pedido-list-item"
         *ngFor="let pedido of pedidos" 
@@ -14,11 +16,11 @@
         <time>{{ pedido.data }}</time>
         <span class="codigo">{{ pedido.codigo }}</span>
       </nb-list-item>
-    </nb-list> -->
-    <ng2-smart-table 
+    </nb-list>
+    <!-- <ng2-smart-table 
       [settings]="tableSettings" 
       [source]="tableSource"
-    ></ng2-smart-table>
+    ></ng2-smart-table> -->
   </nb-card-body>
 </nb-card>
 

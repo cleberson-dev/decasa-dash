@@ -47,3 +47,5 @@ export type ResumidoProdutoLojista = Omit<
   "videoDemonstrativo" | "manualInstrucao" | "detalhe" | "quantidadeApresentacao" |
   "descricao"
 >;
+
+export type AddProductItem = ResumidoProdutoLojista & { selected?: boolean };
