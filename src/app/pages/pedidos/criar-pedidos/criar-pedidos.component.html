@@ -3,7 +3,7 @@
     <nb-card>
       <nb-card-header>Realizar novo pedido</nb-card-header>
       <nb-card-body>
-        <h4>Produtos</h4>
+        <h4 class="form-group-title">Produtos</h4>
         <nb-list [formGroup]="quantityForm">
           <nb-list-item *ngIf="addedProducts.length > 0" class="product-list-header">
             <div>Nome</div>
@@ -24,7 +24,7 @@
 
 
 
-        <h4>Fornecedores</h4>
+        <h4 class="form-group-title" style="margin-top: 2rem">Fornecedores</h4>
         <ngx-table [columns]="columns" [data]="data"></ngx-table>
         
 
@@ -32,6 +32,7 @@
           nbButton status="danger"
           [disabled]="quantityForm.invalid"
           (click)="onFormSubmit($event)"
+          style="margin-top: 2rem"
         >
           Prosseguir
         </button>
