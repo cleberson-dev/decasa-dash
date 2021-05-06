@@ -25,9 +25,10 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './pages/login/login.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromProdutosPlataforma from './store/reducers/produtos-plataforma.reducers';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
-   declarations: [AppComponent, LoginComponent],
+   declarations: [AppComponent, LoginComponent, TableComponent],
    imports: [
      BrowserModule,
      BrowserAnimationsModule,
