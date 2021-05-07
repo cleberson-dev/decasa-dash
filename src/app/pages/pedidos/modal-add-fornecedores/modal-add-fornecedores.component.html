@@ -19,8 +19,11 @@
         ></pagination>
       </nb-card-body>
       <nb-card-footer class="dialog-footer">
-        <button nbButton type="button" (click)="exit.emit()">Sair</button>
-        <button nbButton type="button" status="primary" (click)="btnClick.emit()">Criar novo</button>
+        <div>
+          <button nbButton type="button" (click)="exit.emit()">Sair</button>
+          <button nbButton ghost type="button" (click)="btnClick.emit()">Não tem? Crie um novo</button>
+        </div>
+          <button nbButton type="button" status="primary" (click)="exit.emit()">Adicionar</button>
       </nb-card-footer>
     </nb-card>
   </div>
