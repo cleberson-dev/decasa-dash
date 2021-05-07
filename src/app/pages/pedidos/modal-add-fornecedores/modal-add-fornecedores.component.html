@@ -4,11 +4,11 @@
       <nb-card-header>Adicionar Fornecedores</nb-card-header>
       <nb-card-body class="card-body">
         <nb-list class="fornecedores-list">
-          <nb-list-item *ngFor="let fornecedor of fornecedores">
+          <nb-list-item class="fornecedores-list-item" *ngFor="let fornecedor of fornecedores">
             <ngx-checkbox></ngx-checkbox>
             <div class="fornecedor" style="margin-left: 1rem">
-              <div class="nome">{{ fornecedor.nome }}</div>
-              <small class="detalhes">{{ fornecedor.email }} - {{ fornecedor.logradouro }}</small>
+              <p class="nome">{{ fornecedor.nome }}</p>
+              <p class="detalhes">{{ fornecedor.email }} - {{ fornecedor.logradouro }}</p>
             </div>
           </nb-list-item>
         </nb-list>

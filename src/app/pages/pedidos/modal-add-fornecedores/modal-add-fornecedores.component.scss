@@ -9,17 +9,27 @@
 }
 
 .fornecedor {
+  p {
+    margin-bottom: 0;
+  }
+
   .nome {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1.1rem;
+    margin-bottom: 2px;
   }
 
   .detalhes {
     display: block;
     color: gray;
+    font-size: 0.95rem;
   }
 }
 
 .fornecedores-list {
   height: 60vh;
+}
+
+.fornecedores-list-item {
+  padding: 1.2rem 1rem
 }
