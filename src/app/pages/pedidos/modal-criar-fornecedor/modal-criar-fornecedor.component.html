@@ -1,0 +1,71 @@
+<form class="row" [formGroup]="form">
+  <div class="col-12">
+    <nb-card>
+      <nb-card-header>Criar fornecedor</nb-card-header>
+      <nb-card-body class="card-body">
+      <div class="row">
+        <div class="col-5">
+          <label>Nome</label>
+          <input nbInput fullWidth formControlName="nome" />
+          <small class="error">Campo obrigatório</small>
+        </div>
+        <div class="col-5">
+          <label>CNPJ</label>
+          <input nbInput fullWidth formControlName="cnpj" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label>E-mail</label>
+          <input nbInput fullWidth type="email" formControlName="email" />
+        </div>
+        <div class="col-3">
+          <label>Celular</label>
+          <input nbInput fullWidth formControlName="celular" />
+        </div>
+        <div class="col-3">
+          <label>Telefone</label>
+          <input nbInput fullWidth formControlName="telefone" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label>CEP</label>
+          <input nbInput fullWidth formControlName="cep" />
+        </div>
+        <div class="col-4">
+          <label>Logradouro</label>
+          <input nbInput fullWidth formControlName="logradouro" />
+        </div>
+        <div class="col-2">
+          <label>Número</label>
+          <input nbInput fullWidth formControlName="numero" />
+        </div>
+        <div class="col-4">
+          <label>Bairro</label>
+          <input nbInput fullWidth formControlName="bairro" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5">
+          <label>Ponto de Referência</label>
+          <input nbInput fullWidth formControlName="pontoReferencia" />
+        </div>
+      </div>
+      </nb-card-body>
+      <nb-card-footer class="dialog-footer">
+        <button nbButton (click)="backBtnClick.emit()">
+          <nb-icon icon="arrow-ios-back"></nb-icon>
+          Voltar
+        </button>
+        
+        <button 
+          nbButton
+          status="primary"
+        >
+          Criar e Adicionar
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</form>

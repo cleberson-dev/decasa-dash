@@ -104,11 +104,14 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="context.type === 'addSuppliers'">
-    <div class="col-12">
-      <nb-card>
-        <nb-card-header>Adicionar Fornecedores</nb-card-header>
-      </nb-card>
-    </div>
-  </div>
+ <ngx-modal-add-fornecedores 
+  *ngIf="context.type === 'addSuppliers'"
+  (exit)="ref.close()"
+  (btnClick)="context.type = 'createSupplier'"
+  ></ngx-modal-add-fornecedores>
+
+  <ngx-modal-criar-fornecedor
+    *ngIf="context.type === 'createSupplier'"
+    (backBtnClick)="context.type = 'addSuppliers'"
+  ></ngx-modal-criar-fornecedor>
 </ng-template>

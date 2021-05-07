@@ -1,0 +1,21 @@
+label {
+  display: block;
+  font-weight: 600;
+}
+
+.card-body {
+  width: 80vw;
+}
+
+.row {
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: red;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: space-between;
+}

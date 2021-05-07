@@ -1,0 +1,25 @@
+.card-body {
+  padding: 0;
+  width: 80vw;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fornecedor {
+  .nome {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .detalhes {
+    display: block;
+    color: gray;
+  }
+}
+
+.fornecedores-list {
+  height: 60vh;
+}

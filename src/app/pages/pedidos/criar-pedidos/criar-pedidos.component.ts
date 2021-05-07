@@ -4,6 +4,8 @@ import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { categorias, departamentos, marcas, modelos } from '../../../fake-data';
 import { AddProductItem } from '../../../types';
 
+type DialogContentType = "addProducts" | "addSuppliers" | "createSupplier";
+
 @Component({
   selector: 'ngx-criar-pedidos',
   templateUrl: './criar-pedidos.component.html',
@@ -92,7 +94,7 @@ export class CriarPedidosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  open(dialog: TemplateRef<any>, type: string) {
+  open(dialog: TemplateRef<any>, type: DialogContentType) {
     this.dialogService.open(dialog, { context: { type } });
   }
 
