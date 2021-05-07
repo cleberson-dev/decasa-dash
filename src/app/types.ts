@@ -37,6 +37,36 @@ export type Produto = {
   }
 }
 
+export type Fornecedor = {
+  id: number; 
+  nome: string;
+  cnpj: string;
+  logradouro: string;
+  numero: number;
+  bairro: string;
+  cep: string;
+  pontoReferencia: string;
+  celular: string;
+  telefone: string;
+  email: string;
+  rgRepresentante?: string;
+  cpfRepresentante?: string;
+  dataRg?: Date;
+  municipioEndereco?: {
+    id: number;
+    descricao: string;
+  };
+  usuario?: number;
+  ufRg?: {
+    id: number;
+    descricao: string;
+  };
+  estadoCivil?: {
+    id: number;
+    descricao: string;
+  }
+}
+
 export type ProdutoLojista = Produto & {
   preco?: number;
 }
