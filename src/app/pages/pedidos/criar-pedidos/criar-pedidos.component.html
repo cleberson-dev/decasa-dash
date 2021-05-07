@@ -16,7 +16,7 @@
         </nb-list>
         <button 
           type="button" nbButton status="primary" 
-          (click)="open(dialog)"
+          (click)="open(dialog, 'addProducts')"
         >
           <nb-icon icon="plus"></nb-icon>
           Adicionar produtos
@@ -25,7 +25,13 @@
 
 
         <h4 class="form-group-title" style="margin-top: 2rem">Fornecedores</h4>
-        <ngx-table [columns]="columns" [data]="data"></ngx-table>
+        <button 
+          type="button" nbButton status="primary" 
+          (click)="open(dialog, 'addSuppliers')"
+        >
+          <nb-icon icon="plus"></nb-icon>
+          Adicionar fornecedores
+        </button>
         
 
         <button 
@@ -42,8 +48,8 @@
 </form>
 
 
-<ng-template #dialog let-data let-ref="dialogRef">
-  <div class="row">
+<ng-template #dialog let-context let-ref="dialogRef">
+  <div class="row" *ngIf="context.type === 'addProducts'">
     <div class="col-12">
       <nb-card>
         <nb-card-header>Adicionar produtos</nb-card-header>
@@ -94,6 +100,14 @@
             </button>
           </div>
         </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="context.type === 'addSuppliers'">
+    <div class="col-12">
+      <nb-card>
+        <nb-card-header>Adicionar Fornecedores</nb-card-header>
       </nb-card>
     </div>
   </div>

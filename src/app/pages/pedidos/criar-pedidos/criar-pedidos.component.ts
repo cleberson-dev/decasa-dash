@@ -92,8 +92,8 @@ export class CriarPedidosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  open(dialog: TemplateRef<any>) {
-    this.dialogService.open(dialog);
+  open(dialog: TemplateRef<any>, type: string) {
+    this.dialogService.open(dialog, { context: { type } });
   }
 
   handleProductDialog(dialog: NbDialogRef<any>) {
