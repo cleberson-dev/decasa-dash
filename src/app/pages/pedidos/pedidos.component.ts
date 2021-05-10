@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Tab } from '../../components/tabber/tabber.component';
 
 type Pedido = {
   data: string;
@@ -14,6 +15,13 @@ type Pedido = {
 })
 export class PedidosComponent implements OnInit {
   expanded: boolean = false;
+
+  tabs: Tab[] = [
+    { title: 'Cotação', link: '', active: true },
+    { title: 'Mapa', link: '' },
+    { title: 'Emitir compra', link: '' },
+    { title: 'Acompanhamento', link: '' },
+  ]
 
   tableSource = new LocalDataSource();
   tableSettings = {

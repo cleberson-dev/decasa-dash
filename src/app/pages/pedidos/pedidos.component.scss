@@ -1,5 +1,7 @@
 .card {
-  margin-top: 1rem;
+  padding: 1rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .card.expanded .card-body {
