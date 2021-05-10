@@ -69,6 +69,13 @@ export class PedidosComponent implements OnInit {
   }
 
   onPedidoAdd() {
-
+    this.rows.unshift({
+      codigo: this.novoPedidoForm.controls['rcm'].value,
+      nome: this.novoPedidoForm.controls['nome'].value,
+      quantidade: this.novoPedidoForm.controls['quantidade'].value,
+      unidade: this.novoPedidoForm.controls['unidade'].value,
+    });
+    this.novoPedidoForm.reset();
+    this.input.nativeElement.value = "";
   }
 }
