@@ -1,0 +1,11 @@
+<nb-card class="card">
+  <nav>
+    <a 
+      *ngFor="let tab of tabs" [class]="{ active: tab.active }"
+    >
+      <div>
+        {{ tab.title }}
+      </div>
+    </a>
+  </nav>
+</nb-card>

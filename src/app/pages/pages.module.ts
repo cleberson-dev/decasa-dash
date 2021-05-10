@@ -35,6 +35,7 @@ import { CriarPedidosComponent } from './pedidos/criar-pedidos/criar-pedidos.com
 import { TableComponent } from '../components/table/table.component';
 import { ModalAddFornecedoresComponent } from './pedidos/modal-add-fornecedores/modal-add-fornecedores.component';
 import { ModalCriarFornecedorComponent } from './pedidos/modal-criar-fornecedor/modal-criar-fornecedor.component';
+import { TabberComponent } from '../components/tabber/tabber.component';
 
 @NgModule({
   imports: [
@@ -72,7 +73,8 @@ import { ModalCriarFornecedorComponent } from './pedidos/modal-criar-fornecedor/
     CriarPedidosComponent,
     TableComponent,
     ModalAddFornecedoresComponent,
-    ModalCriarFornecedorComponent
+    ModalCriarFornecedorComponent,
+    TabberComponent
   ]
 })
 export class PagesModule {

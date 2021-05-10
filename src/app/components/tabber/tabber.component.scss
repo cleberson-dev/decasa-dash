@@ -1,0 +1,35 @@
+.card {
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  margin: 0;
+
+  a {
+    padding: 0 1rem;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #8f9bb3;
+    font-weight: 600;
+    cursor: pointer;
+
+    div {
+      padding: 1rem;
+      width: fit-content;
+      border-bottom: 5px solid transparent;
+      border-radius: 3px;
+    }
+
+    &.active div {
+      border-bottom-color: #598bff;
+    }
+
+    &.active {
+      color: #598bff;
+    }
+  }
+}
