@@ -1,13 +1,59 @@
 <ngx-tabber [tabs]="tabs"></ngx-tabber>
 <nb-card class="card">
-  <a routerLink="criar">  
-    <button nbButton status="primary">Realizar novo pedido</button>
-  </a>
+  <nb-card-body class="card-body">
+    <table>
+      <thead>
+        <tr>
+          <th>RCM</th>
+          <th>Produto</th>
+          <th>Unidade</th>
+          <th>Quantidade</th>
+          <th></th>
+        </tr>
+        
+      </thead>
+      <tbody>
+        <tr [formGroup]="novoPedidoForm">
+          <td><input nbInput style="width: 150px" formControlName="rcm" /></td>
+          <td>
+            <input 
+              #autoInput 
+              nbInput 
+              type="text" 
+              (input)="onInputChange()"
+              placeholder="Fale algo"
+              [nbAutocomplete]="auto"
+              fullWidth
+              formControlName="nome"
+            />
+            <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)">
+              <nb-option *ngFor="let option of suggestedOptions$ | async" [value]="option">
+                {{ option }}
+              </nb-option>
+            </nb-autocomplete>
+          </td>
+          <td><input nbInput fullWidth formControlName="unidade" /></td>
+          <td><input nbInput type="number" fullWidth style="width: 100px" formControlName="quantidade" /></td>
+          <td>
+            <button nbButton status="primary" fullWidth (click)="onPedidoAdd()" [disabled]="novoPedidoForm.invalid">
+              <nb-icon icon="plus"></nb-icon>
+            </button>
+          </td>
+        </tr>
+        <tr *ngFor="let row of rows">
+          <td>{{ row.codigo }}</td>
+          <td>{{ row.nome }}</td>
+          <td>{{ row.unidade }}</td>
+          <td>{{ row.quantidade }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+
+
+  <nb-card-footer class="footer">
+    <div></div>
+    <button class="next-btn" nbButton status="primary">Próximo</button>
+  </nb-card-footer>
   
 </nb-card>
-
-<ng-template #dialog let-data let-ref="dialogRef">
-  <nb-card>
-    Olá
-  </nb-card>
-</ng-template>

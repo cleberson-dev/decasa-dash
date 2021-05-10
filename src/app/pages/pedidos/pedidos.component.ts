@@ -1,11 +1,19 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
-import { LocalDataSource } from 'ng2-smart-table';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
 
 type Pedido = {
   data: string;
   codigo: string;
+}
+
+type PedidoProduto = {
+  codigo: string;
+  nome: string;
+  unidade: string;
+  quantidade: number;
 }
 
 @Component({
@@ -14,7 +22,9 @@ type Pedido = {
   styleUrls: ['./pedidos.component.scss']
 })
 export class PedidosComponent implements OnInit {
-  expanded: boolean = false;
+  @ViewChild('autoInput') input;
+  autoOptions: string[];
+  suggestedOptions$: Observable<string[]>;
 
   tabs: Tab[] = [
     { title: 'Cotação', link: '', active: true },
@@ -23,39 +33,42 @@ export class PedidosComponent implements OnInit {
     { title: 'Acompanhamento', link: '' },
   ]
 
-  tableSource = new LocalDataSource();
-  tableSettings = {
-    columns: {
-      data: {
-        title: 'Data',
-        type: 'string',
-      },
-      codigo: {
-        title: 'Código',
-        type: 'string',
-      }
-    }
-  }
-
-  pedidos: Pedido[] = [
-    { data: '11/01/1999 às 11:23', codigo: '0123433121' },
-    { data: '11/01/1999 às 11:23', codigo: '0123433121' },
-    { data: '11/01/1999 às 11:23', codigo: '0123433121' },
-    { data: '11/01/1999 às 11:23', codigo: '0123433121' },
-    { data: '11/01/1999 às 11:23', codigo: '0123433121' }
+  rows: PedidoProduto[] = [
+    { codigo: '000001', nome: 'Produto #1', unidade: 'pacote', quantidade: 1 },
+    { codigo: '000002', nome: 'Produto #2', unidade: 'caixa', quantidade: 1 },
   ]
 
+  novoPedidoForm = this.fb.group({
+    rcm: ['', [Validators.required]],
+    nome: ['', [Validators.required]],
+    unidade: ['', [Validators.required]],
+    quantidade: [1, [Validators.required, Validators.min(1)]],
+  });
+
   constructor(
-    private dialogService: NbDialogService,
+    private fb: FormBuilder
   ) {
-    this.tableSource.load(this.pedidos);
   }
 
   ngOnInit(): void {
-    
+    this.autoOptions = ['Option 1', 'Option 2', 'Option 3'];
+    this.suggestedOptions$ = of(this.autoOptions);
   }
 
-  open(dialog: TemplateRef<any>) {
-    this.dialogService.open(dialog);
+  onSelectionChange($event: string) {
+    this.suggestedOptions$ = of($event).pipe(
+      map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
+    );
+  }
+
+  onInputChange() {
+    const { value } = this.input.nativeElement;
+    this.suggestedOptions$ = of(value).pipe(
+      map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
+    );
+  }
+
+  onPedidoAdd() {
+
   }
 }

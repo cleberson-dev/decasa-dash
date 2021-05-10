@@ -11,7 +11,8 @@ import {
   NbListModule,
   NbIconModule,
   NbContextMenuModule,
-  NbStepperModule
+  NbStepperModule,
+  NbAutocompleteModule
 } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
@@ -56,7 +57,8 @@ import { TabberComponent } from '../components/tabber/tabber.component';
     NbContextMenuModule,
     NbStepperModule,
     SpringSpinnerModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    NbAutocompleteModule
   ],
   declarations: [
     PagesComponent,

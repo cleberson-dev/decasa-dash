@@ -1,5 +1,4 @@
 .card {
-  padding: 1rem;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
@@ -9,8 +8,7 @@
 }
 
 .card-body {
-  display: none;
-  padding: 0 1rem;
+  min-height: 58vh;
 }
 
 .card-header {
@@ -31,4 +29,34 @@ time {
     margin-left: 1rem;
     font-weight: bold;
   }
+}
+
+
+table {
+  width: 100%;
+}
+
+thead {
+  background-color: #DCDCDC;
+  color: #8F9BB3;
+  border-radius: 10px;
+  padding: 0 1rem;
+}
+
+th {
+  padding: 0.8rem 0;
+}
+
+td {
+  padding: 10px 0;
+  padding-right: 10px;
+}
+
+.form-row {
+  box-sizing: content-box;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
 }
