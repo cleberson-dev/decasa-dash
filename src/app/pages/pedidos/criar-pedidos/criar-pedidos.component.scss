@@ -49,3 +49,24 @@
 .form-group-title {
   font-size: 1.1rem;
 }
+
+.fornecedor {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+
+  span:not(.nome) {
+    color: gray;
+    font-size: 0.95rem;
+
+    &:before {
+      content: '•';
+      margin: 0 1rem;
+    }
+  }
+
+  span.nome {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+}

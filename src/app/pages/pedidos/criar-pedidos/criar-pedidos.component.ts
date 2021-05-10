@@ -2,7 +2,8 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { categorias, departamentos, marcas, modelos } from '../../../fake-data';
-import { AddProductItem } from '../../../types';
+import { AddProductItem, Fornecedor } from '../../../types';
+import { Department } from '../../produtos/produtos.component';
 
 type DialogContentType = "addProducts" | "addSuppliers" | "createSupplier";
 
@@ -60,6 +61,8 @@ export class CriarPedidosComponent implements OnInit {
     }
   ];
 
+  departments: Department[] = [];
+
   columns = ['Nome', 'Sobrenome'];
   
   data = [
@@ -71,6 +74,8 @@ export class CriarPedidosComponent implements OnInit {
   selectedCategory = '';
 
   quantityForm = this.fb.group({});
+
+  fornecedores: Fornecedor[] = []
 
   constructor(
     private fb: FormBuilder,
@@ -92,6 +97,7 @@ export class CriarPedidosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   open(dialog: TemplateRef<any>, type: DialogContentType) {
@@ -114,5 +120,14 @@ export class CriarPedidosComponent implements OnInit {
   onFormSubmit(e: any) {
     e.preventDefault();
     console.log(this.quantityForm);
+  }
+
+  additionHandler(fornecedores: Fornecedor[], ref: NbDialogRef<any>) {
+    this.fornecedores.push(...fornecedores);
+    ref.close();
+  }
+
+  removerFornecedor(fornecedor: Fornecedor) {
+    this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedor.id);
   }
 }

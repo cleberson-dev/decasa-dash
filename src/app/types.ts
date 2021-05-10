@@ -31,7 +31,7 @@ export type Produto = {
     profundidadeCm?: number;
   }
   liberado?: boolean;
-  unidadeMedida: {
+  unidadeMedida?: {
     descricao: string;
     sigla: string;
   }
@@ -73,7 +73,7 @@ export type ProdutoLojista = Produto & {
 
 export type ResumidoProdutoLojista = Omit<
   ProdutoLojista,
-  "unidadeMedida" | "liberado" | "dimensoes" | "pesoGrama" | "cnp" |
+  "liberado" | "dimensoes" | "pesoGrama" | "cnp" |
   "videoDemonstrativo" | "manualInstrucao" | "detalhe" | "quantidadeApresentacao" |
   "descricao"
 >;

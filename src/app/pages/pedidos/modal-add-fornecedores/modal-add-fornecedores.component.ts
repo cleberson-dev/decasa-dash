@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Fornecedor } from '../../../types';
 
-
+type SelectableFornecedor = Fornecedor & { selected?: boolean; };
 
 @Component({
   selector: 'ngx-modal-add-fornecedores',
@@ -11,8 +11,9 @@ import { Fornecedor } from '../../../types';
 export class ModalAddFornecedoresComponent implements OnInit {
   @Output() btnClick = new EventEmitter();
   @Output() exit = new EventEmitter();
+  @Output() addition = new EventEmitter<Fornecedor[]>();
 
-  fornecedores: Fornecedor[] = [
+  fornecedores: SelectableFornecedor[] = [
     { 
       id: 1,
       nome: 'Fornecedor #1',
@@ -54,9 +55,17 @@ export class ModalAddFornecedoresComponent implements OnInit {
     },
   ];
 
+  get selectedFornecedores() {
+    return this.fornecedores.filter(fornecedor => fornecedor.selected);
+  }
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onAdditionBtnClick() {
+    this.addition.emit(this.selectedFornecedores);
   }
 
 }
