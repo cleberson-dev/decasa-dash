@@ -20,6 +20,9 @@
     ],
     "plugins": [
       { "name": "tslint-language-service"}
-    ]
+    ],
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
   }
 }
