@@ -21,7 +21,6 @@ const defaultData = {
   styleUrls: ['./fornecedores.component.scss']
 })
 export class FornecedoresComponent implements OnInit {
-
   fornecedores: Fornecedor[] = [
     { 
       id: 1,
@@ -52,7 +51,16 @@ export class FornecedoresComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  open(dialog: TemplateRef<any>) {
-    this.dialogService.open(dialog);
+  openCreate(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog, { context: { type: 'criar' }});
+  }
+
+  openDetails(dialog: TemplateRef<any>, fornecedor: Fornecedor) {
+    this.dialogService.open(dialog, { 
+      context: { 
+        type: 'detalhes',
+        fornecedor
+      }
+    });
   }
 }

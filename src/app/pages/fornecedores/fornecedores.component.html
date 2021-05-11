@@ -1,11 +1,11 @@
 <div class="fornecedores-list">
-  <nb-card class="fornecedor" *ngFor="let fornecedor of fornecedores">
+  <nb-card class="fornecedor" (click)="openDetails(dialog, fornecedor)" *ngFor="let fornecedor of fornecedores">
     <nb-card-body class="fornecedor-body">
       <p class="nome">{{ fornecedor.nome }}</p>
       <p class="details">{{ fornecedor.celular }} - {{ fornecedor.email }}</p>
     </nb-card-body>
   </nb-card>
-  <button (click)="open(dialog)" class="criar-btn">
+  <button (click)="openCreate(dialog)" class="criar-btn">
     <nb-card class="fornecedor action-btn">
       +
     </nb-card>
@@ -13,7 +13,35 @@
 </div>
 
 <ng-template #dialog let-context let-ref="dialogRef">
-  <ngx-modal-criar-fornecedor 
+  <!-- <div *ngSwitch="context.type">
+    <ngx-modal-criar-fornecedor 
+      *ngSwitchCase="'criar'"
     (backBtnClick)="ref.close()"
-  ></ngx-modal-criar-fornecedor>
+  ></ngx-modal-criar-fornecedor> -->
+  <div class="fornecedor-detalhes">
+    <div class="header">
+      <button nbButton ghost (click)="ref.close()">
+        <nb-icon icon="arrow-back"></nb-icon>
+      </button>
+      <h3 class="title">
+        Detalhes do Fornecedor
+      </h3>
+    </div>
+
+    <p>Nome: <span>{{ context.fornecedor.nome }}</span></p>
+    <p>CPNJ: <span>{{ context.fornecedor.cnpj }}</span></p>
+    <p>E-mail: <span>{{ context.fornecedor.email }}</span></p>
+    <p>CEP: <span>{{ context.fornecedor.cep }}</span></p>
+    <p>Logradouro: <span>{{ context.fornecedor.logradouro }}</span></p>
+    <div class="row">
+      <p class="col-6">Bairro: <span>{{ context.fornecedor.bairro }}</span></p>
+      <p class="col-6">Número: <span>{{ context.fornecedor.numero }}</span></p>
+    </div>
+    <p>Ponto de Referência: <span>{{ context.fornecedor.pontoReferencia }}</span></p>
+    <div class="row">
+      <p class="col-6">Celular: <span>{{ context.fornecedor.celular }}</span></p>
+      <p class="col-6">Telefone: <span>{{ context.fornecedor.telefone }}</span></p>
+    </div>
+    <p>CPF Representante: <span>{{ context.fornecedor.cpfRepresentante }}</span></p>
+  </div>
 </ng-template>

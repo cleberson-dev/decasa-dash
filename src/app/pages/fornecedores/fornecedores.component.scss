@@ -65,3 +65,40 @@ button.criar-btn {
     background-color: darken(#3366ff, 15%);
   }
 }
+
+
+.fornecedor-detalhes {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  width: 30vw;
+  height: 100vh;
+  padding: 1rem;
+  overflow-y: scroll;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #DCDCDC;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-weight: bold;
+    font-size: 0.8rem;
+    span {
+      display: flex;
+      font-weight: normal;
+      font-size: 0.9rem;
+    }
+  }
+}
