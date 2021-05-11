@@ -39,8 +39,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Fornecedores',
-    icon: 'shopping-cart-outline',
-    link: '/forms/layouts',
+    icon: 'car-outline',
+    link: '/fornecedores',
   },
   {
     title: 'Configurações',

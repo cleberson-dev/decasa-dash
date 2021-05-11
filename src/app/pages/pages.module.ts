@@ -37,6 +37,7 @@ import { TableComponent } from '../components/table/table.component';
 import { ModalAddFornecedoresComponent } from './pedidos/modal-add-fornecedores/modal-add-fornecedores.component';
 import { ModalCriarFornecedorComponent } from './pedidos/modal-criar-fornecedor/modal-criar-fornecedor.component';
 import { TabberComponent } from '../components/tabber/tabber.component';
+import { FornecedoresComponent } from './fornecedores/fornecedores.component';
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import { TabberComponent } from '../components/tabber/tabber.component';
     TableComponent,
     ModalAddFornecedoresComponent,
     ModalCriarFornecedorComponent,
-    TabberComponent
+    TabberComponent,
+    FornecedoresComponent
   ]
 })
 export class PagesModule {
