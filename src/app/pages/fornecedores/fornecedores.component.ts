@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { NbDialogService } from '@nebular/theme';
 import { Fornecedor } from '../../types';
 
 const defaultData = {
@@ -44,9 +45,14 @@ export class FornecedoresComponent implements OnInit {
     },
   ]
 
-  constructor() { }
+  constructor(
+    private dialogService: NbDialogService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  open(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog);
+  }
 }

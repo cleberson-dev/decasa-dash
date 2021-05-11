@@ -1,5 +1,6 @@
+@use "sass:color";
+
 .fornecedores-list {
-  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 10px;
@@ -39,4 +40,28 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+button.criar-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.fornecedor.action-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2.75rem;
+  font-weight: bolder;
+}
+
+.fornecedor.action-btn {
+  background-color: #3366ff;
+
+  &:hover {
+    background-color: darken(#3366ff, 15%);
+  }
 }

@@ -1,7 +1,3 @@
-<button nbButton status="primary">
-  Criar
-</button>
-
 <div class="fornecedores-list">
   <nb-card class="fornecedor" *ngFor="let fornecedor of fornecedores">
     <nb-card-body class="fornecedor-body">
@@ -9,4 +5,15 @@
       <p class="details">{{ fornecedor.celular }} - {{ fornecedor.email }}</p>
     </nb-card-body>
   </nb-card>
+  <button (click)="open(dialog)" class="criar-btn">
+    <nb-card class="fornecedor action-btn">
+      +
+    </nb-card>
+  </button>
 </div>
+
+<ng-template #dialog let-context let-ref="dialogRef">
+  <ngx-modal-criar-fornecedor 
+    (backBtnClick)="ref.close()"
+  ></ngx-modal-criar-fornecedor>
+</ng-template>
