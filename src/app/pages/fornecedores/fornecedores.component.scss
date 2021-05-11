@@ -28,11 +28,12 @@
   
 
 .fornecedor {
-  transition: box-shadow 0.2s ease-out;
+  transition: box-shadow 0.1s ease-out;
 
   &:hover {
+    background-color: darken(white, 2.5%);
     box-shadow: 0 3px 9px rgba(0, 0, 0, .06);
-    transition: box-shadow 0.2s ease-in;
+    transition: box-shadow 0.1s ease-in;
   }
 }
 
