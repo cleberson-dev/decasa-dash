@@ -1,1 +1,12 @@
-<p>fornecedores works!</p>
+<button nbButton status="primary">
+  Criar
+</button>
+
+<div class="fornecedores-list">
+  <nb-card class="fornecedor" *ngFor="let fornecedor of fornecedores">
+    <nb-card-body class="fornecedor-body">
+      <p class="nome">{{ fornecedor.nome }}</p>
+      <p class="details">{{ fornecedor.celular }} - {{ fornecedor.email }}</p>
+    </nb-card-body>
+  </nb-card>
+</div>

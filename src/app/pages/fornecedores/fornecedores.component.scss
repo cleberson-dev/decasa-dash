@@ -1,0 +1,42 @@
+.fornecedores-list {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+.fornecedor {
+  margin: 0;
+  border-radius: 10px;
+  height: 125px;
+  cursor: pointer;
+
+  .nome {
+    font-size: 1.55rem;
+    font-weight: bolder;
+    margin-bottom: 10px;
+  }
+
+  .details {
+    color: #a7a7a7;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+  }
+}
+  
+
+.fornecedor {
+  transition: box-shadow 0.2s ease-out;
+
+  &:hover {
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .06);
+    transition: box-shadow 0.2s ease-in;
+  }
+}
+
+.fornecedor-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
