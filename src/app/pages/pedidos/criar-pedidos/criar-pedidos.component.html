@@ -128,8 +128,8 @@
   (addition)="additionHandler($event, ref)"
   ></ngx-modal-add-fornecedores>
 
-  <ngx-modal-criar-fornecedor
+  <ngx-modal-form-fornecedor
     *ngIf="context.type === 'createSupplier'"
     (backBtnClick)="context.type = 'addSuppliers'"
-  ></ngx-modal-criar-fornecedor>
+  ></ngx-modal-form-fornecedor>
 </ng-template>

@@ -28,10 +28,10 @@
 </ng-template>
 
 <ng-template #dialog let-context let-ref="dialogRef">
-  <ngx-modal-criar-fornecedor
+  <ngx-modal-form-fornecedor
     *ngIf="context.type === 'criar'" 
     (backBtnClick)="ref.close()"
-  ></ngx-modal-criar-fornecedor>
+  ></ngx-modal-form-fornecedor>
 
   <div class="fornecedor-detalhes" *ngIf="context.type === 'detalhes'">
     <div class="header">

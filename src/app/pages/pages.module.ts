@@ -35,7 +35,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { CriarPedidosComponent } from './pedidos/criar-pedidos/criar-pedidos.component';
 import { TableComponent } from '../components/table/table.component';
 import { ModalAddFornecedoresComponent } from './pedidos/modal-add-fornecedores/modal-add-fornecedores.component';
-import { ModalCriarFornecedorComponent } from './fornecedores/modal-criar-fornecedor/modal-criar-fornecedor.component';
+import { ModalFormFornecedorComponent } from './fornecedores/modal-form-fornecedor/modal-form-fornecedor.component';
 import { TabberComponent } from '../components/tabber/tabber.component';
 import { FornecedoresComponent } from './fornecedores/fornecedores.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -78,7 +78,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CriarPedidosComponent,
     TableComponent,
     ModalAddFornecedoresComponent,
-    ModalCriarFornecedorComponent,
+    ModalFormFornecedorComponent,
     TabberComponent,
     FornecedoresComponent
   ]

@@ -3,11 +3,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import * as CustomValidators from '../../../validators';
 
 @Component({
-  selector: 'ngx-modal-criar-fornecedor',
-  templateUrl: './modal-criar-fornecedor.component.html',
-  styleUrls: ['./modal-criar-fornecedor.component.scss']
+  selector: 'ngx-modal-form-fornecedor',
+  templateUrl: './modal-form-fornecedor.component.html',
+  styleUrls: ['./modal-form-fornecedor.component.scss']
 })
-export class ModalCriarFornecedorComponent implements OnInit {
+export class ModalFormFornecedorComponent implements OnInit {
   @Output() backBtnClick = new EventEmitter();
 
   form = this.fb.group({
