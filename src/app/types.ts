@@ -1,10 +1,10 @@
 type IdentifiableObject = {
-  id: number;
+  id?: number;
   nome: string;
 }
 
 export type Colaborador = {
-  id: number;
+  id?: number;
   nome: string;
   resumo: string;
   descricao: string;
@@ -12,7 +12,7 @@ export type Colaborador = {
 }
 
 export type Produto = {
-  id: number;
+  id?: number;
   nome: string;
   foto: string;
   categoria: IdentifiableObject;
@@ -38,7 +38,7 @@ export type Produto = {
 }
 
 export type Fornecedor = {
-  id: number; 
+  id?: number; 
   nome: string;
   cnpj: string;
   logradouro: string;
