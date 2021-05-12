@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { NbDialogService } from '@nebular/theme';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from '../../services/api.service';
@@ -23,7 +24,15 @@ const defaultData = {
   styleUrls: ['./fornecedores.component.scss']
 })
 export class FornecedoresComponent implements OnInit {
-  fornecedores: Fornecedor[] = []
+  fornecedores: Fornecedor[] = [];
+  
+  formTitle = '';
+  formSubmitText = '';
+  formFornecedor: Fornecedor = {
+    nome: '', cnpj: '', logradouro: '', numero: 0, bairro: '',
+    cep: '', pontoReferencia: '', celular: '', telefone: '',
+    email: ''
+  };
 
   constructor(
     private dialogService: NbDialogService,
@@ -63,7 +72,9 @@ export class FornecedoresComponent implements OnInit {
   }
 
   openCreate(dialog: TemplateRef<any>) {
-    this.dialogService.open(dialog, { context: { type: 'criar' }});
+    this.formTitle = 'Criar novo fornecedor';
+    this.formSubmitText = 'Criar';
+    this.dialogService.open(dialog, { context: { type: 'form' }});
   }
 
   openDetails(dialog: TemplateRef<any>, fornecedor: Fornecedor) {
@@ -73,5 +84,19 @@ export class FornecedoresComponent implements OnInit {
         fornecedor
       }
     });
+  }
+
+  onFormSubmit(e: FormGroup) {
+    console.log(e);
+  }
+
+  onEdit(context: any) {
+    this.formTitle = 'Editar fornecedor';
+    this.formSubmitText = 'Editar';
+    this.formFornecedor = {
+      ...context.fornecedor
+    }
+    console.log(this.formFornecedor);
+    context.type = 'form';
   }
 }

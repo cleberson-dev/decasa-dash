@@ -29,8 +29,12 @@
 
 <ng-template #dialog let-context let-ref="dialogRef">
   <ngx-modal-form-fornecedor
-    *ngIf="context.type === 'criar'" 
+    *ngIf="context.type === 'form'"
+    [title]="formTitle"
+    [submitText]="formSubmitText"
+    (submitBtnClick)="onFormSubmit($event)"
     (backBtnClick)="ref.close()"
+    [initialForm]="formFornecedor"
   ></ngx-modal-form-fornecedor>
 
   <div class="fornecedor-detalhes" *ngIf="context.type === 'detalhes'">
@@ -59,7 +63,7 @@
     </div>
     <p>CPF Representante: <span>{{ context.fornecedor.cpfRepresentante }}</span></p>
     <div style="margin-top: 1rem">
-      <button nbButton fullWidth>Editar</button>
+      <button nbButton fullWidth (click)="onEdit(context)">Editar</button>
       <button nbButton fullWidth status="danger" style="margin-top: 10px">Bloquear</button>
     </div>
   </div>
