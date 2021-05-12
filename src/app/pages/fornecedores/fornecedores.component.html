@@ -58,5 +58,9 @@
       <p class="col-6">Telefone: <span>{{ context.fornecedor.telefone }}</span></p>
     </div>
     <p>CPF Representante: <span>{{ context.fornecedor.cpfRepresentante }}</span></p>
+    <div style="margin-top: 1rem">
+      <button nbButton fullWidth>Editar</button>
+      <button nbButton fullWidth status="danger" style="margin-top: 10px">Bloquear</button>
+    </div>
   </div>
 </ng-template>
