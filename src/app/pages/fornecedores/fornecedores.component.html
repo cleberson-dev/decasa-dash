@@ -1,6 +1,13 @@
 <h1 class="page-title">Meus fornecedores</h1>
 
-<div class="fornecedores-list">
+<ngx-spinner 
+  size="medium" 
+  color="#fff" 
+  type="ball-clip-rotate"
+  [fullScreen]="false"
+></ngx-spinner>
+
+<div *ngIf="fornecedores.length > 0; else elseBlock" class="fornecedores-list">
   <nb-card class="fornecedor" (click)="openDetails(dialog, fornecedor)" *ngFor="let fornecedor of fornecedores">
     <nb-card-body class="fornecedor-body">
       <p class="nome">{{ fornecedor.nome }}</p>
@@ -13,6 +20,12 @@
     </nb-card>
   </button>
 </div>
+<ng-template #elseBlock>
+  <div class="no-items">
+    <p>Sem fornecedores.</p>
+    <button nbButton status="primary">Crie um novo</button>
+  </div>
+</ng-template>
 
 <ng-template #dialog let-context let-ref="dialogRef">
   <!-- <div *ngSwitch="context.type">

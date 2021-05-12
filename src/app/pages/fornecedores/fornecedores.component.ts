@@ -1,5 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ApiService } from '../../services/api.service';
 import { Fornecedor } from '../../types';
 
 const defaultData = {
@@ -21,34 +23,43 @@ const defaultData = {
   styleUrls: ['./fornecedores.component.scss']
 })
 export class FornecedoresComponent implements OnInit {
-  fornecedores: Fornecedor[] = [
-    { 
-      id: 1,
-      nome: 'Fornecedor #1',
-      ...defaultData
-    },
-    { 
-      id: 2,
-      nome: 'Fornecedor #2',
-      ...defaultData
-    },
-    { 
-      id: 3,
-      nome: 'Fornecedor #3',
-      ...defaultData
-    },
-    { 
-      id: 4,
-      nome: 'Fornecedor #4',
-      ...defaultData
-    },
-  ]
+  fornecedores: Fornecedor[] = []
 
   constructor(
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private spinner: NgxSpinnerService,
+    private api: ApiService
   ) { }
 
   ngOnInit(): void {
+    this.api.getAllProducts()
+      .subscribe(console.log);
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+      this.fornecedores = [
+        { 
+          id: 1,
+          nome: 'Fornecedor #1',
+          ...defaultData
+        },
+        { 
+          id: 2,
+          nome: 'Fornecedor #2',
+          ...defaultData
+        },
+        { 
+          id: 3,
+          nome: 'Fornecedor #3',
+          ...defaultData
+        },{
+          id: 4,
+          nome: 'Fornecedor #4',
+          ...defaultData
+        } 
+      ];
+    }, 2000);
   }
 
   openCreate(dialog: TemplateRef<any>) {

@@ -38,6 +38,7 @@ import { ModalAddFornecedoresComponent } from './pedidos/modal-add-fornecedores/
 import { ModalCriarFornecedorComponent } from './fornecedores/modal-criar-fornecedor/modal-criar-fornecedor.component';
 import { TabberComponent } from '../components/tabber/tabber.component';
 import { FornecedoresComponent } from './fornecedores/fornecedores.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import { FornecedoresComponent } from './fornecedores/fornecedores.component';
     NbStepperModule,
     SpringSpinnerModule,
     Ng2SmartTableModule,
-    NbAutocompleteModule
+    NbAutocompleteModule,
+    NgxSpinnerModule
   ],
   declarations: [
     PagesComponent,

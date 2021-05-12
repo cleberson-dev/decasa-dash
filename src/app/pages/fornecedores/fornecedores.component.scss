@@ -108,3 +108,16 @@ button.criar-btn {
   margin-top: 0;
   font-size: 1.9rem;
 }
+
+.no-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+
+  p {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+}

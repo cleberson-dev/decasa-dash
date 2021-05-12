@@ -10,7 +10,7 @@ type Options = {
   providedIn: 'root'
 })
 export class ApiService {
-  url = 'http://localhost:8081';
+  url = 'http://homologacao.appdecasa.com.br:8080/produtos-0.0.1';
 
   constructor(
     private http: HttpClient
