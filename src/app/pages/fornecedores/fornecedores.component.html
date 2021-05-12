@@ -28,12 +28,12 @@
 </ng-template>
 
 <ng-template #dialog let-context let-ref="dialogRef">
-  <!-- <div *ngSwitch="context.type">
-    <ngx-modal-criar-fornecedor 
-      *ngSwitchCase="'criar'"
+  <ngx-modal-criar-fornecedor
+    *ngIf="context.type === 'criar'" 
     (backBtnClick)="ref.close()"
-  ></ngx-modal-criar-fornecedor> -->
-  <div class="fornecedor-detalhes">
+  ></ngx-modal-criar-fornecedor>
+
+  <div class="fornecedor-detalhes" *ngIf="context.type === 'detalhes'">
     <div class="header">
       <button nbButton ghost (click)="ref.close()">
         <nb-icon icon="arrow-back"></nb-icon>
