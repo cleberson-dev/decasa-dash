@@ -19,7 +19,7 @@ export class ModalAdicionarComponent implements OnInit {
 
   produtos: AddProductItem[] = [
     {
-      id: 1,
+      id: "1",
       nome: 'Produto #1',
       marca: marcas.nike,
       modelo: modelos.airMax,
@@ -28,7 +28,7 @@ export class ModalAdicionarComponent implements OnInit {
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     },
     {
-      id: 2,
+      id: "2",
       nome: 'Produto #2',
       marca: marcas.nike,
       modelo: modelos.airMax,
@@ -37,7 +37,7 @@ export class ModalAdicionarComponent implements OnInit {
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     },
     {
-      id: 3,
+      id: "3",
       nome: 'Produto #3',
       marca: marcas.amanco,
       modelo: modelos.modelo5,
@@ -46,7 +46,7 @@ export class ModalAdicionarComponent implements OnInit {
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     },
     {
-      id: 4,
+      id: "4",
       nome: 'Produto #4',
       marca: marcas.fender,
       modelo: modelos.galaxy,
@@ -55,7 +55,7 @@ export class ModalAdicionarComponent implements OnInit {
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     },
     {
-      id: 5,
+      id: "5",
       nome: 'Produto #5',
       marca: marcas.nike,
       modelo: modelos.airMax,

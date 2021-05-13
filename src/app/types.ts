@@ -12,7 +12,7 @@ export type Colaborador = {
 }
 
 export type Produto = {
-  id?: number;
+  id?: string;
   nome: string;
   foto: string;
   categoria: IdentifiableObject;

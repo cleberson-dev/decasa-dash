@@ -64,7 +64,7 @@ const defaultProduct = {
 export const produtos: Produto[] = [
   {
     ...defaultProduct,
-    id: 1,
+    id: "1",
     nome: 'Produto 1',
     categoria: getRandom(categorias),
     departamento: getRandom(departamentos),
@@ -73,7 +73,7 @@ export const produtos: Produto[] = [
   },
   {
     ...defaultProduct,
-    id: 2,
+    id: "2",
     nome: 'Produto 2',
     categoria: getRandom(categorias),
     departamento: getRandom(departamentos),
@@ -82,7 +82,7 @@ export const produtos: Produto[] = [
   },
   {
     ...defaultProduct,
-    id: 3,
+    id: "3",
     nome: 'Produto 3',
     categoria: getRandom(categorias),
     departamento: getRandom(departamentos),
@@ -91,7 +91,7 @@ export const produtos: Produto[] = [
   },
   {
     ...defaultProduct,
-    id: 4,
+    id: "4",
     nome: 'Produto 4',
     categoria: getRandom(categorias),
     departamento: getRandom(departamentos),
@@ -100,7 +100,7 @@ export const produtos: Produto[] = [
   },
   {
     ...defaultProduct,
-    id: 5,
+    id: "5",
     nome: 'Produto 5',
     categoria: getRandom(categorias),
     departamento: getRandom(departamentos),
