@@ -4,7 +4,8 @@ import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
-import { Fornecedor } from '../../types';
+import { Fornecedor, Produto } from '../../types';
+import * as fake from '../../fake-data';
 
 type Pedido = {
   data: string;
@@ -49,6 +50,9 @@ export class PedidosComponent implements OnInit {
 
   fornecedores: Fornecedor[] = [];
 
+
+  produtos: Produto[] = [...fake.produtos];
+
   constructor(
     private fb: FormBuilder,
     private dialogService: NbDialogService
@@ -56,7 +60,7 @@ export class PedidosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.autoOptions = ['Option 1', 'Option 2', 'Option 3'];
+    this.autoOptions = this.produtos.map(p => p.nome);
     this.suggestedOptions$ = of(this.autoOptions);
   }
 
@@ -64,6 +68,10 @@ export class PedidosComponent implements OnInit {
     this.suggestedOptions$ = of($event).pipe(
       map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
     );
+    const selectedProduct = this.produtos.find(p => p.nome.toLowerCase().includes($event.toLowerCase()));
+    if (!selectedProduct) return;
+
+    this.novoPedidoForm.controls['rcm'].setValue(selectedProduct.id);
   }
 
   onInputChange() {
