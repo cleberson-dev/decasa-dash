@@ -1,3 +1,17 @@
+import { Produto } from "./types";
+
+type Entity = {
+  [key: string]: any
+}
+
+export function getRandom(collection: Entity) {
+  const entries = Object.entries(collection);
+  const randomIdx = Math.floor(Math.random() * entries.length);
+  const [_, randomValue] = entries[randomIdx];
+  
+  return randomValue;
+}
+
 export const marcas = {
   nike: { id: 1, nome: 'Nike' },
   fender: { id: 2, nome: 'Fender' },
@@ -37,3 +51,60 @@ export const departamentos = {
   moveis: { id: 4, nome: 'Móveis' },
   celulares: { id: 5, nome: 'Celulares' },
 }
+
+const defaultProduct = {
+  cnp: '',
+  detalhe: '',
+  foto: '',
+  manualInstrucao: '',
+  videoDemonstrativo: '',
+  quantidadeApresentacao: 1
+};
+
+export const produtos: Produto[] = [
+  {
+    ...defaultProduct,
+    id: 1,
+    nome: 'Produto 1',
+    categoria: getRandom(categorias),
+    departamento: getRandom(departamentos),
+    marca: getRandom(marcas),
+    modelo: getRandom(modelos),
+  },
+  {
+    ...defaultProduct,
+    id: 2,
+    nome: 'Produto 2',
+    categoria: getRandom(categorias),
+    departamento: getRandom(departamentos),
+    marca: getRandom(marcas),
+    modelo: getRandom(modelos),
+  },
+  {
+    ...defaultProduct,
+    id: 3,
+    nome: 'Produto 3',
+    categoria: getRandom(categorias),
+    departamento: getRandom(departamentos),
+    marca: getRandom(marcas),
+    modelo: getRandom(modelos),
+  },
+  {
+    ...defaultProduct,
+    id: 4,
+    nome: 'Produto 4',
+    categoria: getRandom(categorias),
+    departamento: getRandom(departamentos),
+    marca: getRandom(marcas),
+    modelo: getRandom(modelos),
+  },
+  {
+    ...defaultProduct,
+    id: 5,
+    nome: 'Produto 5',
+    categoria: getRandom(categorias),
+    departamento: getRandom(departamentos),
+    marca: getRandom(marcas),
+    modelo: getRandom(modelos),
+  },
+]
