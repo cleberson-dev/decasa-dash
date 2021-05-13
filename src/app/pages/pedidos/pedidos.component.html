@@ -51,6 +51,7 @@
     </table>
 
     <h5>Fornecedores</h5>
+    <p *ngIf="fornecedores.length === 0">Sem itens</p>
     <nb-list>
       <nb-list-item *ngFor="let fornecedor of fornecedores">
         <p>{{ fornecedor.nome }}</p>
