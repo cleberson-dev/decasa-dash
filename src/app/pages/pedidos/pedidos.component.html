@@ -1,6 +1,7 @@
 <ngx-tabber [tabs]="tabs"></ngx-tabber>
 <nb-card class="card">
   <nb-card-body class="card-body">
+    <h5>Produtos</h5>
     <table>
       <thead>
         <tr>
@@ -48,6 +49,14 @@
         </tr>
       </tbody>
     </table>
+
+    <h5 style="margin-top: 2rem">Fornecedores</h5>
+    <nb-list>
+      <nb-list-item *ngFor="let fornecedor of fornecedores">
+        <p>{{ fornecedor.nome }}</p>
+      </nb-list-item>
+    </nb-list>
+    <button nbButton (click)="openAddFornecedores(dialog)">Adicionar</button>
   </nb-card-body>
 
 
@@ -57,3 +66,10 @@
   </nb-card-footer>
   
 </nb-card>
+
+<ng-template #dialog let-context let-ref="dialogRef">
+  <ngx-modal-add-fornecedores
+    (exit)="ref.close()"
+    (addition)="handleFornecedores($event, ref)"
+  ></ngx-modal-add-fornecedores>
+</ng-template>

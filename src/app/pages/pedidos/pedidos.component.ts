@@ -1,8 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
+import { Fornecedor } from '../../types';
 
 type Pedido = {
   data: string;
@@ -45,8 +47,11 @@ export class PedidosComponent implements OnInit {
     quantidade: [1, [Validators.required, Validators.min(1)]],
   });
 
+  fornecedores: Fornecedor[] = [];
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialogService: NbDialogService
   ) {
   }
 
@@ -77,5 +82,14 @@ export class PedidosComponent implements OnInit {
     });
     this.novoPedidoForm.reset();
     this.input.nativeElement.value = "";
+  }
+
+  openAddFornecedores(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog);
+  }
+
+  handleFornecedores(fornecedores: Fornecedor[], ref: NbDialogRef<any>) {
+    this.fornecedores.push(...fornecedores);
+    ref.close();
   }
 }
