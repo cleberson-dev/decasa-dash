@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -88,8 +88,24 @@ export class PedidosComponent implements OnInit {
     this.dialogService.open(dialog, { context: { type: 'addSupplier' } });
   }
 
-  handleFornecedores(fornecedores: Fornecedor[], ref: NbDialogRef<any>) {
+  onAddSupplier(fornecedores: Fornecedor[], ref: NbDialogRef<any>) {
     this.fornecedores.push(...fornecedores);
+    ref.close();
+  }
+
+  onCreateSupplier(form: FormGroup, ref: NbDialogRef<any>) {
+    this.fornecedores.push({
+      nome: form.controls['nome'].value,
+      cnpj: form.controls['cnpj'].value,
+      bairro: form.controls['bairro'].value,
+      celular: form.controls['celular'].value,
+      cep: form.controls['cep'].value,
+      email: form.controls['email'].value,
+      logradouro: form.controls['logradouro'].value,
+      numero: form.controls['numero'].value,
+      pontoReferencia: form.controls['pontoReferencia'].value,
+      telefone: form.controls['telefone'].value
+    });
     ref.close();
   }
 }

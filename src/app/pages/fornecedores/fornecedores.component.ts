@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from '../../services/api.service';
 import { Fornecedor } from '../../types';
@@ -86,8 +86,20 @@ export class FornecedoresComponent implements OnInit {
     });
   }
 
-  onFormSubmit(e: FormGroup) {
-    console.log(e);
+  onFormSubmit(form: FormGroup, ref: NbDialogRef<any>) {
+    this.fornecedores.push({
+      nome: form.controls['nome'].value,
+      cnpj: form.controls['cnpj'].value,
+      bairro: form.controls['bairro'].value,
+      celular: form.controls['celular'].value,
+      cep: form.controls['cep'].value,
+      email: form.controls['email'].value,
+      logradouro: form.controls['logradouro'].value,
+      numero: form.controls['numero'].value,
+      pontoReferencia: form.controls['pontoReferencia'].value,
+      telefone: form.controls['telefone'].value
+    });
+    ref.close();
   }
 
   onEdit(context: any) {

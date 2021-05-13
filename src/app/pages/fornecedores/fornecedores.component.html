@@ -32,7 +32,7 @@
     *ngIf="context.type === 'form'"
     [title]="formTitle"
     [submitText]="formSubmitText"
-    (submitBtnClick)="onFormSubmit($event)"
+    (submitBtnClick)="onFormSubmit($event, ref)"
     (backBtnClick)="ref.close()"
     [initialForm]="formFornecedor"
   ></ngx-modal-form-fornecedor>

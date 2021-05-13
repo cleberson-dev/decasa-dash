@@ -72,11 +72,12 @@
   <ngx-modal-add-fornecedores
     *ngIf="context.type === 'addSupplier'"
     (exit)="ref.close()"
-    (addition)="handleFornecedores($event, ref)"
+    (addition)="onAddSupplier($event, ref)"
     (btnClick)="context.type = 'formSupplier'"
   ></ngx-modal-add-fornecedores>
   <ngx-modal-form-fornecedor
     *ngIf="context.type === 'formSupplier'"
     (backBtnClick)="context.type = 'addSupplier'"
+    (submitBtnClick)="onCreateSupplier($event, ref)"
   ></ngx-modal-form-fornecedor>
 </ng-template>
