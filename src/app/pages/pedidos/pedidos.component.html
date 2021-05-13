@@ -15,7 +15,14 @@
       </thead>
       <tbody>
         <tr [formGroup]="novoPedidoForm">
-          <td><input nbInput style="width: 150px" formControlName="rcm" /></td>
+          <td>
+            <input 
+              nbInput 
+              style="width: 150px" 
+              formControlName="rcm"
+              (blur)="onRCMBlur()"
+            />
+          </td>
           <td>
             <input 
               #autoInput 

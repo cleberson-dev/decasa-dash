@@ -116,4 +116,14 @@ export class PedidosComponent implements OnInit {
     });
     ref.close();
   }
+
+  onRCMBlur() {
+    const rcm = this.novoPedidoForm.controls['rcm'].value;
+    const product = this.produtos.find(p => p.id === rcm);
+    if (!product) {
+      this.novoPedidoForm.controls['rcm'].setErrors({ noProduct: true });
+    } else {
+      this.novoPedidoForm.controls['nome'].setValue(product.nome);
+    }
+  }
 }
