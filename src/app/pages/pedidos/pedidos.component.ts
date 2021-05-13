@@ -85,7 +85,7 @@ export class PedidosComponent implements OnInit {
   }
 
   openAddFornecedores(dialog: TemplateRef<any>) {
-    this.dialogService.open(dialog);
+    this.dialogService.open(dialog, { context: { type: 'addSupplier' } });
   }
 
   handleFornecedores(fornecedores: Fornecedor[], ref: NbDialogRef<any>) {
