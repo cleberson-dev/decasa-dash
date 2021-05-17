@@ -85,11 +85,12 @@ thead tr:first-child th {
 }
 
 fieldset {
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
 
 fieldset legend {
   font-size: 0.8rem;
+  margin-bottom: 0px;
 
   &::before {
     content: '';
