@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { NbDialogService } from '@nebular/theme';
 import { Tab } from '../../../components/tabber/tabber.component';
 
 
@@ -19,6 +20,8 @@ type MapRow = {
   styleUrls: ['./mapa.component.scss']
 })
 export class MapaComponent implements OnInit {
+
+  fornecedores = ['F1', 'F2', 'F3', 'F4'];
 
   data: MapRow[] = [
     { 
@@ -48,6 +51,20 @@ export class MapaComponent implements OnInit {
         1.12,
         3.45
       ]
+    },
+    { 
+      produto: {
+        codigo: "3355",
+        nome: "Produto #3",
+        quantidade: 5,
+        unidade: 'cm'
+      },
+      precos: [
+        2.1,
+        undefined,
+        2.2,
+        4.1
+      ]
     }
   ];
 
@@ -61,7 +78,9 @@ export class MapaComponent implements OnInit {
     { title: 'Acompanhamento', link: '' },
   ];
 
-  constructor() { }
+  constructor(
+    private dialogService: NbDialogService
+  ) { }
 
   ngOnInit(): void {
     for (let i = 0; i < this.data.length; i += 1) {
@@ -93,5 +112,16 @@ export class MapaComponent implements OnInit {
     }, 
     undefined);
     console.log(this.somaFornecedores, this.menorSomaIdx);
+  }
+
+  openRowDetails(dialog: TemplateRef<any>, row: any) {
+    const context = {
+      codigo: row.produto.codigo,
+      nome: row.produto.nome,
+      quantidade: row.produto.quantidade,
+      unidade: row.produto.unidade
+    };
+    
+    this.dialogService.open(dialog, { context });
   }
 }

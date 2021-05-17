@@ -13,10 +13,7 @@
       </colgroup>
       <thead>
         <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
+          <th colspan="4">Pedido (RFQ)</th>
           <th colspan="4" class="bordered">Fornecedores</th>
           <th></th>
         </tr>
@@ -25,10 +22,12 @@
           <th class="bordered">Produtos</th>
           <th class="bordered">Un.</th>
           <th class="bordered">Qtd.</th>
-          <th class="bordered">F1</th>
-          <th class="bordered">F2</th>
-          <th class="bordered menor-fornecedor">F3</th>
-          <th class="bordered">F4</th>
+          <th 
+            *ngFor="let fNome of fornecedores; let i = index;"
+            [class]="{ bordered: true, 'menor-fornecedor': i === menorSomaIdx }"
+          >
+            {{ fNome }}
+          </th>
           <th class="bordered">Menor Preço</th>
         </tr>
         <tr>
@@ -46,7 +45,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of data; let i = index">
+        <tr
+          (click)="openRowDetails(dialog, row)"
+          *ngFor="let row of data; let i = index"
+        >
           <td>{{ row.produto.codigo }}</td>
           <td>{{ row.produto.nome }}</td>
           <td>{{ row.produto.unidade }}</td>
@@ -66,5 +68,31 @@
       <legend class="purple">Menor preço total</legend>
       <legend class="green">Menor preço do produto</legend>
     </fieldset>
+
+    <button nbButton>Adicionar fornecedor</button>
+    <nb-card-footer>
+      <button nbButton status="primary">Próximo</button>
+    </nb-card-footer>
   </nb-card-body>
 </nb-card>
+
+<ng-template #dialog let-produto let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Detalhes do Produto</nb-card-header>
+    <nb-card-body class="dialog-body">
+      <div class="left">
+        <h5>Código</h5>
+        <p>{{ produto.codigo }}</p>
+        <h5>Nome</h5>
+        <p>{{ produto.nome }}</p>
+        <h5>Unidade</h5>
+        <p>{{ produto.unidade }}</p>
+        <h5>Quantidade</h5>
+        <p>{{ produto.quantidade }}</p>
+      </div>
+      <div class="right">
+        <h5>Preços</h5>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
