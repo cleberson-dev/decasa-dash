@@ -25,7 +25,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Financeiro',
     icon: 'shopping-cart-outline',
-    link: '/forms/layouts',
+    link: '/financeiro',
   },
   {
     title: 'Colaboradores',
