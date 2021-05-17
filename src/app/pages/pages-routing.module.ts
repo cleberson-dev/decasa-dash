@@ -8,6 +8,7 @@ import { ColaboradoresComponent } from './colaboradores/colaboradores.component'
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { CriarPedidosComponent } from './pedidos/criar-pedidos/criar-pedidos.component';
 import { FornecedoresComponent } from './fornecedores/fornecedores.component';
+import { MapaComponent } from './pedidos/mapa/mapa.component';
 
 const routes: Routes = [{
   path: '',
@@ -28,6 +29,10 @@ const routes: Routes = [{
     {
       path: 'pedidos/criar',
       component: CriarPedidosComponent
+    },
+    {
+      path: 'pedidos/mapa',
+      component: MapaComponent
     },
     {
       path: 'fornecedores',

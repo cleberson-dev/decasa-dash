@@ -39,6 +39,7 @@ import { ModalFormFornecedorComponent } from '../components/modal-form-fornecedo
 import { TabberComponent } from '../components/tabber/tabber.component';
 import { FornecedoresComponent } from './fornecedores/fornecedores.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MapaComponent } from './pedidos/mapa/mapa.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ModalAddFornecedoresComponent,
     ModalFormFornecedorComponent,
     TabberComponent,
-    FornecedoresComponent
+    FornecedoresComponent,
+    MapaComponent
   ]
 })
 export class PagesModule {
