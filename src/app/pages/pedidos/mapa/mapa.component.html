@@ -1,1 +1,70 @@
-<p>mapa works!</p>
+<ngx-tabber [tabs]="tabs"></ngx-tabber>
+
+<nb-card>
+  <nb-card-body>
+    <table>
+      <colgroup>
+        <col class="resizable" />
+        <col class="produtos-col" />
+        <col class="resizable" />
+        <col class="resizable" />
+        <col class="fornecedores-col" />
+        <col class="resizable" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th colspan="4" class="bordered">Fornecedores</th>
+          <th></th>
+        </tr>
+        <tr>
+          <th class="bordered">Código</th>
+          <th class="bordered">Produtos</th>
+          <th class="bordered">Un.</th>
+          <th class="bordered">Qtd.</th>
+          <th class="bordered">F1</th>
+          <th class="bordered">F2</th>
+          <th class="bordered menor-fornecedor">F3</th>
+          <th class="bordered">F4</th>
+          <th class="bordered">Menor Preço</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th 
+            *ngFor="let somaFornecedor of somaFornecedores; let i = index;" 
+            [class]="{ bordered: true, 'menor-fornecedor': i === menorSomaIdx }"
+          >
+            {{ somaFornecedor ? "Σ " + somaFornecedor.toFixed(2) : "--" }}
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data; let i = index">
+          <td>{{ row.produto.codigo }}</td>
+          <td>{{ row.produto.nome }}</td>
+          <td>{{ row.produto.unidade }}</td>
+          <td>{{ row.produto.quantidade }}</td>
+          <td
+            *ngFor="let preco of row.precos; let j = index"
+            [class]="{ menor: j === row.menorPrecoIdx, preco: true, 'menor-fornecedor': j === menorSomaIdx }"
+          >
+            {{ preco || "--" }}
+          </td>
+          <td>{{ row.precos[row.menorPrecoIdx] || "--" }}</td>
+        </tr>
+      </tbody>
+      
+    </table>
+    <fieldset>
+      <legend class="purple">Menor preço total</legend>
+      <legend class="green">Menor preço do produto</legend>
+    </fieldset>
+  </nb-card-body>
+</nb-card>

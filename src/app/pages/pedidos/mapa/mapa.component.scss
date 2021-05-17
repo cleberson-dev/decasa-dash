@@ -1,0 +1,101 @@
+table {
+  width: 100%;
+  max-height: 100vh;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 1rem;
+  background: #dcdcdc;
+  text-align: center;
+}
+
+th.fornecedores, td.fornecedores {
+  display: flex;
+  justify-content: space-around;
+}
+
+td {
+  text-align: center;
+  padding: .6rem 0;
+}
+
+.dynamic {
+  width: fit-content;
+}
+
+
+th.menor, td.menor {
+  background: lightgreen;
+}
+
+.bordered {
+  border: 1px solid black;
+}
+
+
+.table-wrapper {
+  position: relative;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.fornecedores-col {
+  width: 10px;
+  overflow-x: scroll;
+}
+
+.fixed-col {
+  position: absolute;
+  top: auto;
+  left: auto;
+  width: 100%;
+}
+
+td.preco {
+  width: fit-content;
+}
+
+.resizable {
+  width: fit-content;
+}
+
+th {
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.produtos-col {
+  width: 100%;
+}
+
+thead tr:first-child th {
+  background: transparent;
+  border: none;
+  padding-bottom: 5px;
+  font-size: 0.8rem;
+}
+
+.menor-fornecedor {
+  background: plum;
+}
+
+fieldset {
+  margin-top: 1rem;
+}
+
+fieldset legend {
+  font-size: 0.8rem;
+
+  &::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  &.green::before { background: lightgreen; }
+  &.purple::before { background: plum; }
+}
