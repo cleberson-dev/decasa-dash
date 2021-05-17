@@ -31,7 +31,7 @@ export class PedidosComponent implements OnInit {
 
   tabs: Tab[] = [
     { title: 'Cotação', link: '', active: true },
-    { title: 'Mapa', link: '' },
+    { title: 'Mapa', link: 'mapa' },
     { title: 'Emitir compra', link: '' },
     { title: 'Acompanhamento', link: '' },
   ]
@@ -117,13 +117,30 @@ export class PedidosComponent implements OnInit {
     ref.close();
   }
 
+  isInvalidControl(controlName: string) {
+    const control = this.novoPedidoForm.controls[controlName];
+    return control.invalid && (control.touched || control.dirty);
+  }
+
   onRCMBlur() {
     const rcm = this.novoPedidoForm.controls['rcm'].value;
     const product = this.produtos.find(p => p.id === rcm);
     if (!product) {
       this.novoPedidoForm.controls['rcm'].setErrors({ noProduct: true });
+      // this.novoPedidoForm.controls['rcm'].setValue(rcm);
+      this.novoPedidoForm.controls['nome'].setValue('');
     } else {
-      this.novoPedidoForm.controls['nome'].setValue(product.nome);
+      this.novoPedidoForm.controls['rcm'].setValue(product.id);
+    }
+  }
+
+  onNomeBlur() {
+    const name = this.novoPedidoForm.controls['nome'].value;
+    const product = this.produtos.find(p => p.nome === name);
+    if (!product) {
+      this.novoPedidoForm.controls['nome'].setErrors({ noProduct: true });
+    } else {
+      this.novoPedidoForm.controls['nome'].setErrors({})
     }
   }
 }
