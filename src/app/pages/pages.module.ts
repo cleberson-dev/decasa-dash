@@ -12,7 +12,8 @@ import {
   NbIconModule,
   NbContextMenuModule,
   NbStepperModule,
-  NbAutocompleteModule
+  NbAutocompleteModule,
+  NbButtonGroupModule
 } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
@@ -63,7 +64,8 @@ import { FinanceiroComponent } from './financeiro/financeiro.component';
     SpringSpinnerModule,
     Ng2SmartTableModule,
     NbAutocompleteModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NbButtonGroupModule
   ],
   declarations: [
     PagesComponent,
