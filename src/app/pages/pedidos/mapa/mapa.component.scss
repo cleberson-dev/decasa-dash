@@ -1,3 +1,6 @@
+$menorProdutoCor: #aaf683;
+$menorFornecedorCor: #dec9e9;
+
 table {
   width: 100%;
   max-height: 100vh;
@@ -6,7 +9,7 @@ table {
 
 th {
   padding: 1rem;
-  background: #dcdcdc;
+  background: #edf1f7;
   text-align: center;
 }
 
@@ -26,7 +29,7 @@ td {
 
 
 th.menor, td.menor {
-  background: lightgreen;
+  background: $menorProdutoCor;
 }
 
 .bordered {
@@ -77,7 +80,7 @@ thead tr:first-child th {
 }
 
 .menor-fornecedor {
-  background: plum;
+  background: $menorFornecedorCor;
 }
 
 fieldset {
@@ -96,6 +99,18 @@ fieldset legend {
     margin-right: 4px;
   }
 
-  &.green::before { background: lightgreen; }
-  &.purple::before { background: plum; }
+  &.green::before { background: $menorProdutoCor; }
+  &.purple::before { background: $menorFornecedorCor; }
+}
+
+tbody tr {
+  cursor: pointer;
+
+  &:hover {
+    color: darken(#222b45, 60%);
+  }
+}
+
+.dialog-body {
+  display: flex;
 }
