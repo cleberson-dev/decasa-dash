@@ -134,3 +134,19 @@ th.fornecedor {
     }
   }
 }
+
+td.last-prices {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  .icon {
+    width: 15px;
+    height: auto;
+    position: relative;
+    top: 3px;
+    color: green;
+    margin-right: 2px;
+  }
+}

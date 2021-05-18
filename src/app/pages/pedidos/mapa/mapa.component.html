@@ -10,11 +10,13 @@
         <col class="resizable" />
         <col class="fornecedores-col" />
         <col class="resizable" />
+        <col class="resizable" />
       </colgroup>
       <thead>
         <tr>
           <th colspan="4">Pedido (RFQ)</th>
           <th colspan="4" class="bordered">Fornecedores</th>
+          <th></th>
           <th></th>
         </tr>
         <tr>
@@ -30,6 +32,7 @@
             {{ fornecedor }}
           </th>
           <th class="bordered">Menor Preço</th>
+          <th class="bordered">Últimas compras</th>
         </tr>
         <tr>
           <th></th>
@@ -42,6 +45,7 @@
           >
             {{ somaFornecedor ? "Σ " + somaFornecedor.toFixed(2) : "--" }}
           </th>
+          <th></th>
           <th></th>
         </tr>
       </thead>
@@ -61,6 +65,10 @@
             {{ preco || "--" }}
           </td>
           <td>{{ row.precos[row.menorPrecoIdx] || "--" }}</td>
+          <td class="last-prices">
+            <nb-icon class="icon" icon="arrow-up"></nb-icon>
+            9.99 
+          </td>
         </tr>
       </tbody>
       
