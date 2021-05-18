@@ -1,5 +1,6 @@
 $menorProdutoCor: #aaf683;
 $menorFornecedorCor: #dec9e9;
+$tableHeadBorderRadius: 0.6rem;
 
 table {
   width: 100%;
@@ -11,6 +12,7 @@ th {
   padding: 1rem;
   background: #edf1f7;
   text-align: center;
+  font-weight: 600;
 }
 
 th.fornecedores, td.fornecedores {
@@ -31,11 +33,6 @@ td {
 th.menor, td.menor {
   background: $menorProdutoCor;
 }
-
-.bordered {
-  border: 1px solid black;
-}
-
 
 .table-wrapper {
   position: relative;
@@ -152,4 +149,26 @@ td.last-prices {
   &.increase .icon { color: green; }
   &.decrease .icon { color: red; }
 
+}
+
+thead tr:nth-child(2) th:first-child{
+  border-top-left-radius: $tableHeadBorderRadius;
+}
+
+thead tr:nth-child(2) th:last-child{
+  border-top-right-radius: $tableHeadBorderRadius;
+}
+
+thead tr:last-child th:first-child{
+  border-bottom-left-radius: $tableHeadBorderRadius;
+}
+
+thead tr:last-child th:last-child{
+  border-bottom-right-radius: $tableHeadBorderRadius;
+}
+
+
+
+tbody tr {
+  border-bottom: 1px solid #edf1f7;
 }

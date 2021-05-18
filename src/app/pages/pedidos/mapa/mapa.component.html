@@ -17,10 +17,10 @@
           <th></th>
         </tr>
         <tr>
-          <th class="bordered">Código</th>
-          <th class="bordered">Produtos</th>
-          <th class="bordered">Un.</th>
-          <th class="bordered">Qtd.</th>
+          <th>Código</th>
+          <th>Produtos</th>
+          <th>Un.</th>
+          <th>Qtd.</th>
           <th 
             *ngFor="let fornecedor of fornecedores; let i = index;"
             [class]="{ fornecedor: true, bordered: true, 'menor-fornecedor': i === menorSomaIdx }"
@@ -28,7 +28,7 @@
             <nb-icon class="info" icon="info-outline"></nb-icon>
             {{ fornecedor }}
           </th>
-          <th class="bordered">Últimas compras</th>
+          <th>Últimas compras</th>
         </tr>
         <tr>
           <th></th>
