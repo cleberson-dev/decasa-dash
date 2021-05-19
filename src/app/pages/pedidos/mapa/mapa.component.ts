@@ -71,7 +71,7 @@ export class MapaComponent implements OnInit {
   menorSomaIdx: number;
 
   tabs: Tab[] = [
-    { title: 'Cotação', link: '/pedidos/cotacao' },
+    { title: 'Cotação', link: '/pedidos' },
     { title: 'Mapa', link: '/pedidos/mapa', active: true  },
     { title: 'Ordem de compra', link: '' },
     { title: 'Acompanhamento', link: '' },
