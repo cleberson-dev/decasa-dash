@@ -21,9 +21,13 @@
           <th>Produtos</th>
           <th>Un.</th>
           <th>Qtd.</th>
-          <th 
-            *ngFor="let fornecedor of fornecedores; let i = index;"
-            [class]="{ fornecedor: true, bordered: true, 'menor-fornecedor': i === menorSomaIdx }"
+          <th
+            *ngFor="let fornecedor of fornecedores; let i = index"
+            [class]="{
+              fornecedor: true,
+              bordered: true,
+              'menor-fornecedor': i === menorSomaIdx
+            }"
           >
             <nb-icon class="info" icon="info-outline"></nb-icon>
             {{ fornecedor }}
@@ -35,8 +39,8 @@
           <th></th>
           <th></th>
           <th></th>
-          <th 
-            *ngFor="let somaFornecedor of somaFornecedores; let i = index;" 
+          <th
+            *ngFor="let somaFornecedor of somaFornecedores; let i = index"
             [class]="{ bordered: true, 'menor-fornecedor': i === menorSomaIdx }"
           >
             {{ somaFornecedor ? "Σ " + somaFornecedor.toFixed(2) : "--" }}
@@ -55,17 +59,20 @@
           <td>{{ row.produto.quantidade }}</td>
           <td
             *ngFor="let preco of row.precos; let j = index"
-            [class]="{ menor: j === row.menorPrecoIdx, preco: true, 'menor-fornecedor': j === menorSomaIdx }"
+            [class]="{
+              menor: j === row.menorPrecoIdx,
+              preco: true,
+              'menor-fornecedor': j === menorSomaIdx
+            }"
           >
             {{ preco || "--" }}
           </td>
           <td class="last-prices increase">
             <nb-icon class="icon" icon="arrow-up"></nb-icon>
-            9.99 
+            9.99
           </td>
         </tr>
       </tbody>
-      
     </table>
     <fieldset>
       <legend class="purple">Menor preço total</legend>
@@ -74,11 +81,11 @@
   </nb-card-body>
   <nb-card-footer>
     <button nbButton status="primary">Próximo</button>
-    <button nbButton style="margin-left: 1rem;">
+    <button nbButton style="margin-left: 1rem">
       <nb-icon icon="plus"></nb-icon>
       Adicionar fornecedor
     </button>
-    </nb-card-footer>
+  </nb-card-footer>
 </nb-card>
 
 <ng-template #dialog let-produto let-ref="dialogRef">
@@ -86,17 +93,41 @@
     <nb-card-header>Detalhes do Produto</nb-card-header>
     <nb-card-body class="dialog-body">
       <div class="left">
-        <h5>Código</h5>
-        <p>{{ produto.codigo }}</p>
-        <h5>Nome</h5>
-        <p>{{ produto.nome }}</p>
-        <h5>Unidade</h5>
-        <p>{{ produto.unidade }}</p>
-        <h5>Quantidade</h5>
-        <p>{{ produto.quantidade }}</p>
+        <p>Código</p>
+        <span>{{ produto.codigo }}</span>
+        <p>
+          Nome
+        </p>
+        <span>{{ produto.nome }}</span>
+        <p>
+          Unidade
+        </p>
+        <span>{{ produto.unidade }}</span>
+        <p>
+          Quantidade
+        </p>
+        <span>{{ produto.quantidade }}</span>
       </div>
       <div class="right">
-        <h5>Preços</h5>
+        <p>Preços</p>
+        <ul>
+          <li>
+            <span>Fornecedor 1</span> 
+            <span>R$9.99</span>
+          </li>
+          <li class="menor">
+            <span>Fornecedor 2</span> 
+            <span>R$9.99</span>
+          </li>
+          <li>
+            <span>Fornecedor 3</span> 
+            <span>R$9.99</span>
+          </li>
+          <li>
+            <span>Fornecedor 4</span> 
+            <span>R$9.99</span>
+          </li>
+        </ul>
       </div>
     </nb-card-body>
   </nb-card>
