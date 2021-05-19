@@ -44,6 +44,7 @@ import { MapaComponent } from './pedidos/mapa/mapa.component';
 import { FinanceiroComponent } from './financeiro/financeiro.component';
 import { ContaCorrenteComponent } from './financeiro/conta-corrente/conta-corrente.component';
 import { RelatoriosComponent } from './financeiro/relatorios/relatorios.component';
+import { EstoqueComponent } from './estoque/estoque.component';
 
 @NgModule({
   imports: [
@@ -90,7 +91,8 @@ import { RelatoriosComponent } from './financeiro/relatorios/relatorios.componen
     MapaComponent,
     FinanceiroComponent,
     ContaCorrenteComponent,
-    RelatoriosComponent
+    RelatoriosComponent,
+    EstoqueComponent
   ]
 })
 export class PagesModule {

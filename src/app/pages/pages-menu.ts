@@ -20,7 +20,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Estoque',
     icon: 'email-outline',
-    link: '/forms/layouts',
+    link: '/estoque',
   },
   {
     title: 'Financeiro',
