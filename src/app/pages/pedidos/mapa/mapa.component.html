@@ -65,7 +65,7 @@
               'menor-fornecedor': j === menorSomaIdx
             }"
           >
-            {{ preco || "--" }}
+            {{ preco ? preco.toFixed(2) : "--" }}
           </td>
           <td class="last-prices increase">
             <nb-icon class="icon" icon="arrow-up"></nb-icon>
@@ -121,7 +121,7 @@
             [class]="{ menor: idx === produto.menorPrecoIdx }"
           >
             <span>{{ preco.fornecedor }}</span> 
-            <span>{{ preco.valor ? 'R$' + preco.valor : '--' }}</span>
+            <span>{{ preco.valor ? 'R$' + preco.valor.toFixed(2) : '--' }}</span>
           </li>
         </ul>
       </div>
