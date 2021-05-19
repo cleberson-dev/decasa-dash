@@ -111,21 +111,12 @@
       <div class="right">
         <p>Preços</p>
         <ul>
-          <li>
-            <span>Fornecedor 1</span> 
-            <span>R$9.99</span>
-          </li>
-          <li class="menor">
-            <span>Fornecedor 2</span> 
-            <span>R$9.99</span>
-          </li>
-          <li>
-            <span>Fornecedor 3</span> 
-            <span>R$9.99</span>
-          </li>
-          <li>
-            <span>Fornecedor 4</span> 
-            <span>R$9.99</span>
+          <li 
+            *ngFor="let preco of produto.precos; let idx = index;" 
+            [class]="{ menor: idx === produto.menorPrecoIdx }"
+          >
+            <span>{{ preco.fornecedor }}</span> 
+            <span>{{ preco.valor ? 'R$' + preco.valor : '--' }}</span>
           </li>
         </ul>
       </div>

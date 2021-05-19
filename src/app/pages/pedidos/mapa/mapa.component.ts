@@ -114,12 +114,14 @@ export class MapaComponent implements OnInit {
     console.log(this.somaFornecedores, this.menorSomaIdx);
   }
 
-  openRowDetails(dialog: TemplateRef<any>, row: any) {
+  openRowDetails(dialog: TemplateRef<any>, row: MapRow) {
     const context = {
       codigo: row.produto.codigo,
       nome: row.produto.nome,
       quantidade: row.produto.quantidade,
-      unidade: row.produto.unidade
+      unidade: row.produto.unidade,
+      precos: row.precos.map((preco, idx) => ({ fornecedor: this.fornecedores[idx], valor: preco })),
+      menorPrecoIdx: row.menorPrecoIdx
     };
     
     this.dialogService.open(dialog, { context });
