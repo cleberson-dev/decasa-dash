@@ -2,6 +2,120 @@
 
 <nb-card>
   <nb-card-body>
-    Olá
+    <form>
+      <div class="row">
+        <div class="form-group col-3">
+          <label>Loja</label>
+          <nb-select fullWidth>
+            <nb-option value="filial-01">Filial 01</nb-option>
+            <nb-option value="filial-02">Filial 02</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group col-3">
+          <label>Conta Corrente</label>
+          <nb-select fullWidth>
+            <nb-option value="gerencia">Gerência</nb-option>
+            <nb-option value="diretoria">Diretoria</nb-option>
+            <nb-option value="caixa-1">Caixa 1</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group col-2">
+          <label>Data Início</label>
+          <input nbInput [nbDatepicker]="startDatePicker" fullWidth />
+          <nb-datepicker #startDatePicker></nb-datepicker>
+        </div>
+        <div class="form-group col-2">
+          <label>Data Fim</label>
+          <input nbInput [nbDatepicker]="endDatePicker" fullWidth />
+          <nb-datepicker #endDatePicker></nb-datepicker>
+        </div>
+        <div class="form-group col-2">
+          <label>Tipo</label>
+          <nb-select fullWidth>
+            <nb-option value="receita">Receita</nb-option>
+            <nb-option value="despesa">Despesa</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <button nbButton type="submit" status="primary" fullWidth>
+            Buscar
+          </button>
+        </div>
+      </div>
+    </form>
+    <table>
+      <colgroup>
+        <col class="resizable" />
+        <col class="resizable" />
+        <col class="resizable" />
+        <col />
+        <col class="resizable" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Data lançamento</th>
+          <th>Fator Gerador</th>
+          <th>Descrição</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
+          <td>17/05/2021</td>
+          <td>964</td>
+          <td>TAXAS E MULTAS</td>
+          <td class="valor income">40,00</td>
+        </tr>
+        <tr>
+          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
+          <td>17/05/2021</td>
+          <td>964</td>
+          <td>TAXAS E MULTAS</td>
+          <td class="valor income">40,00</td>
+        </tr>
+        <tr>
+          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
+          <td>17/05/2021</td>
+          <td>964</td>
+          <td>TAXAS E MULTAS</td>
+          <td class="valor expense">40,00</td>
+        </tr>
+        <tr>
+          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
+          <td>17/05/2021</td>
+          <td>964</td>
+          <td>TAXAS E MULTAS</td>
+          <td class="valor income">40,00</td>
+        </tr>
+        <tr>
+          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
+          <td>17/05/2021</td>
+          <td>964</td>
+          <td>TAXAS E MULTAS</td>
+          <td class="valor expense">40,00</td>
+        </tr>
+        <tr>
+          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
+          <td>17/05/2021</td>
+          <td>964</td>
+          <td>TAXAS E MULTAS</td>
+          <td class="valor expense">40,00</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="total">
+      <div class="saldo">
+        <p>Saldo do Período</p>
+        <span>R$ 23.951,76</span>
+      </div>
+      <div class="saldo">
+        <p>Saldo Total</p>
+        <span>R$ 24.019,24</span>
+      </div>
+    </div>
   </nb-card-body>
 </nb-card>
