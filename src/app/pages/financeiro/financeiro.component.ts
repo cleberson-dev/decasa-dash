@@ -8,8 +8,8 @@ import { Tab } from '../../components/tabber/tabber.component';
 })
 export class FinanceiroComponent implements OnInit {
   tabs: Tab[] = [
-    { title: 'Lançamentos', link: '', active: true },
-    { title: 'Relatórios', link: '', active: false },
+    { title: 'Lançamentos', link: '/financeiro', active: true },
+    { title: 'Relatórios', link: '/financeiro/relatorios', active: false },
     { title: 'Conta Corrente', link: '/financeiro/conta-corrente', active: false },
   ];
 

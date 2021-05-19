@@ -43,6 +43,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MapaComponent } from './pedidos/mapa/mapa.component';
 import { FinanceiroComponent } from './financeiro/financeiro.component';
 import { ContaCorrenteComponent } from './financeiro/conta-corrente/conta-corrente.component';
+import { RelatoriosComponent } from './financeiro/relatorios/relatorios.component';
 
 @NgModule({
   imports: [
@@ -88,7 +89,8 @@ import { ContaCorrenteComponent } from './financeiro/conta-corrente/conta-corren
     FornecedoresComponent,
     MapaComponent,
     FinanceiroComponent,
-    ContaCorrenteComponent
+    ContaCorrenteComponent,
+    RelatoriosComponent
   ]
 })
 export class PagesModule {

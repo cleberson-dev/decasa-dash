@@ -11,6 +11,7 @@ import { FornecedoresComponent } from './fornecedores/fornecedores.component';
 import { MapaComponent } from './pedidos/mapa/mapa.component';
 import { FinanceiroComponent } from './financeiro/financeiro.component';
 import { ContaCorrenteComponent } from './financeiro/conta-corrente/conta-corrente.component';
+import { RelatoriosComponent } from './financeiro/relatorios/relatorios.component';
 
 const routes: Routes = [{
   path: '',
@@ -47,6 +48,10 @@ const routes: Routes = [{
     {
       path: 'financeiro/conta-corrente',
       component: ContaCorrenteComponent
+    },
+    {
+      path: 'financeiro/relatorios',
+      component: RelatoriosComponent
     },
     {
       path: '',

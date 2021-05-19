@@ -9,8 +9,8 @@ import { Tab } from '../../../components/tabber/tabber.component';
 export class ContaCorrenteComponent implements OnInit {
 
   tabs: Tab[] = [
-    { title: 'Lançamentos', link: '', active: false },
-    { title: 'Relatórios', link: '', active: false },
+    { title: 'Lançamentos', link: '/financeiro', active: false },
+    { title: 'Relatórios', link: '/financeiro/relatorios', active: false },
     { title: 'Conta Corrente', link: '/financeiro/conta-corrente', active: true },
   ];
 
