@@ -10,6 +10,7 @@ import { CriarPedidosComponent } from './pedidos/criar-pedidos/criar-pedidos.com
 import { FornecedoresComponent } from './fornecedores/fornecedores.component';
 import { MapaComponent } from './pedidos/mapa/mapa.component';
 import { FinanceiroComponent } from './financeiro/financeiro.component';
+import { ContaCorrenteComponent } from './financeiro/conta-corrente/conta-corrente.component';
 
 const routes: Routes = [{
   path: '',
@@ -42,6 +43,10 @@ const routes: Routes = [{
     {
       path: 'financeiro',
       component: FinanceiroComponent
+    },
+    {
+      path: 'financeiro/conta-corrente',
+      component: ContaCorrenteComponent
     },
     {
       path: '',

@@ -10,7 +10,7 @@ export class FinanceiroComponent implements OnInit {
   tabs: Tab[] = [
     { title: 'Lançamentos', link: '', active: true },
     { title: 'Relatórios', link: '', active: false },
-    { title: 'Conta Corrente', link: '', active: false },
+    { title: 'Conta Corrente', link: '/financeiro/conta-corrente', active: false },
   ];
 
   constructor() { }
