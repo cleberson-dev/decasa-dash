@@ -1,4 +1,5 @@
 <ngx-tabber [tabs]="tabs"></ngx-tabber>
+
 <nb-card class="card">
   <nb-card-body class="card-body">
     <h5>Produtos</h5>
@@ -21,6 +22,7 @@
               style="width: 150px" 
               formControlName="rcm"
               (blur)="onRCMBlur()"
+              [class]="{ invalid: isInvalidControl('rcm') }"
             />
           </td>
           <td>
@@ -29,10 +31,12 @@
               nbInput 
               type="text" 
               (input)="onInputChange()"
+              (blur)="onNomeBlur()"
               placeholder="Fale algo"
               [nbAutocomplete]="auto"
               fullWidth
               formControlName="nome"
+              [class]="{ invalid: isInvalidControl('nome') }"
             />
             <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)">
               <nb-option *ngFor="let option of suggestedOptions$ | async" [value]="option">
@@ -40,8 +44,19 @@
               </nb-option>
             </nb-autocomplete>
           </td>
-          <td><input nbInput fullWidth formControlName="unidade" /></td>
-          <td><input nbInput type="number" fullWidth style="width: 100px" formControlName="quantidade" /></td>
+          <td>
+            <input 
+              nbInput fullWidth formControlName="unidade"
+              [class]="{ invalid: isInvalidControl('unidade') }"
+            />
+          </td>
+          <td>
+            <input 
+              nbInput type="number" fullWidth style="width: 100px" 
+              formControlName="quantidade"
+              [class]="{ invalid: isInvalidControl('quantidade') }"
+            />
+          </td>
           <td>
             <button nbButton status="primary" fullWidth (click)="onPedidoAdd()" [disabled]="novoPedidoForm.invalid">
               <nb-icon icon="plus"></nb-icon>

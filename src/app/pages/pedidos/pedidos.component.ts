@@ -30,9 +30,9 @@ export class PedidosComponent implements OnInit {
   suggestedOptions$: Observable<string[]>;
 
   tabs: Tab[] = [
-    { title: 'Cotação', link: '', active: true },
-    { title: 'Mapa', link: 'mapa' },
-    { title: 'Emitir compra', link: '' },
+    { title: 'Cotação', link: '/pedidos/cotacao', active: true },
+    { title: 'Mapa', link: '/pedidos/mapa' },
+    { title: 'Ordem de compra', link: '' },
     { title: 'Acompanhamento', link: '' },
   ]
 
