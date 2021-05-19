@@ -92,23 +92,28 @@
   <nb-card>
     <nb-card-header>Detalhes do Produto</nb-card-header>
     <nb-card-body class="dialog-body">
-      <div class="left">
-        <p>Código</p>
-        <span>{{ produto.codigo }}</span>
-        <p>
-          Nome
-        </p>
-        <span>{{ produto.nome }}</span>
-        <p>
-          Unidade
-        </p>
-        <span>{{ produto.unidade }}</span>
-        <p>
-          Quantidade
-        </p>
-        <span>{{ produto.quantidade }}</span>
+      <div class="top">
+        <img
+          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.et_nvFdq98rwd5sXDtPUIQHaHa%26pid%3DApi&f=1" 
+        />
+        <div class="info">
+          <p>Código</p>
+          <span>{{ produto.codigo }}</span>
+          <p>
+            Nome
+          </p>
+          <span>{{ produto.nome }}</span>
+          <p>
+            Unidade
+          </p>
+          <span>{{ produto.unidade }}</span>
+          <p>
+            Quantidade
+          </p>
+          <span>{{ produto.quantidade }}</span>
+        </div>
       </div>
-      <div class="right">
+      <div class="bottom">
         <p>Preços</p>
         <ul>
           <li 

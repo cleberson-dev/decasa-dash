@@ -112,7 +112,6 @@ tbody tr {
 }
 
 .dialog-body {
-  display: flex;
   width: 80vw;
 
   p {
@@ -127,8 +126,12 @@ tbody tr {
     color: #222b45;
   }
 
-  .right {
-    margin-left: 2rem;
+  img {
+    width: 150px;
+    height: auto;
+  }
+
+  .bottom {
     width: 100%;
 
     ul, li {
@@ -169,10 +172,21 @@ tbody tr {
   }
 }
 
-.dialog-body .left {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  column-gap: 1rem;
+.dialog-body .top {
+  display: flex;
+  align-items: center;
+
+  .info {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    column-gap: 1rem;
+    row-gap: 1rem;
+    margin-left: 1rem;
+  }
+
+  .info p {
+    margin-bottom: 0;
+  }
 }
 
 
