@@ -17,15 +17,15 @@ th {
   font-weight: 600;
 }
 
-th:first-child{
-  border-top-left-radius: $tableHeadBorderRadius;
-  border-bottom-left-radius: $tableHeadBorderRadius;
-}
+// th:first-child{
+//   border-top-left-radius: $tableHeadBorderRadius;
+//   border-bottom-left-radius: $tableHeadBorderRadius;
+// }
 
-th:last-child{
-  border-top-right-radius: $tableHeadBorderRadius;
-  border-bottom-right-radius: $tableHeadBorderRadius;
-}
+// th:last-child{
+//   border-top-right-radius: $tableHeadBorderRadius;
+//   border-bottom-right-radius: $tableHeadBorderRadius;
+// }
 
 td {
   padding: .6rem;
@@ -41,7 +41,7 @@ td {
 }
 
 tr:nth-of-type(2n) {
-  background: $borderColor;
+  background: lighten($borderColor, 3%);
 }
 
 col.resizable {
