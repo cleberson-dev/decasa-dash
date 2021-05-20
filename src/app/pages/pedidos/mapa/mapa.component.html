@@ -67,9 +67,11 @@
           >
             {{ preco ? preco.toFixed(2) : "--" }}
           </td>
-          <td class="last-prices increase">
-            <nb-icon class="icon" icon="arrow-up"></nb-icon>
-            9.99
+          <td [class]="[
+            'last-prices', 
+            getPriceStatus(row.precos[row.menorPrecoIdx], row.precoUltimasCompras)
+          ]">
+            {{ row.precoUltimasCompras }}
           </td>
         </tr>
       </tbody>

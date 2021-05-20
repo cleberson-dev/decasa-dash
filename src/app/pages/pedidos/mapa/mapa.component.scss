@@ -218,18 +218,10 @@ td.last-prices {
   justify-content: center;
   align-items: center;
   position: relative;
+  font-weight: 600;
 
-  .icon {
-    width: 15px;
-    height: auto;
-    position: relative;
-    top: 3px;
-    margin-right: 2px;
-  }
-
-  &.increase .icon { color: green; }
-  &.decrease .icon { color: red; }
-
+  &.aumentado { color: red; }
+  &.diminuido { color: green; }
 }
 
 thead tr:nth-child(2) th:first-child{

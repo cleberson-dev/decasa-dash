@@ -11,6 +11,13 @@ type MapRow = {
   };
   precos: (number | undefined)[];
   menorPrecoIdx?: number;
+  precoUltimasCompras: number;
+}
+
+enum PriceStatus {
+  Increased = "aumentado",
+  Decreased = "diminuido", 
+  Neutral = "neutro"
 }
 
 @Component({
@@ -35,7 +42,8 @@ export class MapaComponent implements OnInit {
         undefined,
         1.99,
         0.99
-      ]
+      ],
+      precoUltimasCompras: 9.99,
     },
     { 
       produto: {
@@ -49,7 +57,8 @@ export class MapaComponent implements OnInit {
         undefined,
         1.12,
         3.45
-      ]
+      ],
+      precoUltimasCompras: 9.99,
     },
     { 
       produto: {
@@ -63,7 +72,8 @@ export class MapaComponent implements OnInit {
         undefined,
         2.2,
         4.1
-      ]
+      ],
+      precoUltimasCompras: 9.99,
     }
   ];
 
@@ -124,5 +134,11 @@ export class MapaComponent implements OnInit {
     };
     
     this.dialogService.open(dialog, { context });
+  }
+
+  getPriceStatus(menorPrecoFornecedor: number, precoUltimasCompras: number): PriceStatus {
+    if (precoUltimasCompras > menorPrecoFornecedor) return PriceStatus.Decreased; 
+    if (precoUltimasCompras < menorPrecoFornecedor) return PriceStatus.Increased;
+    return PriceStatus.Neutral;
   }
 }
