@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from '../../services/api.service';
@@ -129,5 +129,32 @@ export class FornecedoresComponent implements OnInit {
       email: context.fornecedor.email
     });
     context.type = 'form';
+  }
+
+  isControlInvalid(controlName: string) {
+    return (
+      this.formFornecedor.controls[controlName].invalid 
+      && (
+        this.formFornecedor.controls[controlName].touched 
+        || this.formFornecedor.controls[controlName].dirty
+      )
+    );
+  }
+
+  getErrorMessage(controlName: string) {
+    const [firstType] = Object
+      .entries(this.formFornecedor.controls[controlName].errors)
+      .filter(([_, val]) => !!val)
+      .map(([key]) => key);
+
+    const messages = {
+      required: 'Campo Obrigatório -_-',
+      cnpj: 'CNPJ Inválido',
+      cpf: 'CPF Inválido'
+    }
+
+    const defaultMessage = 'Campo inválido *-*';
+
+    return messages[firstType] || defaultMessage;
   }
 }

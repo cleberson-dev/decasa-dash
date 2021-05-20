@@ -37,49 +37,78 @@
           <div class="col-5">
             <label>Nome</label>
             <input nbInput fullWidth formControlName="nome" />
-            <small class="error">Campo obrigatório</small>
+            <small *ngIf="isControlInvalid('nome')" class="error">
+              {{ getErrorMessage('nome') }}
+            </small>
           </div>
           <div class="col-5">
             <label>CNPJ</label>
             <input nbInput fullWidth formControlName="cnpj" />
+            <small *ngIf="isControlInvalid('cnpj')" class="error">
+              {{ getErrorMessage('cnpj') }}
+            </small>
           </div>
         </div>
         <div class="row">
           <div class="col-4">
             <label>E-mail</label>
             <input nbInput fullWidth type="email" formControlName="email" />
+            <small *ngIf="isControlInvalid('email')" class="error">
+              {{ getErrorMessage('email') }}
+            </small>
           </div>
           <div class="col-3">
             <label>Celular</label>
             <input nbInput fullWidth formControlName="celular" />
+            <small *ngIf="isControlInvalid('celular')" class="error">
+              {{ getErrorMessage('celular') }}
+            </small>
           </div>
           <div class="col-3">
             <label>Telefone</label>
             <input nbInput fullWidth formControlName="telefone" />
+            <small *ngIf="isControlInvalid('telefone')" class="error">
+              {{ getErrorMessage('telefone') }}
+            </small>
           </div>
         </div>
         <div class="row">
           <div class="col-2">
             <label>CEP</label>
             <input nbInput fullWidth formControlName="cep" />
+            <small *ngIf="isControlInvalid('cep')" class="error">
+              {{ getErrorMessage('cep') }}
+            </small>
           </div>
           <div class="col-4">
             <label>Logradouro</label>
             <input nbInput fullWidth formControlName="logradouro" />
+            <small *ngIf="isControlInvalid('logradouro')" class="error">
+              {{ getErrorMessage('logradouro') }}
+            </small>
           </div>
           <div class="col-2">
             <label>Número</label>
             <input nbInput fullWidth formControlName="numero" />
+            <small *ngIf="isControlInvalid('numero')" class="error">
+              {{ getErrorMessage('numero') }}
+            </small>
           </div>
           <div class="col-4">
             <label>Bairro</label>
             <input nbInput fullWidth formControlName="bairro" />
+            <small *ngIf="isControlInvalid('bairro')" class="error">
+              {{ getErrorMessage('bairro') }}
+            </small>
           </div>
         </div>
         <div class="row">
           <div class="col-5">
             <label>Ponto de Referência</label>
             <input nbInput fullWidth formControlName="pontoReferencia" />
+            <small *ngIf="isControlInvalid('pontoReferencia')" class="error">
+              {{ getErrorMessage('pontoReferencia') }}
+            </small>
           </div>
         </div>
         </nb-card-body>
