@@ -50,11 +50,15 @@
       </thead>
       <tbody>
         <tr
-          (click)="openRowDetails(dialog, row)"
           *ngFor="let row of data; let i = index"
         >
           <td>{{ row.produto.codigo }}</td>
-          <td>{{ row.produto.nome }}</td>
+          <td 
+            (click)="openRowDetails(dialog, row)"
+            class="clickable"
+          >
+            {{ row.produto.nome }}
+          </td>
           <td>{{ row.produto.unidade }}</td>
           <td>{{ row.produto.quantidade }}</td>
           <td
@@ -62,8 +66,11 @@
             [class]="{
               menor: j === row.menorPrecoIdx,
               preco: true,
-              'menor-fornecedor': j === menorSomaIdx
+              'menor-fornecedor': j === menorSomaIdx,
+              selecionado: j === row.selecionado,
+              clickable: !!preco
             }"
+            (click)="preco && selectProductSupplier(i, j)"
           >
             {{ preco ? preco.toFixed(2) : "--" }}
           </td>
@@ -84,14 +91,19 @@
   <nb-card-footer>
     <button nbButton status="primary">Próximo</button>
     <button nbButton style="margin-left: 1rem">
-      <nb-icon icon="plus"></nb-icon>
+      <nb-icon icon="plus" (click)="openAddFornecedores(dialog)"></nb-icon>
       Adicionar fornecedor
     </button>
   </nb-card-footer>
 </nb-card>
 
-<ng-template #dialog let-produto let-ref="dialogRef">
-  <nb-card>
+<ng-template #dialog let-context let-ref="dialogRef">
+  <ngx-modal-add-fornecedores
+    *ngIf="context.type === 'add-fornecedores'"
+  ></ngx-modal-add-fornecedores>
+  
+  
+  <nb-card *ngIf="context.type === 'row-details'">
     <nb-card-header>Detalhes do Produto</nb-card-header>
     <nb-card-body class="dialog-body">
       <div class="top">
@@ -100,27 +112,27 @@
         />
         <div class="info">
           <p>Código</p>
-          <span>{{ produto.codigo }}</span>
+          <span>{{ context.produto.codigo }}</span>
           <p>
             Nome
           </p>
-          <span>{{ produto.nome }}</span>
+          <span>{{ context.produto.nome }}</span>
           <p>
             Unidade
           </p>
-          <span>{{ produto.unidade }}</span>
+          <span>{{ context.produto.unidade }}</span>
           <p>
             Quantidade
           </p>
-          <span>{{ produto.quantidade }}</span>
+          <span>{{ context.produto.quantidade }}</span>
         </div>
       </div>
       <div class="bottom">
         <p>Preços</p>
         <ul>
           <li 
-            *ngFor="let preco of produto.precos; let idx = index;" 
-            [class]="{ menor: idx === produto.menorPrecoIdx }"
+            *ngFor="let preco of context.produto.precos; let idx = index;" 
+            [class]="{ menor: idx === context.produto.menorPrecoIdx }"
           >
             <span>{{ preco.fornecedor }}</span> 
             <span>{{ preco.valor ? 'R$' + preco.valor.toFixed(2) : '--' }}</span>

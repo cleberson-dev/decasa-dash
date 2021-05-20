@@ -84,6 +84,8 @@ thead tr:first-child th {
 
 fieldset {
   margin: 1rem 0;
+  width: fit-content;
+  display: inline-block;
 }
 
 fieldset legend {
@@ -104,8 +106,6 @@ fieldset legend {
 }
 
 tbody tr {
-  cursor: pointer;
-
   &:hover {
     color: darken(#222b45, 60%);
   }
@@ -244,4 +244,14 @@ thead tr:last-child th:last-child{
 
 tbody tr {
   border-bottom: 1px solid $borderColor;
+}
+
+td.selecionado {
+  background: lightblue;
+  // border: 1px solid black;
+  // color: white;
+}
+
+td.clickable {
+  cursor: pointer;
 }

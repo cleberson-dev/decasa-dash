@@ -12,6 +12,7 @@ type MapRow = {
   precos: (number | undefined)[];
   menorPrecoIdx?: number;
   precoUltimasCompras: number;
+  selecionado?: number;
 }
 
 enum PriceStatus {
@@ -153,5 +154,14 @@ export class MapaComponent implements OnInit {
         type: 'add-fornecedores'
       }
     })
+  }
+
+  selectProductSupplier(rowIdx: number, fornecedorIdx: number) {
+    if (this.data[rowIdx].selecionado === fornecedorIdx) {
+      this.data[rowIdx].selecionado = undefined;
+      return;
+    }
+
+    this.data[rowIdx].selecionado = fornecedorIdx;
   }
 }
