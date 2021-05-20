@@ -4,6 +4,12 @@
   <nb-card-body class="card-body">
     <h5>Produtos</h5>
     <table>
+      <colgroup>
+        <col class="resizable" />
+        <col />
+        <col class="resizable" />
+        <col class="resizable" />
+      </colgroup>
       <thead>
         <tr>
           <th>RCM</th>
@@ -44,7 +50,7 @@
               </nb-option>
             </nb-autocomplete>
           </td>
-          <td>
+          <td class="quantidade">
             <input 
               nbInput fullWidth formControlName="unidade"
               [class]="{ invalid: isInvalidControl('unidade') }"
@@ -68,6 +74,7 @@
           <td>{{ row.nome }}</td>
           <td>{{ row.unidade }}</td>
           <td>{{ row.quantidade }}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>

@@ -1,3 +1,5 @@
+$borderColor: #edf1f7;
+
 .card {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -38,9 +40,7 @@ table {
 
 thead {
   background-color: #edf1f7;
-  color: #8F9BB3;
-  border-radius: 10px;
-  padding: 0 1rem;
+  text-align: center;
 }
 
 th {
@@ -48,8 +48,11 @@ th {
 }
 
 td {
-  padding: 10px 0;
-  padding-right: 10px;
+  padding: .8rem .6rem;
+}
+
+tbody tr:not(:first-child) {
+  border-bottom: 1px solid $borderColor;
 }
 
 .form-row {
@@ -67,4 +70,12 @@ h5 {
 
 .invalid {
   background: purple;
+}
+
+col.resizable {
+  width: fit-content;
+}
+
+td.quantidade input {
+  min-width: 8rem;
 }
