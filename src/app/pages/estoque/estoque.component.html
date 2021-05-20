@@ -1,1 +1,28 @@
-<p>estoque works!</p>
+<ngx-tabber [tabs]="tabs"></ngx-tabber>
+
+<nb-card>
+  <nb-card-body>
+    <form>
+      <div class="row">
+        <div class="form-group col-5">
+          <label>Ordem de Compra</label>
+          <nb-select>
+            <nb-option value="filial-01">Filial 01</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-3"></div>
+        <div class="form-group col-4">
+          <label>NFe</label>
+          <input nbInput fullWidth />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <button nbButton type="submit" status="primary" fullWidth>
+            Buscar
+          </button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
