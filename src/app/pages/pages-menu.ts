@@ -15,7 +15,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Vendas',
     icon: 'cube-outline',
-    link: '/forms/layouts',
+    link: '/vendas',
   },
   {
     title: 'Estoque',

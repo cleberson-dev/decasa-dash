@@ -1,0 +1,106 @@
+$tableHeadBorderRadius: 0.6rem;
+$borderColor: #edf1f7;
+$incomeColor: #3ea10c;
+$expenseColor: #e63946;
+
+table {
+  width: 100%;
+}
+
+thead {
+  background: $borderColor;
+  text-align: center;
+}
+
+th {
+  padding: 1rem;
+  font-weight: 600;
+}
+
+// th:first-child{
+//   border-top-left-radius: $tableHeadBorderRadius;
+//   border-bottom-left-radius: $tableHeadBorderRadius;
+// }
+
+// th:last-child{
+//   border-top-right-radius: $tableHeadBorderRadius;
+//   border-bottom-right-radius: $tableHeadBorderRadius;
+// }
+
+td {
+  padding: .6rem;
+}
+
+tr {
+  border-bottom: 1px solid $borderColor;
+}
+
+td {
+  border-left: 1px solid $borderColor;
+  border-right: 1px solid $borderColor;
+}
+
+tr:nth-of-type(2n) {
+  background: lighten($borderColor, 3%);
+}
+
+col.resizable {
+  width: fit-content;
+}
+
+tfoot {
+  text-align: right;
+}
+
+.total {
+  width: 100%;
+  background: $borderColor;
+  border-top: 1px solid #DCDCDC;
+
+  .saldo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p { 
+      text-align: right;
+      flex-grow: 1;
+      margin-bottom: 0;
+      font-weight: 600;
+      border-right: 1px solid #dcdcdc;
+
+      &:after { content: ':' };
+    }
+
+    span {
+      font-weight: 500;
+      font-size: 1.05rem;
+      padding: .8rem 1.1rem;
+    }
+
+    p, span {
+      padding: .8rem;
+    }
+  }
+
+  .saldo:not(:last-child) {
+    border-bottom: 1px solid #DCDCDC;
+  }
+}
+
+
+td.valor {
+  font-weight: 600;
+}
+
+td.income {
+  color: $incomeColor;
+}
+
+td.expense {
+  color: $expenseColor;
+}
+
+form {
+  margin-bottom: 2rem;
+}
