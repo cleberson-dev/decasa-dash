@@ -1,9 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from '../../services/api.service';
 import { Fornecedor } from '../../types';
+import * as CustomValidators from '../../validators';
 
 const defaultData = {
   bairro: 'Bairro #1',
@@ -28,16 +29,25 @@ export class FornecedoresComponent implements OnInit {
   
   formTitle = '';
   formSubmitText = '';
-  formFornecedor: Fornecedor = {
-    nome: '', cnpj: '', logradouro: '', numero: 0, bairro: '',
-    cep: '', pontoReferencia: '', celular: '', telefone: '',
-    email: ''
-  };
+  formFornecedor = this.fb.group({
+    nome: ['', [Validators.required]],
+    cnpj: ['', [Validators.required, CustomValidators.cnpj]],
+    logradouro: ['', [Validators.required]],
+    numero: ['', [Validators.required]],
+    bairro: ['', [Validators.required]],
+    cep: ['', [Validators.required, CustomValidators.cpf]],
+    pontoReferencia: ['', [Validators.required]],
+    celular: ['', [Validators.required]],
+    telefone: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    // RG Representante, CPF Representante, Data RG
+  });
 
   constructor(
     private dialogService: NbDialogService,
     private spinner: NgxSpinnerService,
-    private api: ApiService
+    private api: ApiService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +84,7 @@ export class FornecedoresComponent implements OnInit {
   openCreate(dialog: TemplateRef<any>) {
     this.formTitle = 'Criar novo fornecedor';
     this.formSubmitText = 'Criar';
+    this.formFornecedor.reset();
     this.dialogService.open(dialog, { context: { type: 'form' }});
   }
 
@@ -86,18 +97,18 @@ export class FornecedoresComponent implements OnInit {
     });
   }
 
-  onFormSubmit(form: FormGroup, ref: NbDialogRef<any>) {
+  handleFormSubmit(ref: NbDialogRef<any>) {
     this.fornecedores.push({
-      nome: form.controls['nome'].value,
-      cnpj: form.controls['cnpj'].value,
-      bairro: form.controls['bairro'].value,
-      celular: form.controls['celular'].value,
-      cep: form.controls['cep'].value,
-      email: form.controls['email'].value,
-      logradouro: form.controls['logradouro'].value,
-      numero: form.controls['numero'].value,
-      pontoReferencia: form.controls['pontoReferencia'].value,
-      telefone: form.controls['telefone'].value
+      nome: this.formFornecedor.controls['nome'].value,
+      cnpj: this.formFornecedor.controls['cnpj'].value,
+      bairro: this.formFornecedor.controls['bairro'].value,
+      celular: this.formFornecedor.controls['celular'].value,
+      cep: this.formFornecedor.controls['cep'].value,
+      email: this.formFornecedor.controls['email'].value,
+      logradouro: this.formFornecedor.controls['logradouro'].value,
+      numero: this.formFornecedor.controls['numero'].value,
+      pontoReferencia: this.formFornecedor.controls['pontoReferencia'].value,
+      telefone: this.formFornecedor.controls['telefone'].value
     });
     ref.close();
   }
@@ -105,10 +116,18 @@ export class FornecedoresComponent implements OnInit {
   onEdit(context: any) {
     this.formTitle = 'Editar fornecedor';
     this.formSubmitText = 'Editar';
-    this.formFornecedor = {
-      ...context.fornecedor
-    }
-    console.log(this.formFornecedor);
+    this.formFornecedor.patchValue({
+      nome: context.fornecedor.nome,
+      cnpj: context.fornecedor.cnpj,
+      logradouro: context.fornecedor.logradouro,
+      numero: context.fornecedor.numero,
+      bairro: context.fornecedor.bairro,
+      cep: context.fornecedor.cep,
+      pontoReferencia: context.fornecedor.pontoReferencia,
+      celular: context.fornecedor.celular,
+      telefone: context.fornecedor.telefone,
+      email: context.fornecedor.email
+    });
     context.type = 'form';
   }
 }
