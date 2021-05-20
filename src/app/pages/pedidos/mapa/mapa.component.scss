@@ -133,6 +133,11 @@ tbody tr {
 
   .bottom {
     width: 100%;
+    margin-top: 1rem;
+
+    p:first-child {
+      margin-bottom: 5px;
+    }
 
     ul, li {
       width: 100%;
