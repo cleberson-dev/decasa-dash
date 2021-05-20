@@ -9,6 +9,7 @@ export class PaginationComponent implements OnInit {
   @Input() currentPage: number = 1;
   @Input() totalItems: number;
   @Input() itemsPerPage: number;
+  @Input() showCounter: boolean = false;
   @Output() pageChange = new EventEmitter<number>();
 
   pageNumbers: number[] = [];

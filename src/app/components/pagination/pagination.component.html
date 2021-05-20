@@ -1,3 +1,7 @@
+<p *ngIf="showCounter" class="counter">
+  {{ totalItems }} itens - Página {{ currentPage }} de {{ totalPages }} totais
+</p>
+
 <div class="pagination">
   <button [class]="{ invisible: !hasPrev }" type="button" 
     (click)="pageChange.emit(currentPage - 1)" 
