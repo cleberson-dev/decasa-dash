@@ -124,7 +124,7 @@ export class MapaComponent implements OnInit {
   }
 
   openRowDetails(dialog: TemplateRef<any>, row: MapRow) {
-    const context = {
+    const produto = {
       codigo: row.produto.codigo,
       nome: row.produto.nome,
       quantidade: row.produto.quantidade,
@@ -133,12 +133,25 @@ export class MapaComponent implements OnInit {
       menorPrecoIdx: row.menorPrecoIdx
     };
     
-    this.dialogService.open(dialog, { context });
+    this.dialogService.open(dialog, { 
+      context: { 
+        type: 'row-details',
+        produto
+      } 
+    });
   }
 
   getPriceStatus(menorPrecoFornecedor: number, precoUltimasCompras: number): PriceStatus {
     if (precoUltimasCompras > menorPrecoFornecedor) return PriceStatus.Decreased; 
     if (precoUltimasCompras < menorPrecoFornecedor) return PriceStatus.Increased;
     return PriceStatus.Neutral;
+  }
+
+  openAddFornecedores(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog, { 
+      context: {
+        type: 'add-fornecedores'
+      }
+    })
   }
 }

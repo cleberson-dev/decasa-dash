@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
+import { NbDialogRef } from '@nebular/theme';
 import { Fornecedor } from '../../../types';
 
 type SelectableFornecedor = Fornecedor & { selected?: boolean; };
@@ -67,5 +68,4 @@ export class ModalAddFornecedoresComponent implements OnInit {
   onAdditionBtnClick() {
     this.addition.emit(this.selectedFornecedores);
   }
-
 }
