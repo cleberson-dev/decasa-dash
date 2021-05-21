@@ -101,12 +101,16 @@
       </div>
   </div>
   </nb-card-body>
-  <nb-card-footer>
-    <button nbButton status="primary">Próximo</button>
-    <button nbButton style="margin-left: 1rem">
-      <nb-icon icon="plus" (click)="openAddFornecedores(dialog)"></nb-icon>
-      Adicionar fornecedor
-    </button>
+  <nb-card-footer class="mapa-card-footer">
+    <div>
+      <button nbButton>
+        <nb-icon icon="plus" (click)="openAddFornecedores(dialog)"></nb-icon>
+        Adicionar fornecedor
+      </button>
+    </div>
+    <div>
+      <button nbButton status="primary">Gerar OC</button>
+    </div>
   </nb-card-footer>
 </nb-card>
 
