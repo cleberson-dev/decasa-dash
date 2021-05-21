@@ -2,6 +2,7 @@ $menorProdutoCor: #aaf683;
 $menorFornecedorCor: #dec9e9;
 $tableHeadBorderRadius: 0.6rem;
 $borderColor: #edf1f7;
+$selectedColor: lightblue;
 
 table {
   width: 100%;
@@ -247,11 +248,34 @@ tbody tr {
 }
 
 td.selecionado {
-  background: lightblue;
+  background: $selectedColor;
   // border: 1px solid black;
   // color: white;
 }
 
 td.clickable {
   cursor: pointer;
+}
+
+td.preco:hover {
+  background: lighten($borderColor, 1%);
+}
+td.preco.selecionado.menor-fornecedor.menor:hover,
+td.preco.selecionado.menor-fornecedor:hover,
+td.preco.selecionado.menor:hover,
+td.preco.selecionado:hover {
+  background: darken($selectedColor, 7%);
+}
+
+td.preco.menor:hover,
+td.preco.menor.menor-fornecedor:hover {
+  background: darken($menorProdutoCor, 5%);
+}
+
+td.preco.menor-fornecedor:hover {
+  background: darken($menorFornecedorCor, 5%);
+}
+
+.easy-buttons {
+  display: flex;
 }

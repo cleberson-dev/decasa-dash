@@ -27,6 +27,7 @@ enum PriceStatus {
   styleUrls: ['./mapa.component.scss']
 })
 export class MapaComponent implements OnInit {
+  easyButtonsValue = '';
 
   fornecedores = ['F1', 'F2', 'F3', 'F4'];
 
@@ -157,11 +158,27 @@ export class MapaComponent implements OnInit {
   }
 
   selectProductSupplier(rowIdx: number, fornecedorIdx: number) {
+    this.easyButtonsValue = '';
+    
     if (this.data[rowIdx].selecionado === fornecedorIdx) {
       this.data[rowIdx].selecionado = undefined;
       return;
     }
-
+    
     this.data[rowIdx].selecionado = fornecedorIdx;
+  }
+
+  onEasyButtonsChange(type: string) {
+    this.easyButtonsValue = type;
+
+    if (type === 'unitario') {
+      for (let i = 0; i < this.data.length; i += 1) {
+        this.data[i].selecionado = this.data[i].menorPrecoIdx;
+      }
+    } else if (type === 'global') {
+      for (let i = 0; i < this.data.length; i += 1) {
+        this.data[i].selecionado = this.menorSomaIdx;
+      }
+    }
   }
 }

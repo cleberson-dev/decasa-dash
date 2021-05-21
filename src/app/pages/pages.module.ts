@@ -13,7 +13,8 @@ import {
   NbContextMenuModule,
   NbStepperModule,
   NbAutocompleteModule,
-  NbButtonGroupModule
+  NbButtonGroupModule,
+  NbRadioModule
 } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
@@ -69,7 +70,8 @@ import { VendasComponent } from './vendas/vendas.component';
     Ng2SmartTableModule,
     NbAutocompleteModule,
     NgxSpinnerModule,
-    NbButtonGroupModule
+    NbButtonGroupModule,
+    NbRadioModule
   ],
   declarations: [
     PagesComponent,
