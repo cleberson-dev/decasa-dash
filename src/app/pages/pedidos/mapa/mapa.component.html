@@ -83,17 +83,23 @@
         </tr>
       </tbody>
     </table>
-    <fieldset>
-      <legend class="purple">Menor preço total</legend>
-      <legend class="green">Menor preço do produto</legend>
-    </fieldset>
-    <nb-radio-group
-      [value]="easyButtonsValue" 
-      (valueChange)="onEasyButtonsChange($event)"
-    >
-      <nb-radio value="unitario">Menor preço unitário</nb-radio>
-      <nb-radio value="global">Menor global</nb-radio>
-    </nb-radio-group>
+    <div class="table-footer">
+      <fieldset>
+        <legend class="purple">Menor preço total</legend>
+        <legend class="green">Menor preço do produto</legend>
+      </fieldset>
+      <div class="easy-buttons-wrapper">
+        <small>Botões Rápidos</small>
+        <nb-radio-group
+          class="easy-buttons"
+          [value]="easyButtonsValue" 
+          (valueChange)="onEasyButtonsChange($event)"
+        >
+          <nb-radio value="unitario">Menor preço unitário</nb-radio>
+          <nb-radio value="global">Menor global</nb-radio>
+        </nb-radio-group>
+      </div>
+  </div>
   </nb-card-body>
   <nb-card-footer>
     <button nbButton status="primary">Próximo</button>
