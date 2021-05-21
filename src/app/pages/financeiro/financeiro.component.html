@@ -18,25 +18,11 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-3">
-          <label>Tipo</label>
-          <nb-button-group fullWidth>
-            <button nbButtonToggle type="button">Crédito</button>
-            <button nbButtonToggle type="button">Débito</button>
-          </nb-button-group>
-        </div>
-        <div class="col-2"></div>
-      </div>
-      <div class="row">
         <div class="form-group col-6">
-          <label>Descrição</label>
-          <textarea nbInput rows="5" fullWidth></textarea>
+          <label>Para: </label>
+          <input nbInput fullWidth />
         </div>
         <div class="col-6 row">
-          <div class="form-group col-12">
-            <label>Para: </label>
-            <input nbInput fullWidth />
-          </div>
           <div class="form-group col-4">
             <label>Quantidade</label>
             <input nbInput type="number" min="1" />
@@ -49,6 +35,12 @@
             <label>Valor (R$)</label>
             <input nbInput type="number" step="0.01" min="0" />
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Descrição</label>
+          <textarea nbInput rows="5" fullWidth></textarea>
         </div>
       </div>
     </form>
