@@ -46,7 +46,11 @@
               'menor-fornecedor': i === menorSomaIdx
             }"
           >
-            <nb-icon class="info" icon="info-outline"></nb-icon>
+            <nb-icon 
+              class="info" 
+              icon="info-outline" 
+              (click)="openDetalhesFornecedor(dialog)"
+            ></nb-icon>
             {{ fornecedor }}
           </th>
           <th>Últimas compras</th>
@@ -160,5 +164,11 @@
     <nb-card-footer>
       <button nbButton (click)="ref.close()">Voltar</button>
     </nb-card-footer>
+  </nb-card>
+
+  <nb-card *ngIf="context.type === 'detalhes-fornecedor'">
+    <nb-card-body>
+      Detalhes Fornecedor
+    </nb-card-body>
   </nb-card>
 </ng-template>

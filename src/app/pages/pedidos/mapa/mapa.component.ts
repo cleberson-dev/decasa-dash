@@ -181,4 +181,12 @@ export class MapaComponent implements OnInit {
       }
     }
   }
+
+  openDetalhesFornecedor(dialog: TemplateRef<any>) {
+    const context = {
+      type: 'detalhes-fornecedor'
+    };
+
+    this.dialogService.open(dialog, { context });
+  }
 }
