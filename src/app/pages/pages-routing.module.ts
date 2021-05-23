@@ -15,6 +15,7 @@ import { RelatoriosComponent } from './financeiro/relatorios/relatorios.componen
 import { EstoqueComponent } from './estoque/estoque.component';
 import { VendasComponent } from './vendas/vendas.component';
 import { SaidaComponent } from './estoque/saida/saida.component';
+import { AlertaCompraComponent } from './estoque/alerta-compra/alerta-compra.component';
 
 const routes: Routes = [{
   path: '',
@@ -63,6 +64,10 @@ const routes: Routes = [{
     {
       path: 'estoque/saida',
       component: SaidaComponent
+    },
+    {
+      path: 'estoque/alerta-compra',
+      component: AlertaCompraComponent
     },
     {
       path: 'vendas',

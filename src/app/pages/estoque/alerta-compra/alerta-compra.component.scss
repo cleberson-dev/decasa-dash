@@ -1,0 +1,57 @@
+$borderColor: #edf1f7;
+
+.form-group label {
+  display: block;
+}
+
+table {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+thead {
+  background-color: $borderColor;
+  text-align: center;
+}
+
+th {
+  font-weight: 600;
+}
+
+th, td {
+  padding: .8rem .6rem;
+}
+
+tbody tr:not(:last-child) {
+  border-bottom: 1px solid $borderColor;
+}
+
+.form-row {
+  box-sizing: content-box;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+h5 {
+  margin-top: 2rem;
+}
+
+.invalid {
+  background: purple;
+}
+
+col.resizable {
+  width: fit-content;
+}
+
+td.quantidade input {
+  min-width: 8rem;
+}
+
+.estoque-card-footer {
+  display: flex;
+  justify-content: space-between;
+}
