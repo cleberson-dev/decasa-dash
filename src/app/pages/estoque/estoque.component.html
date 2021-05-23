@@ -27,5 +27,32 @@
         </div>
       </div>
     </form>
+
+    <table>
+      <colgroup>
+        <col class="resizable" />
+        <col />
+        <col class="resizable" />
+        <col class="resizable" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Produto</th>
+          <th>Unidade</th>
+          <th>Quantidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data">
+          <td>{{ row.codigo }}</td>
+          <td>{{ row.nome }}</td>
+          <td>{{ row.unidade }}</td>
+          <td class="quantidade">
+            <input nbInput type="number" fullWidth [defaultValue]="row.quantidade" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </nb-card-body>
 </nb-card>

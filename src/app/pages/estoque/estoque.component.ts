@@ -15,6 +15,14 @@ export class EstoqueComponent implements OnInit {
     { title: 'Estoque mínimo', link: '/estoque/minimo', active: false },
   ];
 
+  data = [
+    { codigo: '00001', nome: 'Produto #1', unidade: 'cm', quantidade: 5 },
+    { codigo: '00002', nome: 'Produto #2', unidade: 'kg', quantidade: 2 },
+    { codigo: '00003', nome: 'Produto #3', unidade: 'pacote', quantidade: 5 },
+    { codigo: '00004', nome: 'Produto #4', unidade: 'litro', quantidade: 3 },
+    { codigo: '00005', nome: 'Produto #5', unidade: 'caixa', quantidade: 5 },
+  ]
+
   constructor() { }
 
   ngOnInit(): void {
