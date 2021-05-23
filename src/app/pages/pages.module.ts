@@ -47,6 +47,7 @@ import { ContaCorrenteComponent } from './financeiro/conta-corrente/conta-corren
 import { RelatoriosComponent } from './financeiro/relatorios/relatorios.component';
 import { EstoqueComponent } from './estoque/estoque.component';
 import { VendasComponent } from './vendas/vendas.component';
+import { SaidaComponent } from './estoque/saida/saida.component';
 
 @NgModule({
   imports: [
@@ -96,7 +97,8 @@ import { VendasComponent } from './vendas/vendas.component';
     ContaCorrenteComponent,
     RelatoriosComponent,
     EstoqueComponent,
-    VendasComponent
+    VendasComponent,
+    SaidaComponent
   ]
 })
 export class PagesModule {

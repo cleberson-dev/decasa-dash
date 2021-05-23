@@ -14,6 +14,7 @@ import { ContaCorrenteComponent } from './financeiro/conta-corrente/conta-corren
 import { RelatoriosComponent } from './financeiro/relatorios/relatorios.component';
 import { EstoqueComponent } from './estoque/estoque.component';
 import { VendasComponent } from './vendas/vendas.component';
+import { SaidaComponent } from './estoque/saida/saida.component';
 
 const routes: Routes = [{
   path: '',
@@ -58,6 +59,10 @@ const routes: Routes = [{
     {
       path: 'estoque',
       component: EstoqueComponent
+    },
+    {
+      path: 'estoque/saida',
+      component: SaidaComponent
     },
     {
       path: 'vendas',
