@@ -166,9 +166,31 @@
     </nb-card-footer>
   </nb-card>
 
-  <nb-card *ngIf="context.type === 'detalhes-fornecedor'">
-    <nb-card-body>
-      Detalhes Fornecedor
+  <nb-card
+    class="modal-detalhes-fornecedor" 
+    *ngIf="context.type === 'detalhes-fornecedor'"
+  >
+    <nb-card-header>Detalhes do Fornecedor</nb-card-header>
+    <nb-card-body class="detalhes">
+      <p>Nome: <span>{{ context.fornecedor.nome }}</span></p>
+      <p>E-mail: <span>{{ context.fornecedor.email }}</span></p>
+      <div class="row">
+        <p class="col-2">CEP: <span>{{ context.fornecedor.cep }}</span></p>
+        <p class="col-10">Logradouro: <span>{{ context.fornecedor.logradouro }}</span></p>
+      </div>
+      <div class="row">
+        <p class="col-2">Número: <span>{{ context.fornecedor.numero }}</span></p>
+        <p class="col-4">Bairro: <span>{{ context.fornecedor.bairro }}</span></p>
+        <p class="col-6">Ponto de Referência: <span>{{ context.fornecedor.pontoReferencia }}</span></p>
+      </div>
+      <p>CNPJ: <span>{{ context.fornecedor.cnpj }}</span></p>
+      <div class="row">
+        <p class="col-2">Celular: <span>{{ context.fornecedor.celular }}</span></p>
+        <p class="col-2">Telefone: <span>{{ context.fornecedor.telefone }}</span></p>
+      </div>
     </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()">Voltar</button>
+    </nb-card-footer>
   </nb-card>
 </ng-template>

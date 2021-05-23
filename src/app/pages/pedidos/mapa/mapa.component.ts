@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { Tab } from '../../../components/tabber/tabber.component';
+import { Fornecedor } from '../../../types';
 
 type MapRow = {
   produto: {
@@ -183,8 +184,23 @@ export class MapaComponent implements OnInit {
   }
 
   openDetalhesFornecedor(dialog: TemplateRef<any>) {
+    const fakeFornecedor: Fornecedor = {
+      id: 1,
+      nome: 'Fornecedor #1',
+      email: 'fornecedor@decasa.com',
+      bairro: 'Bairro #1',
+      logradouro: 'Logradouro #1',
+      cep: '99999-999',
+      cnpj: '999.999.999-99',
+      numero: 123,
+      pontoReferencia: 'Próximo aquele lugar lá',
+      celular: '(99) 99999-9999',
+      telefone: '(99) 99999-9999',
+    };
+    
     const context = {
-      type: 'detalhes-fornecedor'
+      type: 'detalhes-fornecedor',
+      fornecedor: fakeFornecedor
     };
 
     this.dialogService.open(dialog, { context });

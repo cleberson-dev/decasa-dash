@@ -295,3 +295,19 @@ td.preco.menor-fornecedor:hover {
   display: flex;
   justify-content: space-between;
 }
+
+.modal-detalhes-fornecedor {
+
+  .detalhes {
+    width: 80vw;
+  }
+  
+  .detalhes p {
+    font-weight: 600;
+
+    span {
+      display: block;
+      font-weight: 500;
+    }
+  }
+}
