@@ -49,6 +49,7 @@ import { EstoqueComponent } from './estoque/estoque.component';
 import { VendasComponent } from './vendas/vendas.component';
 import { SaidaComponent } from './estoque/saida/saida.component';
 import { AlertaCompraComponent } from './estoque/alerta-compra/alerta-compra.component';
+import { TombamentoComponent } from './estoque/tombamento/tombamento.component';
 
 @NgModule({
   imports: [
@@ -100,7 +101,8 @@ import { AlertaCompraComponent } from './estoque/alerta-compra/alerta-compra.com
     EstoqueComponent,
     VendasComponent,
     SaidaComponent,
-    AlertaCompraComponent
+    AlertaCompraComponent,
+    TombamentoComponent
   ]
 })
 export class PagesModule {

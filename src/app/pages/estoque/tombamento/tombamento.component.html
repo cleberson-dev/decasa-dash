@@ -1,0 +1,116 @@
+<ngx-tabber [tabs]="tabs"></ngx-tabber>
+
+<nb-card>
+  <nb-card-body>
+    <form>
+      <div class="row">
+        <div class="form-group col-3">
+          <label>Local</label>
+          <nb-select fullWidth>
+            <nb-option value="1">Local #1</nb-option>
+            <nb-option value="2">Local #2</nb-option>
+            <nb-option value="3">Local #3</nb-option>
+          </nb-select>
+        </div>
+      </div>
+    </form>
+
+    <table>
+      <colgroup>
+        <col class="resizable" />
+        <col />
+        <col class="resizable" />
+        <col class="resizable" />
+        <col class="resizable" />
+        <col class="resizable" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Produto</th>
+          <th>Unidade</th>
+          <th>Qtd. Virtual</th>
+          <th>Conferido</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr [formGroup]="form">
+          <td>
+            <input 
+              nbInput 
+              style="width: 150px" 
+              formControlName="codigo"
+              (blur)="onCodigoBlur()"
+              [class]="{ invalid: isInvalidControl('codigo') }"
+            />
+          </td>
+          <td>
+            <input 
+              #autoInput 
+              nbInput 
+              type="text" 
+              (input)="onNomeInputChange()"
+              (blur)="onNomeInputBlur()"
+              placeholder="Fale algo"
+              [nbAutocomplete]="auto"
+              fullWidth
+              formControlName="nome"
+              [class]="{ invalid: isInvalidControl('nome') }"
+            />
+            <nb-autocomplete #auto (selectedChange)="onNomeSelectionChange($event)">
+              <nb-option *ngFor="let option of suggestedOptions$ | async" [value]="option">
+                {{ option }}
+              </nb-option>
+            </nb-autocomplete>
+          </td>
+          <td class="quantidade">
+            <input 
+              nbInput fullWidth formControlName="unidade"
+              [class]="{ invalid: isInvalidControl('unidade') }"
+            />
+          </td>
+          <td>
+            <input 
+              nbInput type="number" fullWidth style="width: 90px" 
+              formControlName="qtVirtual"
+              [class]="{ invalid: isInvalidControl('qtVirtual') }"
+            />
+          </td>
+          <td>
+            <input 
+              nbInput type="number" fullWidth style="width: 90px" 
+              formControlName="conferido"
+              [class]="{ invalid: isInvalidControl('conferido') }"
+            />
+          </td>
+          <td>
+            <button nbButton status="primary" fullWidth (click)="onProdutoAdd()" [disabled]="form.invalid">
+              <nb-icon icon="plus"></nb-icon>
+            </button>
+          </td>
+        </tr>
+        <tr *ngFor="let row of data">
+          <td>{{ row.codigo }}</td>
+          <td>{{ row.nome }}</td>
+          <td>{{ row.unidade }}</td>
+          <td>{{ row.qtVirtual }}</td>
+          <td>{{ row.conferido }}</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="form-group col-3" style="margin-top: 2rem;">
+        <label>Nota fiscal</label>
+        <input nbInput fullWidth />
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer class="estoque-card-footer">
+    <div></div>
+    <button nbButton type="button" status="primary">
+      Confirmar
+    </button>
+  </nb-card-footer>
+</nb-card>
