@@ -17,7 +17,7 @@ export class SaidaComponent implements OnInit {
     { title: 'Entrada', link: '/estoque', active: false },
     { title: 'Saída/Baixa', link: '/estoque/saida', active: true },
     { title: 'Alerta de Compra', link: '/estoque/alerta-compra', active: false },
-    { title: 'Estoque mínimo', link: '/estoque/minimo', active: false },
+    { title: 'Tombamento', link: '/estoque/tombamento', active: false },
   ];
 
   data = [

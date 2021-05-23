@@ -17,7 +17,7 @@ export class AlertaCompraComponent implements OnInit {
     { title: 'Entrada', link: '/estoque', active: false },
     { title: 'Saída/Baixa', link: '/estoque/saida', active: false },
     { title: 'Alerta de Compra', link: '/estoque/alerta-compra', active: true },
-    { title: 'Estoque mínimo', link: '/estoque/minimo', active: false },
+    { title: 'Tombamento', link: '/estoque/tombamento', active: false },
   ];
 
   data = [

@@ -12,7 +12,7 @@ export class EstoqueComponent implements OnInit {
     { title: 'Entrada', link: '/estoque', active: true },
     { title: 'Saída/Baixa', link: '/estoque/saida', active: false },
     { title: 'Alerta de Compra', link: '/estoque/alerta-compra', active: false },
-    { title: 'Estoque mínimo', link: '/estoque/minimo', active: false },
+    { title: 'Tombamento', link: '/estoque/tombamento', active: false },
   ];
 
   data = [
