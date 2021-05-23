@@ -57,3 +57,8 @@ col.resizable {
 td.quantidade input {
   min-width: 8rem;
 }
+
+.estoque-card-footer {
+  display: flex;
+  justify-content: space-between;
+}
