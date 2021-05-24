@@ -19,33 +19,38 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   getAllProducts(): Observable<Produto[]> {
-    return this.http.get(this.url + '/produtos')
-      .pipe(map((data: any) => data.map((produto): Produto => ({
-        id: produto.id,
-        nome: produto.descricao,
-        marca: {
-          id: produto.modelo.marca.id,
-          nome: produto.modelo.marca.descricao
-        },
-        modelo: {
-          id: produto.modelo.id,
-          nome: produto.modelo.descricao
-        },
-        categoria: {
-          id: produto.categoria.id,
-          nome: produto.categoria.descricao
-        },
-        departamento: {
-          id: produto.categoria.departamento.id,
-          nome: produto.categoria.departamento.descricao
-        },
-        foto: produto.foto,
-        cnp: produto.cnp,
-        detalhe: produto.detalhe,
-        manualInstrucao: produto.manualInstrucao,
-        videoDemonstrativo: produto.videoDemonstrativo,
-        quantidadeApresentacao: produto.quantidadeApresentacao
-      }))));
+    return this.http.get(this.url + '/produtos').pipe(
+      map((data: any) =>
+        data.map(
+          (produto): Produto => ({
+            id: produto.id,
+            nome: produto.descricao,
+            marca: {
+              id: produto.modelo.marca.id,
+              nome: produto.modelo.marca.descricao,
+            },
+            modelo: {
+              id: produto.modelo.id,
+              nome: produto.modelo.descricao,
+            },
+            categoria: {
+              id: produto.categoria.id,
+              nome: produto.categoria.descricao,
+            },
+            departamento: {
+              id: produto.categoria.departamento.id,
+              nome: produto.categoria.departamento.descricao,
+            },
+            foto: produto.foto,
+            cnp: produto.cnp,
+            detalhe: produto.detalhe,
+            manualInstrucao: produto.manualInstrucao,
+            videoDemonstrativo: produto.videoDemonstrativo,
+            quantidadeApresentacao: produto.quantidadeApresentacao,
+          })
+        )
+      )
+    );
   }
 
   getProdutosLojista() {
@@ -53,25 +58,31 @@ export class ApiService {
   }
 
   getDepartments(): Observable<Department[]> {
-    return this.http.get(this.url + '/categorias?size=100')
-      .pipe(map((categorias: any): Department[] => {
+    return this.http.get(this.url + '/categorias?size=100').pipe(
+      map((categorias: any): Department[] => {
         const departments = [];
 
-        categorias.forEach(categoria => {
-          const cur = departments.find(d => d.id === categoria.departamento.id);
+        categorias.forEach((categoria) => {
+          const cur = departments.find(
+            (d) => d.id === categoria.departamento.id
+          );
           if (cur) {
-            cur.categories.push({ id: categoria.id, name: categoria.descricao });
+            cur.categories.push({
+              id: categoria.id,
+              name: categoria.descricao,
+            });
           } else {
             departments.push({
               id: categoria.departamento.id,
               name: categoria.departamento.descricao,
-              categories: [{ id: categoria.id, name: categoria.descricao }]
+              categories: [{ id: categoria.id, name: categoria.descricao }],
             });
           }
         });
 
         return departments;
-      }));
+      })
+    );
   }
 
   getProductsByCategory(id: string, options?: Options) {
