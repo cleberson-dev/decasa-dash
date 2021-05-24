@@ -157,7 +157,11 @@
     <p>CPF Representante: <span>{{ context.fornecedor.cpfRepresentante }}</span></p>
     <div style="margin-top: 1rem">
       <button nbButton fullWidth (click)="onEdit(context)">Editar</button>
-      <button nbButton fullWidth status="danger" style="margin-top: 10px">Bloquear</button>
+      <button 
+        nbButton fullWidth 
+        status="danger" style="margin-top: 10px"
+        (click)="onBlock(context.fornecedor.id)"
+      >Bloquear</button>
     </div>
   </div>
 </ng-template>

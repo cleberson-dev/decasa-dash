@@ -155,4 +155,11 @@ export class FornecedoresComponent implements OnInit {
 
     return messages[firstType] || defaultMessage;
   }
+
+  onBlock(fornecedorId: number) {
+    this.api.removerFornecedor(fornecedorId)
+      .subscribe(() => {
+        this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedorId);
+      });
+  }
 }

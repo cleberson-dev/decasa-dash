@@ -97,4 +97,10 @@ export class ApiService {
 
     return this.http.post(url, body);
   }
+
+  removerFornecedor(id: number) {
+    const url = this.url + '/fornecedores/' + id;
+
+    return this.http.delete(url);
+  }
 }
