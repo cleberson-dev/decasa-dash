@@ -1,128 +1,152 @@
 <h1 class="page-title">Meus fornecedores</h1>
 
-<ngx-spinner 
-  size="medium" 
-  color="#fff" 
+<ngx-spinner
+  size="medium"
+  color="#fff"
   type="ball-clip-rotate"
   [fullScreen]="false"
 ></ngx-spinner>
 
 <div *ngIf="fornecedores.length > 0; else elseBlock" class="fornecedores-list">
-  <nb-card class="fornecedor" (click)="openDetails(dialog, fornecedor)" *ngFor="let fornecedor of fornecedores">
+  <nb-card
+    class="fornecedor"
+    (click)="openDetails(dialog, fornecedor)"
+    *ngFor="let fornecedor of fornecedores"
+  >
     <nb-card-body class="fornecedor-body">
       <p class="nome">{{ fornecedor.nome }}</p>
       <p class="details">{{ fornecedor.celular }} - {{ fornecedor.email }}</p>
     </nb-card-body>
   </nb-card>
   <button (click)="openCreate(dialog)" class="criar-btn">
-    <nb-card class="fornecedor action-btn">
-      +
-    </nb-card>
+    <nb-card class="fornecedor action-btn"> + </nb-card>
   </button>
 </div>
 <ng-template #elseBlock>
   <div class="no-items">
     <p>Sem fornecedores.</p>
-    <button nbButton status="primary" (click)="openCreate(dialog)">Crie um novo</button>
+    <button nbButton status="primary" (click)="openCreate(dialog)">
+      Crie um novo
+    </button>
   </div>
 </ng-template>
 
 <ng-template #dialog let-context let-ref="dialogRef">
-  <form *ngIf="context.type === 'form'" class="row" [formGroup]="formFornecedor">
+  <form
+    *ngIf="context.type === 'form'"
+    class="row"
+    [formGroup]="formFornecedor"
+  >
     <div class="col-12">
       <nb-card>
         <nb-card-header>{{ formTitle }}</nb-card-header>
         <nb-card-body class="card-body">
-        <div class="row">
-          <div class="col-5">
-            <label>Nome</label>
-            <input nbInput fullWidth formControlName="nome" />
-            <small *ngIf="isControlInvalid('nome')" class="error">
-              {{ getErrorMessage('nome') }}
-            </small>
+          <div class="row">
+            <div class="col-5">
+              <label>Nome</label>
+              <input nbInput fullWidth formControlName="nome" />
+              <small *ngIf="isControlInvalid('nome')" class="error">
+                {{ getErrorMessage("nome") }}
+              </small>
+            </div>
+            <div class="col-5">
+              <label>CNPJ</label>
+              <input
+                nbInput
+                fullWidth
+                formControlName="cnpj"
+                [imask]="{ mask: '00.000.000/0000-00' }"
+              />
+              <small *ngIf="isControlInvalid('cnpj')" class="error">
+                {{ getErrorMessage("cnpj") }}
+              </small>
+            </div>
           </div>
-          <div class="col-5">
-            <label>CNPJ</label>
-            <input nbInput fullWidth formControlName="cnpj" [imask]="{ mask: '00.000.000/0000-00' }" />
-            <small *ngIf="isControlInvalid('cnpj')" class="error">
-              {{ getErrorMessage('cnpj') }}
-            </small>
+          <div class="row">
+            <div class="col-4">
+              <label>E-mail</label>
+              <input nbInput fullWidth type="email" formControlName="email" />
+              <small *ngIf="isControlInvalid('email')" class="error">
+                {{ getErrorMessage("email") }}
+              </small>
+            </div>
+            <div class="col-3">
+              <label>Celular</label>
+              <input
+                nbInput
+                fullWidth
+                formControlName="celular"
+                [imask]="{ mask: '(00) 00000-0000' }"
+              />
+              <small *ngIf="isControlInvalid('celular')" class="error">
+                {{ getErrorMessage("celular") }}
+              </small>
+            </div>
+            <div class="col-3">
+              <label>Telefone</label>
+              <input
+                nbInput
+                fullWidth
+                formControlName="telefone"
+                [imask]="{ mask: '(00) 00000-0000' }"
+              />
+              <small *ngIf="isControlInvalid('telefone')" class="error">
+                {{ getErrorMessage("telefone") }}
+              </small>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-4">
-            <label>E-mail</label>
-            <input nbInput fullWidth type="email" formControlName="email" />
-            <small *ngIf="isControlInvalid('email')" class="error">
-              {{ getErrorMessage('email') }}
-            </small>
+          <div class="row">
+            <div class="col-2">
+              <label>CEP</label>
+              <input
+                nbInput
+                fullWidth
+                formControlName="cep"
+                [imask]="{ mask: '00000-000' }"
+              />
+              <small *ngIf="isControlInvalid('cep')" class="error">
+                {{ getErrorMessage("cep") }}
+              </small>
+            </div>
+            <div class="col-4">
+              <label>Logradouro</label>
+              <input nbInput fullWidth formControlName="logradouro" />
+              <small *ngIf="isControlInvalid('logradouro')" class="error">
+                {{ getErrorMessage("logradouro") }}
+              </small>
+            </div>
+            <div class="col-2">
+              <label>Número</label>
+              <input nbInput fullWidth formControlName="numero" />
+              <small *ngIf="isControlInvalid('numero')" class="error">
+                {{ getErrorMessage("numero") }}
+              </small>
+            </div>
+            <div class="col-4">
+              <label>Bairro</label>
+              <input nbInput fullWidth formControlName="bairro" />
+              <small *ngIf="isControlInvalid('bairro')" class="error">
+                {{ getErrorMessage("bairro") }}
+              </small>
+            </div>
           </div>
-          <div class="col-3">
-            <label>Celular</label>
-            <input nbInput fullWidth formControlName="celular" [imask]="{ mask: '(00) 00000-0000' }" />
-            <small *ngIf="isControlInvalid('celular')" class="error">
-              {{ getErrorMessage('celular') }}
-            </small>
+          <div class="row">
+            <div class="col-5">
+              <label>Ponto de Referência</label>
+              <input nbInput fullWidth formControlName="pontoReferencia" />
+              <small *ngIf="isControlInvalid('pontoReferencia')" class="error">
+                {{ getErrorMessage("pontoReferencia") }}
+              </small>
+            </div>
           </div>
-          <div class="col-3">
-            <label>Telefone</label>
-            <input nbInput fullWidth formControlName="telefone" [imask]="{ mask: '(00) 00000-0000' }"  />
-            <small *ngIf="isControlInvalid('telefone')" class="error">
-              {{ getErrorMessage('telefone') }}
-            </small>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <label>CEP</label>
-            <input nbInput fullWidth formControlName="cep"  [imask]="{ mask: '00000-000' }"  />
-            <small *ngIf="isControlInvalid('cep')" class="error">
-              {{ getErrorMessage('cep') }}
-            </small>
-          </div>
-          <div class="col-4">
-            <label>Logradouro</label>
-            <input nbInput fullWidth formControlName="logradouro" />
-            <small *ngIf="isControlInvalid('logradouro')" class="error">
-              {{ getErrorMessage('logradouro') }}
-            </small>
-          </div>
-          <div class="col-2">
-            <label>Número</label>
-            <input nbInput fullWidth formControlName="numero" />
-            <small *ngIf="isControlInvalid('numero')" class="error">
-              {{ getErrorMessage('numero') }}
-            </small>
-          </div>
-          <div class="col-4">
-            <label>Bairro</label>
-            <input nbInput fullWidth formControlName="bairro" />
-            <small *ngIf="isControlInvalid('bairro')" class="error">
-              {{ getErrorMessage('bairro') }}
-            </small>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-5">
-            <label>Ponto de Referência</label>
-            <input nbInput fullWidth formControlName="pontoReferencia" />
-            <small *ngIf="isControlInvalid('pontoReferencia')" class="error">
-              {{ getErrorMessage('pontoReferencia') }}
-            </small>
-          </div>
-        </div>
         </nb-card-body>
         <nb-card-footer class="dialog-footer">
           <button nbButton (click)="ref.close()">
             <nb-icon icon="arrow-ios-back"></nb-icon>
             Voltar
           </button>
-          
-          <button 
-            nbButton
-            status="primary"
-            (click)="handleFormSubmit(ref)"
-          >
+
+          <button nbButton status="primary" (click)="handleFormSubmit(ref)">
             {{ formSubmitText }}
           </button>
         </nb-card-footer>
@@ -135,33 +159,57 @@
       <button nbButton ghost (click)="ref.close()">
         <nb-icon icon="arrow-back"></nb-icon>
       </button>
-      <h3 class="title">
-        Detalhes do Fornecedor
-      </h3>
+      <h3 class="title">Detalhes do Fornecedor</h3>
     </div>
 
-    <p>Nome: <span>{{ context.fornecedor.nome }}</span></p>
-    <p>CPNJ: <span>{{ context.fornecedor.cnpj }}</span></p>
-    <p>E-mail: <span>{{ context.fornecedor.email }}</span></p>
-    <p>CEP: <span>{{ context.fornecedor.cep }}</span></p>
-    <p>Logradouro: <span>{{ context.fornecedor.logradouro }}</span></p>
+    <p>
+      Nome: <span>{{ context.fornecedor.nome }}</span>
+    </p>
+    <p>
+      CPNJ: <span>{{ context.fornecedor.cnpj }}</span>
+    </p>
+    <p>
+      E-mail: <span>{{ context.fornecedor.email }}</span>
+    </p>
+    <p>
+      CEP: <span>{{ context.fornecedor.cep }}</span>
+    </p>
+    <p>
+      Logradouro: <span>{{ context.fornecedor.logradouro }}</span>
+    </p>
     <div class="row">
-      <p class="col-6">Bairro: <span>{{ context.fornecedor.bairro }}</span></p>
-      <p class="col-6">Número: <span>{{ context.fornecedor.numero }}</span></p>
+      <p class="col-6">
+        Bairro: <span>{{ context.fornecedor.bairro }}</span>
+      </p>
+      <p class="col-6">
+        Número: <span>{{ context.fornecedor.numero }}</span>
+      </p>
     </div>
-    <p>Ponto de Referência: <span>{{ context.fornecedor.pontoReferencia }}</span></p>
+    <p>
+      Ponto de Referência: <span>{{ context.fornecedor.pontoReferencia }}</span>
+    </p>
     <div class="row">
-      <p class="col-6">Celular: <span>{{ context.fornecedor.celular }}</span></p>
-      <p class="col-6">Telefone: <span>{{ context.fornecedor.telefone }}</span></p>
+      <p class="col-6">
+        Celular: <span>{{ context.fornecedor.celular }}</span>
+      </p>
+      <p class="col-6">
+        Telefone: <span>{{ context.fornecedor.telefone }}</span>
+      </p>
     </div>
-    <p>CPF Representante: <span>{{ context.fornecedor.cpfRepresentante }}</span></p>
+    <p>
+      CPF Representante: <span>{{ context.fornecedor.cpfRepresentante }}</span>
+    </p>
     <div style="margin-top: 1rem">
       <button nbButton fullWidth (click)="onEdit(context)">Editar</button>
-      <button 
-        nbButton fullWidth 
-        status="danger" style="margin-top: 10px"
+      <button
+        nbButton
+        fullWidth
+        status="danger"
+        style="margin-top: 10px"
         (click)="onBlock(context.fornecedor.id, ref)"
-      >Bloquear</button>
+      >
+        Bloquear
+      </button>
     </div>
   </div>
 </ng-template>
