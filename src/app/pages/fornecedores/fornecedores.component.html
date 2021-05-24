@@ -103,6 +103,8 @@
                 fullWidth
                 formControlName="cep"
                 [imask]="{ mask: '00000-000' }"
+                (blur)="fillAddresses()"
+                (keyup)="fillAddresses()"
               />
               <small *ngIf="isControlInvalid('cep')" class="error">
                 {{ getErrorMessage("cep") }}
@@ -110,7 +112,7 @@
             </div>
             <div class="col-4">
               <label>Logradouro</label>
-              <input nbInput fullWidth formControlName="logradouro" />
+              <input nbInput fullWidth formControlName="logradouro" disabled />
               <small *ngIf="isControlInvalid('logradouro')" class="error">
                 {{ getErrorMessage("logradouro") }}
               </small>
@@ -124,7 +126,7 @@
             </div>
             <div class="col-4">
               <label>Bairro</label>
-              <input nbInput fullWidth formControlName="bairro" />
+              <input nbInput fullWidth formControlName="bairro" disabled />
               <small *ngIf="isControlInvalid('bairro')" class="error">
                 {{ getErrorMessage("bairro") }}
               </small>

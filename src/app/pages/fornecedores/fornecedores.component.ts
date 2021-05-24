@@ -3,6 +3,7 @@ import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from '../../services/api.service';
+import { CepService } from '../../services/cep.service';
 import { Fornecedor } from '../../types';
 import * as CustomValidators from '../../validators';
 
@@ -49,7 +50,8 @@ export class FornecedoresComponent implements OnInit {
     private dialogService: NbDialogService,
     private spinner: NgxSpinnerService,
     private api: ApiService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cepService: CepService
   ) { }
 
   ngOnInit(): void {
@@ -162,5 +164,24 @@ export class FornecedoresComponent implements OnInit {
         this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedorId);
       });
     ref.close();
+  }
+
+  fillAddresses() {
+    if (this.formFornecedor.controls['cep'].invalid) {
+      this.formFornecedor.patchValue({
+        logradouro: '',
+        bairro: ''
+      });
+      return;
+    }
+    
+    const cep = this.formFornecedor.controls['cep'].value;
+    this.cepService.get(cep)
+      .subscribe(data => {
+        this.formFornecedor.patchValue({
+          logradouro: data.logradouro,
+          bairro: data.bairro
+        });
+      });
   }
 }
