@@ -10,10 +10,16 @@ type Options = {
   itemsPerPage?: number;
 };
 
-export type ApiMunicipioEndereco = {
+export type ApiMunicipio = {
   id: number;
   nome: string;
   ativo: boolean;
+}
+
+export type ApiUF = {
+  id: number
+  nome: string;
+  sigla: string;
 }
 
 @Injectable({
@@ -170,19 +176,18 @@ export class ApiService {
     return this.http.delete(url);
   }
 
-  getMunicipioEnderecos(): Observable<ApiMunicipioEndereco[]> {
-    const url = '/v1/rest/decasa/clientAddress/113';
+  getMunicipiosByUf(ufId: number) {
+    const url = '/cadastros-0.0.1/util/municipios/' + ufId;
     const headers = {
       'Access-Token': 'G416F208V208U416V1196D780E416U1196Y884W416H1144H1196H364H676X780K936G416G936V832O416G416C416V1144H1196H',
-      'Access-Control-Allow-Origin': '*'
     };
-    return this.http.get<any>(url, { headers })
-      .pipe(
-        map(data => data.map(endereco => ({
-          id: endereco.municipio.id,
-          nome: endereco.municipio.nome,
-          ativo: endereco.municipio.ativo
-        })))
-      );
+    return this.http.get<ApiMunicipio[]>(url, { headers });
+  }
+
+
+  getUfs() {
+    const url = '/cadastros-0.0.1/util/uf';
+
+    return this.http.get<ApiUF[]>(url);
   }
 }

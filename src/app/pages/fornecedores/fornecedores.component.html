@@ -97,6 +97,30 @@
           </div>
           <div class="row">
             <div class="col-2">
+              <label>UF</label>
+              <nb-select 
+                fullWidth 
+                formControlName="uf"
+                (selectedChange)="onUFChange($event)"
+              >
+                <nb-option *ngFor="let uf of ufs" [value]="uf.id">{{ uf.sigla }}</nb-option>
+              </nb-select>
+              <small *ngIf="isControlInvalid('uf')" class="error">
+                {{ getErrorMessage("uf") }}
+              </small>
+            </div>
+           <div class="col-4">
+              <label>Município</label>
+              <nb-select fullWidth formControlName="municipioEndereco" [disabled]="municipios.length === 0">
+                <nb-option *ngFor="let municipio of municipios" [value]="municipio.id">{{ municipio.nome }}</nb-option>
+              </nb-select>
+              <small *ngIf="isControlInvalid('municipioEndereco')" class="error">
+                {{ getErrorMessage("municipioEndereco") }}
+              </small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
               <label>CEP</label>
               <input
                 nbInput
@@ -142,15 +166,6 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-4">
-              <label>Município Endereço</label>
-              <nb-select fullWidth formControlName="municipioEndereco">
-                <nb-option *ngFor="let municipio of formEnderecos" [value]="municipio.id">{{ municipio.nome }}</nb-option>
-              </nb-select>
-              <small *ngIf="isControlInvalid('municipioEndereco')" class="error">
-                {{ getErrorMessage("municipioEndereco") }}
-              </small>
-            </div>
             <div class="col-4">
               <label>Orgão Expedidor</label>
               <nb-select fullWidth formControlName="orgaoExpedidor">

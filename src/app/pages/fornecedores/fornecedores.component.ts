@@ -2,10 +2,11 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ApiMunicipioEndereco, ApiService } from '../../services/api.service';
+import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { CepService } from '../../services/cep.service';
 import { Fornecedor } from '../../types';
 import * as CustomValidators from '../../validators';
+import { Observable, of } from 'rxjs';
 
 const defaultData = {
   bairro: 'Bairro #1',
@@ -27,11 +28,12 @@ const defaultData = {
 })
 export class FornecedoresComponent implements OnInit {
   fornecedores: Fornecedor[] = [];
+  ufs: ApiUF[] = [];
+  municipios: ApiMunicipio[] = [];
   
   formTitle = '';
   formSubmitText = '';
   formType = '';
-  formEnderecos: ApiMunicipioEndereco[] = [];
   formFornecedor = this.fb.group({
     id: [''],
     nome: ['', [Validators.required]],
@@ -47,6 +49,7 @@ export class FornecedoresComponent implements OnInit {
     municipioEndereco: ['', [Validators.required]],
     estadoCivil: ['', [Validators.required]],
     orgaoExpedidor: ['', [Validators.required]],
+    uf: ['', [Validators.required]]
     // RG Representante, CPF Representante, Data RG
   });
 
@@ -66,9 +69,9 @@ export class FornecedoresComponent implements OnInit {
       // this.spinner.hide();
     });
 
-    this.api.getMunicipioEnderecos()
-      .subscribe(enderecos => {
-        this.formEnderecos = enderecos;
+    this.api.getUfs()
+      .subscribe(ufs => {
+        this.ufs = ufs;
       });
   }
 
@@ -191,6 +194,14 @@ export class FornecedoresComponent implements OnInit {
           logradouro: data.logradouro,
           bairro: data.bairro
         });
+      });
+  }
+
+  onUFChange(newUf: any) {
+    if (newUf === '') return;
+    this.api.getMunicipiosByUf(Number(newUf))
+      .subscribe(municipios => {
+        this.municipios = municipios;
       });
   }
 }
