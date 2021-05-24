@@ -75,4 +75,26 @@ export class ApiService {
 
     return this.http.put(url, fornecedor);
   }
+
+  criarFornecedor(novoFornecedor: Fornecedor) {
+    const url = this.url + '/fornecedores/';
+
+    const body = {
+      nome: novoFornecedor.nome,
+      cnpj: novoFornecedor.cnpj,
+      logradouro: novoFornecedor.logradouro,
+      bairro: novoFornecedor.bairro,
+      numero: novoFornecedor.numero,
+      cep: novoFornecedor.cep,
+      celular: novoFornecedor.celular,
+      telefone: novoFornecedor.telefone,
+      email: novoFornecedor.email,
+      pontoReferencia: novoFornecedor.pontoReferencia,
+      municipioEndereco: { id: 2 },
+      orgaoExpedidor: { id: 2 },
+      estadoCivil: { id: 3 },
+    };
+
+    return this.http.post(url, body);
+  }
 }

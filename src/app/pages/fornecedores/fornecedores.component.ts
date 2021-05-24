@@ -37,8 +37,8 @@ export class FornecedoresComponent implements OnInit {
     logradouro: ['', [Validators.required]],
     numero: ['', [Validators.required]],
     bairro: ['', [Validators.required]],
-    cep: ['', [Validators.required, CustomValidators.cpf]],
-    pontoReferencia: ['', [Validators.required]],
+    cep: ['', [Validators.required, CustomValidators.cep]],
+    pontoReferencia: [''],
     celular: ['', [Validators.required]],
     telefone: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
@@ -80,7 +80,7 @@ export class FornecedoresComponent implements OnInit {
 
   handleFormSubmit(ref: NbDialogRef<any>) {
     const fornecedor: Fornecedor = {
-      id: this.formFornecedor.controls['id'].value,
+      id: this.formFornecedor.controls['id'].value || undefined,
       nome: this.formFornecedor.controls['nome'].value,
       cnpj: this.formFornecedor.controls['cnpj'].value,
       bairro: this.formFornecedor.controls['bairro'].value,
@@ -98,6 +98,11 @@ export class FornecedoresComponent implements OnInit {
         .subscribe(() => {
           const editedFornecedorIdx = this.fornecedores.findIndex(f => f.id === fornecedor.id);
           this.fornecedores[editedFornecedorIdx] = fornecedor;
+        });
+    } else if (this.formType === 'criar') {
+      this.api.criarFornecedor({ id: undefined, ...fornecedor })
+        .subscribe(() => {
+          this.fornecedores.push(fornecedor);
         });
     }
 
