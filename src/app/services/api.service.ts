@@ -171,9 +171,10 @@ export class ApiService {
   }
 
   getMunicipioEnderecos(): Observable<ApiMunicipioEndereco[]> {
-    const url = 'https://homologacao.appdecasa.com.br/v1/rest/decasa/clientAddress/113';
+    const url = '/v1/rest/decasa/clientAddress/113';
     const headers = {
-      'Access-Token': 'G416F208V208U416V1196D780E416U1196Y884W416H1144H1196H364H676X780K936G416G936V832O416G416C416V1144H1196H'
+      'Access-Token': 'G416F208V208U416V1196D780E416U1196Y884W416H1144H1196H364H676X780K936G416G936V832O416G416C416V1144H1196H',
+      'Access-Control-Allow-Origin': '*'
     };
     return this.http.get<any>(url, { headers })
       .pipe(

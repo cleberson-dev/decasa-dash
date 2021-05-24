@@ -179,7 +179,7 @@
             Voltar
           </button>
 
-          <button nbButton status="primary" (click)="handleFormSubmit(ref)">
+          <button nbButton status="primary" (click)="handleFormSubmit(ref)" [disabled]="formFornecedor.invalid">
             {{ formSubmitText }}
           </button>
         </nb-card-footer>

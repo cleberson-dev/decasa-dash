@@ -6,6 +6,7 @@
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",
     "start": "electron-forge start",
+    "start:client": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "build:prod": "npm run build -- --prod --aot",
     "test": "ng test",

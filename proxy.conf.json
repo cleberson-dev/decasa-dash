@@ -1,0 +1,7 @@
+{
+  "/v1/rest/decasa/*": {
+    "target": "http://homologacao.appdecasa.com.br:8080",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
