@@ -156,10 +156,11 @@ export class FornecedoresComponent implements OnInit {
     return messages[firstType] || defaultMessage;
   }
 
-  onBlock(fornecedorId: number) {
+  onBlock(fornecedorId: number, ref: NbDialogRef<any>) {
     this.api.removerFornecedor(fornecedorId)
       .subscribe(() => {
         this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedorId);
       });
+    ref.close();
   }
 }
