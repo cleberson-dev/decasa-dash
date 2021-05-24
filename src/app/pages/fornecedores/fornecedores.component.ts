@@ -104,7 +104,16 @@ export class FornecedoresComponent implements OnInit {
       logradouro: this.formFornecedor.controls['logradouro'].value,
       numero: this.formFornecedor.controls['numero'].value,
       pontoReferencia: this.formFornecedor.controls['pontoReferencia'].value,
-      telefone: this.formFornecedor.controls['telefone'].value
+      telefone: this.formFornecedor.controls['telefone'].value,
+      municipioEndereco: {
+        id: this.formFornecedor.controls['municipioEndereco'].value
+      },
+      estadoCivil: {
+        id: this.formFornecedor.controls['estadoCivil'].value
+      },
+      orgaoExpedidor: {
+        id: this.formFornecedor.controls['orgaoExpedidor'].value
+      },
     };
 
     if (this.formType === 'editar') {

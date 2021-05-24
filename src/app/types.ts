@@ -54,8 +54,8 @@ export type Fornecedor = {
   dataRg?: Date;
   municipioEndereco?: {
     id: number;
-    nome: string;
-    ativo: boolean;
+    nome?: string;
+    ativo?: boolean;
   };
   usuario?: number;
   ufRg?: {
@@ -64,11 +64,11 @@ export type Fornecedor = {
   };
   estadoCivil?: {
     id: number;
-    descricao: string;
+    descricao?: string;
   };
   orgaoExpedidor?: {
     id: number;
-    descricao: string;
+    descricao?: string;
   };
 }
 
