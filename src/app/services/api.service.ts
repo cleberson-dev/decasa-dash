@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Fornecedor } from '../types';
+import { Department } from '../pages/produtos/produtos.component';
 
 type Options = {
   page?: number;
@@ -21,8 +22,26 @@ export class ApiService {
     return this.http.get(this.url + '/produtos');
   }
 
-  getCategories() {
-    return this.http.get(this.url + '/categorias?size=100');
+  getDepartments(): Observable<Department[]> {
+    return this.http.get(this.url + '/categorias?size=100')
+      .pipe(map((categorias: any): Department[] => {
+        const departments = [];
+
+        categorias.forEach(categoria => {
+          const cur = departments.find(d => d.id === categoria.departamento.id);
+          if (cur) {
+            cur.categories.push({ id: categoria.id, name: categoria.descricao });
+          } else {
+            departments.push({
+              id: categoria.departamento.id,
+              name: categoria.departamento.descricao,
+              categories: [{ id: categoria.id, name: categoria.descricao }]
+            });
+          }
+        });
+
+        return departments;
+      }));
   }
 
   getProductsByCategory(id: string, options?: Options) {

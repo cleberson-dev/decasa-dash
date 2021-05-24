@@ -139,21 +139,10 @@ export class ProdutosPageComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.apiService.getCategories()
-      .subscribe((data: any) => {
-        data.content.forEach(categoria => {
-          const cur = this.departments.find(d => d.id === categoria.departamento.id);
-          if (cur) {
-            cur.categories.push({ id: categoria.id, name: categoria.descricao });
-          } else {
-            this.departments.push({
-              id: categoria.departamento.id,
-              name: categoria.departamento.descricao,
-              categories: [{ id: categoria.id, name: categoria.descricao }]
-            });
-          }
-        });
-
+    this.apiService.getDepartments()
+      .subscribe(departments => {
+        this.departments = departments;
+        
         this.departmentTree = this.departments.map(department => ({
           name: department.name,
           icon: 'bookmark',
