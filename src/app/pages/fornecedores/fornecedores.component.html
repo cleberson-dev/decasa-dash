@@ -112,7 +112,7 @@
             </div>
             <div class="col-4">
               <label>Logradouro</label>
-              <input nbInput fullWidth formControlName="logradouro" disabled />
+              <input nbInput fullWidth formControlName="logradouro" [attr.disabled]="true" />
               <small *ngIf="isControlInvalid('logradouro')" class="error">
                 {{ getErrorMessage("logradouro") }}
               </small>
@@ -126,7 +126,7 @@
             </div>
             <div class="col-4">
               <label>Bairro</label>
-              <input nbInput fullWidth formControlName="bairro" disabled />
+              <input nbInput fullWidth formControlName="bairro" [attr.disabled]="true" />
               <small *ngIf="isControlInvalid('bairro')" class="error">
                 {{ getErrorMessage("bairro") }}
               </small>
@@ -138,6 +138,35 @@
               <input nbInput fullWidth formControlName="pontoReferencia" />
               <small *ngIf="isControlInvalid('pontoReferencia')" class="error">
                 {{ getErrorMessage("pontoReferencia") }}
+              </small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <label>Município Endereço</label>
+              <nb-select fullWidth formControlName="municipioEndereco">
+                <nb-option value="1">1</nb-option>
+              </nb-select>
+              <small *ngIf="isControlInvalid('municipioEndereco')" class="error">
+                {{ getErrorMessage("municipioEndereco") }}
+              </small>
+            </div>
+            <div class="col-4">
+              <label>Orgão Expedidor</label>
+              <nb-select fullWidth formControlName="orgaoExpedidor">
+                <nb-option value="1">1</nb-option>
+              </nb-select>
+              <small *ngIf="isControlInvalid('orgaoExpedidor')" class="error">
+                {{ getErrorMessage("orgaoExpedidor") }}
+              </small>
+            </div>
+            <div class="col-4">
+              <label>Estado Civil</label>
+              <nb-select fullWidth formControlName="estadoCivil">
+                <nb-option value="1">1</nb-option>
+              </nb-select>
+              <small *ngIf="isControlInvalid('estadoCivil')" class="error">
+                {{ getErrorMessage("estadoCivil") }}
               </small>
             </div>
           </div>

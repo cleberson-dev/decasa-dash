@@ -43,6 +43,9 @@ export class FornecedoresComponent implements OnInit {
     celular: ['', [Validators.required]],
     telefone: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
+    municipioEndereco: [''],
+    estadoCivil: [''],
+    orgaoExpedidor: [''],
     // RG Representante, CPF Representante, Data RG
   });
 
