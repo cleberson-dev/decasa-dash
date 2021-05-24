@@ -45,7 +45,7 @@ export type Fornecedor = {
   numero: number;
   bairro: string;
   cep: string;
-  pontoReferencia: string;
+  pontoReferencia?: string;
   celular: string;
   telefone: string;
   email: string;
@@ -54,17 +54,22 @@ export type Fornecedor = {
   dataRg?: Date;
   municipioEndereco?: {
     id: number;
-    descricao: string;
+    nome: string;
+    ativo: boolean;
   };
   usuario?: number;
   ufRg?: {
     id: number;
-    descricao: string;
+    nome: string;
   };
   estadoCivil?: {
     id: number;
     descricao: string;
-  }
+  };
+  orgaoExpedidor?: {
+    id: number;
+    descricao: string;
+  };
 }
 
 export type ProdutoLojista = Produto & {

@@ -29,6 +29,7 @@ export class FornecedoresComponent implements OnInit {
   
   formTitle = '';
   formSubmitText = '';
+  formType = '';
   formFornecedor = this.fb.group({
     nome: ['', [Validators.required]],
     cnpj: ['', [Validators.required, CustomValidators.cnpj]],
@@ -51,39 +52,18 @@ export class FornecedoresComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.api.getAllProducts()
-      .subscribe(console.log);
     this.spinner.show();
-
-    setTimeout(() => {
+    this.api.getFornecedores()
+    .subscribe(fornecedores => {
+      this.fornecedores = fornecedores;
       this.spinner.hide();
-      this.fornecedores = [
-        { 
-          id: 1,
-          nome: 'Fornecedor #1',
-          ...defaultData
-        },
-        { 
-          id: 2,
-          nome: 'Fornecedor #2',
-          ...defaultData
-        },
-        { 
-          id: 3,
-          nome: 'Fornecedor #3',
-          ...defaultData
-        },{
-          id: 4,
-          nome: 'Fornecedor #4',
-          ...defaultData
-        } 
-      ];
-    }, 2000);
+    });
   }
 
   openCreate(dialog: TemplateRef<any>) {
     this.formTitle = 'Criar novo fornecedor';
     this.formSubmitText = 'Criar';
+    this.formType = 'criar';
     this.formFornecedor.reset();
     this.dialogService.open(dialog, { context: { type: 'form' }});
   }
@@ -98,7 +78,7 @@ export class FornecedoresComponent implements OnInit {
   }
 
   handleFormSubmit(ref: NbDialogRef<any>) {
-    this.fornecedores.push({
+    const fornecedor: Fornecedor = {
       nome: this.formFornecedor.controls['nome'].value,
       cnpj: this.formFornecedor.controls['cnpj'].value,
       bairro: this.formFornecedor.controls['bairro'].value,
@@ -109,13 +89,23 @@ export class FornecedoresComponent implements OnInit {
       numero: this.formFornecedor.controls['numero'].value,
       pontoReferencia: this.formFornecedor.controls['pontoReferencia'].value,
       telefone: this.formFornecedor.controls['telefone'].value
-    });
+    };
+
+    if (this.formType === 'editar') {
+      this.api.editFornecedor(fornecedor)
+        .subscribe(() => {
+          const editedFornecedorIdx = this.fornecedores.findIndex(f => f.id === fornecedor.id);
+          this.fornecedores[editedFornecedorIdx] = fornecedor;
+        });
+    }
+
     ref.close();
   }
 
   onEdit(context: any) {
     this.formTitle = 'Editar fornecedor';
     this.formSubmitText = 'Editar';
+    this.formType = 'editar';
     this.formFornecedor.patchValue({
       nome: context.fornecedor.nome,
       cnpj: context.fornecedor.cnpj,
