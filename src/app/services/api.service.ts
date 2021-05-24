@@ -26,7 +26,7 @@ export type ApiUF = {
   providedIn: 'root',
 })
 export class ApiService {
-  url = 'http://homologacao.appdecasa.com.br:8080/produtos-0.0.1';
+  url = '/produtos-0.0.1';
 
   constructor(private http: HttpClient) {}
 
@@ -108,38 +108,7 @@ export class ApiService {
   getFornecedores(): Observable<Fornecedor[]> {
     const url = this.url + '/fornecedores';
 
-    return this.http.get(url).pipe(
-      map((data: any) =>
-        data.map(
-          (f: any): Fornecedor => ({
-            id: f.id,
-            nome: f.nome,
-            cnpj: f.cnpj,
-            logradouro: f.logradouro,
-            bairro: f.bairro,
-            numero: f.numero,
-            cep: f.cep,
-            celular: f.celular,
-            telefone: f.telefone,
-            email: f.email,
-            pontoReferencia: f.pontoReferencia,
-            municipioEndereco: {
-              id: f.municipioEndereco.id,
-              nome: f.municipioEndereco.nome,
-              ativo: f.municipioEndereco.ativo,
-            },
-            orgaoExpedidor: {
-              id: f.orgaoExpedidor.id,
-              descricao: f.orgaoExpedidor.descricao,
-            },
-            estadoCivil: {
-              id: f.estadoCivil.id,
-              descricao: f.estadoCivil.descricao,
-            },
-          })
-        )
-      )
-    );
+    return this.http.get<Fornecedor[]>(url);
   }
 
   editFornecedor(fornecedor: Fornecedor) {
