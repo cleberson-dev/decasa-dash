@@ -17,53 +17,7 @@ export class ModalAdicionarComponent implements OnInit {
   @Output() requestProductBtnClick = new EventEmitter();
   @Output() submitClick = new EventEmitter();
 
-  produtos: AddProductItem[] = [
-    {
-      id: "1",
-      nome: 'Produto #1',
-      marca: marcas.nike,
-      modelo: modelos.airMax,
-      categoria: categorias.roupas,
-      departamento: departamentos.moda,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
-    },
-    {
-      id: "2",
-      nome: 'Produto #2',
-      marca: marcas.nike,
-      modelo: modelos.airMax,
-      categoria: categorias.roupas,
-      departamento: departamentos.moda,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
-    },
-    {
-      id: "3",
-      nome: 'Produto #3',
-      marca: marcas.amanco,
-      modelo: modelos.modelo5,
-      categoria: categorias.smartphones,
-      departamento: departamentos.musica,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
-    },
-    {
-      id: "4",
-      nome: 'Produto #4',
-      marca: marcas.fender,
-      modelo: modelos.galaxy,
-      categoria: categorias.sofas,
-      departamento: departamentos.informatica,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
-    },
-    {
-      id: "5",
-      nome: 'Produto #5',
-      marca: marcas.nike,
-      modelo: modelos.airMax,
-      categoria: categorias.roupas,
-      departamento: departamentos.moda,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
-    }
-  ];
+  produtos: AddProductItem[] = [];
   productsToDefinePrices: ResumidoProdutoLojista[] = [];
   priceForms: FormGroup = new FormGroup({});
   loading: boolean = false;
@@ -85,30 +39,13 @@ export class ModalAdicionarComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.apiService.getAllProducts()
-      .subscribe((data: any) => {
-        this.produtos = data.content.map((p): AddProductItem => ({
-          id: p.id,
-          nome: p.descricao,
-          marca: {
-            id: p.modelo.marca.id,
-            nome: p.modelo.marca.descricao
-          },
-          modelo: {
-            id: p.modelo.id,
-            nome: p.modelo.descricao
-          },
-          categoria: {
-            id: p.categoria.id,
-            nome: p.categoria.descricao
-          },
-          departamento: {
-            id: p.categoria.departamento.id,
-            nome: p.categoria.departamento.descricao
-          },
-          selected: false,
-          foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+      .subscribe(produtos => {
+        this.produtos = produtos.map(produto => ({
+          ...produto,
+          foto:  'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+          selected: false 
         }));
-      })
+      });
     this.loading = false;
   }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Fornecedor } from '../types';
+import { Fornecedor, Produto } from '../types';
 import { Department } from '../pages/produtos/produtos.component';
 
 type Options = {
@@ -18,8 +18,34 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getAllProducts() {
-    return this.http.get(this.url + '/produtos');
+  getAllProducts(): Observable<Produto[]> {
+    return this.http.get(this.url + '/produtos')
+      .pipe(map((data: any) => data.map((produto): Produto => ({
+        id: produto.id,
+        nome: produto.descricao,
+        marca: {
+          id: produto.modelo.marca.id,
+          nome: produto.modelo.marca.descricao
+        },
+        modelo: {
+          id: produto.modelo.id,
+          nome: produto.modelo.descricao
+        },
+        categoria: {
+          id: produto.categoria.id,
+          nome: produto.categoria.descricao
+        },
+        departamento: {
+          id: produto.categoria.departamento.id,
+          nome: produto.categoria.departamento.descricao
+        },
+        foto: produto.foto,
+        cnp: produto.cnp,
+        detalhe: produto.detalhe,
+        manualInstrucao: produto.manualInstrucao,
+        videoDemonstrativo: produto.videoDemonstrativo,
+        quantidadeApresentacao: produto.quantidadeApresentacao
+      }))));
   }
 
   getProdutosLojista() {
