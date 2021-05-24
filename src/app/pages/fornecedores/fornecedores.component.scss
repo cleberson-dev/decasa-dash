@@ -129,6 +129,8 @@ label {
 
 .card-body {
   width: 80vw;
+  max-height: 70vh;
+  overflow-y: scroll;
 }
 
 .row {
