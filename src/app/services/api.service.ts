@@ -71,7 +71,7 @@ export class ApiService {
   }
 
   editFornecedor(fornecedor: Fornecedor) {
-    const url = this.url + '/fornecedores';
+    const url = this.url + '/fornecedores/' + fornecedor.id;
 
     return this.http.put(url, fornecedor);
   }

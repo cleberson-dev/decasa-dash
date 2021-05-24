@@ -31,6 +31,7 @@ export class FornecedoresComponent implements OnInit {
   formSubmitText = '';
   formType = '';
   formFornecedor = this.fb.group({
+    id: [''],
     nome: ['', [Validators.required]],
     cnpj: ['', [Validators.required, CustomValidators.cnpj]],
     logradouro: ['', [Validators.required]],
@@ -79,6 +80,7 @@ export class FornecedoresComponent implements OnInit {
 
   handleFormSubmit(ref: NbDialogRef<any>) {
     const fornecedor: Fornecedor = {
+      id: this.formFornecedor.controls['id'].value,
       nome: this.formFornecedor.controls['nome'].value,
       cnpj: this.formFornecedor.controls['cnpj'].value,
       bairro: this.formFornecedor.controls['bairro'].value,
@@ -107,6 +109,7 @@ export class FornecedoresComponent implements OnInit {
     this.formSubmitText = 'Editar';
     this.formType = 'editar';
     this.formFornecedor.patchValue({
+      id: context.fornecedor.id,
       nome: context.fornecedor.nome,
       cnpj: context.fornecedor.cnpj,
       logradouro: context.fornecedor.logradouro,
