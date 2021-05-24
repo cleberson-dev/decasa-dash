@@ -131,9 +131,9 @@ export class ApiService {
       telefone: novoFornecedor.telefone,
       email: novoFornecedor.email,
       pontoReferencia: novoFornecedor.pontoReferencia,
-      municipioEndereco: { id: 2 },
-      orgaoExpedidor: { id: 2 },
-      estadoCivil: { id: 3 },
+      municipioEndereco: { id: novoFornecedor.municipioEndereco.id },
+      orgaoExpedidor: { id: novoFornecedor.orgaoExpedidor.id },
+      estadoCivil: { id: novoFornecedor.estadoCivil.id },
     };
 
     return this.http.post(url, body);

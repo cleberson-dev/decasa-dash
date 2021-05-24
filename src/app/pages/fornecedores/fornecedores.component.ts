@@ -106,15 +106,17 @@ export class FornecedoresComponent implements OnInit {
       pontoReferencia: this.formFornecedor.controls['pontoReferencia'].value,
       telefone: this.formFornecedor.controls['telefone'].value,
       municipioEndereco: {
-        id: this.formFornecedor.controls['municipioEndereco'].value
+        id: Number(this.formFornecedor.controls['municipioEndereco'].value)
       },
       estadoCivil: {
-        id: this.formFornecedor.controls['estadoCivil'].value
+        id: Number(this.formFornecedor.controls['estadoCivil'].value)
       },
       orgaoExpedidor: {
-        id: this.formFornecedor.controls['orgaoExpedidor'].value
+        id: Number(this.formFornecedor.controls['orgaoExpedidor'].value)
       },
     };
+
+    console.log('Submitting this: ', fornecedor);
 
     if (this.formType === 'editar') {
       this.api.editFornecedor(fornecedor)
@@ -147,7 +149,10 @@ export class FornecedoresComponent implements OnInit {
       pontoReferencia: context.fornecedor.pontoReferencia,
       celular: context.fornecedor.celular,
       telefone: context.fornecedor.telefone,
-      email: context.fornecedor.email
+      email: context.fornecedor.email,
+      municipioEndereco: context.fornecedor.municipioEndereco.id,
+      estadoCivil: context.fornecedor.estadoCivil.id,
+      orgaoExpedidor: context.fornecedor.orgaoExpedidor.id,
     });
     context.type = 'form';
   }
