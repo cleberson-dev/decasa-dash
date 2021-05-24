@@ -22,6 +22,10 @@ export class ApiService {
     return this.http.get(this.url + '/produtos');
   }
 
+  getProdutosLojista() {
+    return this.http.get(this.url + '/lojistasProdutos');
+  }
+
   getDepartments(): Observable<Department[]> {
     return this.http.get(this.url + '/categorias?size=100')
       .pipe(map((categorias: any): Department[] => {
