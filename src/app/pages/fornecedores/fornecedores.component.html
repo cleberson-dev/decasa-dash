@@ -145,7 +145,7 @@
             <div class="col-4">
               <label>Município Endereço</label>
               <nb-select fullWidth formControlName="municipioEndereco">
-                <nb-option value="1">1</nb-option>
+                <nb-option *ngFor="let municipio of formEnderecos" [value]="municipio.id">{{ municipio.nome }}</nb-option>
               </nb-select>
               <small *ngIf="isControlInvalid('municipioEndereco')" class="error">
                 {{ getErrorMessage("municipioEndereco") }}

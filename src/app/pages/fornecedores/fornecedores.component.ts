@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ApiService } from '../../services/api.service';
+import { ApiMunicipioEndereco, ApiService } from '../../services/api.service';
 import { CepService } from '../../services/cep.service';
 import { Fornecedor } from '../../types';
 import * as CustomValidators from '../../validators';
@@ -31,6 +31,7 @@ export class FornecedoresComponent implements OnInit {
   formTitle = '';
   formSubmitText = '';
   formType = '';
+  formEnderecos: ApiMunicipioEndereco[] = [];
   formFornecedor = this.fb.group({
     id: [''],
     nome: ['', [Validators.required]],
@@ -64,6 +65,11 @@ export class FornecedoresComponent implements OnInit {
       this.fornecedores = fornecedores;
       // this.spinner.hide();
     });
+
+    this.api.getMunicipioEnderecos()
+      .subscribe(enderecos => {
+        this.formEnderecos = enderecos;
+      });
   }
 
   openCreate(dialog: TemplateRef<any>) {
