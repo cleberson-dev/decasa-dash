@@ -23,7 +23,7 @@
 <ng-template #elseBlock>
   <div class="no-items">
     <p>Sem fornecedores.</p>
-    <button nbButton status="primary">Crie um novo</button>
+    <button nbButton status="primary" (click)="openCreate(dialog)">Crie um novo</button>
   </div>
 </ng-template>
 
