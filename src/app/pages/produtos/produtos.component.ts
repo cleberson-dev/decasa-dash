@@ -6,6 +6,7 @@ import telefone from 'telefone';
 import { ValidationErrors } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { TreeItem } from '../../components/tree/tree.component';
+import { ProdutoLojista } from '../../types';
 
 export type Department = {
   id: number;
@@ -22,6 +23,8 @@ export type Department = {
   styleUrls: ['./produtos.component.scss']
 })
 export class ProdutosPageComponent implements OnInit {
+  produtosLojista: ProdutoLojista[] = [];
+
   myForm = this.fb.group({
     categoria: ['', [Validators.required]],
     unidadeMedida: ['', [Validators.required]],
@@ -142,7 +145,7 @@ export class ProdutosPageComponent implements OnInit {
     this.apiService.getDepartments()
       .subscribe(departments => {
         this.departments = departments;
-        
+
         this.departmentTree = this.departments.map(department => ({
           name: department.name,
           icon: 'bookmark',
@@ -151,6 +154,11 @@ export class ProdutosPageComponent implements OnInit {
             name: cat.name, value: cat.id + '', icon: 'folder-outline', active: false
           }))
         }));
+      });
+    
+    this.apiService.getProdutosLojista()
+      .subscribe((produtos: any) => {
+        this.produtosLojista = produtos;
       });
   }
   
