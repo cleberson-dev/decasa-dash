@@ -53,11 +53,11 @@ export class FornecedoresComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.spinner.show();
+    // this.spinner.show();
     this.api.getFornecedores()
     .subscribe(fornecedores => {
       this.fornecedores = fornecedores;
-      this.spinner.hide();
+      // this.spinner.hide();
     });
   }
 
