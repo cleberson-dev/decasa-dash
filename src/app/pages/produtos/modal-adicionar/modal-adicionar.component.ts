@@ -96,12 +96,16 @@ export class ModalAdicionarComponent implements OnInit {
     this.productsToDefinePrices = this.produtos
       .filter(produto => produto.selected);
     this.priceForms = new FormGroup(
-      Object.fromEntries(
-        this.productsToDefinePrices.map((p) => [
-          ''+p.id, 
+      Object.fromEntries([
+        ...this.productsToDefinePrices.map((p) => [
+          'preco-'+p.id, 
           new FormControl('', [Validators.required, Validators.min(0)])
+        ]),
+        ...this.productsToDefinePrices.map((p) => [
+          'estoqueMinimo-'+p.id, 
+          new FormControl('', [Validators.required, Validators.min(1)])
         ])
-      )
+      ])
     );
   }
 }
