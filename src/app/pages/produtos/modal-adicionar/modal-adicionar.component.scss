@@ -59,10 +59,16 @@ form {
   overflow-y: scroll;
 }
 
-.price-form-group {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
+table {
+  width: 100%;
+
+  th, td {
+    padding: 5px;
+  }
+
+  tr:not(:last-child) {
+    border-bottom: 1px solid #edf1f7;
+  }
 }
 
 .loading-container {
