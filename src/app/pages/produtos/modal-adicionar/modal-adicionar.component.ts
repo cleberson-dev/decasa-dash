@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
-import { categorias, departamentos, marcas, modelos } from '../../../fake-data';
 import { ApiService } from '../../../services/api.service';
 import { AddProductItem, ResumidoProdutoLojista } from '../../../types';
 import { Department } from '../produtos.component';
@@ -28,7 +27,6 @@ export class ModalAdicionarComponent implements OnInit {
   ) {}
 
   get filteredProducts() {
-    console.log(this.selectedCategory);
     return this.selectedCategory !== '' ? this.produtos.filter(produto => String(produto.categoria.id) === String(this.selectedCategory)) : this.produtos;
   }
 
@@ -51,7 +49,6 @@ export class ModalAdicionarComponent implements OnInit {
 
   onSelectedChange(e: any) {
     this.loading = true;
-    console.log('Selected change', e);
     this.selectedCategory = String(e);
     // this.apiService.getProductsByCategory(String(e))
     //   .subscribe((data: any) => {
@@ -82,7 +79,6 @@ export class ModalAdicionarComponent implements OnInit {
   }
 
   handleSubmitClick() {
-    console.log(this.priceForms);
     this.submitClick.emit(
       this.productsToDefinePrices.map(product => ({
         ...product,
