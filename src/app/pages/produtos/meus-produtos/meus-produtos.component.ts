@@ -3,7 +3,7 @@ import { NbDialogService, NbMenuItem } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
 import { ApiService } from '../../../services/api.service';
 import { Department } from '../produtos.component';
-import { AddProductItem, ResumidoProdutoLojista } from '../../../types';
+import { ResumidoProdutoLojista } from '../../../types';
 
 @Component({
   selector: 'tab-meus-produtos',
@@ -47,14 +47,14 @@ export class MeusProdutosComponent implements OnInit {
   onPageChange(page: number) {
     this.apiService
       .getProductsByCategory(
-        this.currentCategory + '',
+        this.currentCategory,
         { page }
       )
       .subscribe(this.handleFetch);
   }
 
   handleFetch(data: any) {
-    this.products = data.content.map((p): AddProductItem => ({
+    this.products = data.content.map(p => ({
       id: p.id,
       nome: p.descricao,
       marca: {
@@ -82,8 +82,6 @@ export class MeusProdutosComponent implements OnInit {
       itemsPerPage: data.size,
       totalItems: data.totalElements 
     }
-
-    console.log(this.products, this.pagination);
   }
 
   ngOnInit(): void {
@@ -97,7 +95,7 @@ export class MeusProdutosComponent implements OnInit {
   onItemSelected(value: string) {
     console.log('Item clicked', value);
     this.currentCategory = Number(value);
-    this.apiService.getProductsByCategory(this.currentCategory + '')
+    this.apiService.getProductsByCategory(this.currentCategory)
       .subscribe(this.handleFetch);
   }
 
@@ -110,8 +108,7 @@ export class MeusProdutosComponent implements OnInit {
     ref.close();
   }
 
-  onSubmitHandler(products: AddProductItem[]) {
-    console.log(products);
+  onSubmitHandler(products: ResumidoProdutoLojista[]) {
     this.products.push(...products);
   }
 }

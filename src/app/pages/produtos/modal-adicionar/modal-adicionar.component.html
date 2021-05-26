@@ -3,9 +3,12 @@
   <nb-stepper class="add-stepper" orientation="horizontal">
     <nb-step label="Selecionar produtos">
       <div class="filters">
-        <nb-select style="min-width: 200px" [(selected)]="selectedCategory">
-          <nb-option value="">Selecione uma categoria</nb-option>
-          <nb-option-group *ngFor="let dep of departments" [title]="dep.name">
+        <nb-select style="min-width: 200px"
+          selected="mais-vendidos"
+          (selectedChange)="selectedCategoryChange($event)"
+        >
+          <nb-option value="mais-vendidos">Mais vendidos</nb-option>
+          <nb-option-group *ngFor="let dep of departments" [title]="'Departamento ' + dep.id">
             <nb-option *ngFor="let cat of dep.categories" [value]="cat.id">{{ cat.name }}</nb-option>
           </nb-option-group>
         </nb-select>
@@ -25,9 +28,9 @@
           class="dialog product-list" 
           style="width: 80vw; min-height: 50vh"
         >
-          <nb-list *ngIf="filteredProducts.length > 0; else noItems">
-            <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of filteredProducts">
-              <ngx-checkbox [defaultValue]="!!produto.selected" (change)="produto.selected = $event"></ngx-checkbox>
+          <nb-list *ngIf="produtos.length > 0; else noItems">
+            <nb-list-item [class]="{ selected: isProductSelected(produto.id) }" *ngFor="let produto of produtos">
+              <ngx-checkbox [defaultValue]="!!isProductSelected(produto.id)" (change)="onProductCheck(produto.id, $event)"></ngx-checkbox>
               <div class="product">
                 <ngx-produto-lojista [produto]="produto"></ngx-produto-lojista>
               </div>
@@ -89,7 +92,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let product of productsToDefinePrices">
-              <td>{{ product.nome }}</td>
+              <td>{{ product.descricao }}</td>
               <td>
                 <input 
                   nbInput fullWidth type="number" required 

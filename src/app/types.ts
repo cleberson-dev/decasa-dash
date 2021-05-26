@@ -1,8 +1,3 @@
-type IdentifiableObject = {
-  id?: number;
-  nome: string;
-}
-
 export type Colaborador = {
   id?: number;
   nome: string;
@@ -12,13 +7,25 @@ export type Colaborador = {
 }
 
 export type Produto = {
-  id?: string;
-  nome: string;
+  id?: number;
+  descricao: string;
   foto: string;
-  categoria: IdentifiableObject;
-  departamento: IdentifiableObject;
-  modelo: IdentifiableObject;
-  marca: IdentifiableObject;
+  categoria: {
+    id?: number;
+    descricao: string;
+    departamento: {
+      id?: number;
+      descricao: string;
+    }
+  };
+  modelo: {
+    id?: number;
+    descricao: string;
+    marca: {
+      id?: number;
+      descricao: string;
+    }
+  };
   quantidadeApresentacao: number;
   detalhe: string;
   manualInstrucao: string;
@@ -74,13 +81,11 @@ export type Fornecedor = {
 
 export type ProdutoLojista = Produto & {
   preco?: number;
+  estoqueMinimo?: number;
 }
 
 export type ResumidoProdutoLojista = Omit<
   ProdutoLojista,
   "liberado" | "dimensoes" | "pesoGrama" | "cnp" |
-  "videoDemonstrativo" | "manualInstrucao" | "detalhe" | "quantidadeApresentacao" |
-  "descricao"
+  "videoDemonstrativo" | "manualInstrucao" | "detalhe" | "quantidadeApresentacao"
 >;
-
-export type AddProductItem = ResumidoProdutoLojista & { selected?: boolean };

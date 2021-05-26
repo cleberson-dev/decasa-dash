@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { categorias, departamentos, marcas, modelos } from '../../../fake-data';
-import { AddProductItem, Fornecedor } from '../../../types';
+import { Fornecedor, ResumidoProdutoLojista } from '../../../types';
 import { Department } from '../../produtos/produtos.component';
 
 type DialogContentType = "addProducts" | "addSuppliers" | "createSupplier";
@@ -13,50 +13,40 @@ type DialogContentType = "addProducts" | "addSuppliers" | "createSupplier";
   styleUrls: ['./criar-pedidos.component.scss']
 })
 export class CriarPedidosComponent implements OnInit {
-  produtos: AddProductItem[] = [
+  produtos: ResumidoProdutoLojista[] = [
     {
-      id: "1",
-      nome: 'Produto #1',
-      marca: marcas.nike,
+      id: 1,
+      descricao: 'Produto #1',
       modelo: modelos.airMax,
       categoria: categorias.roupas,
-      departamento: departamentos.moda,
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     },
     {
-      id: "2",
-      nome: 'Produto #2',
-      marca: marcas.nike,
+      id: 2,
+      descricao: 'Produto #2',
       modelo: modelos.airMax,
       categoria: categorias.roupas,
-      departamento: departamentos.moda,
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     },
     {
-      id: "3",
-      nome: 'Produto #3',
-      marca: marcas.amanco,
+      id: 3,
+      descricao: 'Produto #3',
       modelo: modelos.modelo5,
       categoria: categorias.smartphones,
-      departamento: departamentos.musica,
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     },
     {
-      id: "4",
-      nome: 'Produto #4',
-      marca: marcas.fender,
+      id: 4,
+      descricao: 'Produto #4',
       modelo: modelos.galaxy,
       categoria: categorias.sofas,
-      departamento: departamentos.informatica,
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     },
     {
-      id: "5",
-      nome: 'Produto #5',
-      marca: marcas.nike,
+      id: 5,
+      descricao: 'Produto #5',
       modelo: modelos.airMax,
       categoria: categorias.roupas,
-      departamento: departamentos.moda,
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     }
   ];
@@ -69,7 +59,7 @@ export class CriarPedidosComponent implements OnInit {
     ['Cleberson', 'Ferreira Rodrigues Junior']
   ];
 
-  addedProducts: AddProductItem[] = [];
+  addedProducts: ResumidoProdutoLojista[] = [];
 
   selectedCategory = '';
 
@@ -77,23 +67,19 @@ export class CriarPedidosComponent implements OnInit {
 
   fornecedores: Fornecedor[] = []
 
+  selectedProducts: ResumidoProdutoLojista[] = [];
+
   constructor(
     private fb: FormBuilder,
     private dialogService: NbDialogService
   ) { }
-
-  get selectedProducts() {
-    return this.produtos.filter(produto => produto.selected);
-  }
 
   get filteredProducts() {
     return this.selectedCategory === "" ? this.produtos : this.produtos.filter(produto => String(produto.categoria.id) === String(this.selectedCategory))
   }
 
   uncheckAllProducts() {
-    this.produtos.forEach(produto => {
-      produto.selected = false;
-    });
+    this.selectedProducts = [];
   }
 
   ngOnInit(): void {
@@ -105,7 +91,7 @@ export class CriarPedidosComponent implements OnInit {
   }
 
   handleProductDialog(dialog: NbDialogRef<any>) {
-    this.addedProducts = this.produtos.filter(produto => produto.selected);
+    this.addedProducts = [...this.selectedProducts];
     this.addedProducts.forEach(product => {
       this.quantityForm.addControl(
         String(product.id),
@@ -129,5 +115,18 @@ export class CriarPedidosComponent implements OnInit {
 
   removerFornecedor(fornecedor: Fornecedor) {
     this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedor.id);
+  }
+
+  onProductCheck(produtoId: number, checked: boolean) {
+    if (checked) {
+      const selectedProduct = this.produtos.find(p => p.id === produtoId);
+      this.selectedProducts.push(selectedProduct);
+    } else {
+      this.selectedProducts = this.selectedProducts.filter(p => p.id !== produtoId);
+    }
+  }
+
+  isProductSelected(productId: number) {
+    return this.selectedProducts.some(p => p.id === productId);
   }
 }

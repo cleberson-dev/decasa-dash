@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
-import { ApiService } from '../../../services/api.service';
-import { AddProductItem, ResumidoProdutoLojista } from '../../../types';
+import { ApiService, PaginatedResource } from '../../../services/api.service';
+import { Produto, ResumidoProdutoLojista } from '../../../types';
 import { Department } from '../produtos.component';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-modal-adicionar',
@@ -16,66 +17,44 @@ export class ModalAdicionarComponent implements OnInit {
   @Output() requestProductBtnClick = new EventEmitter();
   @Output() submitClick = new EventEmitter();
 
-  produtos: AddProductItem[] = [];
+  produtos: Produto[] = [];
+  selectedProducts: Produto[] = [];
   productsToDefinePrices: ResumidoProdutoLojista[] = [];
   priceForms: FormGroup = new FormGroup({});
   loading: boolean = false;
-  selectedCategory: string = '';
+  // selectedCategory: string = 'mais-vendidos';
 
   constructor(
     private apiService: ApiService
   ) {}
 
-  get filteredProducts() {
-    return this.selectedCategory !== '' ? this.produtos.filter(produto => String(produto.categoria.id) === String(this.selectedCategory)) : this.produtos;
-  }
-
-  get selectedProducts() {
-    return this.produtos.filter(produto => produto.selected);
-  }
-
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.getAllProducts()
+    this.apiService.getProdutosMaisVendidos()
       .subscribe(produtos => {
         this.produtos = produtos.map(produto => ({
           ...produto,
-          foto:  'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-          selected: false 
+          foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
         }));
       });
     this.loading = false;
   }
 
-  onSelectedChange(e: any) {
-    this.loading = true;
-    this.selectedCategory = String(e);
-    // this.apiService.getProductsByCategory(String(e))
-    //   .subscribe((data: any) => {
-    //     this.produtos = data.content.map((p): AddProductItem => ({
-    //       id: p.id,
-    //       nome: p.descricao,
-    //       marca: {
-    //         id: p.modelo.marca.id,
-    //         nome: p.modelo.marca.descricao
-    //       },
-    //       modelo: {
-    //         id: p.modelo.id,
-    //         nome: p.modelo.descricao
-    //       },
-    //       categoria: {
-    //         id: p.categoria.id,
-    //         nome: p.categoria.descricao
-    //       },
-    //       departamento: {
-    //         id: p.categoria.departamento.id,
-    //         nome: p.categoria.departamento.descricao
-    //       },
-    //       selected: false,
-    //       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
-    //     }));
-    //   })
-    this.loading = false;
+  selectedCategoryChange(e: any) {
+    if (e === 'mais-vendidos') {
+      this.apiService.getProdutosMaisVendidos()
+      .subscribe(produtos => {
+        this.produtos = produtos.map(produto => ({
+          ...produto,
+          foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+        }));
+      });
+    }
+
+    this.apiService.getProductsByCategory(Number(e))
+      .subscribe(data => {
+        this.produtos = data.content.map(p => ({ ...p, foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg' }));
+      });
   }
 
   handleSubmitClick() {
@@ -89,8 +68,7 @@ export class ModalAdicionarComponent implements OnInit {
   }
 
   nextBtnHandler() {
-    this.productsToDefinePrices = this.produtos
-      .filter(produto => produto.selected);
+    this.productsToDefinePrices = [...this.selectedProducts];
     this.priceForms = new FormGroup(
       Object.fromEntries([
         ...this.productsToDefinePrices.map((p) => [
@@ -103,5 +81,19 @@ export class ModalAdicionarComponent implements OnInit {
         ])
       ])
     );
+  }
+
+
+  onProductCheck(produtoId: number, checked: boolean) {
+    if (checked) {
+      const selectedProduct = this.produtos.find(p => p.id === produtoId);
+      this.selectedProducts.push(selectedProduct);
+    } else {
+      this.selectedProducts = this.selectedProducts.filter(p => p.id !== produtoId);
+    }
+  }
+
+  isProductSelected(productId: number) {
+    return this.selectedProducts.some(p => p.id === productId);
   }
 }

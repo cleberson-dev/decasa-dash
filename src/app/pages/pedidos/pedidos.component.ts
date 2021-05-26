@@ -60,7 +60,7 @@ export class PedidosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.autoOptions = this.produtos.map(p => p.nome);
+    this.autoOptions = this.produtos.map(p => p.descricao);
     this.suggestedOptions$ = of(this.autoOptions);
   }
 
@@ -68,7 +68,7 @@ export class PedidosComponent implements OnInit {
     this.suggestedOptions$ = of($event).pipe(
       map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
     );
-    const selectedProduct = this.produtos.find(p => p.nome.toLowerCase().includes($event.toLowerCase()));
+    const selectedProduct = this.produtos.find(p => p.descricao.toLowerCase().includes($event.toLowerCase()));
     if (!selectedProduct) return;
 
     this.novoPedidoForm.controls['rcm'].setValue(selectedProduct.id);
@@ -136,7 +136,7 @@ export class PedidosComponent implements OnInit {
 
   onNomeBlur() {
     const name = this.novoPedidoForm.controls['nome'].value;
-    const product = this.produtos.find(p => p.nome === name);
+    const product = this.produtos.find(p => p.descricao === name);
     if (!product) {
       this.novoPedidoForm.controls['nome'].setErrors({ noProduct: true });
     } else {

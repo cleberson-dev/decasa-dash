@@ -3,8 +3,8 @@
     <img [src]="produto.foto" alt="Imagem do produto" />
   </div>
   <div class="info">
-    <p class="nome">{{ produto.nome }}</p>
-    <p>{{ produto.categoria.nome }} - {{ produto.departamento.nome }}</p>
+    <p class="nome">{{ produto.descricao }}</p>
+    <p>{{ produto.categoria.descricao }} - {{ produto.categoria.departamento.descricao }}</p>
   </div>
   <p *ngIf="produto.preco" class="preco">{{ formattedPrice }} <span>por {{ produto.unidadeMedida.descricao || 'unidade' }}</span></p>
   <button *ngIf="options.length > 0" [nbContextMenu]="options" style="align-self: center" nbButton ghost><nb-icon icon="more-vertical"></nb-icon></button>

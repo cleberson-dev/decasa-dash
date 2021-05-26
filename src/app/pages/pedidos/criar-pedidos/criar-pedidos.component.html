@@ -10,7 +10,7 @@
             <div>Quantidade</div>
           </nb-list-item>
           <nb-list-item class="product-input" *ngFor="let product of addedProducts">
-            {{ product.nome }}
+            {{ product.descricao }}
             <input nbInput type="number" [formControlName]="''+product.id" />
           </nb-list-item>
         </nb-list>
@@ -85,8 +85,8 @@
           style="width: 80vw; min-height: 50vh"
         >
           <nb-list *ngIf="filteredProducts.length > 0; else noItems">
-            <nb-list-item [class]="{ selected: produto.selected }" *ngFor="let produto of filteredProducts">
-              <ngx-checkbox [defaultValue]="!!produto.selected" (change)="produto.selected = $event"></ngx-checkbox>
+            <nb-list-item [class]="{ selected: isProductSelected(produto.id) }" *ngFor="let produto of filteredProducts">
+              <ngx-checkbox [defaultValue]="!!isProductSelected(produto.id)" (change)="onProductCheck(produto.id, $event)"></ngx-checkbox>
               <div class="product">
                 <ngx-produto-lojista [produto]="produto"></ngx-produto-lojista>
               </div>

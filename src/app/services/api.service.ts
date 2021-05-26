@@ -16,6 +16,25 @@ export type ApiMunicipio = {
   ativo: boolean;
 }
 
+export type PaginatedResource = {
+  last: boolean;
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  numberOfElements: number;
+  sort: {
+    direction: string;
+    property: string;
+    ignoreCase: boolean;
+    nullHandling: string;
+    descending: boolean;
+    ascending: boolean;
+  }[];
+  size: number;
+  number: number;
+  content: any[];
+}
+
 export type ApiUF = {
   id: number
   nome: string;
@@ -30,39 +49,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getAllProducts(): Observable<Produto[]> {
-    return this.http.get(this.url + '/produtos').pipe(
-      map((data: any) =>
-        data.map(
-          (produto): Produto => ({
-            id: produto.id,
-            nome: produto.descricao,
-            marca: {
-              id: produto.modelo.marca.id,
-              nome: produto.modelo.marca.descricao,
-            },
-            modelo: {
-              id: produto.modelo.id,
-              nome: produto.modelo.descricao,
-            },
-            categoria: {
-              id: produto.categoria.id,
-              nome: produto.categoria.descricao,
-            },
-            departamento: {
-              id: produto.categoria.departamento.id,
-              nome: produto.categoria.departamento.descricao,
-            },
-            foto: produto.foto,
-            cnp: produto.cnp,
-            detalhe: produto.detalhe,
-            manualInstrucao: produto.manualInstrucao,
-            videoDemonstrativo: produto.videoDemonstrativo,
-            quantidadeApresentacao: produto.quantidadeApresentacao,
-          })
-        )
-      )
-    );
+  getAllProducts() {
+    return this.http.get<Produto[]>(this.url + '/produtos');
   }
 
   getProdutosLojista() {
@@ -97,12 +85,12 @@ export class ApiService {
     );
   }
 
-  getProductsByCategory(id: string, options?: Options) {
+  getProductsByCategory(id: number, options?: Options) {
     let url = this.url + '/produtos/categoria/' + id;
     url += '?page=' + ((options?.page || 1) - 1);
     url += '&size=' + (options?.itemsPerPage || 10);
 
-    return this.http.get(url);
+    return this.http.get<PaginatedResource>(url);
   }
 
   getFornecedores(): Observable<Fornecedor[]> {
@@ -158,5 +146,12 @@ export class ApiService {
     const url = '/cadastros-0.0.1/util/uf';
 
     return this.http.get<ApiUF[]>(url);
+  }
+
+
+  getProdutosMaisVendidos() {
+    const url = this.url + '/produtos/maisVendido';
+
+    return this.http.get<Produto[]>(url);
   }
 }
