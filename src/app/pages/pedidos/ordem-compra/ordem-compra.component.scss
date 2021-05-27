@@ -41,3 +41,18 @@ table {
     color: #598bff;
   }
 }
+
+.fornecedor {
+  justify-content: space-between;
+
+  p { 
+    margin: 0;
+    
+    &:not(.nome) span {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: gray;
+    }
+  }
+}

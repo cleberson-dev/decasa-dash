@@ -34,5 +34,15 @@
       </tbody>
     </table>
     <p class="preco-total">Total da OC: <span>R${{ precoTotal.toFixed(2) }}</span></p>
+  
+    <h5>Fornecedores</h5>
+    <nb-list>
+      <nb-list-item *ngFor="let fornecedor of fornecedores" class="fornecedor">
+        <p class="nome">{{ fornecedor.nome }}</p>
+        <p><span>Vendedor:</span> {{ fornecedor.vendedor }}</p>
+        <p><span>Tel.:</span> {{ fornecedor.telefone }}</p>
+        <p><span>E-mail:</span> {{ fornecedor.email }}</p>
+      </nb-list-item>
+    </nb-list>
   </nb-card-body>
 </nb-card>
