@@ -1,1 +1,38 @@
 <ngx-tabber [tabs]="tabs"></ngx-tabber>
+
+<nb-card>
+  <nb-card-body>
+    <h5>Produtos</h5>
+    <table>
+      <colgroup>
+        <col />
+        <col class="full" />
+        <col />
+        <col />
+        <col />
+        <col />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Produto</th>
+          <th>Qtd.</th>
+          <th>Und.</th>
+          <th>Pr. Unit</th>
+          <th>Sub Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data">
+          <td>{{ row.props.codigo }}</td>
+          <td class="full">{{ row.props.produto }}</td>
+          <td>{{ row.props.quantidade }}</td>
+          <td>{{ row.props.unidade }}</td>
+          <td>{{ row.props.precoUnitario }}</td>
+          <td>{{ row.subTotal }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="preco-total">Total da OC: <span>R${{ precoTotal.toFixed(2) }}</span></p>
+  </nb-card-body>
+</nb-card>

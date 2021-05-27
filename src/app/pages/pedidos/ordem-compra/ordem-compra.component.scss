@@ -1,0 +1,43 @@
+table {
+  width: 100%;
+
+  thead {
+    background: #ededed;
+  }
+
+  col {
+    width: fit-content;
+  }
+
+  col.full {
+    width: 100%;
+  }
+
+  td, th {
+    padding: 1rem 0.8rem;
+    text-align: center;
+  }
+
+  th {
+    font-weight: 600;
+  }
+
+  td.full {
+    text-align: left;
+  }
+
+  tr:not(:last-child) {
+    border-bottom: 1px solid #ededed;
+  }
+}
+
+.preco-total {
+  margin-top: 1rem;
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: 700;
+
+  span {
+    color: #598bff;
+  }
+}
