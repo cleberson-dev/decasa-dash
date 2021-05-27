@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Fornecedor, Produto } from '../types';
+import { Fornecedor, Produto, ProdutoLojista } from '../types';
 import { Department } from '../pages/produtos/produtos.component';
 
 type Options = {
@@ -54,7 +54,7 @@ export class ApiService {
   }
 
   getProdutosLojista() {
-    return this.http.get(this.url + '/lojistasProdutos');
+    return this.http.get<ProdutoLojista[]>(this.url + '/lojistasProdutos');
   }
 
   getDepartments(): Observable<Department[]> {

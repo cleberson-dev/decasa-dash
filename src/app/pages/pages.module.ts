@@ -50,6 +50,7 @@ import { VendasComponent } from './vendas/vendas.component';
 import { SaidaComponent } from './estoque/saida/saida.component';
 import { AlertaCompraComponent } from './estoque/alerta-compra/alerta-compra.component';
 import { TombamentoComponent } from './estoque/tombamento/tombamento.component';
+import { OrdemCompraComponent } from './pedidos/ordem-compra/ordem-compra.component';
 
 @NgModule({
   imports: [
@@ -102,7 +103,8 @@ import { TombamentoComponent } from './estoque/tombamento/tombamento.component';
     VendasComponent,
     SaidaComponent,
     AlertaCompraComponent,
-    TombamentoComponent
+    TombamentoComponent,
+    OrdemCompraComponent
   ]
 })
 export class PagesModule {

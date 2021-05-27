@@ -86,7 +86,7 @@ export class MapaComponent implements OnInit {
   tabs: Tab[] = [
     { title: 'Cotação', link: '/pedidos' },
     { title: 'Mapa', link: '/pedidos/mapa', active: true  },
-    { title: 'Ordem de compra', link: '' },
+    { title: 'Ordem de compra', link: '/pedidos/ordem-compra' },
     { title: 'Acompanhamento', link: '' },
   ];
 

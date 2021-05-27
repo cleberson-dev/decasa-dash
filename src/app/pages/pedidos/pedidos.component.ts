@@ -32,9 +32,9 @@ export class PedidosComponent implements OnInit {
   tabs: Tab[] = [
     { title: 'Cotação', link: '/pedidos', active: true },
     { title: 'Mapa', link: '/pedidos/mapa' },
-    { title: 'Ordem de compra', link: '' },
+    { title: 'Ordem de compra', link: '/pedidos/ordem-compra' },
     { title: 'Acompanhamento', link: '' },
-  ]
+  ];
 
   rows: PedidoProduto[] = [
     { codigo: '000001', nome: 'Produto #1', unidade: 'pacote', quantidade: 1 },
