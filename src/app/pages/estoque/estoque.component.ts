@@ -1,6 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Tab } from '../../components/tabber/tabber.component';
 
+type RowProps = {
+  codigo: string;
+  nome: string;
+  unidade: string;
+  quantidade: number;
+  precoUnitario: number;
+}
+
+class Row {
+  props: RowProps;
+
+  constructor(props: RowProps) {
+    this.props = props;
+  }
+
+  get subTotal(): number {
+    const { precoUnitario, quantidade } = this.props;
+    return precoUnitario * quantidade;
+  }
+}
+
 @Component({
   selector: 'ngx-estoque',
   templateUrl: './estoque.component.html',
@@ -15,13 +36,13 @@ export class EstoqueComponent implements OnInit {
     { title: 'Tombamento', link: '/estoque/tombamento', active: false },
   ];
 
-  data = [
-    { codigo: '00001', nome: 'Produto #1', unidade: 'cm', quantidade: 5 },
-    { codigo: '00002', nome: 'Produto #2', unidade: 'kg', quantidade: 2 },
-    { codigo: '00003', nome: 'Produto #3', unidade: 'pacote', quantidade: 5 },
-    { codigo: '00004', nome: 'Produto #4', unidade: 'litro', quantidade: 3 },
-    { codigo: '00005', nome: 'Produto #5', unidade: 'caixa', quantidade: 5 },
-  ]
+  data: Row[] = [
+    new Row({ codigo: '00001', nome: 'Produto #1', unidade: 'cm', quantidade: 5, precoUnitario: 1.99 }),
+    new Row({ codigo: '00002', nome: 'Produto #2', unidade: 'kg', quantidade: 2, precoUnitario: 1.99 }),
+    new Row({ codigo: '00003', nome: 'Produto #3', unidade: 'pacote', quantidade: 5, precoUnitario: 1.99 }),
+    new Row({ codigo: '00004', nome: 'Produto #4', unidade: 'litro', quantidade: 3, precoUnitario: 1.99 }),
+    new Row({ codigo: '00005', nome: 'Produto #5', unidade: 'caixa', quantidade: 5, precoUnitario: 1.99 }),
+  ];
 
   constructor() { }
 

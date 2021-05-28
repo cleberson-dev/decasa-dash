@@ -34,6 +34,8 @@
         <col />
         <col class="resizable" />
         <col class="resizable" />
+        <col class="resizable" />
+        <col class="resizable" />
       </colgroup>
       <thead>
         <tr>
@@ -41,16 +43,20 @@
           <th>Produto</th>
           <th>Unidade</th>
           <th>Quantidade</th>
+          <th>Pr. Unit.</th>
+          <th>Sub-total</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let row of data">
-          <td>{{ row.codigo }}</td>
-          <td>{{ row.nome }}</td>
-          <td>{{ row.unidade }}</td>
+          <td>{{ row.props.codigo }}</td>
+          <td>{{ row.props.nome }}</td>
+          <td>{{ row.props.unidade }}</td>
           <td class="quantidade">
-            <input nbInput type="number" fullWidth [defaultValue]="row.quantidade" />
+            <input nbInput type="number" fullWidth [defaultValue]="row.props.quantidade" />
           </td>
+          <td>{{ row.props.precoUnitario }}</td>
+          <td>{{ row.subTotal }}</td>
         </tr>
       </tbody>
     </table>
