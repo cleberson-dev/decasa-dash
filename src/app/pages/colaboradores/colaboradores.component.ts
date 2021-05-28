@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Colaborador } from '../../types';
 
@@ -41,10 +41,10 @@ export class ColaboradoresComponent implements OnInit {
   ];
 
   addColaboradorForm = this.fb.group({
-    nome: ['', Validators.required],
-    perfil: ['', Validators.required],
-    senha: ['', Validators.required],
-    confirmarSenha: ['', Validators.required]
+    nome: ['', [Validators.required]],
+    perfil: ['', [Validators.required]],
+    senha: ['', [Validators.required]],
+    confirmarSenha: ['', [Validators.required, this.samePasswordValidator]]
   });
 
   constructor(
@@ -74,4 +74,12 @@ export class ColaboradoresComponent implements OnInit {
     ref.close();
   }
 
+  samePasswordValidator(control: AbstractControl): ValidationErrors | null {
+    const senha = this.addColaboradorForm.controls['senha'].value;
+    const senha2 = control.value; 
+    
+    if (senha !== senha2) return { samePassword: true };
+    
+    return null;
+  }
 }

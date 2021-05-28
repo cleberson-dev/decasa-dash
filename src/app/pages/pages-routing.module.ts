@@ -19,6 +19,7 @@ import { AlertaCompraComponent } from './estoque/alerta-compra/alerta-compra.com
 import { TombamentoComponent } from './estoque/tombamento/tombamento.component';
 import { OrdemCompraComponent } from './pedidos/ordem-compra/ordem-compra.component';
 import { AcompanhamentoComponent } from './pedidos/acompanhamento/acompanhamento.component';
+import { EcommerceComponent } from './vendas/ecommerce/ecommerce.component';
 
 const routes: Routes = [{
   path: '',
@@ -87,6 +88,10 @@ const routes: Routes = [{
     {
       path: 'vendas',
       component: VendasComponent
+    },
+    {
+      path: 'vendas/ecommerce',
+      component: EcommerceComponent
     },
     {
       path: '',
