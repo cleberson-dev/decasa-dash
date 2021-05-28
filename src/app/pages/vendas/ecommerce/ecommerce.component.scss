@@ -1,3 +1,43 @@
+$borderColor: #edf1f7;
+
 .form-group label {
   display: block;
+}
+
+table {
+  width: 100%;
+
+  col:not(.full) {
+    width: fit-content;
+  }
+
+  thead {
+    background: $borderColor;
+  }
+
+  td, th {
+    text-align: center;
+  }
+
+  td, th:first-child, th:last-child {
+    border-left: 1px solid $borderColor;
+    border-right: 1px solid $borderColor;
+  }
+
+  th {
+    font-weight: 600;
+    padding: 1rem;
+  }
+
+  td {
+    padding: .6rem;
+  }
+
+  tr {
+    border-bottom: 1px solid $borderColor;
+  }
+
+  tr:nth-of-type(2n) {
+    background: lighten($borderColor, 3%);
+  }
 }

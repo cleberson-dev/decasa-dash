@@ -44,5 +44,32 @@
         </div>
       </div>
     </form>
+    <table>
+      <colgroup>
+        <col />
+        <col />
+        <col />
+        <col class="full" />
+        <col />
+      </colgroup>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Data</th>
+          <th>Pedido</th>
+          <th>Descrição</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows">
+          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
+          <td>{{ row.data }}</td>
+          <td>{{ row.pedido }}</td>
+          <td>{{ row.descricao }}</td>
+          <td class="valor income">{{ row.valor }}</td>
+        </tr>
+      </tbody>
+    </table>
   </nb-card-body>
 </nb-card>
