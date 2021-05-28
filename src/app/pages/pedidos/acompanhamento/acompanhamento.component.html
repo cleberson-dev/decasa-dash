@@ -1,1 +1,39 @@
 <ngx-tabber [tabs]="tabs"></ngx-tabber>
+
+<nb-card>
+  <nb-card-body>
+    <div class="acompanhamento-header">
+      <h5>Mapas de Cotação</h5>
+      <input nbInput />
+    </div>
+    <ul class="card-list">
+      <li *ngFor="let mapa of mapas">
+        <nb-card class="item-card">
+          <nb-card-body class="item-card-body">
+            <p class="title">MC {{ mapa.codigo }}</p>
+            <div class="details">
+              <p><span>Data:</span> {{ mapa.data }}</p>
+              <p><span>Solicitante:</span> {{ mapa.solicitante }}</p>
+              <p><span>Loja:</span> {{ mapa.loja }}</p>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </li>
+    </ul>
+    <h5>Ordens de Compra</h5>
+    <ul class="card-list">
+      <li *ngFor="let mapa of mapas">
+        <nb-card>
+          <nb-card-body class="item-card-body">
+            <p class="title">OC {{ mapa.codigo }}</p>
+            <div class="details">
+              <p><span>Data:</span> {{ mapa.data }}</p>
+              <p><span>Solicitante:</span> {{ mapa.solicitante }}</p>
+              <p><span>Loja:</span> {{ mapa.loja }}</p>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </li>
+    </ul>
+  </nb-card-body>
+</nb-card>

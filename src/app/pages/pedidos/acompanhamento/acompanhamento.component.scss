@@ -1,0 +1,46 @@
+.card-list {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+  li {
+    list-style: none;
+    width: 100%;
+  }
+
+  p.title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #598bff;
+  }
+
+  .details p {
+    margin-bottom: 2px;
+  }
+
+  .details span {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #8f9bb3;
+  }
+}
+
+.item-card-body {
+  padding: 1.1rem;
+  background: #f7f9fc;
+  cursor: pointer;
+
+  &:hover {
+    background: darken(#f7f9fc, 1%);
+  }
+}
+
+.acompanhamento-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
