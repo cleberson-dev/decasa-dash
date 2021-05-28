@@ -42,7 +42,9 @@ export class ColaboradoresComponent implements OnInit {
 
   addColaboradorForm = this.fb.group({
     nome: ['', Validators.required],
-    descricao: ['', Validators.required]
+    perfil: ['', Validators.required],
+    senha: ['', Validators.required],
+    confirmarSenha: ['', Validators.required]
   });
 
   constructor(

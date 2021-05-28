@@ -44,20 +44,53 @@
   <nb-card>
     <nb-card-header>Adicionar novo colaborador</nb-card-header>
     <nb-card-body>
-      <form [formGroup]="addColaboradorForm" (submit)="onSubmit(ref)">
-        <input nbInput fullWidth placeholder="Nome" formControlName="nome" />
-        <input 
-          nbInput 
-          fullWidth 
-          placeholder="Descrição" 
-          formControlName="descricao"
-          style="margin: 1.25rem 0" 
-        />
-        <div>
-          <button nbButton [disabled]="addColaboradorForm.invalid" status="primary" type="submit">Adicionar</button>
-          <button nbButton style="margin-left: 8px;" status="basic" (click)="ref.close()">Voltar</button>
+      <form id="addColaboradorForm" [formGroup]="addColaboradorForm" (submit)="onSubmit(ref)">
+        <div class="form-group">
+          <label>Nome Completo</label>
+          <input nbInput fullWidth formControlName="nome" />
+        </div>
+        <div class="form-group">
+          <label>Perfil</label>
+          <input 
+            nbInput 
+            fullWidth 
+            formControlName="perfil"
+          />
+        </div>
+        <div class="form-group">
+          <label>Senha</label>
+          <input 
+            nbInput 
+            fullWidth
+            type="password" 
+            formControlName="senha"
+          />
+        </div>
+        <div class="form-group">
+          <label>Confirmar senha</label>
+          <input 
+            nbInput 
+            fullWidth
+            type="password"
+            formControlName="confirmarSenha"
+          />
         </div>
       </form>
     </nb-card-body>
+    <nb-card-footer class="add-colaborador-card-footer">
+      <button 
+        nbButton status="basic" (click)="ref.close()">
+        Voltar
+      </button>
+      <button 
+        nbButton 
+        [disabled]="addColaboradorForm.invalid" 
+        status="primary" 
+        type="submit"
+        form="addColaboradorForm"
+      >
+        Adicionar
+      </button>
+    </nb-card-footer>
   </nb-card>
 </ng-template>
