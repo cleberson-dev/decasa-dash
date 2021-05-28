@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 type RowProps = {
   codigo: string;
@@ -26,6 +28,11 @@ class Row {
   styleUrls: ['./ordem-compra.component.scss']
 })
 export class OrdemCompraComponent implements OnInit {
+  ocOptions: string[];
+  filteredOcOptions$: Observable<string[]>;
+
+  @ViewChild('autoInput') input;
+
   tabs: Tab[] = [
     { title: 'Cotação', link: '/pedidos' },
     { title: 'Mapa', link: '/pedidos/mapa' },
@@ -46,9 +53,25 @@ export class OrdemCompraComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.ocOptions = ['123456/2021', '333333/2021'];
+    this.filteredOcOptions$ = of(this.ocOptions);
   }
 
   get precoTotal(): number {
     return this.data.reduce((prev, cur) => prev + cur.subTotal, 0);
+  }
+
+  onOCInputChange() {
+
+  }
+
+  onOCAutoChange(e: any) {
+    
+  }
+
+  getFilteredOcOptions(value: string): Observable<string[]> {
+    return of(value).pipe(
+      map(filterString => this.ocOptions.filter(optionValue => optionValue.toLowerCase().includes(filterString.toLowerCase())))
+    )
   }
 }

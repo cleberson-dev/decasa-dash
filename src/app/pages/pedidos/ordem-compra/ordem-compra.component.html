@@ -2,6 +2,22 @@
 
 <nb-card>
   <nb-card-body>
+    <div class="row">
+      <div class="col-6"></div>
+      <div class="form-group col-6 row">
+        <label class="col-4">Nº de Controle</label>
+        <input #autoInput
+          nbInput fullWidth 
+          (input)="onOCInputChange()"
+          [nbAutocomplete]="auto"
+          class="col-8"
+        />
+        <nb-autocomplete #auto (selectedChange)="onOCAutoChange($event)">
+          <nb-option value="123456/2021">123456/2021</nb-option>
+          <nb-option value="333333/2021">333333/2021</nb-option>
+        </nb-autocomplete>
+      </div>
+    </div>
     <h5>Produtos</h5>
     <table>
       <colgroup>
