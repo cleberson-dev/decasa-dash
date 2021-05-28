@@ -44,7 +44,7 @@ export class ColaboradoresComponent implements OnInit {
     nome: ['', [Validators.required]],
     perfil: ['', [Validators.required]],
     senha: ['', [Validators.required]],
-    confirmarSenha: ['', [Validators.required, this.samePasswordValidator]]
+    confirmarSenha: ['', [Validators.required]]
   });
 
   constructor(
