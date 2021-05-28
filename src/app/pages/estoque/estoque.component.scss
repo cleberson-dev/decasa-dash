@@ -18,7 +18,6 @@ table {
 
 thead {
   background-color: $borderColor;
-  text-align: center;
 }
 
 th {
@@ -27,6 +26,7 @@ th {
 
 th, td {
   padding: .8rem .6rem;
+  text-align: center;
 }
 
 tbody tr:not(:last-child) {
@@ -56,6 +56,10 @@ col.resizable {
 
 td.quantidade input {
   min-width: 8rem;
+}
+
+td.produto {
+  text-align: left;
 }
 
 .estoque-card-footer {

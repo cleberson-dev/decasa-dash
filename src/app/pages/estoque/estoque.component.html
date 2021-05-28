@@ -50,7 +50,7 @@
       <tbody>
         <tr *ngFor="let row of data">
           <td>{{ row.props.codigo }}</td>
-          <td>{{ row.props.nome }}</td>
+          <td class="produto">{{ row.props.nome }}</td>
           <td>{{ row.props.unidade }}</td>
           <td class="quantidade">
             <input nbInput type="number" fullWidth [defaultValue]="row.props.quantidade" />
