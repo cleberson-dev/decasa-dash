@@ -67,3 +67,14 @@ table {
     text-align: right;
   }
 }
+
+.oc-card-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-body-wrapper {
+  height: 60vh;
+  overflow-y: scroll;
+  padding: 0 1.5rem;
+}
