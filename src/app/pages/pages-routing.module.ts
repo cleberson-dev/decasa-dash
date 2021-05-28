@@ -18,6 +18,7 @@ import { SaidaComponent } from './estoque/saida/saida.component';
 import { AlertaCompraComponent } from './estoque/alerta-compra/alerta-compra.component';
 import { TombamentoComponent } from './estoque/tombamento/tombamento.component';
 import { OrdemCompraComponent } from './pedidos/ordem-compra/ordem-compra.component';
+import { AcompanhamentoComponent } from './pedidos/acompanhamento/acompanhamento.component';
 
 const routes: Routes = [{
   path: '',
@@ -46,6 +47,10 @@ const routes: Routes = [{
     {
       path: 'pedidos/ordem-compra',
       component: OrdemCompraComponent
+    },
+    {
+      path: 'pedidos/acompanhamento',
+      component: AcompanhamentoComponent
     },
     {
       path: 'fornecedores',

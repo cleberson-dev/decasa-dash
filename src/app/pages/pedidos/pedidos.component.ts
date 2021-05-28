@@ -33,7 +33,7 @@ export class PedidosComponent implements OnInit {
     { title: 'Cotação', link: '/pedidos', active: true },
     { title: 'Mapa', link: '/pedidos/mapa' },
     { title: 'Ordem de compra', link: '/pedidos/ordem-compra' },
-    { title: 'Acompanhamento', link: '' },
+    { title: 'Acompanhamento', link: '/pedidos/acompanhamento' },
   ];
 
   rows: PedidoProduto[] = [

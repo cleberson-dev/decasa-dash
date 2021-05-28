@@ -87,7 +87,7 @@ export class MapaComponent implements OnInit {
     { title: 'Cotação', link: '/pedidos' },
     { title: 'Mapa', link: '/pedidos/mapa', active: true  },
     { title: 'Ordem de compra', link: '/pedidos/ordem-compra' },
-    { title: 'Acompanhamento', link: '' },
+    { title: 'Acompanhamento', link: '/pedidos/acompanhamento' },
   ];
 
   constructor(

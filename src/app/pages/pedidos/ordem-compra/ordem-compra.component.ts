@@ -37,7 +37,7 @@ export class OrdemCompraComponent implements OnInit {
     { title: 'Cotação', link: '/pedidos' },
     { title: 'Mapa', link: '/pedidos/mapa' },
     { title: 'Ordem de compra', link: '/pedidos/ordem-compra', active: true },
-    { title: 'Acompanhamento', link: '' },
+    { title: 'Acompanhamento', link: '/pedidos/acompanhamento' },
   ];
 
   data: Row[] = [
