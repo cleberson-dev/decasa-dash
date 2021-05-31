@@ -78,3 +78,20 @@ table {
   overflow-y: scroll;
   padding: 0 1.5rem;
 }
+
+p.control-number {
+  margin-top: 8px;
+  text-align: right;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #8f9bb3;
+
+
+  span {
+    display: block;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #222b45;
+  }
+}
