@@ -45,10 +45,7 @@ export class OrdemCompraComponent implements OnInit {
     new Row({ codigo: '00002', produto: 'Produto #2', quantidade: 2, unidade: 'cm', precoUnitario: 1.99 })
   ];
 
-  fornecedores = [
-    { nome: 'Centro Elétrico', vendedor: 'João Renato', telefone: '(99) 99999-9999', email: 'email@decasa.com' },
-    { nome: 'Fornecedor #2', vendedor: 'Vendedor', telefone: '(99) 99999-9999', email: 'vendedor@decasa.com' },
-  ];
+  fornecedor = { nome: 'Centro Elétrico', vendedor: 'João Renato', telefone: '(99) 99999-9999', email: 'email@decasa.com' };
 
   constructor() { }
 
