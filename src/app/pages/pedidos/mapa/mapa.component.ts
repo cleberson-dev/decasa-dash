@@ -209,4 +209,8 @@ export class MapaComponent implements OnInit {
   isGloballySelected(i: number) {
     return this.easyButtonsValue === 'global' && this.data[0].selecionado === i;
   }
+
+  isProductSelected(i: number): boolean {
+    return this.data[i].selecionado !== undefined;
+  }
 }

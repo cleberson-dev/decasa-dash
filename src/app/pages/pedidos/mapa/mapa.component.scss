@@ -315,3 +315,7 @@ td.preco.menor-fornecedor:hover {
 th.global-selected {
   background: $selectedColor;
 }
+
+tr.product-selected {
+  background: darken(white, 3%);
+}

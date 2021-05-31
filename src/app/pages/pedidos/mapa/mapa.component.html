@@ -73,6 +73,7 @@
       <tbody>
         <tr
           *ngFor="let row of data; let i = index"
+          [class]="{ 'product-selected': isProductSelected(i) }"
         >
           <td>{{ row.produto.codigo }}</td>
           <td 
