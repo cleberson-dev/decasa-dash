@@ -70,6 +70,42 @@ table {
   }
 }
 
+.oc-card-body .head {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 8px;
+
+  p {  
+    text-align: right;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #8f9bb3;
+    margin: 0;
+  
+    span {
+      display: block;
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #222b45;
+    }
+  }
+
+  p:not(:last-child) {
+    margin-right: 0.9rem;
+  }
+
+  p.mapa {
+    font-size: 0.56rem;
+    line-height: 15px;
+    span {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  }
+}
+
 .oc-card-footer {
   display: flex;
   justify-content: space-between;
@@ -81,19 +117,3 @@ table {
   padding: 0 1.5rem;
 }
 
-p.control-number {
-  margin-top: 8px;
-  text-align: right;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #8f9bb3;
-
-
-  span {
-    display: block;
-    font-weight: bold;
-    font-size: 1.3rem;
-    color: #222b45;
-  }
-}
