@@ -311,3 +311,7 @@ td.preco.menor-fornecedor:hover {
     }
   }
 }
+
+th.global-selected {
+  background: $selectedColor;
+}

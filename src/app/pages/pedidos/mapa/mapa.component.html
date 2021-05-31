@@ -43,7 +43,8 @@
             [class]="{
               fornecedor: true,
               bordered: true,
-              'menor-fornecedor': i === menorSomaIdx
+              'menor-fornecedor': i === menorSomaIdx,
+              'global-selected': isGloballySelected(i)
             }"
           >
             <nb-icon 
@@ -62,7 +63,7 @@
           <th></th>
           <th
             *ngFor="let somaFornecedor of somaFornecedores; let i = index"
-            [class]="{ bordered: true, 'menor-fornecedor': i === menorSomaIdx }"
+            [class]="{ bordered: true, 'menor-fornecedor': i === menorSomaIdx, 'global-selected': isGloballySelected(i) }"
           >
             {{ somaFornecedor ? "Σ " + somaFornecedor.toFixed(2) : "--" }}
           </th>

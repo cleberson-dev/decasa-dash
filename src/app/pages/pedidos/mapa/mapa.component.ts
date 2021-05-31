@@ -205,4 +205,8 @@ export class MapaComponent implements OnInit {
 
     this.dialogService.open(dialog, { context });
   }
+
+  isGloballySelected(i: number) {
+    return this.easyButtonsValue === 'global' && this.data[0].selecionado === i;
+  }
 }
