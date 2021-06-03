@@ -17,7 +17,7 @@ export class EcommerceComponent implements OnInit {
   ];
 
   rows = [
-    { data: '17/05/2021', pedido: '964', descricao: 'TAXAS E MULTAS', valor: 999.99 },
+    { data: '17/05/2021', pedido: '964', descricao: 'TAXAS E MULTAS', valor: 999.99, opened: true },
     { data: '17/05/2021', pedido: '964', descricao: 'TAXAS E MULTAS', valor: 999.99 },
   ];
 
@@ -26,4 +26,7 @@ export class EcommerceComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openRow() {
+
+  }
 }
