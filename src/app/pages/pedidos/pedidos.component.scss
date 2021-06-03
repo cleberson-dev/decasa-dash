@@ -79,3 +79,30 @@ col.resizable {
 td.quantidade input {
   min-width: 8rem;
 }
+
+.fornecedores-selecionados {
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1rem;
+
+  li {
+    list-style: none;
+    width: 100%;
+  }
+
+  li .nome {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  li .details {
+    text-transform: lowercase;
+    font-size: 0.85rem;
+    color: #808080;
+  }
+
+  .fornecedor-card-body {
+    padding: 1rem 1.25rem;
+  }
+}

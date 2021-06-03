@@ -26,9 +26,9 @@
             <input 
               nbInput 
               style="width: 150px" 
-              formControlName="rcm"
-              (blur)="onRCMBlur()"
-              [class]="{ invalid: isInvalidControl('rcm') }"
+              formControlName="codigo"
+              (blur)="onCodigoBlur()"
+              [class]="{ invalid: isInvalidControl('codigo') }"
             />
           </td>
           <td>
@@ -81,11 +81,16 @@
 
     <h5>Fornecedores</h5>
     <p *ngIf="fornecedores.length === 0">Sem itens</p>
-    <nb-list>
-      <nb-list-item *ngFor="let fornecedor of fornecedores">
-        <p>{{ fornecedor.nome }}</p>
-      </nb-list-item>
-    </nb-list>
+    <ul class="fornecedores-selecionados">
+      <li *ngFor="let fornecedor of fornecedores">
+        <nb-card>
+          <nb-card-body class="fornecedor-card-body">
+            <div class="nome">{{ fornecedor.nome }}</div>
+            <div class="details">{{ fornecedor.email }}</div>
+          </nb-card-body>
+        </nb-card>
+      </li>
+    </ul>
     <button nbButton (click)="openAddFornecedores(dialog)">Adicionar</button>
   </nb-card-body>
 

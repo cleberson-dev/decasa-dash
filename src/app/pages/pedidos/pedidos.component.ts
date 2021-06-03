@@ -40,7 +40,7 @@ export class PedidosComponent implements OnInit {
   rows: PedidoProduto[] = []
 
   novoPedidoForm = this.fb.group({
-    rcm: ['', [Validators.required]],
+    codigo: ['', [Validators.required]],
     nome: ['', [Validators.required]],
     unidade: ['', [Validators.required]],
     quantidade: [1, [Validators.required, Validators.min(1)]],
@@ -48,7 +48,7 @@ export class PedidosComponent implements OnInit {
 
   fornecedores: Fornecedor[] = [];
 
-  produtos: Produto[] = [...fake.produtos];
+  produtos: Produto[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -58,8 +58,12 @@ export class PedidosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.autoOptions = this.produtos.map(p => p.descricao);
-    this.suggestedOptions$ = of(this.autoOptions);
+    this.api.getAllProducts()
+      .subscribe(produtos => {
+        this.produtos = produtos;
+        this.autoOptions = this.produtos.map(p => p.descricao);
+        this.suggestedOptions$ = of(this.autoOptions);
+      });
   }
 
   onSelectionChange($event: string) {
@@ -69,7 +73,7 @@ export class PedidosComponent implements OnInit {
     const selectedProduct = this.produtos.find(p => p.descricao.toLowerCase().includes($event.toLowerCase()));
     if (!selectedProduct) return;
 
-    this.novoPedidoForm.controls['rcm'].setValue(selectedProduct.id);
+    this.novoPedidoForm.controls['codigo'].setValue(selectedProduct.id);
   }
 
   onInputChange() {
@@ -81,7 +85,7 @@ export class PedidosComponent implements OnInit {
 
   onPedidoAdd() {
     this.rows.unshift({
-      codigo: this.novoPedidoForm.controls['rcm'].value,
+      codigo: this.novoPedidoForm.controls['codigo'].value,
       nome: this.novoPedidoForm.controls['nome'].value,
       quantidade: this.novoPedidoForm.controls['quantidade'].value,
       unidade: this.novoPedidoForm.controls['unidade'].value,
@@ -120,15 +124,15 @@ export class PedidosComponent implements OnInit {
     return control.invalid && (control.touched || control.dirty);
   }
 
-  onRCMBlur() {
-    const rcm = this.novoPedidoForm.controls['rcm'].value;
-    const product = this.produtos.find(p => p.id === rcm);
+  onCodigoBlur() {
+    const codigo = this.novoPedidoForm.controls['codigo'].value;
+    const product = this.produtos.find(p => p.id === codigo);
     if (!product) {
-      this.novoPedidoForm.controls['rcm'].setErrors({ noProduct: true });
-      // this.novoPedidoForm.controls['rcm'].setValue(rcm);
+      this.novoPedidoForm.controls['codigo'].setErrors({ noProduct: true });
+      // this.novoPedidoForm.controls['codigo'].setValue(codigo);
       this.novoPedidoForm.controls['nome'].setValue('');
     } else {
-      this.novoPedidoForm.controls['rcm'].setValue(product.id);
+      this.novoPedidoForm.controls['codigo'].setValue(product.id);
     }
   }
 
@@ -138,7 +142,7 @@ export class PedidosComponent implements OnInit {
     if (!product) {
       this.novoPedidoForm.controls['nome'].setErrors({ noProduct: true });
     } else {
-      this.novoPedidoForm.controls['nome'].setErrors({})
+      this.novoPedidoForm.controls['nome'].setErrors(null);
     }
   }
 }
