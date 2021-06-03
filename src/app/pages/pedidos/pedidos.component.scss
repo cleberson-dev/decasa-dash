@@ -64,7 +64,7 @@ tbody tr:not(:first-child) {
   justify-content: space-between;
 }
 
-h5 {
+h5:not(:first-child) {
   margin-top: 2rem;
 }
 
