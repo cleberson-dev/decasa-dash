@@ -15,6 +15,11 @@ export class SeparandoComponent implements OnInit {
     { title: 'Entregue', link: '/vendas/entregue', active: false }
   ];
 
+  rows = [
+    { data: '17/05/2021', pedido: '964', descricao: 'TAXAS E MULTAS', valor: 999.99 },
+    { data: '17/05/2021', pedido: '964', descricao: 'TAXAS E MULTAS', valor: 999.99 },
+  ];
+
   constructor() { }
 
   ngOnInit(): void {
