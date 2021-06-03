@@ -20,6 +20,7 @@ import { TombamentoComponent } from './estoque/tombamento/tombamento.component';
 import { OrdemCompraComponent } from './pedidos/ordem-compra/ordem-compra.component';
 import { AcompanhamentoComponent } from './pedidos/acompanhamento/acompanhamento.component';
 import { EcommerceComponent } from './vendas/ecommerce/ecommerce.component';
+import { SeparandoComponent } from './vendas/separando/separando.component';
 
 const routes: Routes = [{
   path: '',
@@ -92,6 +93,10 @@ const routes: Routes = [{
     {
       path: 'vendas/ecommerce',
       component: EcommerceComponent
+    },
+    {
+      path: 'vendas/separando',
+      component: SeparandoComponent
     },
     {
       path: '',
