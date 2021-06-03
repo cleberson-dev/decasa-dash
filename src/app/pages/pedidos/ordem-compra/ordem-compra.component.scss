@@ -49,6 +49,8 @@ table {
 
   p { 
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
     
     &:not(.nome) span {
       text-transform: uppercase;
@@ -56,6 +58,10 @@ table {
       font-weight: 600;
       color: gray;
     }
+  }
+
+  p.nome {
+    font-size: 1.1rem;
   }
 }
 
