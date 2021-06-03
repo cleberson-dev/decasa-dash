@@ -1,0 +1,66 @@
+<ngx-tabber [tabs]="tabs"></ngx-tabber>
+<nb-card>
+  <nb-card-body>
+    <form>
+      <div class="row">
+        <div class="col-3 form-group">
+          <label>Tipo de Frete</label>
+          <nb-select fullWidth>
+            <nb-option value="1">Tipo #1</nb-option>
+            <nb-option value="2">Tipo #2</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-3 form-group">
+          <label>Loja de saída do material</label>
+          <nb-select fullWidth>
+            <nb-option value="1">Loja #1</nb-option>
+            <nb-option value="2">Loja #2</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <button nbButton fullWidth status="primary">
+            Buscar
+          </button>
+        </div>
+        <div class="col-4"></div>
+        <div class="col-3 form-group">
+          <label>Busca pelo nº de pedido</label>
+          <input nbInput fullWidth />
+        </div>
+        <div class="col-3 form-group">
+          <label>Busca pelo CPF/CNPJ</label>
+          <input nbInput fullWidth />
+        </div>
+      </div>
+    </form>
+    <table>
+      <colgroup>
+        <col />
+        <col />
+        <col />
+        <col class="full" />
+        <col />
+      </colgroup>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Data</th>
+          <th>Pedido</th>
+          <th>Descrição</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows">
+          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
+          <td>{{ row.data }}</td>
+          <td>{{ row.pedido }}</td>
+          <td>{{ row.descricao }}</td>
+          <td class="valor income">{{ row.valor }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>
