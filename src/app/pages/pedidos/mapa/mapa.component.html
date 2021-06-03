@@ -63,7 +63,16 @@
           <th></th>
           <th
             *ngFor="let somaFornecedor of somaFornecedores; let i = index"
-            [class]="{ bordered: true, 'menor-fornecedor': i === menorSomaIdx, 'global-selected': isGloballySelected(i) }"
+            [class]="{ 
+              bordered: true, 
+              'summed-price': true, 
+              'menor-fornecedor': i === menorSomaIdx, 
+              'global-selected': isGloballySelected(i), 
+              hovered: i === hoveredFornecedorIdx 
+            }"
+            (click)="selectSupplier(i)"
+            (mouseover)="hoveredFornecedorIdx = i"
+            (mouseout)="hoveredFornecedorIdx = undefined"
           >
             {{ somaFornecedor ? "Σ " + somaFornecedor.toFixed(2) : "--" }}
           </th>
@@ -91,7 +100,8 @@
               preco: true,
               'menor-fornecedor': j === menorSomaIdx,
               selecionado: j === row.selecionado,
-              clickable: !!preco
+              clickable: !!preco,
+              hovered: j === hoveredFornecedorIdx
             }"
             (click)="preco && selectProductSupplier(i, j)"
           >

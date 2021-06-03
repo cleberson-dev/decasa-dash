@@ -257,9 +257,15 @@ td.clickable {
   cursor: pointer;
 }
 
-td.preco:hover {
+td.preco:hover, td.preco.hovered {
   background: lighten($borderColor, 1%);
 }
+
+th.global-selected.hovered:hover,
+td.preco.selecionado.menor-fornecedor.menor.hovered,
+td.preco.selecionado.menor-fornecedor.hovered,
+td.preco.selecionado.menor.hovered,
+td.preco.selecionado.hovered,
 td.preco.selecionado.menor-fornecedor.menor:hover,
 td.preco.selecionado.menor-fornecedor:hover,
 td.preco.selecionado.menor:hover,
@@ -267,11 +273,15 @@ td.preco.selecionado:hover {
   background: darken($selectedColor, 7%);
 }
 
+td.preco.menor.hovered,
+td.preco.menor.menor-fornecedor.hovered, 
 td.preco.menor:hover,
 td.preco.menor.menor-fornecedor:hover {
   background: darken($menorProdutoCor, 5%);
 }
 
+th.menor-fornecedor.hovered,
+td.preco.menor-fornecedor.hovered,
 td.preco.menor-fornecedor:hover {
   background: darken($menorFornecedorCor, 5%);
 }
@@ -318,4 +328,12 @@ th.global-selected {
 
 tr.product-selected {
   background: darken(white, 3%);
+}
+
+th.summed-price {
+  cursor: pointer;
+}
+
+th.hovered {
+  background: darken($borderColor, 1%);
 }

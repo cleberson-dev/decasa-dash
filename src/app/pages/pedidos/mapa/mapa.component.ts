@@ -83,6 +83,8 @@ export class MapaComponent implements OnInit {
   somaFornecedores: (number | undefined)[] = new Array(this.data[0].precos.length).fill(0);
   menorSomaIdx: number;
 
+  hoveredFornecedorIdx?: number;
+
   tabs: Tab[] = [
     { title: 'Cotação', link: '/pedidos' },
     { title: 'Mapa', link: '/pedidos/mapa', active: true  },
@@ -212,5 +214,27 @@ export class MapaComponent implements OnInit {
 
   isProductSelected(i: number): boolean {
     return this.data[i].selecionado !== undefined;
+  }
+
+  get supplierSelected(): number | undefined {
+    if (!this.data[0].selecionado) return undefined;
+
+    const idx = this.data[0].selecionado;
+    return this.data.every(row => row.selecionado === idx) ? idx : undefined; 
+  }
+
+  selectSupplier(idx: number) {
+    if (this.supplierSelected !== undefined && this.supplierSelected === idx) {
+      for (let i = 0; i < this.data.length; i += 1) {
+        this.data[i].selecionado = undefined;
+      }
+      return;
+    }
+    
+    for (let i = 0; i < this.data.length; i += 1) {
+      this.data[i].selecionado = idx;
+    }
+
+    this.easyButtonsValue = '';
   }
 }
