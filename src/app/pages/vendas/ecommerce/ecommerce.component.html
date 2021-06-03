@@ -51,6 +51,7 @@
         <col />
         <col class="full" />
         <col />
+        <col />
       </colgroup>
       <thead>
         <tr>
@@ -58,6 +59,7 @@
           <th>Data</th>
           <th>Pedido</th>
           <th>Descrição</th>
+          <th></th>
           <th>Valor</th>
         </tr>
       </thead>
@@ -67,6 +69,11 @@
           <td>{{ row.data }}</td>
           <td>{{ row.pedido }}</td>
           <td>{{ row.descricao }}</td>
+          <td>
+            <button nbButton status="primary" fullWidth size="small">
+              <nb-icon icon="corner-up-right"></nb-icon>
+            </button>
+          </td>
           <td class="valor income">{{ row.valor }}</td>
         </tr>
       </tbody>
