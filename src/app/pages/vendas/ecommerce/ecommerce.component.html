@@ -78,9 +78,11 @@
               {{ row.descricao }}
             </td>
             <td>
-              <button nbButton status="primary" fullWidth size="small">
-                <nb-icon icon="corner-up-right"></nb-icon>
-              </button>
+              <a class="link-btn" routerLink="/vendas/separando">
+                <button nbButton status="primary" fullWidth size="small">
+                  <nb-icon icon="corner-up-right"></nb-icon>
+                </button>
+              </a>
             </td>
             <td class="valor income">{{ row.valor }}</td>
           </tr>

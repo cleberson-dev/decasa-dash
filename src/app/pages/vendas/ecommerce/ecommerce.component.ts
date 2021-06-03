@@ -17,8 +17,8 @@ export class EcommerceComponent implements OnInit {
   ];
 
   rows = [
-    { data: '17/05/2021', pedido: '964', descricao: 'TAXAS E MULTAS', valor: 999.99 },
-    { data: '17/05/2021', pedido: '964', descricao: 'TAXAS E MULTAS', valor: 999.99 },
+    { data: '17/05/2021', pedido: '964', descricao: 'TAXAS E MULTAS', valor: 999.99, opened: false },
+    { data: '17/05/2021', pedido: '964', descricao: 'TAXAS E MULTAS', valor: 999.99, opened: false },
   ];
 
   constructor() { }
