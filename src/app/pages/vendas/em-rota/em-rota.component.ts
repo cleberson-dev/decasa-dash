@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Tab } from '../../../components/tabber/tabber.component';
 
 @Component({
-  selector: 'ngx-separando',
-  templateUrl: './separando.component.html',
-  styleUrls: ['./separando.component.scss']
+  selector: 'ngx-em-rota',
+  templateUrl: './em-rota.component.html',
+  styleUrls: ['./em-rota.component.scss']
 })
-export class SeparandoComponent implements OnInit {
+export class EmRotaComponent implements OnInit {
   tabs: Tab[] = [
     { title: 'Venda de Balcão', link: '/vendas', active: false },
     { title: 'eCommerce', link: '/vendas/ecommerce', active: false },
-    { title: 'Separando', link: '/vendas/separando', active: true },
-    { title: 'Em rota', link: '/vendas/em-rota', active: false },
+    { title: 'Separando', link: '/vendas/separando', active: false },
+    { title: 'Em rota', link: '/vendas/em-rota', active: true },
     { title: 'Entregue', link: '/vendas/entregue', active: false }
   ];
 

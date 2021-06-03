@@ -54,6 +54,7 @@ import { OrdemCompraComponent } from './pedidos/ordem-compra/ordem-compra.compon
 import { AcompanhamentoComponent } from './pedidos/acompanhamento/acompanhamento.component';
 import { EcommerceComponent } from './vendas/ecommerce/ecommerce.component';
 import { SeparandoComponent } from './vendas/separando/separando.component';
+import { EmRotaComponent } from './vendas/em-rota/em-rota.component';
 
 @NgModule({
   imports: [
@@ -110,7 +111,8 @@ import { SeparandoComponent } from './vendas/separando/separando.component';
     OrdemCompraComponent,
     AcompanhamentoComponent,
     EcommerceComponent,
-    SeparandoComponent
+    SeparandoComponent,
+    EmRotaComponent
   ]
 })
 export class PagesModule {

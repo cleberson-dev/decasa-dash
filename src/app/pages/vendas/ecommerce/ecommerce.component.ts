@@ -12,7 +12,7 @@ export class EcommerceComponent implements OnInit {
     { title: 'Venda de Balcão', link: '/vendas', active: false },
     { title: 'eCommerce', link: '/vendas/ecommerce', active: true },
     { title: 'Separando', link: '/vendas/separando', active: false },
-    { title: 'Entregando', link: '/vendas/entregando', active: false },
+    { title: 'Em rota', link: '/vendas/em-rota', active: false },
     { title: 'Entregue', link: '/vendas/entregue', active: false }
   ];
 
