@@ -45,6 +45,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Configurações',
     icon: 'settings-outline',
-    link: '/forms/layouts',
+    link: '/configuracoes',
   }
 ];

@@ -23,6 +23,7 @@ import { EcommerceComponent } from './vendas/ecommerce/ecommerce.component';
 import { SeparandoComponent } from './vendas/separando/separando.component';
 import { EmRotaComponent } from './vendas/em-rota/em-rota.component';
 import { EntregueComponent } from './vendas/entregue/entregue.component';
+import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 
 const routes: Routes = [{
   path: '',
@@ -107,6 +108,10 @@ const routes: Routes = [{
     {
       path: 'vendas/entregue',
       component: EntregueComponent
+    },
+    {
+      path: 'configuracoes',
+      component: ConfiguracoesComponent
     },
     {
       path: '',
