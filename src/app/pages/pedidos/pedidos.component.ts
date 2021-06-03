@@ -36,10 +36,7 @@ export class PedidosComponent implements OnInit {
     { title: 'Acompanhamento', link: '/pedidos/acompanhamento' },
   ];
 
-  rows: PedidoProduto[] = [
-    { codigo: '000001', nome: 'Produto #1', unidade: 'pacote', quantidade: 1 },
-    { codigo: '000002', nome: 'Produto #2', unidade: 'caixa', quantidade: 1 },
-  ]
+  rows: PedidoProduto[] = []
 
   novoPedidoForm = this.fb.group({
     rcm: ['', [Validators.required]],
@@ -49,7 +46,6 @@ export class PedidosComponent implements OnInit {
   });
 
   fornecedores: Fornecedor[] = [];
-
 
   produtos: Produto[] = [...fake.produtos];
 
