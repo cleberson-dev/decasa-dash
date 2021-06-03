@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
 import { Fornecedor, Produto } from '../../types';
 import * as fake from '../../fake-data';
+import { ApiService } from '../../services/api.service';
 
 type Pedido = {
   data: string;
@@ -51,7 +52,8 @@ export class PedidosComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private api: ApiService
   ) {
   }
 
@@ -93,7 +95,7 @@ export class PedidosComponent implements OnInit {
   }
 
   onAddSupplier(fornecedores: Fornecedor[], ref: NbDialogRef<any>) {
-    this.fornecedores.push(...fornecedores);
+    this.fornecedores = fornecedores;
     ref.close();
   }
 

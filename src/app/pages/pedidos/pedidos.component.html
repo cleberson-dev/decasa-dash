@@ -103,6 +103,7 @@
     (exit)="ref.close()"
     (addition)="onAddSupplier($event, ref)"
     (btnClick)="context.type = 'formSupplier'"
+    [initialFornecedores]="fornecedores"
   ></ngx-modal-add-fornecedores>
   <ngx-modal-form-fornecedor
     *ngIf="context.type === 'formSupplier'"

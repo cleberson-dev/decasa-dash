@@ -8,7 +8,7 @@
         </div>
         <nb-list class="fornecedores-list">
           <nb-list-item class="fornecedores-list-item" *ngFor="let fornecedor of fornecedores">
-            <ngx-checkbox [defaultValue]="false" (change)="fornecedor.selected = $event"></ngx-checkbox>
+            <ngx-checkbox [defaultValue]="isFornecedorSelecionado(fornecedor.id)" (change)="onSelect($event, fornecedor)"></ngx-checkbox>
             <div class="fornecedor" style="margin-left: 1rem">
               <p class="nome">{{ fornecedor.nome }}</p>
               <p class="detalhes">{{ fornecedor.email }} - {{ fornecedor.celular }}</p>
@@ -23,7 +23,7 @@
       </nb-card-body>
       <nb-card-footer class="dialog-footer">
         <div>
-          <button nbButton type="button" (click)="exit.emit()">Sair</button>
+          <button nbButton type="button" (click)="onCloseBtnClick()">Sair</button>
           <button nbButton ghost type="button" (click)="btnClick.emit()">Não tem? Crie um novo</button>
         </div>
         <button nbButton type="button" status="primary" (click)="onAdditionBtnClick()">Adicionar</button>

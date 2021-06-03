@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
+import { ApiService } from '../../../services/api.service';
 import { Fornecedor } from '../../../types';
 
 type SelectableFornecedor = Fornecedor & { selected?: boolean; };
@@ -13,59 +14,43 @@ export class ModalAddFornecedoresComponent implements OnInit {
   @Output() btnClick = new EventEmitter();
   @Output() exit = new EventEmitter();
   @Output() addition = new EventEmitter<Fornecedor[]>();
+  @Input() initialFornecedores: Fornecedor[] = [];
+  
+  fornecedores: Fornecedor[] = [];
+  @Input() selectedFornecedores: Fornecedor[] = [];
 
-  fornecedores: SelectableFornecedor[] = [
-    { 
-      id: 1,
-      nome: 'Fornecedor #1',
-      logradouro: 'Logradouro #1',
-      bairro: 'Bairro #1',
-      numero: 123,
-      cep: '12345-789',
-      pontoReferencia: 'Ponto de Referência',
-      email: 'fornecedor@decasa.com',
-      cnpj: '123.123.123-99',
-      celular: '(XX) 9XXXX-XXXX',
-      telefone: '(XX) XXXX-XXXX'
-    },
-    { 
-      id: 2,
-      nome: 'Fornecedor #2',
-      logradouro: 'Logradouro #2',
-      bairro: 'Bairro #2',
-      numero: 123,
-      cep: '12345-789',
-      pontoReferencia: 'Ponto de Referência',
-      email: 'fornecedor@decasa.com',
-      cnpj: '123.123.123-99',
-      celular: '(XX) 9XXXX-XXXX',
-      telefone: '(XX) XXXX-XXXX'
-    },
-    { 
-      id: 3,
-      nome: 'Fornecedor #3',
-      logradouro: 'Logradouro #3',
-      bairro: 'Bairro #3',
-      numero: 123,
-      cep: '12345-789',
-      pontoReferencia: 'Ponto de Referência',
-      email: 'fornecedor@decasa.com',
-      cnpj: '123.123.123-99',
-      celular: '(XX) 9XXXX-XXXX',
-      telefone: '(XX) XXXX-XXXX'
-    },
-  ];
-
-  get selectedFornecedores() {
-    return this.fornecedores.filter(fornecedor => fornecedor.selected);
-  }
-
-  constructor() { }
+  constructor(
+    private api: ApiService
+  ) { }
 
   ngOnInit(): void {
+    this.selectedFornecedores.push(...this.initialFornecedores);
+    this.api.getFornecedores()
+      .subscribe(fornecedores => {
+        this.fornecedores = fornecedores;
+      });
   }
 
   onAdditionBtnClick() {
-    this.addition.emit(this.selectedFornecedores);
+    this.addition.emit([...this.selectedFornecedores]);
+    this.selectedFornecedores = [];
+  }
+
+  onCloseBtnClick() {
+    this.selectedFornecedores = [];
+    this.exit.emit();
+  }
+
+  onSelect(checked: boolean, fornecedor: Fornecedor) {
+    if (!checked) {
+      this.selectedFornecedores = this.selectedFornecedores.filter(f => f.id !== fornecedor.id);
+      return;
+    }
+
+    this.selectedFornecedores.push(fornecedor);
+  }
+
+  isFornecedorSelecionado(fornecedorId: number) {
+    return this.selectedFornecedores.some(f => f.id === fornecedorId);
   }
 }
