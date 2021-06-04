@@ -2,17 +2,23 @@
   <button nbButton status="primary" (click)="open(dialog)">
     <nb-icon icon="plus-outline"></nb-icon>Adicionar Colaborador
   </button>
-
-  <button nbButton outline status="warning">
-    <nb-icon icon="minus-outline"></nb-icon>Remover Colaborador
-  </button>
 </div>
 
 <div class="cards-container">
   <nb-reveal-card *ngFor="let colaborador of colaboradores">
     <nb-card-front class="card">
       <nb-card>
-        <nb-card-header class="card__header">{{ colaborador.nome }}</nb-card-header>
+        <nb-card-header class="card__header">
+          {{ colaborador.nome }}
+          <div>
+            <button nbButton status="control" ghost>
+              <nb-icon icon="edit"></nb-icon>
+            </button>
+            <button nbButton status="control" ghost>
+              <nb-icon icon="close"></nb-icon>
+            </button>
+          </div>
+        </nb-card-header>
         <nb-card-body class="card__body">
           <img
             [src]="colaborador.foto"

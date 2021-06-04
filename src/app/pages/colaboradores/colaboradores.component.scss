@@ -21,6 +21,9 @@
   background-color: #3366ff;
   color: #fff;
   padding: 0.8rem 1.3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .card .card__body {
