@@ -64,6 +64,15 @@
           />
         </div>
         <div class="form-group">
+          <label>CPF</label>
+          <input 
+            nbInput 
+            fullWidth 
+            formControlName="cpf"
+            [imask]="{ mask: '000.000.000-00' }"
+          />
+        </div>
+        <div class="form-group">
           <label>Senha</label>
           <input 
             nbInput 
