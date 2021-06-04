@@ -47,7 +47,7 @@ export class EstoqueComponent implements OnInit {
   ];
 
   form = this.fb.group({
-    notaFiscal: ''
+    notaFiscal: ['']
   });
 
   constructor(

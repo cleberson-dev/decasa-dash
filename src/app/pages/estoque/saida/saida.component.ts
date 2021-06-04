@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { Observable, of } from 'rxjs';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-saida',
@@ -32,8 +33,13 @@ export class SaidaComponent implements OnInit {
     quantidade: ['', [Validators.required]]
   });
 
+  saidaForm = this.fb.group({
+    notaFiscal: ['']
+  });
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialogService: NbDialogService
   ) { }
 
   ngOnInit(): void {
@@ -64,5 +70,18 @@ export class SaidaComponent implements OnInit {
   isInvalidControl(controlName: string) {
     const control = this.form.controls[controlName];
     return control.invalid && (control.touched || control.dirty);
+  }
+
+  onConfirmBtnClick(dialog: TemplateRef<any>) {
+    console.log('btn clicked');
+    if (this.saidaForm.controls['notaFiscal'].value === '') {
+      const context = {
+        type: 'confirm-nfe'
+      };
+      this.dialogService.open(dialog, { context });
+      return;
+    }
+
+    alert('Confirmado');
   }
 }

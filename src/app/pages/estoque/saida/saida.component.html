@@ -108,17 +108,39 @@
         </tr>
       </tbody>
     </table>
-    <div class="row">
+    <div class="row" [formGroup]="saidaForm">
       <div class="form-group col-3" style="margin-top: 2rem;">
         <label>Nota fiscal</label>
-        <input nbInput fullWidth />
+        <input nbInput fullWidth formControlName="notaFiscal" />
       </div>
     </div>
   </nb-card-body>
   <nb-card-footer class="estoque-card-footer">
     <div></div>
-    <button nbButton type="button" status="primary">
+    <button nbButton type="button" status="primary" (click)="onConfirmBtnClick(dialog)">
       Confirmar
     </button>
   </nb-card-footer>
 </nb-card>
+
+
+<ng-template #dialog let-context let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Tem certeza de enviar sem nota fiscal?</nb-card-header>
+    <nb-card-body>
+      <button 
+        nbButton 
+        type="button" status="primary" 
+        (click)="ref.close()"
+      >
+        Claro, tenho certeza
+      </button>
+      <button 
+        nbButton type="button" (click)="ref.close()"
+        style="margin-left: 1rem;"
+      >
+        Não, desejo voltar
+      </button>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
