@@ -22,14 +22,15 @@
     </ul>
     <h5>Ordens de Compra</h5>
     <ul class="card-list">
-      <li *ngFor="let mapa of mapas">
+      <li *ngFor="let ordem of ordensDeCompra">
         <nb-card>
           <nb-card-body class="item-card-body">
-            <p class="title">OC {{ mapa.codigo }}</p>
+            <p class="title">OC {{ ordem.codigo }}</p>
             <div class="details">
-              <p><span>Data:</span> {{ mapa.data }}</p>
-              <p><span>Solicitante:</span> {{ mapa.solicitante }}</p>
-              <p><span>Loja:</span> {{ mapa.loja }}</p>
+              <p><span>Data:</span> {{ ordem.data }}</p>
+              <p><span>Solicitante:</span> {{ ordem.solicitante }}</p>
+              <p><span>Loja:</span> {{ ordem.loja }}</p>
+              <p class="total"><span>Total:</span> R${{ ordem.preco.toFixed(2).replace('.', ',') }}</p>
             </div>
           </nb-card-body>
         </nb-card>
