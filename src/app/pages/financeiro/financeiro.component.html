@@ -47,8 +47,17 @@
   </nb-card-body>
   <nb-card-footer style="display: flex; justify-content: space-between">
     <div></div>
-    <button nbButton type="submit" status="primary" form="lancamentoForm">
-      Confirmar
-    </button>
+    <div>
+      <button nbButton type="submit">
+        <nb-icon icon="printer"></nb-icon>
+        Imprimir
+      </button>
+      <button 
+        nbButton type="submit" status="primary" form="lancamentoForm"
+        style="margin-left: 1rem;"
+      >
+        Confirmar
+      </button>
+    </div>
   </nb-card-footer>
 </nb-card>
