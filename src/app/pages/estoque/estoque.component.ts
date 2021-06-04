@@ -51,6 +51,8 @@ export class EstoqueComponent implements OnInit {
     notaArquivo: ['']
   });
 
+  notaArquivo = null;
+
   constructor(
     private dialogService: NbDialogService,
     private fb: FormBuilder
@@ -87,5 +89,7 @@ export class EstoqueComponent implements OnInit {
     if (!arquivo.type.startsWith('image')) {
       return alert('Somente imagens são suportadas');
     }
+
+    this.notaArquivo = arquivo;
   }
 }
