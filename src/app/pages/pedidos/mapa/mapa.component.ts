@@ -237,4 +237,12 @@ export class MapaComponent implements OnInit {
 
     this.easyButtonsValue = '';
   }
+
+  openCloseMap(dialog: TemplateRef<any>) {
+    const context = {
+      type: 'close'
+    };
+
+    this.dialogService.open(dialog, { context });
+  }
 }

@@ -127,7 +127,10 @@
     </div> -->
     <div></div>
     <div>
-      <button nbButton status="primary">Gerar OC</button>
+      <button nbButton status="danger" (click)="openCloseMap(dialog)">Encerrar Mapa</button>
+      <button nbButton status="primary" style="margin-left: 1rem;">
+        Gerar OC
+      </button>
     </div>
   </nb-card-footer>
 </nb-card>
@@ -206,5 +209,14 @@
     <nb-card-footer>
       <button nbButton (click)="ref.close()">Voltar</button>
     </nb-card-footer>
+  </nb-card>
+
+
+  <nb-card *ngIf="context.type === 'close'">
+    <nb-card-header>Tem certeza?</nb-card-header>
+    <nb-card-body>
+      <button nbButton (click)="ref.close()">Não</button>
+      <button nbButton style="margin-left: 1rem;" status="primary" (click)="ref.close()">Sim</button>
+    </nb-card-body>
   </nb-card>
 </ng-template>
