@@ -2,7 +2,7 @@
 
 <nb-card>
   <nb-card-body>
-    <form>
+    <form [formGroup]="form">
       <div class="row">
         <div class="form-group col-4">
           <label>Ordem de Compra</label>
@@ -16,13 +16,21 @@
         <div class="col-4"></div>
         <div class="form-group col-4">
           <label>NFe</label>
-          <input nbInput fullWidth />
+          <input nbInput fullWidth formControlName="notaFiscal" />
         </div>
       </div>
       <div class="row">
         <div class="col-2">
           <button nbButton type="submit" status="primary" fullWidth>
             Buscar
+          </button>
+        </div>
+        <div class="col-7"></div>
+        <div class="col-3">
+          <!-- <input nbInput fullWidth type="file" /> -->
+          <button nbButton fullWidth status="warning" type="button">
+            <nb-icon icon="archive"></nb-icon>
+            Enviar XML
           </button>
         </div>
       </div>
@@ -63,8 +71,30 @@
   </nb-card-body>
   <nb-card-footer class="estoque-card-footer">
     <div></div>
-    <button nbButton type="button" status="primary">
+    <button nbButton type="button" status="primary" (click)="onConfirmBtnClick(dialog)">
       Confirmar
     </button>
   </nb-card-footer>
 </nb-card>
+
+
+<ng-template #dialog let-context let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Tem certeza de enviar sem nota fiscal?</nb-card-header>
+    <nb-card-body>
+      <button 
+        nbButton 
+        type="button" status="primary" 
+        (click)="ref.close()"
+      >
+        Claro, tenho certeza
+      </button>
+      <button 
+        nbButton type="button" (click)="ref.close()"
+        style="margin-left: 1rem;"
+      >
+        Não, desejo voltar
+      </button>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

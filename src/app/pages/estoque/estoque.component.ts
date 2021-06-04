@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { NbDialogService } from '@nebular/theme';
 import { Tab } from '../../components/tabber/tabber.component';
 
 type RowProps = {
@@ -44,9 +46,28 @@ export class EstoqueComponent implements OnInit {
     new Row({ codigo: '00005', nome: 'Produto #5', unidade: 'caixa', quantidade: 5, precoUnitario: 1.99 }),
   ];
 
-  constructor() { }
+  form = this.fb.group({
+    notaFiscal: ''
+  });
+
+  constructor(
+    private dialogService: NbDialogService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
   }
 
+  onConfirmBtnClick(dialog: TemplateRef<any>) {
+    console.log('btn clicked');
+    if (this.form.controls['notaFiscal'].value === '') {
+      const context = {
+        type: 'confirm-nfe'
+      };
+      this.dialogService.open(dialog, { context });
+      return;
+    }
+
+    alert('Confirmado');
+  }
 }
