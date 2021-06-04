@@ -19,22 +19,6 @@
           </nb-select>
         </div>
         <div class="col-3 form-group">
-          <label>Data Início</label>
-          <input nbInput fullWidth [nbDatepicker]="startDatePicker" />
-          <nb-datepicker #startDatePicker></nb-datepicker>
-        </div>
-        <div class="col-3 form-group">
-          <label>Data Fim</label>
-          <input nbInput fullWidth [nbDatepicker]="endDatePicker" />
-          <nb-datepicker #endDatePicker></nb-datepicker>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          <button nbButton status="primary">Buscar</button>
-        </div>
-        <div class="col-4"></div>
-        <div class="col-3 form-group">
           <label>Busca pelo nº de pedido</label>
           <input nbInput fullWidth />
         </div>
@@ -42,6 +26,11 @@
           <label>Busca pelo CPF/CNPJ</label>
           <input nbInput fullWidth />
         </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <button nbButton status="primary">Buscar</button>
+        </div>        
       </div>
     </form>
     <table>
