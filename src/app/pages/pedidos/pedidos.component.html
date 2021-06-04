@@ -69,6 +69,13 @@
             </button>
           </td>
         </tr>
+        <tr *ngIf="rows.length === 0">
+          <td></td>
+          <td style="text-align: center;"><i>Sem produtos</i></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
         <tr *ngFor="let row of rows">
           <td>{{ row.codigo }}</td>
           <td>{{ row.nome }}</td>
