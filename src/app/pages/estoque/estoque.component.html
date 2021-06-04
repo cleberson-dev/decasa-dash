@@ -28,7 +28,10 @@
         <div class="col-7"></div>
         <div class="col-3">
           <!-- <input nbInput fullWidth type="file" /> -->
-          <button nbButton fullWidth status="warning" type="button">
+          <button 
+            nbButton fullWidth status="warning" type="button"
+            (click)="openFileDialog(dialog)"
+          >
             <nb-icon icon="archive"></nb-icon>
             Enviar XML
           </button>
@@ -79,7 +82,7 @@
 
 
 <ng-template #dialog let-context let-ref="dialogRef">
-  <nb-card>
+  <nb-card *ngIf="context.type === 'confirm-nfe'">
     <nb-card-header>Tem certeza de enviar sem nota fiscal?</nb-card-header>
     <nb-card-body>
       <button 
@@ -96,5 +99,14 @@
         Não, desejo voltar
       </button>
     </nb-card-body>
+  </nb-card>
+
+  <nb-card *ngIf="context.type === 'file'">
+    <nb-card-header>Enviar arquivo</nb-card-header>
+    <input 
+      nbInput type="file"
+      (change)="onNotaArquivoChange($event)"
+      accept="image/*"
+    />
   </nb-card>
 </ng-template>

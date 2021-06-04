@@ -47,7 +47,8 @@ export class EstoqueComponent implements OnInit {
   ];
 
   form = this.fb.group({
-    notaFiscal: ['']
+    notaFiscal: [''],
+    notaArquivo: ['']
   });
 
   constructor(
@@ -69,5 +70,22 @@ export class EstoqueComponent implements OnInit {
     }
 
     alert('Confirmado');
+  }
+
+
+  openFileDialog(dialog: TemplateRef<any>) {
+    const context = {
+      type: 'file'
+    };
+
+    this.dialogService.open(dialog, { context });
+  }
+
+  onNotaArquivoChange(e: any) {
+    const arquivo: File = e.target.files[0];
+
+    if (!arquivo.type.startsWith('image')) {
+      return alert('Somente imagens são suportadas');
+    }
   }
 }
