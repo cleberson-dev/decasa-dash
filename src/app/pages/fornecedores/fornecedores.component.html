@@ -165,23 +165,10 @@
           </div>
           <div class="row">
             <div class="col-4">
-              <label>Orgão Expedidor</label>
-              <nb-select fullWidth formControlName="orgaoExpedidor">
-                <nb-option value="2">SSP</nb-option>
-              </nb-select>
+              <label>Inscrição ........</label>
+              <input nbInput fullWidth />
               <small *ngIf="isControlInvalid('orgaoExpedidor')" class="error">
                 {{ getErrorMessage("orgaoExpedidor") }}
-              </small>
-            </div>
-            <div class="col-4">
-              <label>Estado Civil</label>
-              <nb-select fullWidth formControlName="estadoCivil">
-                <nb-option value="1">Casado</nb-option>
-                <nb-option value="2">Viúvo</nb-option>
-                <nb-option value="3">Solteiro</nb-option>
-              </nb-select>
-              <small *ngIf="isControlInvalid('estadoCivil')" class="error">
-                {{ getErrorMessage("estadoCivil") }}
               </small>
             </div>
           </div>
