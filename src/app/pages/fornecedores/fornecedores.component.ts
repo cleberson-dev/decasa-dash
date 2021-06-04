@@ -47,8 +47,7 @@ export class FornecedoresComponent implements OnInit {
     telefone: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     municipioEndereco: ['', [Validators.required]],
-    estadoCivil: ['', [Validators.required]],
-    orgaoExpedidor: ['', [Validators.required]],
+    inscricaoEstadual: ['', [Validators.required]],
     uf: ['', [Validators.required]]
     // RG Representante, CPF Representante, Data RG
   });
@@ -108,12 +107,7 @@ export class FornecedoresComponent implements OnInit {
       municipioEndereco: {
         id: Number(this.formFornecedor.controls['municipioEndereco'].value)
       },
-      estadoCivil: {
-        id: Number(this.formFornecedor.controls['estadoCivil'].value)
-      },
-      orgaoExpedidor: {
-        id: Number(this.formFornecedor.controls['orgaoExpedidor'].value)
-      },
+      // [TODO] inscrição estadual
     };
 
     console.log('Submitting this: ', fornecedor);
@@ -151,8 +145,7 @@ export class FornecedoresComponent implements OnInit {
       telefone: context.fornecedor.telefone,
       email: context.fornecedor.email,
       municipioEndereco: context.fornecedor.municipioEndereco.id,
-      estadoCivil: context.fornecedor.estadoCivil.id,
-      orgaoExpedidor: context.fornecedor.orgaoExpedidor.id,
+      inscricaoEstadual: context.fornecedor.inscricaoEstadual,
     });
     context.type = 'form';
   }
