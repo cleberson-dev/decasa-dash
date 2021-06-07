@@ -112,6 +112,7 @@
     <button 
       nbButton class="next-btn" status="primary"
       (click)="onConfirmBtnClick()"
+      [disabled]="isPedidoInvalid"
     >
       Próximo
     </button>

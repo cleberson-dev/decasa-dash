@@ -168,4 +168,8 @@ export class PedidosComponent implements OnInit {
 
     console.log('Pedido', body);
   }
+
+  get isPedidoInvalid() {
+    return this.rows.length === 0 || this.fornecedores.length === 0;
+  }
 }
