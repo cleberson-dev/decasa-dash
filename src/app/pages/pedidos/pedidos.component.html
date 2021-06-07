@@ -87,7 +87,12 @@
       </tbody>
     </table>
 
-    <h5>Fornecedores</h5>
+    <div class="fornecedores-header">
+      <h5>Fornecedores</h5>
+      <button nbButton size="tiny" status="primary" (click)="openAddFornecedores(dialog)">
+        <nb-icon icon="plus"></nb-icon>
+      </button>
+    </div>
     <p *ngIf="fornecedores.length === 0">Sem itens</p>
     <ul class="fornecedores-selecionados">
       <li *ngFor="let fornecedor of fornecedores">
@@ -99,7 +104,6 @@
         </nb-card>
       </li>
     </ul>
-    <button nbButton (click)="openAddFornecedores(dialog)">Adicionar</button>
   </nb-card-body>
 
 
