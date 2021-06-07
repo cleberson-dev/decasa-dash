@@ -99,8 +99,7 @@ export class PedidosComponent implements OnInit {
     }
     
     this.rows.unshift(product);
-    this.novoPedidoForm.reset();
-    this.input.nativeElement.value = "";
+    this.resetForm();
   }
 
   openAddFornecedores(dialog: TemplateRef<any>) {
@@ -175,5 +174,11 @@ export class PedidosComponent implements OnInit {
 
   removeProduct(codigo: string) {
     this.rows = this.rows.filter(row => row.codigo !== codigo);
+  }
+
+  resetForm() {
+    this.novoPedidoForm.reset();
+    this.input.nativeElement.value = "";
+    this.novoPedidoForm.controls['quantidade'].setValue(1);
   }
 }
