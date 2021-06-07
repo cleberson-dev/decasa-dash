@@ -85,12 +85,20 @@ export class PedidosComponent implements OnInit {
   }
 
   onPedidoAdd() {
-    this.rows.unshift({
+    const product = {
       codigo: this.novoPedidoForm.controls['codigo'].value,
       nome: this.novoPedidoForm.controls['nome'].value,
       quantidade: this.novoPedidoForm.controls['quantidade'].value,
       unidade: this.novoPedidoForm.controls['unidade'].value,
-    });
+    };
+
+    if (this.rows.some(p => p.codigo === product.codigo)) {
+      this.novoPedidoForm.reset();
+      this.input.nativeElement.value = "";
+      return;
+    }
+    
+    this.rows.unshift(product);
     this.novoPedidoForm.reset();
     this.input.nativeElement.value = "";
   }
