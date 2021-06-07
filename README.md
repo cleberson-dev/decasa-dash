@@ -1,1 +1,1 @@
-**Portal web feito em Angular para gestão de produtos**
+**Portal web para gestão de produtos**
