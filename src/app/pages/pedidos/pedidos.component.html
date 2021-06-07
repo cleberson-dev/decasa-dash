@@ -109,7 +109,12 @@
 
   <nb-card-footer class="footer">
     <div></div>
-    <button class="next-btn" nbButton status="primary">Próximo</button>
+    <button 
+      nbButton class="next-btn" status="primary"
+      (click)="onConfirmBtnClick()"
+    >
+      Próximo
+    </button>
   </nb-card-footer>
   
 </nb-card>

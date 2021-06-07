@@ -155,4 +155,17 @@ export class PedidosComponent implements OnInit {
       this.novoPedidoForm.controls['nome'].setErrors(null);
     }
   }
+
+  onConfirmBtnClick() {
+    const body = {
+      lojista: { id: 1 },
+      detalhesPedidos: this.rows.map(row => ({
+        produto: { id: row.codigo },
+        quantidade: row.quantidade
+      })),
+      fornecedores: this.fornecedores.map(f => ({ id: f.id }))
+    }
+
+    console.log('Pedido', body);
+  }
 }
