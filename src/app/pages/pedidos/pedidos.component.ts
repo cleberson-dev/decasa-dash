@@ -74,6 +74,7 @@ export class PedidosComponent implements OnInit {
     if (!selectedProduct) return;
 
     this.novoPedidoForm.controls['codigo'].setValue(selectedProduct.id);
+    this.novoPedidoForm.controls['unidade'].setValue(selectedProduct.unidadeMedida?.descricao || 'unidade');
   }
 
   onInputChange() {
@@ -133,6 +134,7 @@ export class PedidosComponent implements OnInit {
       this.novoPedidoForm.controls['nome'].setValue('');
     } else {
       this.novoPedidoForm.controls['codigo'].setValue(product.id);
+      this.novoPedidoForm.controls['unidade'].setValue(product.unidadeMedida.descricao || 'unidade');
     }
   }
 
