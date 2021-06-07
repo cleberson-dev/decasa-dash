@@ -14,9 +14,7 @@ type Pedido = {
 }
 
 type PedidoProduto = {
-  codigo: string;
-  nome: string;
-  unidade: string;
+  produto: Produto;
   quantidade: number;
 }
 
@@ -73,7 +71,7 @@ export class PedidosComponent implements OnInit {
     const selectedProduct = this.produtos.find(p => p.descricao.toLowerCase().includes($event.toLowerCase()));
     if (!selectedProduct) return;
 
-    this.novoPedidoForm.controls['codigo'].setValue(selectedProduct.id);
+    this.novoPedidoForm.controls['codigo'].setValue(selectedProduct.cnp);
     this.novoPedidoForm.controls['unidade'].setValue(selectedProduct.unidadeMedida?.descricao || 'unidade');
   }
 
@@ -85,20 +83,18 @@ export class PedidosComponent implements OnInit {
   }
 
   onPedidoAdd() {
-    const product = {
-      codigo: this.novoPedidoForm.controls['codigo'].value,
-      nome: this.novoPedidoForm.controls['nome'].value,
-      quantidade: this.novoPedidoForm.controls['quantidade'].value,
-      unidade: this.novoPedidoForm.controls['unidade'].value,
+    const row = {
+      produto: this.produtos.find(p => p.cnp === this.novoPedidoForm.controls['codigo'].value),
+      quantidade: this.novoPedidoForm.controls['quantidade'].value
     };
 
-    if (this.rows.some(p => p.codigo === product.codigo)) {
+    if (this.rows.some(p => p.produto.cnp === row.produto.cnp)) {
       this.novoPedidoForm.reset();
       this.input.nativeElement.value = "";
       return;
     }
     
-    this.rows.unshift(product);
+    this.rows.unshift(row);
     this.resetForm();
   }
 
@@ -159,7 +155,7 @@ export class PedidosComponent implements OnInit {
     const body = {
       lojista: { id: 1 },
       detalhesPedidos: this.rows.map(row => ({
-        produto: { id: row.codigo },
+        produto: { id: row.produto.id },
         quantidade: row.quantidade
       })),
       fornecedores: this.fornecedores.map(f => ({ id: f.id }))
@@ -173,13 +169,14 @@ export class PedidosComponent implements OnInit {
   }
 
   removeProduct(codigo: string) {
-    this.rows = this.rows.filter(row => row.codigo !== codigo);
+    this.rows = this.rows.filter(row => row.produto.cnp !== codigo);
   }
 
   resetForm() {
     this.novoPedidoForm.reset();
     this.input.nativeElement.value = "";
     this.novoPedidoForm.controls['quantidade'].setValue(1);
+    this.suggestedOptions$ = of(this.autoOptions);
   }
 
   removeFornecedor(fornecedorId: number) {
