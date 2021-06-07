@@ -181,4 +181,8 @@ export class PedidosComponent implements OnInit {
     this.input.nativeElement.value = "";
     this.novoPedidoForm.controls['quantidade'].setValue(1);
   }
+
+  removeFornecedor(fornecedorId: number) {
+    this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedorId);
+  }
 }

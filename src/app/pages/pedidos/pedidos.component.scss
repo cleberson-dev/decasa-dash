@@ -104,6 +104,13 @@ td.quantidade input {
 
   .fornecedor-card-body {
     padding: 1rem 1.25rem;
+    position: relative;
+  }
+
+  .fornecedor-card-body .close-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 

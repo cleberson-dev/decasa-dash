@@ -107,6 +107,13 @@
           <nb-card-body class="fornecedor-card-body">
             <div class="nome">{{ fornecedor.nome }}</div>
             <div class="details">{{ fornecedor.email }}</div>
+            <button 
+              class="close-btn" 
+              nbButton ghost size="small" status="danger"
+              (click)="removeFornecedor(fornecedor.id)"
+            >
+              <nb-icon icon="close"></nb-icon>
+            </button>
           </nb-card-body>
         </nb-card>
       </li>
