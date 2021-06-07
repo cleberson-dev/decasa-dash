@@ -172,4 +172,8 @@ export class PedidosComponent implements OnInit {
   get isPedidoInvalid() {
     return this.rows.length === 0 || this.fornecedores.length === 0;
   }
+
+  removeProduct(codigo: string) {
+    this.rows = this.rows.filter(row => row.codigo !== codigo);
+  }
 }

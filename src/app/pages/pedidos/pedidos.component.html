@@ -82,7 +82,14 @@
           <td>{{ row.nome }}</td>
           <td>{{ row.unidade }}</td>
           <td>{{ row.quantidade }}</td>
-          <td></td>
+          <td>
+            <button 
+              nbButton ghost size="small" status="danger"
+              (click)="removeProduct(row.codigo)"
+            >
+              <nb-icon icon="trash"></nb-icon>
+            </button> 
+          </td>
         </tr>
       </tbody>
     </table>
