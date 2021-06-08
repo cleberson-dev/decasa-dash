@@ -68,16 +68,9 @@ export type Fornecedor = {
   usuario?: number;
   ufRg?: {
     id: number;
-    nome: string;
+    nome?: string;
   };
-  estadoCivil?: {
-    id: number;
-    descricao?: string;
-  };
-  orgaoExpedidor?: {
-    id: number;
-    descricao?: string;
-  };
+  inscricaoEstadual: string;
 }
 
 export type ProdutoLojista = Produto & {

@@ -120,8 +120,9 @@ export class ApiService {
       email: novoFornecedor.email,
       pontoReferencia: novoFornecedor.pontoReferencia,
       municipioEndereco: { id: novoFornecedor.municipioEndereco.id },
-      orgaoExpedidor: { id: novoFornecedor.orgaoExpedidor.id },
-      estadoCivil: { id: novoFornecedor.estadoCivil.id },
+      inscricaoEstadual: novoFornecedor.inscricaoEstadual,
+      ufRg: { id: novoFornecedor.ufRg.id },
+      usuario: { id: 1823 },
     };
 
     return this.http.post(url, body);

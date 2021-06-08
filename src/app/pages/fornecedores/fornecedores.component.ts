@@ -107,7 +107,10 @@ export class FornecedoresComponent implements OnInit {
       municipioEndereco: {
         id: Number(this.formFornecedor.controls['municipioEndereco'].value)
       },
-      // [TODO] inscrição estadual
+      inscricaoEstadual: this.formFornecedor.controls['inscricaoEstadual'].value,
+      ufRg: {
+        id: this.formFornecedor.controls['uf'].value
+      }
     };
 
     console.log('Submitting this: ', fornecedor);
@@ -210,5 +213,9 @@ export class FornecedoresComponent implements OnInit {
       .subscribe(municipios => {
         this.municipios = municipios;
       });
+  }
+
+  onInscricaoBlur() {
+    console.log(this.formFornecedor);
   }
 }

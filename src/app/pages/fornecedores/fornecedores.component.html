@@ -166,7 +166,7 @@
           <div class="row">
             <div class="col-5">
               <label>Inscrição Estadual</label>
-              <input nbInput fullWidth />
+              <input nbInput fullWidth (blur)="onInscricaoBlur()" formControlName="inscricaoEstadual" />
               <small *ngIf="isControlInvalid('inscricaoEstadual')" class="error">
                 {{ getErrorMessage("inscricaoEstadual") }}
               </small>
@@ -222,8 +222,6 @@
       Ponto de Referência: <span>{{ context.fornecedor.pontoReferencia }}</span>
     </p>
     <p>Município: <span>{{ context.fornecedor.municipioEndereco.nome }}</span></p>
-    <p>Orgão Expedidor: <span>{{ context.fornecedor.orgaoExpedidor.descricao }}</span></p>
-    <p>Estado Civil: <span>{{ context.fornecedor.estadoCivil.descricao }}</span></p>
     <div class="row">
       <p class="col-6">
         Celular: <span>{{ context.fornecedor.celular }}</span>
@@ -233,7 +231,7 @@
       </p>
     </div>
     <p>
-      CPF Representante: <span>{{ context.fornecedor.cpfRepresentante }}</span>
+      Inscrição Estadual: <span>{{ context.fornecedor.inscricaoEstadual }}</span>
     </p>
     <div style="margin-top: 1rem">
       <button nbButton fullWidth (click)="onEdit(context)">Editar</button>

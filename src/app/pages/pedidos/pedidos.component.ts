@@ -118,7 +118,8 @@ export class PedidosComponent implements OnInit {
       logradouro: form.controls['logradouro'].value,
       numero: form.controls['numero'].value,
       pontoReferencia: form.controls['pontoReferencia'].value,
-      telefone: form.controls['telefone'].value
+      telefone: form.controls['telefone'].value,
+      inscricaoEstadual: form.controls['inscricaoEstadual'].value
     });
     ref.close();
   }
