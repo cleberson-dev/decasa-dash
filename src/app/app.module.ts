@@ -25,6 +25,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './pages/login/login.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromProdutosPlataforma from './store/reducers/produtos-plataforma.reducers';
+import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
    declarations: [AppComponent, LoginComponent],
@@ -54,7 +55,10 @@ import * as fromProdutosPlataforma from './store/reducers/produtos-plataforma.re
      StoreModule.forRoot({ produtosPlataforma: fromProdutosPlataforma.reducer })
    ],
    bootstrap: [AppComponent],
-   schemas: [CUSTOM_ELEMENTS_SCHEMA]
+   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+   providers: [
+     { provide: APP_BASE_HREF, useValue: '/dashboard' }
+   ]
  })
  export class AppModule {
  }
