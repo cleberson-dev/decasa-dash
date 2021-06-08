@@ -28,6 +28,7 @@
               style="width: 150px" 
               formControlName="codigo"
               (blur)="onCodigoBlur()"
+              (keyup)="onCodigoChange()"
               [class]="{ invalid: isInvalidControl('codigo') }"
             />
           </td>

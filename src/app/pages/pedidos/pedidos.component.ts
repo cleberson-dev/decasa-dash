@@ -130,15 +130,22 @@ export class PedidosComponent implements OnInit {
 
   onCodigoBlur() {
     const codigo = this.novoPedidoForm.controls['codigo'].value;
-    const product = this.produtos.find(p => p.id === codigo);
-    if (!product) {
-      this.novoPedidoForm.controls['codigo'].setErrors({ noProduct: true });
-      // this.novoPedidoForm.controls['codigo'].setValue(codigo);
-      this.novoPedidoForm.controls['nome'].setValue('');
-    } else {
-      this.novoPedidoForm.controls['codigo'].setValue(product.id);
-      this.novoPedidoForm.controls['unidade'].setValue(product.unidadeMedidaProduto.descricao || 'unidade');
-    }
+    const product = this.produtos.find(p => p.cnp === codigo);
+
+    if (product) return;
+
+    this.resetForm();
+  }
+
+  onCodigoChange() {
+    const codigo = this.novoPedidoForm.controls['codigo'].value;
+    const product = this.produtos.find(p => p.cnp === codigo);
+
+    if (!product) return;
+
+    this.novoPedidoForm.controls['codigo'].setValue(product.cnp);
+    this.novoPedidoForm.controls['nome'].setValue(product.descricao);
+    this.novoPedidoForm.controls['unidade'].setValue(product.unidadeMedidaProduto.descricao || 'unidade');
   }
 
   onNomeBlur() {
