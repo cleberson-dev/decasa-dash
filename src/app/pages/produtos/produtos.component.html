@@ -39,7 +39,6 @@
             nbInput
             fullWidth
             id="descricao"
-            [status]="isInvalidControl('descricao') && 'danger'"
           ></textarea>
           <small class="error" *ngIf="isInvalidControl('descricao')">{{
             getErrorMessage("descricao")
@@ -54,7 +53,6 @@
             nbInput
             fullWidth
             id="quantidadeApresentacao"
-            [status]="isInvalidControl('quantidadeApresentacao') && 'danger'"
           />
           <small class="error" *ngIf="isInvalidControl('quantidadeApresentacao')">{{
             getErrorMessage("quantidadeApresentacao")
@@ -68,7 +66,6 @@
             nbInput
             fullWidth
             id="detalhe"
-            [status]="isInvalidControl('detalhe') && 'danger'"
           />
           <small class="error" *ngIf="isInvalidControl('detalhe')">{{
             getErrorMessage("detalhe")
@@ -82,7 +79,6 @@
             nbInput
             fullWidth
             id="manualInstrucao"
-            [status]="isInvalidControl('manualInstrucao') && 'danger'"
           />
           <small class="error" *ngIf="isInvalidControl('manualInstrucao')">{{
             getErrorMessage("manualInstrucao")
@@ -96,7 +92,6 @@
             nbInput
             fullWidth
             id="videoDemonstrativo"
-            [status]="isInvalidControl('videoDemonstrativo') && 'danger'"
           />
           <small class="error" *ngIf="isInvalidControl('videoDemonstrativo')">{{
             getErrorMessage("videoDemonstrativo")
@@ -110,7 +105,6 @@
             nbInput
             fullWidth
             id="cnp"
-            [status]="isInvalidControl('cnp') && 'danger'"
           />
           <small class="error" *ngIf="isInvalidControl('cnp')">{{
             getErrorMessage("cnp")
@@ -124,7 +118,6 @@
             nbInput
             fullWidth
             id="pesoGrama"
-            [status]="isInvalidControl('pesoGrama') && 'danger'"
           />
           <small class="error" *ngIf="isInvalidControl('pesoGrama')">{{
             getErrorMessage("pesoGrama")
@@ -139,7 +132,6 @@
               formControlName="altura"
               nbInput
               id="altura"
-              [status]="isInvalidControl('altura') && 'danger'"
             />
             <small class="error" *ngIf="isInvalidControl('altura')">{{
               getErrorMessage("altura")
@@ -153,7 +145,6 @@
               formControlName="largura"
               nbInput
               id="largura"
-              [status]="isInvalidControl('largura') && 'danger'"
             />
             <small class="error" *ngIf="isInvalidControl('largura')">{{
               getErrorMessage("largura")
@@ -167,7 +158,6 @@
               formControlName="profundidade"
               nbInput
               id="profundidade"
-              [status]="isInvalidControl('profundidade') && 'danger'"
             />
             <small class="error" *ngIf="isInvalidControl('profundidade')">{{
               getErrorMessage("profundidade")
