@@ -80,7 +80,7 @@
         <tr *ngFor="let row of rows">
           <td>{{ row.produto.cnp }}</td>
           <td>{{ row.produto.descricao }}</td>
-          <td>{{ row.produto.unidadeMedida.descricao }}</td>
+          <td>{{ row.produto.unidadeMedidaProduto?.descricao || 'unidade' }}</td>
           <td>{{ row.quantidade }}</td>
           <td>
             <button 

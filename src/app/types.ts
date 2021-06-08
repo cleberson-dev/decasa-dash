@@ -38,9 +38,10 @@ export type Produto = {
     profundidadeCm?: number;
   }
   liberado?: boolean;
-  unidadeMedida?: {
+  unidadeMedidaProduto?: {
+    id: number;
     descricao: string;
-    sigla: string;
+    sigla?: string;
   }
 }
 
