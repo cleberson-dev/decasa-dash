@@ -27,8 +27,13 @@
           <div class="form-group col-4">
             <label for="categoria" class="label">Categoria <span>*</span></label>
             <nb-select id="categoria" fullWidth formControlName="categoria">
-              <nb-option value="1">Categoria #1</nb-option>
-              <nb-option value="2">Categoria #2</nb-option>
+              <nb-option-group *ngFor="let department of departments" [title]="department.name">
+                <nb-option *ngFor="let cat of department.categories" [value]="cat.id">
+                  {{ cat.name }}
+                </nb-option>
+              </nb-option-group>
+              
+              
             </nb-select>
             <small class="error" *ngIf="isInvalidControl('categoria')">{{
               getErrorMessage("categoria")

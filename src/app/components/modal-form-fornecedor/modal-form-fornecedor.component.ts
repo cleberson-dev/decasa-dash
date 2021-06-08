@@ -12,7 +12,7 @@ export class ModalFormFornecedorComponent implements OnInit {
   @Input() initialForm: Fornecedor = {
     nome: '', cnpj: '', logradouro: '', numero: 0, bairro: '',
     cep: '', pontoReferencia: '', celular: '', telefone: '',
-    email: ''
+    email: '', inscricaoEstadual: ''
   };
   @Input() title: string = 'Cadastro de Fornecedor';
   @Input() submitText: string = 'Enviar';

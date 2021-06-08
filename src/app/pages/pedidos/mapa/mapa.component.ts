@@ -198,6 +198,7 @@ export class MapaComponent implements OnInit {
       pontoReferencia: 'Próximo aquele lugar lá',
       celular: '(99) 99999-9999',
       telefone: '(99) 99999-9999',
+      inscricaoEstadual: '999999'
     };
     
     const context = {
