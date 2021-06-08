@@ -10,53 +10,70 @@
     
     <nb-tab tabTitle="Solicitar" [lazyLoad]="true" [active]="tabs.solicitar">
       <form (submit)="onFormSubmit()" [formGroup]="myForm">
-        <div class="form-group">
-          <label for="categoria" class="label">Categoria <span>*</span></label>
-          <nb-select id="categoria" fullWidth formControlName="categoria">
-            <nb-option value="1">Categoria #1</nb-option>
-            <nb-option value="2">Categoria #2</nb-option>
-          </nb-select>
-          <small class="error" *ngIf="isInvalidControl('categoria')">{{
-            getErrorMessage("categoria")
-          }}</small>
+        <div class="row">
+          <div class="form-group col-4">
+            <label for="cnp" class="label">Código <span>*</span></label>
+            <input
+              required
+              formControlName="cnp"
+              nbInput
+              fullWidth
+              id="cnp"
+            />
+            <small class="error" *ngIf="isInvalidControl('cnp')">{{
+              getErrorMessage("cnp")
+            }}</small>
+          </div>
+          <div class="form-group col-4">
+            <label for="categoria" class="label">Categoria <span>*</span></label>
+            <nb-select id="categoria" fullWidth formControlName="categoria">
+              <nb-option value="1">Categoria #1</nb-option>
+              <nb-option value="2">Categoria #2</nb-option>
+            </nb-select>
+            <small class="error" *ngIf="isInvalidControl('categoria')">{{
+              getErrorMessage("categoria")
+            }}</small>
+          </div>
+          <div class="form-group col-4">
+            <label for="unidadeMedida" class="label">Unidade de Medida <span>*</span></label>
+            <nb-select id="unidadeMedida" fullWidth formControlName="unidadeMedida">
+              <nb-option value="1">unidade-medida #1</nb-option>
+              <nb-option value="2">unidade-medida #2</nb-option>
+            </nb-select>
+            <small class="error" *ngIf="isInvalidControl('unidadeMedida')">{{
+              getErrorMessage("unidadeMedida")
+            }}</small>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="unidadeMedida" class="label">Unidade de Medida <span>*</span></label>
-          <nb-select id="unidadeMedida" fullWidth formControlName="unidadeMedida">
-            <nb-option value="1">unidade-medida #1</nb-option>
-            <nb-option value="2">unidade-medida #2</nb-option>
-          </nb-select>
-          <small class="error" *ngIf="isInvalidControl('unidadeMedida')">{{
-            getErrorMessage("unidadeMedida")
-          }}</small>
-        </div>
-        <div class="form-group">
-          <label for="descricao" class="label">Descrição <span>*</span></label>
-          <textarea
-            rows="5"
-            required
-            formControlName="descricao"
-            nbInput
-            fullWidth
-            id="descricao"
-          ></textarea>
-          <small class="error" *ngIf="isInvalidControl('descricao')">{{
-            getErrorMessage("descricao")
-          }}</small>
-        </div>
-        <div class="form-group">
-          <label for="quantidadeApresentacao" class="label">Quantidade de apresentação <span>*</span></label>
-          <input
-            type="number"
-            required
-            formControlName="quantidadeApresentacao"
-            nbInput
-            fullWidth
-            id="quantidadeApresentacao"
-          />
-          <small class="error" *ngIf="isInvalidControl('quantidadeApresentacao')">{{
-            getErrorMessage("quantidadeApresentacao")
-          }}</small>
+        <div class="row">
+          <div class="form-group col-6">
+            <label for="descricao" class="label">Descrição <span>*</span></label>
+            <textarea
+              rows="5"
+              required
+              formControlName="descricao"
+              nbInput
+              fullWidth
+              id="descricao"
+            ></textarea>
+            <small class="error" *ngIf="isInvalidControl('descricao')">{{
+              getErrorMessage("descricao")
+            }}</small>
+          </div>
+          <div class="form-group col-6">
+            <label for="quantidadeApresentacao" class="label">Quantidade de apresentação <span>*</span></label>
+            <input
+              type="number"
+              required
+              formControlName="quantidadeApresentacao"
+              nbInput
+              fullWidth
+              id="quantidadeApresentacao"
+            />
+            <small class="error" *ngIf="isInvalidControl('quantidadeApresentacao')">{{
+              getErrorMessage("quantidadeApresentacao")
+            }}</small>
+          </div>
         </div>
         <div class="form-group">
           <label for="detalhe" class="label">Detalhe <span>*</span></label>
@@ -97,34 +114,22 @@
             getErrorMessage("videoDemonstrativo")
           }}</small>
         </div>
-        <div class="form-group">
-          <label for="cnp" class="label">CNP <span>*</span></label>
-          <input
-            required
-            formControlName="cnp"
-            nbInput
-            fullWidth
-            id="cnp"
-          />
-          <small class="error" *ngIf="isInvalidControl('cnp')">{{
-            getErrorMessage("cnp")
-          }}</small>
-        </div>
-        <div class="form-group">
-          <label for="pesoGrama" class="label">Peso (em gramas) <span>*</span></label>
-          <input
-            required
-            formControlName="pesoGrama"
-            nbInput
-            fullWidth
-            id="pesoGrama"
-          />
-          <small class="error" *ngIf="isInvalidControl('pesoGrama')">{{
-            getErrorMessage("pesoGrama")
-          }}</small>
-        </div>
+        
         <div class="row">
-          <div class="form-group col-sm-4">
+          <div class="form-group col-3">
+            <label for="pesoGrama" class="label">Peso (em gramas) <span>*</span></label>
+            <input
+              required
+              formControlName="pesoGrama"
+              nbInput
+              fullWidth
+              id="pesoGrama"
+            />
+            <small class="error" *ngIf="isInvalidControl('pesoGrama')">{{
+              getErrorMessage("pesoGrama")
+            }}</small>
+          </div>
+          <div class="form-group col-3">
             <label for="altura" class="label">Altura (em cm) <span>*</span></label>
             <input
               type="number"
@@ -137,7 +142,7 @@
               getErrorMessage("altura")
             }}</small>
           </div>
-          <div class="form-group col-sm-4">
+          <div class="form-group col-3">
             <label for="largura" class="label">Largura (em cm) <span>*</span></label>
             <input
               type="number"
@@ -150,7 +155,7 @@
               getErrorMessage("largura")
             }}</small>
           </div>
-          <div class="form-group col-sm-4">
+          <div class="form-group col-3">
             <label for="profundidade" class="label">Profundidade (em cm) <span>*</span></label>
             <input
               type="number"
