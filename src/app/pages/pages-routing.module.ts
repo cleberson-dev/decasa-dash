@@ -24,11 +24,17 @@ import { SeparandoComponent } from './vendas/separando/separando.component';
 import { EmRotaComponent } from './vendas/em-rota/em-rota.component';
 import { EntregueComponent } from './vendas/entregue/entregue.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
+import { InicioComponent } from './inicio/inicio.component';
 
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
+    {
+      path: '',
+      component: InicioComponent,
+      pathMatch: 'full',
+    },
     {
       path: 'produtos',
       component: ProdutosPageComponent
@@ -112,11 +118,6 @@ const routes: Routes = [{
     {
       path: 'configuracoes',
       component: ConfiguracoesComponent
-    },
-    {
-      path: '',
-      redirectTo: 'produtos',
-      pathMatch: 'full',
     },
     {
       path: '**',

@@ -57,6 +57,7 @@ import { SeparandoComponent } from './vendas/separando/separando.component';
 import { EmRotaComponent } from './vendas/em-rota/em-rota.component';
 import { EntregueComponent } from './vendas/entregue/entregue.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
+import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
   imports: [
@@ -116,7 +117,8 @@ import { ConfiguracoesComponent } from './configuracoes/configuracoes.component'
     SeparandoComponent,
     EmRotaComponent,
     EntregueComponent,
-    ConfiguracoesComponent
+    ConfiguracoesComponent,
+    InicioComponent
   ]
 })
 export class PagesModule {
