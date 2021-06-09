@@ -14,7 +14,8 @@ import {
   NbStepperModule,
   NbAutocompleteModule,
   NbButtonGroupModule,
-  NbRadioModule
+  NbRadioModule,
+  NbCheckboxModule
 } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
@@ -82,7 +83,8 @@ import { InicioComponent } from './inicio/inicio.component';
     NbAutocompleteModule,
     NgxSpinnerModule,
     NbButtonGroupModule,
-    NbRadioModule
+    NbRadioModule,
+    NbCheckboxModule,
   ],
   declarations: [
     PagesComponent,

@@ -3,26 +3,101 @@
   <nb-card-body class="settings-card">
     <div class="card-group">
       <h1 class="card-group-header">
-        <nb-icon icon="layers-outline" class="icon"></nb-icon>
-        Geral
+        <div>
+          <nb-icon icon="layers-outline" class="icon"></nb-icon>
+          Geral
+        </div>
+        <div>
+          <button  
+            nbButton size="small"
+            [status]="getSaveButtonStatus(saveStatuses.geral)"
+            (click)="handleSave('geral')" 
+          >
+            <nb-icon [icon]="getSaveIcon(saveStatuses.geral)"></nb-icon>
+            {{ getSaveText(saveStatuses.geral) }}
+          </button>
+        </div>
       </h1>
     </div>
     <div class="card-group">
       <h1 class="card-group-header">
-        <nb-icon icon="cube-outline" class="icon"></nb-icon>
-        Vendas
+        <div>
+          <nb-icon icon="cube-outline" class="icon"></nb-icon>
+          Vendas
+        </div>
+        <div>
+          <button  
+            nbButton size="small"
+            [status]="getSaveButtonStatus(saveStatuses.vendas)"
+            (click)="handleSave('vendas')" 
+          >
+            <nb-icon [icon]="getSaveIcon(saveStatuses.vendas)"></nb-icon>
+            {{ getSaveText(saveStatuses.vendas) }}
+          </button>
+        </div>
+      </h1>
+      <table class="enderecos-table">
+        <colgroup>
+          <col class="full" />
+          <col />
+          <col />
+          <col />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Endereço</th>
+            <th>Balcão?</th>
+            <th>Online?</th>
+            <th>Entregas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Endereço #1</td>
+            <td>
+              <nb-checkbox></nb-checkbox>
+            </td>
+            <td>
+              <nb-checkbox></nb-checkbox>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-group">
+      <h1 class="card-group-header">
+        <div>
+          <nb-icon icon="shopping-cart-outline" class="icon"></nb-icon>
+          Financeiro
+        </div>
+        <div>
+          <button  
+            nbButton size="small"
+            [status]="getSaveButtonStatus(saveStatuses.financeiro)"
+            (click)="handleSave('financeiro')" 
+          >
+            <nb-icon [icon]="getSaveIcon(saveStatuses.financeiro)"></nb-icon>
+            {{ getSaveText(saveStatuses.financeiro) }}
+          </button>
+        </div>
       </h1>
     </div>
     <div class="card-group">
       <h1 class="card-group-header">
-        <nb-icon icon="shopping-cart-outline" class="icon"></nb-icon>
-        Financeiro
-      </h1>
-    </div>
-    <div class="card-group">
-      <h1 class="card-group-header">
-        <nb-icon icon="people-outline" class="icon"></nb-icon>
-        Colaboradores
+        <div>
+          <nb-icon icon="people-outline" class="icon"></nb-icon>
+          Colaboradores
+        </div>
+        <div>
+          <button  
+            nbButton size="small"
+            [status]="getSaveButtonStatus(saveStatuses.colaboradores)"
+            (click)="handleSave('colaboradores')" 
+          >
+            <nb-icon [icon]="getSaveIcon(saveStatuses.colaboradores)"></nb-icon>
+            {{ getSaveText(saveStatuses.colaboradores) }}
+          </button>
+        </div>
       </h1>
     </div>
   </nb-card-body>

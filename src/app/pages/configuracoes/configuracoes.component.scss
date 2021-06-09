@@ -6,16 +6,51 @@
 
 .card-group {
   border-bottom: 1px solid #edf1f7;
+  padding-bottom: 1rem;
 }
 
 .card-group:nth-of-type(2n+1) {
   border-right: 1px solid #edf1f7;
+  padding-right: 1rem;
 }
 
 .card-group-header {
   font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .icon {
   color: #8f9bb3;
+}
+
+.enderecos-table {
+  width: 100%;
+  margin-bottom: 5px;
+
+  col {
+    width: max-content;
+  }
+
+  col.full {
+    width: 100%;
+  }
+
+  th {
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  th, td {
+    padding: 0.6rem;
+  }
+
+  th:first-child, td:first-child {
+    padding-left: 0;
+  }
+
+  th:last-child, td:last-child {
+    padding-right: 0;
+  }
 }
