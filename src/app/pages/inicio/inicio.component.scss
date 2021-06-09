@@ -1,0 +1,61 @@
+$logoSize: 12rem;
+
+.home-card:hover {
+  background: darken(white, 3%);
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+.store-logo {
+  width: $logoSize;
+  height: $logoSize;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/7-eleven_logo.svg/1200px-7-eleven_logo.svg.png');
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid darken(#edf1f7, 5%);
+
+  .edit-area {
+    visibility: hidden;
+    width: inherit;
+    height: inherit;
+    border: inherit;
+    border-radius: inherit;
+    background: rgba(0, 0, 0, .5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.1rem; 
+    font-weight: 600;
+  }
+
+  .edit-area .icon {
+    font-size: 2rem;
+  }
+
+  &:hover .edit-area {
+    visibility: visible;
+  }
+}
+
+.info h1 {
+  margin-bottom: 5px;
+  font-size: 1.8rem;
+}
+
+.info p {
+  margin-bottom: 2px;
+}
+
+.info p span {
+  text-transform: uppercase;
+  font-weight: 600;
+  color: darken(#8f9bb3, 5%);
+  font-size: 0.8rem;
+}
