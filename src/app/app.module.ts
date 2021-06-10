@@ -26,6 +26,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromProdutosPlataforma from './store/reducers/produtos-plataforma.reducers';
 import { APP_BASE_HREF } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
    declarations: [AppComponent, LoginComponent],
@@ -52,7 +53,8 @@ import { APP_BASE_HREF } from '@angular/common';
      NbIconModule,
      NbButtonModule,
      NbCheckboxModule,
-     StoreModule.forRoot({ produtosPlataforma: fromProdutosPlataforma.reducer })
+     StoreModule.forRoot({ produtosPlataforma: fromProdutosPlataforma.reducer }),
+     ReactiveFormsModule
    ],
    bootstrap: [AppComponent],
    schemas: [CUSTOM_ELEMENTS_SCHEMA],

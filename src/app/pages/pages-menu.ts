@@ -4,7 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Início',
     icon: 'home-outline',
-    link: '/',
+    link: '/inicio',
     home: true,
   },
   {

@@ -13,10 +13,10 @@
           <div class="login-page">
             <h1>Entre no Marketplace</h1>
             <p>Olá! Me dê suas credenciais para entrar na nossa plataforma</p>
-            <form>
+            <form (submit)="onFormSubmit($event)" [formGroup]="form">
               <div class="form-control-group">
                 <label>Endereço de e-mail</label>
-                <input nbInput fullWidth />
+                <input nbInput fullWidth formControlName="email" />
               </div>
 
               <div class="form-control-group">
@@ -24,14 +24,16 @@
                   <label>Senha</label>
                   <a routerLink="/esqueci-senha"></a>
                 </span>
-                <input nbInput fullWidth />
+                <input nbInput fullWidth type="password" formControlName="senha" />
               </div>
 
               <div class="checkboxes">
                 <nb-checkbox status="basic">Lembrar-me</nb-checkbox>
               </div>
 
-              <button nbButton status="primary">Entrar</button>
+              <button nbButton status="primary" type="submit">
+                Entrar
+              </button>
             </form>
           </div>
           <div class="illustration"></div>

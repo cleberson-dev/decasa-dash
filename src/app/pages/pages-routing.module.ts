@@ -32,8 +32,12 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      component: InicioComponent,
+      redirectTo: 'login',
       pathMatch: 'full',
+    },
+    {
+      path: 'inicio',
+      component: InicioComponent,
     },
     {
       path: 'produtos',
