@@ -27,9 +27,10 @@ import { StoreModule } from '@ngrx/store';
 import * as fromProdutosPlataforma from './store/reducers/produtos-plataforma.reducers';
 import { APP_BASE_HREF } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RegistrarComponent } from './pages/registrar/registrar.component';
 
 @NgModule({
-   declarations: [AppComponent, LoginComponent],
+   declarations: [AppComponent, LoginComponent, RegistrarComponent],
    imports: [
      BrowserModule,
      BrowserAnimationsModule,

@@ -59,6 +59,7 @@ import { EmRotaComponent } from './vendas/em-rota/em-rota.component';
 import { EntregueComponent } from './vendas/entregue/entregue.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { RegistrarComponent } from './registrar/registrar.component';
 
 @NgModule({
   imports: [
