@@ -41,3 +41,12 @@ label {
   background-position: center;
   background-size: cover;
 }
+
+.footer {
+  display: flex;
+  align-items: center;
+
+  p {
+    margin-bottom: 0;
+  }
+}
