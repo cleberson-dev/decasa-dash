@@ -72,4 +72,10 @@ export class ConfiguracoesComponent implements OnInit {
     const randomIdx = Math.floor(Math.random() * statuses.length);
     return statuses[randomIdx];
   }
+
+
+  saveAll() {
+    Object.keys(this.saveStatuses)
+      .forEach((key: Modules) => this.handleSave(key));
+  }
 }
