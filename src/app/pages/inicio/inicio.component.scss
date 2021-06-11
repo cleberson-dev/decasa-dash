@@ -59,3 +59,21 @@ h1 {
   color: darken(#8f9bb3, 5%);
   font-size: 0.8rem;
 }
+
+.lista-lojas {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  .loja-card {
+    padding: 0.2rem 0.8rem;
+    margin-bottom: 8px;
+  }
+
+  .loja-card-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

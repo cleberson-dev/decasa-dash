@@ -24,6 +24,30 @@
   <nb-card class="col-5 home-card">
     <nb-card-body>
       <h1>Lojas</h1>
+      <ul class="lista-lojas">
+        <li *ngFor="let loja of lojas" (click)="loja.collapsed = !loja.collapsed">
+          <nb-card class="loja-card">
+            <div class="loja-card-wrapper">
+              <div>
+                <nb-icon icon="shopping-bag-outline"></nb-icon>
+                {{ loja.nome }} - CNPJ: {{ loja.cnpj }}
+              </div>
+              <button nbButton ghost (click)="loja.collapsed = !loja.collapsed">
+                <nb-icon [icon]="loja.collapsed ? 'arrow-up' : 'arrow-down'"></nb-icon>
+              </button>
+            </div>
+           <div *ngIf="loja.collapsed" class="info" style="margin-top: 1rem;">
+            <p><span>Nome:</span> Minha Loja Ltda.</p>
+            <p><span>CNPJ:</span> Minha Loja Ltda.</p>
+            <p><span>Inscrição Estadual:</span> Minha Loja Ltda.</p>
+            <p><span>Código:</span> Minha Loja Ltda.</p>
+            <p><span>Endereço:</span> Minha Loja Ltda.</p>
+            <p><span>Telefone:</span> Minha Loja Ltda.</p>
+            <p><span>Gerente:</span> Minha Loja Ltda.</p>
+           </div>
+          </nb-card>
+        </li>
+      </ul>
     </nb-card-body>
   </nb-card>
   <div class="col-1"></div>
