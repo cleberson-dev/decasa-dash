@@ -38,15 +38,24 @@ export class ConfiguracoesComponent implements OnInit {
     { title: 'Loja 01', value: '1' },
     { title: 'Loja 02', value: '2' },
     { title: 'Loja 03', value: '3' },
-  ]
+  ];
+
+  colaboradores = [
+    { nome: 'Colaborador 01', value: '1' },
+    { nome: 'Colaborador 02', value: '2' },
+    { nome: 'Colaborador 03', value: '3' },
+  ];
 
   caixas = [
-    { numero: '999999', loja: 'Loja 01' }
+    { numero: '999999', loja: this.lojas[0].title, colaborador: this.colaboradores[0].nome }
   ];
+
+ 
 
   caixaForm = this.fb.group({
     numero: ['', [Validators.required]],
-    loja: ['', [Validators.required]]
+    loja: ['', [Validators.required]],
+    colaborador: ['', [Validators.required]]
   });
 
   constructor(
@@ -123,6 +132,7 @@ export class ConfiguracoesComponent implements OnInit {
     this.caixas.push({
       numero: this.caixaForm.controls['numero'].value,
       loja: this.lojas.find(loja => loja.value === this.caixaForm.controls['loja'].value).title,
+      colaborador: this.colaboradores.find(colab => colab.value === this.caixaForm.controls['colaborador'].value).nome
     });
 
     this.caixaForm.reset();
