@@ -19,7 +19,7 @@
         </div>
       </h1>
     </div>
-    <div class="card-group">
+    <div class="card-group vendas">
       <h1 class="card-group-header">
         <div>
           <nb-icon icon="cube-outline" class="icon"></nb-icon>
@@ -52,13 +52,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Endereço #1</td>
+          <tr *ngFor="let endereco of enderecos">
+            <td>{{ endereco.nome }}</td>
             <td>
-              <nb-checkbox></nb-checkbox>
+              <nb-checkbox [(checked)]="endereco.balcao"></nb-checkbox>
             </td>
             <td>
-              <nb-checkbox></nb-checkbox>
+              <nb-checkbox [(checked)]="endereco.online"></nb-checkbox>
+            </td>
+            <td>
+              <nb-button-group ghost size="small" > 
+                <button nbButtonToggle [pressed]="endereco.tipo === 'retira'" (pressedChange)="handleTipoChange('retira', endereco, $event)">Cliente Retira</button>
+                <button nbButtonToggle [pressed]="endereco.tipo === 'entrega'" (pressedChange)="handleTipoChange('entrega', endereco, $event)">Loja Entrega</button>
+                <button nbButtonToggle [pressed]="endereco.tipo === 'nenhum'" (pressedChange)="handleTipoChange('nenhum', endereco, $event)">Nenhum</button>
+              </nb-button-group>
             </td>
           </tr>
         </tbody>
@@ -102,7 +109,7 @@
     </div>
   </nb-card-body>
   <nb-card-footer>
-    <button nbButton status="primary" (click)="saveAll()">
+    <button nbButton status="primary" (click)="saveAll()" size="small">
       <nb-icon icon="save"></nb-icon>
       Salvar todos
     </button>

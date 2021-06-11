@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 type SaveStatus = "saving" | "saved" | "not-saved" | "error";
 type Modules = "vendas" | "geral" | "financeiro" | "colaboradores";
+type DeliveryTypes = "retira" | "entrega" | "nenhum";
+type Endereco = {
+  nome: string;
+  tipo?: DeliveryTypes;
+  balcao: boolean;
+  online: boolean;
+}
 
 @Component({
   selector: 'ngx-configuracoes',
@@ -15,6 +22,12 @@ export class ConfiguracoesComponent implements OnInit {
     financeiro: 'not-saved',
     colaboradores: 'not-saved',
   };
+
+  enderecos: Endereco[] = [
+    { nome: 'Endereço #1', tipo: 'entrega', balcao: false, online: false },
+    { nome: 'Av. Jeronimo de Albuquerque', tipo: 'nenhum', balcao: false, online: false },
+    { nome: 'Av. Daniel de La Touche', tipo: 'retira', balcao: true, online: false }
+  ];
 
   constructor() { }
 
@@ -75,7 +88,12 @@ export class ConfiguracoesComponent implements OnInit {
 
 
   saveAll() {
+    console.log(this.enderecos.map(e => e.tipo));
     Object.keys(this.saveStatuses)
       .forEach((key: Modules) => this.handleSave(key));
+  }
+
+  handleTipoChange(tipo: DeliveryTypes, endereco: Endereco, pressed: boolean) {
+    endereco.tipo = pressed ? tipo : endereco.tipo;
   }
 }
