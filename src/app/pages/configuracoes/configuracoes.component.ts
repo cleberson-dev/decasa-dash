@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 type SaveStatus = "saving" | "saved" | "not-saved" | "error";
 type Modules = "vendas" | "geral" | "financeiro" | "colaboradores";
@@ -9,6 +10,10 @@ type Endereco = {
   balcao: boolean;
   online: boolean;
 }
+type Loja = {
+  nome: string;
+  caixas: string[];
+};
 
 @Component({
   selector: 'ngx-configuracoes',
@@ -29,7 +34,24 @@ export class ConfiguracoesComponent implements OnInit {
     { nome: 'Av. Daniel de La Touche', tipo: 'retira', balcao: true, online: false }
   ];
 
-  constructor() { }
+  lojas = [
+    { title: 'Loja 01', value: '1' },
+    { title: 'Loja 02', value: '2' },
+    { title: 'Loja 03', value: '3' },
+  ]
+
+  caixas = [
+    { numero: '999999', loja: 'Loja 01' }
+  ];
+
+  caixaForm = this.fb.group({
+    numero: ['', [Validators.required]],
+    loja: ['', [Validators.required]]
+  });
+
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
   }
@@ -95,5 +117,14 @@ export class ConfiguracoesComponent implements OnInit {
 
   handleTipoChange(tipo: DeliveryTypes, endereco: Endereco, pressed: boolean) {
     endereco.tipo = pressed ? tipo : endereco.tipo;
+  }
+
+  onCaixaFormSubmit() {
+    this.caixas.push({
+      numero: this.caixaForm.controls['numero'].value,
+      loja: this.lojas.find(loja => loja.value === this.caixaForm.controls['loja'].value).title,
+    });
+
+    this.caixaForm.reset();
   }
 }

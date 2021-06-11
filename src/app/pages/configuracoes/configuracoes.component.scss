@@ -8,6 +8,11 @@
   border-bottom: 1px solid #edf1f7;
   padding-bottom: 1rem;
   padding-right: 1rem;
+  flex-direction: column;
+
+  h2 {
+    font-size: 0.8rem;
+  }
 }
 
 // .card-group:nth-of-type(2n+1) {
@@ -58,4 +63,21 @@
 .card-group.vendas {
   grid-column: 1 / 3;
   grid-row-start: 2;
+}
+
+.card-group.financeiro {
+  grid-column: 1 / 2;
+  grid-row-start: 3;
+}
+
+.caixas-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+
+  li:not(:first-child) {
+    width: 100%;
+    padding: 1rem 0;
+  }
 }

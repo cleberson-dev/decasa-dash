@@ -71,7 +71,7 @@
         </tbody>
       </table>
     </div>
-    <div class="card-group">
+    <div class="card-group financeiro">
       <h1 class="card-group-header">
         <div>
           <nb-icon icon="shopping-cart-outline" class="icon"></nb-icon>
@@ -88,6 +88,32 @@
           </button>
         </div>
       </h1>
+      <h2>Caixas</h2>
+      <ul class="caixas-list">
+        <li style="margin-bottom: 8px;">
+          <form style="width: 100%;" [formGroup]="caixaForm" (submit)="onCaixaFormSubmit()">
+            <div class="row">
+              <div class="col-5">
+                <input nbInput fullWidth placeholder="Número" formControlName="numero" />
+              </div>
+              <div class="col-5">
+                <nb-select fullWidth placeholder="Selecione uma loja" formControlName="loja">
+                  <nb-option *ngFor="let loja of lojas" [value]="loja.value">{{ loja.title }}</nb-option>
+                </nb-select>
+              </div>
+              <div class="col-2">
+                <button nbButton status="primary" size="small" style="margin: auto;" type="submit" [disabled]="caixaForm.invalid">
+                  <nb-icon icon="plus"></nb-icon>
+                </button>
+              </div>
+            </div>
+          </form>
+        </li>
+        <li *ngFor="let caixa of caixas">
+          {{ caixa.numero + ' - ' + caixa.loja }}
+        </li>
+      </ul>
+      
     </div>
     <div class="card-group">
       <h1 class="card-group-header">
