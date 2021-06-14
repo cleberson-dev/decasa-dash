@@ -43,6 +43,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/fornecedores',
   },
   {
+    title: 'Clientes',
+    icon: 'people-outline',
+    link: '/clientes'
+  },
+  {
     title: 'Configurações',
     icon: 'settings-outline',
     link: '/configuracoes',

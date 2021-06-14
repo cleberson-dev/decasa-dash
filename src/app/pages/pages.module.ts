@@ -60,6 +60,7 @@ import { EntregueComponent } from './vendas/entregue/entregue.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { RegistrarComponent } from './registrar/registrar.component';
+import { ClientesComponent } from './clientes/clientes.component';
 
 @NgModule({
   imports: [
@@ -121,7 +122,8 @@ import { RegistrarComponent } from './registrar/registrar.component';
     EmRotaComponent,
     EntregueComponent,
     ConfiguracoesComponent,
-    InicioComponent
+    InicioComponent,
+    ClientesComponent
   ]
 })
 export class PagesModule {

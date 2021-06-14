@@ -25,6 +25,7 @@ import { EmRotaComponent } from './vendas/em-rota/em-rota.component';
 import { EntregueComponent } from './vendas/entregue/entregue.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { ClientesComponent } from './clientes/clientes.component';
 
 const routes: Routes = [{
   path: '',
@@ -122,6 +123,10 @@ const routes: Routes = [{
     {
       path: 'configuracoes',
       component: ConfiguracoesComponent
+    },
+    {
+      path: 'clientes',
+      component: ClientesComponent
     },
     {
       path: '**',
