@@ -44,7 +44,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Clientes',
-    icon: 'people-outline',
+    icon: 'person-outline',
     link: '/clientes'
   },
   {
