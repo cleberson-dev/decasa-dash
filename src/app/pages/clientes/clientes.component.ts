@@ -15,6 +15,11 @@ export class ClientesComponent implements OnInit {
     { title: 'Endereços', link: '/clientes/enderecos' },
   ];
 
+  clientes = [
+    { nome: 'José Roberto da Silva Maria', cpf: '999.999.999-99', cnpj: '99.999.999/9999-99' },
+    { nome: 'Mateus Araujo Lopes', cpf: '999.999.999-99', cnpj: '99.999.999/9999-99' },
+  ];
+
   constructor() { }
 
   ngOnInit(): void {

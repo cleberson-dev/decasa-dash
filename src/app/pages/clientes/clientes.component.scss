@@ -2,3 +2,32 @@ label {
   font-size: 0.9rem;
   font-weight: 600;
 }
+
+.table-clientes {
+  width: 100%;
+
+  col {
+    width: fit-content;
+  }
+
+  col.full {
+    width: 100%;
+  }
+
+  thead {
+    background: #f7f9fc; 
+  }
+
+  th {
+    padding: 0.6rem;
+  }
+
+  td {
+    white-space: nowrap;
+    padding: 0.8rem 0.6rem;
+  }
+
+  tr:not(:last-child) {
+    border-bottom: 1px solid #edf1f7;
+  }
+}

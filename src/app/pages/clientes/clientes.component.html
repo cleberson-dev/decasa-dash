@@ -16,5 +16,26 @@
         Buscar
       </button>
     </form>
+    <table class="table-clientes" style="margin-top: 1rem;">
+      <colgroup>
+        <col class="full" />
+        <col />
+        <col />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>CNPJ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.nome }}</td>
+          <td>{{ cliente.cpf }}</td>
+          <td>{{ cliente.cnpj }}</td>
+        </tr>
+      </tbody>
+    </table>
   </nb-card-body>
 </nb-card>
