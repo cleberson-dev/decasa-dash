@@ -1,1 +1,20 @@
 <ngx-tabber [tabs]="tabs"></ngx-tabber>
+<nb-card>
+  <nb-card-body>
+    <form>
+      <div class="row">
+        <div class="col-4 form-group">
+          <label>Nome ou Razão Social</label>
+          <input nbInput fullWidth />
+        </div>
+        <div class="col-4 form-group">
+          <label>CPF ou CNPJ</label>
+          <input nbInput fullWidth />
+        </div>
+      </div>
+      <button nbButton status="primary">
+        Buscar
+      </button>
+    </form>
+  </nb-card-body>
+</nb-card>
