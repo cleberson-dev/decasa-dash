@@ -37,13 +37,13 @@
               </button>
             </div>
            <div *ngIf="loja.collapsed" class="info" style="margin-top: 1rem;">
-            <p><span>Nome:</span> Minha Loja Ltda.</p>
-            <p><span>CNPJ:</span> Minha Loja Ltda.</p>
-            <p><span>Inscrição Estadual:</span> Minha Loja Ltda.</p>
-            <p><span>Código:</span> Minha Loja Ltda.</p>
-            <p><span>Endereço:</span> Minha Loja Ltda.</p>
-            <p><span>Telefone:</span> Minha Loja Ltda.</p>
-            <p><span>Gerente:</span> Minha Loja Ltda.</p>
+            <p><span>Nome:</span> {{ loja.nome }}</p>
+            <p><span>CNPJ:</span> {{ loja.cnpj }}</p>
+            <p><span>Inscrição Estadual:</span> {{ loja.inscricaoEstadual }}</p>
+            <p><span>Código:</span> {{ loja.codigo }}</p>
+            <p><span>Endereço:</span> {{ loja.endereco }}</p>
+            <p><span>Telefone:</span> {{ loja.telefone }}</p>
+            <p><span>Gerente:</span> {{ loja.gerente }}</p>
            </div>
           </nb-card>
         </li>
