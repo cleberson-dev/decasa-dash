@@ -89,33 +89,33 @@
         </div>
       </h1>
       <h2>Caixas</h2>
-      <ul class="caixas-list">
-        <li style="margin-bottom: 8px;">
-          <form style="width: 100%;" [formGroup]="caixaForm" (submit)="onCaixaFormSubmit()">
-            <div class="row">
-              <div class="col-3">
-                <input nbInput fullWidth placeholder="Número" formControlName="numero" />
-              </div>
-              <div class="col-3">
-                <nb-select fullWidth placeholder="Selecione uma loja" formControlName="loja">
-                  <nb-option *ngFor="let loja of lojas" [value]="loja.value">{{ loja.title }}</nb-option>
-                </nb-select>
-              </div>
-              <div class="col-3">
-                <nb-select fullWidth placeholder="Selecione uma colaborador" formControlName="colaborador">
-                  <nb-option *ngFor="let colaborador of colaboradores" [value]="colaborador.value">{{ colaborador.nome }}</nb-option>
-                </nb-select>
-              </div>
-              <div class="col-3">
-                <button nbButton status="primary" size="small" style="margin: auto;" type="submit" [disabled]="caixaForm.invalid">
-                  <nb-icon icon="plus"></nb-icon>
-                </button>
-              </div>
-            </div>
-          </form>
-        </li>
-        <li *ngFor="let caixa of caixas">
-          {{ caixa.numero + ' - ' + caixa.loja + ' - ' + caixa.colaborador }}
+      <form style="width: 100%; margin-bottom: 8px;" [formGroup]="caixaForm" (submit)="onCaixaFormSubmit()">
+        <div class="row">
+          <div class="col-3">
+            <input nbInput fullWidth placeholder="Número" formControlName="numero" />
+          </div>
+          <div class="col-3">
+            <nb-select fullWidth placeholder="Selecione uma loja" formControlName="loja">
+              <nb-option *ngFor="let loja of lojas" [value]="loja.value">{{ loja.title }}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col-3">
+            <nb-select fullWidth placeholder="Selecione uma colaborador" formControlName="colaborador">
+              <nb-option *ngFor="let colaborador of colaboradores" [value]="colaborador.value">{{ colaborador.nome }}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col-3">
+            <button nbButton status="primary" size="small" style="margin: auto;" type="submit" [disabled]="caixaForm.invalid">
+              <nb-icon icon="plus"></nb-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+      <ul class="caixas-list">       
+        <li *ngFor="let caixa of caixas" class="caixa">
+          <p><span>Número</span> {{ caixa.numero }}</p>
+          <p><span>Loja</span> {{ caixa.loja }}</p>
+          <p><span>Colaborador</span> {{ caixa.colaborador }}</p>
         </li>
       </ul>
       

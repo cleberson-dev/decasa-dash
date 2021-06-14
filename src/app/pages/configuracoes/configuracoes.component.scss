@@ -1,3 +1,5 @@
+$borderColor: #edf1f7;
+
 .settings-card {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -5,7 +7,7 @@
 }
 
 .card-group {
-  border-bottom: 1px solid #edf1f7;
+  border-bottom: 1px solid $borderColor;
   padding-bottom: 1rem;
   padding-right: 1rem;
   flex-direction: column;
@@ -16,7 +18,7 @@
 }
 
 // .card-group:nth-of-type(2n+1) {
-//   border-right: 1px solid #edf1f7;
+//   border-right: 1px solid $borderColor;
 // }
 
 .card-group-header {
@@ -74,10 +76,34 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: block;
+  width: 100%;
+  display: flex;
 
-  li:not(:first-child) {
-    width: 100%;
-    padding: 1rem 0;
+  li.caixa {
+    display: flex;
+    border-radius: 5px;
+    border: 1px solid $borderColor;
+    padding: 0.7rem 0.8rem;
+    margin-right: 10px;
+    cursor: default;
+    
+    &:hover {
+      background: darken(white, 2%);
+    }
+  }
+
+  li.caixa p {
+    margin: 0;
+  }
+
+  li.caixa p:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  li.caixa span {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #8f9bb3;
   }
 }

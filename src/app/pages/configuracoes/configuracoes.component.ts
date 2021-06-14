@@ -47,7 +47,9 @@ export class ConfiguracoesComponent implements OnInit {
   ];
 
   caixas = [
-    { numero: '999999', loja: this.lojas[0].title, colaborador: this.colaboradores[0].nome }
+    { numero: '999999', loja: this.lojas[0].title, colaborador: this.colaboradores[0].nome },
+    { numero: '888888', loja: this.lojas[0].title, colaborador: this.colaboradores[1].nome },
+    { numero: '777777', loja: this.lojas[1].title, colaborador: this.colaboradores[2].nome },
   ];
 
  
