@@ -86,6 +86,7 @@ $borderColor: #edf1f7;
     padding: 0.7rem 0.8rem;
     margin-right: 10px;
     cursor: default;
+    position: relative;
     
     &:hover {
       background: darken(white, 2%);
