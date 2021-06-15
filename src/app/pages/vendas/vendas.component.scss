@@ -29,6 +29,11 @@ th {
 
 td {
   padding: .6rem;
+  text-align: center;
+}
+
+td.descricao {
+  text-align: left;
 }
 
 tr {
@@ -44,8 +49,12 @@ tr:nth-of-type(2n) {
   background: lighten($borderColor, 3%);
 }
 
-col.resizable {
+col {
   width: fit-content;
+}
+
+col.full {
+  width: 100%;
 }
 
 tfoot {

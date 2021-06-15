@@ -13,6 +13,10 @@ thead {
   text-align: center;
 }
 
+th, td {
+  text-align: center;
+}
+
 th {
   padding: 1rem;
   font-weight: 600;
@@ -32,6 +36,10 @@ td {
   padding: .6rem;
 }
 
+td.descricao {
+  text-align: left;
+}
+
 tr {
   border-bottom: 1px solid $borderColor;
 }
@@ -45,8 +53,12 @@ tr:nth-of-type(2n) {
   background: lighten($borderColor, 3%);
 }
 
-col.resizable {
+col {
   width: fit-content;
+}
+
+col.full {
+  width: 100%;
 }
 
 tfoot {

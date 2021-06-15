@@ -20,6 +20,11 @@ th {
 
 th, td {
   padding: .8rem .6rem;
+  text-align: center;
+}
+
+td.nome {
+  text-align: left;
 }
 
 tbody tr:not(:last-child) {
@@ -43,8 +48,12 @@ h5 {
   background: purple;
 }
 
-col.resizable {
+col {
   width: fit-content;
+}
+
+col.full {
+  width: 100%;
 }
 
 td.quantidade input {

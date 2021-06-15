@@ -45,6 +45,7 @@ table {
 
   td.descricao {
     cursor: pointer;
+    text-align: left;
 
     &:hover {
       opacity: 0.7;

@@ -32,6 +32,10 @@ table {
   td {
     padding: .6rem;
   }
+  
+  td.descricao {
+    text-align: left;
+  }
 
   tr {
     border-bottom: 1px solid $borderColor;

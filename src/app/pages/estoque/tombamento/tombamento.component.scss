@@ -20,6 +20,11 @@ th {
 
 th, td {
   padding: .8rem .6rem;
+  text-align: center;
+}
+
+td.nome {
+  text-align: left;
 }
 
 tbody tr:not(:last-child) {
