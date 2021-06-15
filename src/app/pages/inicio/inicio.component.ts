@@ -80,4 +80,9 @@ export class InicioComponent implements OnInit {
 
     dialog.close();
   }
+
+  onAddLojaClose(ref: NbDialogRef<any>) {
+    this.addLojaForm.reset();
+    ref.close();
+  }
 }
