@@ -78,3 +78,18 @@ h1 {
     align-items: center;
   }
 }
+
+.lojas-header, .add-loja-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-loja-form {
+  width: 60vw;
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+}
