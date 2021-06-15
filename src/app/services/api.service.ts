@@ -155,4 +155,11 @@ export class ApiService {
 
     return this.http.get<Produto[]>(url);
   }
+
+  findProdutoByCnp(cnp: string) {
+    const lojista = 1; // HARDCODED, REPLACE IT LATER
+    const url = `${this.url}/produtos/cnp/${cnp}/lojista/${lojista}`;
+
+    return this.http.get<Produto>(url);
+  }
 }
