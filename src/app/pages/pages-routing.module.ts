@@ -26,6 +26,10 @@ import { EntregueComponent } from './vendas/entregue/entregue.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { ComprasComponent } from './clientes/compras/compras.component';
+import { CuponsComponent } from './clientes/cupons/cupons.component';
+import { DevolucoesComponent } from './clientes/devolucoes/devolucoes.component';
+import { EnderecosComponent } from './clientes/enderecos/enderecos.component';
 
 const routes: Routes = [{
   path: '',
@@ -127,6 +131,22 @@ const routes: Routes = [{
     {
       path: 'clientes',
       component: ClientesComponent
+    },
+    {
+      path: 'clientes/cupons',
+      component: CuponsComponent
+    },
+    {
+      path: 'clientes/compras',
+      component: ComprasComponent
+    },
+    {
+      path: 'clientes/devolucoes',
+      component: DevolucoesComponent
+    },
+    {
+      path: 'clientes/enderecos',
+      component: EnderecosComponent
     },
     {
       path: '**',

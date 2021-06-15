@@ -59,8 +59,11 @@ import { EmRotaComponent } from './vendas/em-rota/em-rota.component';
 import { EntregueComponent } from './vendas/entregue/entregue.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { InicioComponent } from './inicio/inicio.component';
-import { RegistrarComponent } from './registrar/registrar.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { CuponsComponent } from './clientes/cupons/cupons.component';
+import { ComprasComponent } from './clientes/compras/compras.component';
+import { DevolucoesComponent } from './clientes/devolucoes/devolucoes.component';
+import { EnderecosComponent } from './clientes/enderecos/enderecos.component';
 
 @NgModule({
   imports: [
@@ -123,7 +126,11 @@ import { ClientesComponent } from './clientes/clientes.component';
     EntregueComponent,
     ConfiguracoesComponent,
     InicioComponent,
-    ClientesComponent
+    ClientesComponent,
+    CuponsComponent,
+    ComprasComponent,
+    DevolucoesComponent,
+    EnderecosComponent
   ]
 })
 export class PagesModule {
