@@ -103,8 +103,14 @@
   </nb-card-body>
   <nb-card-footer class="estoque-card-footer">
     <div></div>
-    <button nbButton type="button" status="primary">
-      Confirmar
-    </button>
+    <div>
+      <button nbButton style="margin-right: 1rem;" (click)="printBtnClickHandler()">
+        <nb-icon icon="printer"></nb-icon>
+        Imprimir
+      </button>
+      <button nbButton type="button" status="primary">
+        Confirmar
+      </button>
+    </div>
   </nb-card-footer>
 </nb-card>

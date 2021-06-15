@@ -66,4 +66,8 @@ export class TombamentoComponent implements OnInit {
     const control = this.form.controls[controlName];
     return control.invalid && (control.touched || control.dirty);
   }
+
+  printBtnClickHandler() {
+    window.print();
+  }
 }
