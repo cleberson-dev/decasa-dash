@@ -3,12 +3,16 @@
     <nb-card-body>
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <div class="info">
-          <h1>Minha Loja</h1>
-          <p><span>Razão Social:</span> Minha Loja Ltda.</p>
-          <p><span>CNPJ:</span> 05.734.638/0001-70</p>
-          <p><span>Inscrição Estadual:</span> 12092522-2</p>
-          <p><span>Endereço:</span> Av. Jerônimo de Albuquerque</p>
-          <p><span>Telefone:</span> (99) 99999-9999</p>
+          <h1 style="display: inline;">{{ loja.nome }}</h1>
+          <button nbButton size="tiny" style="margin-left: 8px;" (click)="openEditInfoModal(dialog)">
+            <nb-icon icon="edit"></nb-icon>
+            Editar
+          </button>
+          <p><span>Razão Social:</span> {{ loja.razaoSocial }}</p>
+          <p><span>CNPJ:</span> {{ loja.cnpj }}</p>
+          <p><span>Inscrição Estadual:</span> {{ loja.inscricaoEstadual }}</p>
+          <p><span>Endereço:</span> {{ loja.endereco }}</p>
+          <p><span>Telefone:</span> {{ loja.telefone }}</p>
         </div>
         <div class="store-logo">
           <div class="edit-area">
@@ -108,7 +112,7 @@
         </div>
       </form>
     </nb-card-body>
-    <nb-card-footer class="add-loja-card-footer">
+    <nb-card-footer class="modal-card-footer">
       <button nbButton (click)="onAddLojaClose(ref)">
         <nb-icon icon="arrow-back"></nb-icon>
         Voltar
@@ -118,6 +122,42 @@
         type="submit" form="addLojaForm" [disabled]="addLojaForm.invalid"
       >
         Adicionar
+      </button>
+    </nb-card-footer>
+  </nb-card>
+
+
+  <nb-card *ngIf="context.type === 'edit-info'">
+    <nb-card-header>
+      Editar perfil
+    </nb-card-header>
+    <nb-card-body>
+      <form style="width: 60vw;" [formGroup]="editInfoForm" id="editInfoForm" (submit)="onEditInfoSubmit(ref)">
+        <div class="row">
+          <div class="form-group col-4">
+            <label>Endereço</label>
+            <input nbInput fullWidth type="text" formControlName="endereco" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-4">
+            <label>Telefone</label>
+            <input nbInput fullWidth type="text" formControlName="telefone" />
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+    <nb-card-footer class="modal-card-footer">
+      <button nbButton (click)="onEditInfoClose(ref)">
+        <nb-icon icon="arrow-back"></nb-icon>
+        Voltar
+      </button>
+      <button 
+        nbButton status="primary" 
+        type="submit" form="editInfoForm" [disabled]="editInfoForm.invalid"
+      >
+        <nb-icon icon="edit"></nb-icon>
+        Editar
       </button>
     </nb-card-footer>
   </nb-card>

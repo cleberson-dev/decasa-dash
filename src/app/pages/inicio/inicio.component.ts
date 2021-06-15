@@ -29,6 +29,20 @@ export class InicioComponent implements OnInit {
     gerente: ['', [Validators.required]],
   });
 
+  editInfoForm = this.fb.group({
+    endereco: ['', [Validators.required]],
+    telefone: ['', [Validators.required]]
+  });
+
+  loja = {
+    nome: 'Minha Loja',
+    razaoSocial: 'Minha Loja Ltda.',
+    cnpj: '05.734.638/0001-70',
+    inscricaoEstadual: '12092522-2',
+    endereco: 'Av. Jerônimo de Albuquerque',
+    telefone: '(99) 99999-9999'
+  };
+
   lojas: (Loja & { collapsed?: boolean; })[] = [
     { 
       nome: 'Loja 01', 
@@ -84,5 +98,32 @@ export class InicioComponent implements OnInit {
   onAddLojaClose(ref: NbDialogRef<any>) {
     this.addLojaForm.reset();
     ref.close();
+  }
+
+  openEditInfoModal(dialog: TemplateRef<any>) {
+    const context = {
+      type: 'edit-info'
+    };
+
+    this.editInfoForm.patchValue({
+      endereco: this.loja.endereco,
+      telefone: this.loja.telefone 
+    });
+
+    this.dialogService.open(dialog, { context });
+  }
+
+  onEditInfoClose(ref: NbDialogRef<any>) {
+    ref.close();
+  }
+
+  onEditInfoSubmit(dialog: NbDialogRef<any>) {
+    this.loja = {
+      ...this.loja,
+      endereco: this.editInfoForm.controls['endereco'].value,
+      telefone: this.editInfoForm.controls['telefone'].value,
+    };
+
+    dialog.close();
   }
 }

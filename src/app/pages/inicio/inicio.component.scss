@@ -79,7 +79,7 @@ h1 {
   }
 }
 
-.lojas-header, .add-loja-card-footer {
+.lojas-header, .modal-card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -87,9 +87,9 @@ h1 {
 
 .add-loja-form {
   width: 60vw;
+}
 
-  .form-group label {
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
 }
