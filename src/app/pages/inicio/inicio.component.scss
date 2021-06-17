@@ -93,3 +93,12 @@ h1 {
   font-size: 0.85rem;
   font-weight: 600;
 }
+
+.info-header {
+  display: flex;
+  align-items: center;
+
+  h1 {
+    margin-top: 0;
+  }
+}

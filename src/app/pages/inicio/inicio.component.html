@@ -3,11 +3,13 @@
     <nb-card-body>
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <div class="info">
-          <h1 style="display: inline;">{{ loja.nome }}</h1>
-          <button nbButton size="tiny" style="margin-left: 8px;" (click)="openEditInfoModal(dialog)">
-            <nb-icon icon="edit"></nb-icon>
-            Editar
-          </button>
+          <div class="info-header">
+            <h1>{{ loja.nome }}</h1>
+            <button nbButton size="tiny" style="margin-left: 10px;" (click)="openEditInfoModal(dialog)">
+              <nb-icon icon="edit"></nb-icon>
+              Editar
+            </button>
+          </div>
           <p><span>Razão Social:</span> {{ loja.razaoSocial }}</p>
           <p><span>CNPJ:</span> {{ loja.cnpj }}</p>
           <p><span>Inscrição Estadual:</span> {{ loja.inscricaoEstadual }}</p>
