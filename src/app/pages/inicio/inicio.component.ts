@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
+import { IMaskFactory } from 'angular-imask'
 
 
 type Loja = {
@@ -63,6 +64,8 @@ export class InicioComponent implements OnInit {
       telefone: '(88) 88888-8888',
     },
   ];
+  
+  codigoMask = /^\d+$/;
 
   constructor(
     private dialogService: NbDialogService,

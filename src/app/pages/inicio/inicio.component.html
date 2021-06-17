@@ -83,7 +83,7 @@
           </div>
           <div class="col-5 form-group">
             <label>CNPJ</label>
-            <input nbInput fullWidth type="text" formControlName="cnpj" />
+            <input nbInput fullWidth type="text" formControlName="cnpj" [imask]="{ mask: '00.000.000/0000-00' }" />
           </div>
         </div>
         <div class="row">
@@ -93,7 +93,7 @@
           </div>
           <div class="col-5 form-group">
             <label>Código</label>
-            <input nbInput fullWidth type="text" formControlName="codigo" />
+            <input nbInput fullWidth type="text" formControlName="codigo" [imask]="{ mask: codigoMask }" />
           </div>
         </div>
         <div class="row">
@@ -103,7 +103,7 @@
           </div>
           <div class="col-4 form-group">
             <label>Telefone</label>
-            <input nbInput fullWidth type="text" formControlName="telefone" />
+            <input nbInput fullWidth type="text" formControlName="telefone" [imask]="{ mask: '(00) 00000-0000' }" />
           </div>
         </div>
         <div class="row">
@@ -144,7 +144,7 @@
         <div class="row">
           <div class="form-group col-4">
             <label>Telefone</label>
-            <input nbInput fullWidth type="text" formControlName="telefone" />
+            <input nbInput fullWidth type="text" formControlName="telefone" [imask]="{ mask: '(00) 00000-0000' }" />
           </div>
         </div>
       </form>
