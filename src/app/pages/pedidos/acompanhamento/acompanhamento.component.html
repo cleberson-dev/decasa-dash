@@ -4,7 +4,12 @@
   <nb-card-body>
     <div class="acompanhamento-header">
       <h5>Mapas de Cotação</h5>
-      <input nbInput />
+      <div class="search-bar">
+        <input nbInput placeholder="Pesquise por código" />
+        <button nbButton ghost>
+          <nb-icon icon="search"></nb-icon>
+        </button>
+      </div>
     </div>
     <ul class="card-list">
       <li *ngFor="let mapa of mapas">
@@ -20,7 +25,15 @@
         </nb-card>
       </li>
     </ul>
-    <h5>Ordens de Compra</h5>
+    <div class="acompanhamento-header">
+      <h5>Ordens de compra</h5>
+      <div class="search-bar">
+        <input nbInput placeholder="Pesquise por código" />
+        <button nbButton ghost>
+          <nb-icon icon="search"></nb-icon>
+        </button>
+      </div>
+    </div>
     <ul class="card-list">
       <li *ngFor="let ordem of ordensDeCompra">
         <nb-card>
