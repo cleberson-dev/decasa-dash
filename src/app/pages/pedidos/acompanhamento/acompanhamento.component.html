@@ -60,11 +60,18 @@
       </div>
     </div>
     <ul class="card-list">
-        <nb-card>
-          <nb-card-body class="item-card-body">
-
-          </nb-card-body>
-        </nb-card>
+        <li *ngFor = "let finalizada of comprasFinalizadas">
+          <nb-card>
+            <nb-card-body class="item-card-body">
+              <p class="title">CF {{ finalizada.codigo}}</p>
+              <div class="details">
+                <p><span>Data:</span> {{ finalizada.data }} </p>
+                <p><span>Loja:</span> {{ finalizada.loja }} </p>
+                <p><span>Preço:</span> {{ finalizada.preco }} </p>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </li>
     </ul>
   </nb-card-body>
 </nb-card>
