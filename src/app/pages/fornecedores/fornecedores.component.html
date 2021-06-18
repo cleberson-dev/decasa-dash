@@ -116,6 +116,17 @@
                 {{ getErrorMessage("municipioEndereco") }}
               </small>
             </div>
+            <div class="col-4">
+              <label>Categorias</label>
+              <nb-select multiple fullWidth formControlName="categorias" [disabled]="(departments$ | async).length === 0">
+                <nb-option-group [title]="dep.name" *ngFor="let dep of (departments$ | async)">
+                  <nb-option *ngFor="let cat of dep.categories" [value]="cat.id">{{ cat.name }}</nb-option>
+                </nb-option-group>
+              </nb-select>
+              <small *ngIf="isControlInvalid('municipioEndereco')" class="error">
+                {{ getErrorMessage("municipioEndereco") }}
+              </small>
+            </div>
           </div>
           <div class="row">
             <div class="col-2">
