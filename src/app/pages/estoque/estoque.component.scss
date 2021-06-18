@@ -50,8 +50,12 @@ h5 {
   background: purple;
 }
 
-col.resizable {
+col {
   width: fit-content;
+}
+
+col.full {
+  width: 100%;
 }
 
 td.quantidade input {

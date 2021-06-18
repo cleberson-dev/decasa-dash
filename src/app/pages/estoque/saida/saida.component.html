@@ -35,11 +35,11 @@
 
     <table>
       <colgroup>
-        <col class="resizable" />
         <col />
-        <col class="resizable" />
-        <col class="resizable" />
-        <col class="resizable" />
+        <col class="full" />
+        <col />
+        <col />
+        <col />
       </colgroup>
       <thead>
         <tr>
@@ -101,7 +101,7 @@
         </tr>
         <tr *ngFor="let row of data">
           <td>{{ row.codigo }}</td>
-          <td>{{ row.nome }}</td>
+          <td class="nome">{{ row.nome }}</td>
           <td>{{ row.unidade }}</td>
           <td>{{ row.quantidade }}</td>
           <td></td>
@@ -129,17 +129,17 @@
     <nb-card-header>Tem certeza de enviar sem nota fiscal?</nb-card-header>
     <nb-card-body>
       <button 
-        nbButton 
-        type="button" status="primary" 
-        (click)="ref.close()"
-      >
-        Claro, tenho certeza
-      </button>
-      <button 
         nbButton type="button" (click)="ref.close()"
-        style="margin-left: 1rem;"
       >
         Não, desejo voltar
+      </button>
+      <button 
+        nbButton 
+        type="button" status="primary" 
+        (click)="ref.close()" 
+        style="margin-left: 1rem;"
+      >
+        Claro, tenho certeza
       </button>
     </nb-card-body>
   </nb-card>

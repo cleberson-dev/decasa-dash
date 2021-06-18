@@ -49,3 +49,12 @@
   justify-content: space-between;
   margin-bottom: 1rem;
 }
+
+.search-bar {
+  position: relative;
+
+  button {
+    position: absolute; 
+    right: 0;
+  }
+}

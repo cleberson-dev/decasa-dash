@@ -22,6 +22,14 @@ td {
   padding: .6rem;
 }
 
+td.descricao {
+  text-align: left;
+}
+
+th, td {
+  text-align: center;
+}
+
 tr {
   border-bottom: 1px solid $borderColor;
 }
@@ -35,8 +43,12 @@ tr:nth-of-type(2n) {
   background: lighten($borderColor, 3%);
 }
 
-col.resizable {
-  width: fit-content;
+col {
+  width: fit-content
+}
+
+col.full {
+  width: 100%;
 }
 
 tfoot {

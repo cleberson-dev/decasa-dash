@@ -17,11 +17,11 @@
 
     <table>
       <colgroup>
-        <col class="resizable" />
         <col />
-        <col class="resizable" />
-        <col class="resizable" />
-        <col class="resizable" />
+        <col class="full" />
+        <col />
+        <col />
+        <col />
       </colgroup>
       <thead>
         <tr>
@@ -83,7 +83,7 @@
         </tr>
         <tr *ngFor="let row of data">
           <td>{{ row.codigo }}</td>
-          <td>{{ row.nome }}</td>
+          <td class="nome">{{ row.nome }}</td>
           <td>{{ row.unidade }}</td>
           <td>{{ row.quantidade }}</td>
           <td></td>

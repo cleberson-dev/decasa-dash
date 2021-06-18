@@ -78,3 +78,27 @@ h1 {
     align-items: center;
   }
 }
+
+.lojas-header, .modal-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-loja-form {
+  width: 60vw;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+
+  h1 {
+    margin-top: 0;
+  }
+}
