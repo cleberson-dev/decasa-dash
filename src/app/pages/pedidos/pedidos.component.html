@@ -27,6 +27,7 @@
               nbInput 
               style="width: 150px" 
               formControlName="codigo"
+              [imask]="{ mask: codigoMask }"
               (blur)="onCodigoBlur()"
               (keyup)="onCodigoChange()"
               [class]="{ invalid: isInvalidControl('codigo') }"
