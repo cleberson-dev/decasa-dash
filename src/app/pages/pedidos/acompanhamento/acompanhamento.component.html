@@ -49,5 +49,29 @@
         </nb-card>
       </li>
     </ul>
+
+    <div class="acompanhamento-header">
+      <h5>Compras Finalizadas</h5>
+      <div class="search-bar">
+        <input nbInput placeholder="Pesquise por código" />
+        <button nbButton ghost>
+          <nb-icon icon="search"></nb-icon>
+        </button>
+      </div>
+    </div>
+    <ul class="card-list">
+        <li *ngFor = "let finalizada of comprasFinalizadas">
+          <nb-card>
+            <nb-card-body class="item-card-body">
+              <p class="title">CF {{ finalizada.codigo}}</p>
+              <div class="details">
+                <p><span>Data:</span> {{ finalizada.data }} </p>
+                <p><span>Loja:</span> {{ finalizada.loja }} </p>
+                <p><span>Preço:</span> {{ finalizada.preco }} </p>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </li>
+    </ul>
   </nb-card-body>
 </nb-card>

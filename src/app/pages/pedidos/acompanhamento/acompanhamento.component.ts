@@ -37,6 +37,21 @@ export class AcompanhamentoComponent implements OnInit {
     },
   ];
 
+  comprasFinalizadas = [
+    {
+      codigo: '123456/2077',
+      data: '01/01/2077',
+      loja: 'Loja #2',
+      preco: 999.99
+    },
+    {
+      codigo: '123456/2021',
+      data: '01/01/2077',
+      loja: 'Loja #5',
+      preco: 1999.99
+    }
+  ]
+
   constructor() { }
 
   ngOnInit(): void {
