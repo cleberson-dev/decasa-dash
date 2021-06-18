@@ -5,10 +5,10 @@
     <h5>Produtos</h5>
     <table>
       <colgroup>
-        <col class="resizable" />
         <col />
-        <col class="resizable" />
-        <col class="resizable" />
+        <col class="full" />
+        <col />
+        <col />
       </colgroup>
       <thead>
         <tr>
@@ -27,6 +27,7 @@
               nbInput 
               style="width: 150px" 
               formControlName="codigo"
+              [imask]="{ mask: codigoMask }"
               (blur)="onCodigoBlur()"
               (keyup)="onCodigoChange()"
               [class]="{ invalid: isInvalidControl('codigo') }"

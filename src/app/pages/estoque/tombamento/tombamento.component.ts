@@ -33,6 +33,8 @@ export class TombamentoComponent implements OnInit {
     conferido: ['', [Validators.required]],
   });
 
+  codigoMask = /^\d+$/;
+
   constructor(
     private fb: FormBuilder
   ) { }

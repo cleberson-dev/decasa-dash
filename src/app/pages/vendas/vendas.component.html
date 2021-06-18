@@ -52,48 +52,30 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
-          <td>17/05/2021</td>
-          <td>964</td>
-          <td class="descricao">TAXAS E MULTAS</td>
-          <td class="valor income">40,00</td>
-        </tr>
-        <tr>
-          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
-          <td>17/05/2021</td>
-          <td>964</td>
-          <td class="descricao">TAXAS E MULTAS</td>
-          <td class="valor income">40,00</td>
-        </tr>
-        <tr>
-          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
-          <td>17/05/2021</td>
-          <td>964</td>
-          <td class="descricao">TAXAS E MULTAS</td>
-          <td class="valor expense">40,00</td>
-        </tr>
-        <tr>
-          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
-          <td>17/05/2021</td>
-          <td>964</td>
-          <td class="descricao">TAXAS E MULTAS</td>
-          <td class="valor income">40,00</td>
-        </tr>
-        <tr>
-          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
-          <td>17/05/2021</td>
-          <td>964</td>
-          <td class="descricao">TAXAS E MULTAS</td>
-          <td class="valor expense">40,00</td>
-        </tr>
-        <tr>
-          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
-          <td>17/05/2021</td>
-          <td>964</td>
-          <td class="descricao">TAXAS E MULTAS</td>
-          <td class="valor expense">40,00</td>
-        </tr>
+        <ng-container *ngFor="let row of data">
+          <tr>
+            <td style="cursor: pointer;">
+              <nb-icon
+                (click)="row.opened = !row.opened" 
+                [icon]="row.opened ? 'arrow-ios-downward' : 'arrow-ios-forward'">             
+              </nb-icon>
+            </td>
+            <td>{{ row.data }}</td>
+            <td>{{ row.notaFiscal }}</td>
+            <td class="descricao">{{ row.descricao }}</td>
+            <td class="valor income">{{ row.valor.toFixed(2).replace('.', ',') }}</td>
+          </tr>
+          <tr *ngIf="row.opened">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="text-align: center;">
+              <i>Informações aqui</i>
+            </td>
+            <td></td>
+          </tr>
+        </ng-container>
+        
       </tbody>
     </table>
     <div class="total">

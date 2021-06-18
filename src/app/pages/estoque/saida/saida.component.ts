@@ -37,6 +37,8 @@ export class SaidaComponent implements OnInit {
     notaFiscal: ['']
   });
 
+  codigoMask = /^\d+$/;
+
   constructor(
     private fb: FormBuilder,
     private dialogService: NbDialogService

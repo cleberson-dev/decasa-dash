@@ -47,6 +47,8 @@ export class PedidosComponent implements OnInit {
   fornecedores: Fornecedor[] = [];
 
   produtos: Produto[] = [];
+  
+  codigoMask = /^\d+$/;
 
   constructor(
     private fb: FormBuilder,

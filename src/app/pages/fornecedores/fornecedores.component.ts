@@ -7,6 +7,7 @@ import { CepService } from '../../services/cep.service';
 import { Fornecedor } from '../../types';
 import * as CustomValidators from '../../validators';
 import { Observable, of } from 'rxjs';
+import { Department } from '../produtos/produtos.component';
 
 const defaultData = {
   bairro: 'Bairro #1',
@@ -30,6 +31,24 @@ export class FornecedoresComponent implements OnInit {
   fornecedores: Fornecedor[] = [];
   ufs: ApiUF[] = [];
   municipios: ApiMunicipio[] = [];
+  departments$: Observable<Department[]> = of([
+    {
+      id: 1,
+      name: 'Departamento 1',
+      categories: [
+        { id: 1, name: 'Categoria 1' },
+        { id: 2, name: 'Categoria 2' },
+      ]
+    },
+    {
+      id: 2,
+      name: 'Departamento 2',
+      categories: [
+        { id: 3, name: 'Categoria 1' },
+        { id: 4, name: 'Categoria 2' },
+      ]
+    },
+  ]);
   
   formTitle = '';
   formSubmitText = '';
@@ -48,7 +67,8 @@ export class FornecedoresComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     municipioEndereco: ['', [Validators.required]],
     inscricaoEstadual: ['', [Validators.required]],
-    uf: ['', [Validators.required]]
+    uf: ['', [Validators.required]],
+    categorias: ['']
     // RG Representante, CPF Representante, Data RG
   });
 
@@ -61,17 +81,21 @@ export class FornecedoresComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.spinner.show();
     this.api.getFornecedores()
     .subscribe(fornecedores => {
       this.fornecedores = fornecedores;
-      // this.spinner.hide();
     });
 
     this.api.getUfs()
       .subscribe(ufs => {
         this.ufs = ufs;
       });
+
+    // TODO: CONSUMIR API QUANDO BUGS FOREM CORRIGIDOS
+    // this.api.getDepartments()
+    //   .subscribe(deps => {
+    //     this.departments$ = of(deps);
+    //   });
   }
 
   openCreate(dialog: TemplateRef<any>) {

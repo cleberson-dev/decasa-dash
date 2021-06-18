@@ -32,6 +32,8 @@ export class AlertaCompraComponent implements OnInit {
     quantidade: ['', [Validators.required]]
   });
 
+  codigoMask = /^\d+$/;
+
   constructor(
     private fb: FormBuilder
   ) { }

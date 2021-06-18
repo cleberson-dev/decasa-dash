@@ -15,6 +15,15 @@ export class VendasComponent implements OnInit {
     { title: 'Em rota', link: '/vendas/em-rota', active: false },
     { title: 'Entregue', link: '/vendas/entregue', active: false }
   ];
+
+  data = [
+    { data: '17/05/2021', notaFiscal: '964', descricao: 'TAXAS E MULTAS', valor: 40, opened: false },
+    { data: '17/05/2021', notaFiscal: '964', descricao: 'TAXAS E MULTAS', valor: 40, opened: false },
+    { data: '17/05/2021', notaFiscal: '964', descricao: 'TAXAS E MULTAS', valor: 40, opened: false },
+    { data: '17/05/2021', notaFiscal: '964', descricao: 'TAXAS E MULTAS', valor: 40, opened: false },
+    { data: '17/05/2021', notaFiscal: '964', descricao: 'TAXAS E MULTAS', valor: 40, opened: false },
+    { data: '17/05/2021', notaFiscal: '964', descricao: 'TAXAS E MULTAS', valor: 40, opened: false }
+  ];
   
   constructor() { }
 
