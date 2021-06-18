@@ -8,8 +8,12 @@ table {
   width: 100%;
   margin-top: 1rem;
 
-  col:not(.full) {
+  col {
     width: fit-content;
+  }
+
+  col.full {
+    width: 100%;
   }
 
   thead {

@@ -7,8 +7,12 @@ $borderColor: #edf1f7;
 table {
   width: 100%;
 
-  col:not(.full) {
+  col {
     width: fit-content;
+  }
+
+  col.full {
+    width: 100%;
   }
 
   thead {

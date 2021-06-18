@@ -52,13 +52,29 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of rows">
-          <td><nb-icon icon="arrow-ios-forward-outline"></nb-icon></td>
-          <td>{{ row.data }}</td>
-          <td>{{ row.pedido }}</td>
-          <td class="descricao">{{ row.descricao }}</td>
-          <td class="valor income">{{ row.valor }}</td>
-        </tr>
+        <ng-container *ngFor="let row of rows">
+          <tr>
+            <td style="cursor: pointer;">
+              <nb-icon
+                (click)="row.opened = !row.opened" 
+                [icon]="row.opened ? 'arrow-ios-downward' : 'arrow-ios-forward'">             
+              </nb-icon>
+            </td>
+            <td>{{ row.data }}</td>
+            <td>{{ row.pedido }}</td>
+            <td class="descricao">{{ row.descricao }}</td>
+            <td class="valor income">{{ row.valor }}</td>
+          </tr>
+          <tr *ngIf="row.opened">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="text-align: center;">
+              <i>Informações aqui</i>
+            </td>
+            <td></td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </nb-card-body>
