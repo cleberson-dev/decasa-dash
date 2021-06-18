@@ -41,6 +41,7 @@
               nbInput 
               style="width: 150px" 
               formControlName="codigo"
+              [imask]="{ mask: codigoMask }"
               (blur)="onCodigoBlur()"
               [class]="{ invalid: isInvalidControl('codigo') }"
             />
