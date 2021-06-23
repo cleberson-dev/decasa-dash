@@ -11,6 +11,10 @@
 </div>
 
 <div class="header-container">
+  <button nbButton [status]="apiStatusBtnColor" size="small">
+    <nb-icon [icon]="apiStatusBtnIcon"></nb-icon>
+    {{ apiStatusBtnText }}
+  </button>
   <nb-actions size="small">
     <nb-action link="/login" class="control-item" icon="person-outline"></nb-action>
     <nb-action class="control-item" icon="keypad-outline"></nb-action>

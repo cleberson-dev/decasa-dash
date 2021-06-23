@@ -5,6 +5,10 @@ import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ApiService } from '../../../services/api.service';
+import { HttpClient } from '@angular/common/http';
+
+type APIStatuses = "loading" | "working" | "not-working";
 
 @Component({
   selector: 'ngx-header',
@@ -21,12 +25,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
 
+  apiStatus: APIStatuses = "loading";
+
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userService: UserData,
               private layoutService: LayoutService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private apiService: ApiService) {
   }
 
   ngOnInit() {
@@ -43,6 +50,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
+
+    this.apiService.getDepartments()
+        .subscribe(
+          (_) => { // WORKING
+            this.apiStatus = 'working';
+          },
+          (_) => { // SOME ERROR OCCURRED
+            this.apiStatus = 'not-working';
+          }
+        ); 
   }
 
   ngOnDestroy() {
@@ -60,5 +77,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navigateHome() {
     this.menuService.navigateHome();
     return false;
+  }
+
+  get apiStatusBtnColor() {
+    switch (this.apiStatus) {
+      case "loading":
+        return "warning";
+      case "working":
+        return "success";
+      case "not-working":
+        return "danger";
+    }
+  }
+
+  get apiStatusBtnText() {
+    switch (this.apiStatus) {
+      case "loading":
+        return "Carregando API";
+      case "working":
+        return "API funcionando";
+      case "not-working":
+        return "API não está funcionando";
+    }
+  }
+
+  get apiStatusBtnIcon() {
+    switch (this.apiStatus) {
+      case "loading":
+        return "loader-outline";
+      case "working":
+        return "checkmark-outline";
+      case "not-working":
+        return "close-outline";
+    }
   }
 }
