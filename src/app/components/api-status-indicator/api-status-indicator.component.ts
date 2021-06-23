@@ -28,35 +28,32 @@ export class ApiStatusIndicatorComponent implements OnInit {
   }
 
   get color() {
-    switch (this.apiStatus) {
-      case "loading":
-        return "warning";
-      case "working":
-        return "success";
-      case "not-working":
-        return "danger";
-    }
+    const colors: Record<APIStatuses, string> = {
+      "loading": "warning",
+      "working": "success",
+      "not-working": "danger"
+    };
+
+    return colors[this.apiStatus];
   }
 
   get text() {
-    switch (this.apiStatus) {
-      case "loading":
-        return "Carregando API";
-      case "working":
-        return "API funcionando";
-      case "not-working":
-        return "API não está funcionando";
-    }
+    const options: Record<APIStatuses, string> = {
+      "loading": "Carregando API",
+      "working": "API funcionando",
+      "not-working": "API não está funcionando"
+    };
+
+    return options[this.apiStatus];
   }
 
   get icon() {
-    switch (this.apiStatus) {
-      case "loading":
-        return "loader-outline";
-      case "working":
-        return "checkmark-outline";
-      case "not-working":
-        return "close-outline";
-    }
+    const icons: Record<APIStatuses, string> = {
+      "loading": "loader-outline",
+      "working": "checkmark-outline",
+      "not-working": "close-outline"
+    };
+
+    return icons[this.apiStatus];
   }
 }
