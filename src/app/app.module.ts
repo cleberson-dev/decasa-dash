@@ -28,6 +28,7 @@ import * as fromProdutosPlataforma from './store/reducers/produtos-plataforma.re
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { APP_BASE_HREF } from '@angular/common';
+import { ApiStatusIndicatorComponent } from './components/api-status-indicator/api-status-indicator.component';
 
 @NgModule({
    declarations: [AppComponent, LoginComponent, RegistrarComponent],
