@@ -30,9 +30,9 @@ export class ModalAdicionarComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.getProdutosMaisVendidos()
-      .subscribe(produtos => {
-        this.produtos = produtos.map(produto => ({
+    this.apiService.getAllProducts()
+      .subscribe(data => {
+        this.produtos = data.content.map(produto => ({
           ...produto,
           foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
         }));

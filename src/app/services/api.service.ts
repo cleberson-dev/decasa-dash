@@ -5,6 +5,13 @@ import { Observable } from 'rxjs';
 import { Fornecedor, Produto, ProdutoLojista, UnidadeMedida } from '../types';
 import { Department } from '../pages/produtos/produtos.component';
 
+type AddProdutosItem = {
+  produtoId: number;
+  lojistaId: number; 
+  preco: number; 
+  estoqueMinimo: number;
+};
+
 type Options = {
   page?: number;
   itemsPerPage?: number;
@@ -16,7 +23,7 @@ export type ApiMunicipio = {
   ativo: boolean;
 }
 
-export type PaginatedResource = {
+export type PaginatedResource<T> = {
   last: boolean;
   totalElements: number;
   totalPages: number;
@@ -32,7 +39,7 @@ export type PaginatedResource = {
   }[];
   size: number;
   number: number;
-  content: any[];
+  content: T;
 }
 
 export type ApiUF = {
@@ -50,7 +57,7 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   getAllProducts() {
-    return this.http.get<Produto[]>(this.url + '/produtos');
+    return this.http.get<PaginatedResource<Produto[]>>(this.url + '/produtos/paginacao');
   }
 
   getProdutosLojista() {
@@ -90,7 +97,7 @@ export class ApiService {
     url += '?page=' + ((options?.page || 1) - 1);
     url += '&size=' + (options?.itemsPerPage || 10);
 
-    return this.http.get<PaginatedResource>(url);
+    return this.http.get<PaginatedResource<any>>(url);
   }
 
   getFornecedores(): Observable<Fornecedor[]> {
@@ -175,5 +182,18 @@ export class ApiService {
   criarProduto(produto: Produto) {
     const url = this.url + '/produtos';
     return this.http.post(url, produto);
+  }
+
+  addProdutos(items: AddProdutosItem[]) {
+    const url = this.url + '/lojistasProdutos';
+
+    const body = items.map(item => ({
+      lojista: { id: item.lojistaId },
+      produto: { id: item.produtoId },
+      valor: item.preco,
+      estoqueMinimo: item.estoqueMinimo
+    }));
+
+    return this.http.post(url, body);
   }
 }

@@ -109,6 +109,15 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   onSubmitHandler(products: ResumidoProdutoLojista[]) {
-    this.products.push(...products);
+    this.apiService
+      .addProdutos(products.map(p => ({
+        lojistaId: 2,
+        produtoId: p.id as number,
+        preco: p.preco,
+        estoqueMinimo: p.estoqueMinimo
+      })))
+      .subscribe(() => {
+        this.products.push(...products);
+      });
   }
 }
