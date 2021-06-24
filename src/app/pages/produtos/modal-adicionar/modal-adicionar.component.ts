@@ -58,12 +58,13 @@ export class ModalAdicionarComponent implements OnInit {
   }
 
   handleSubmitClick() {
-    this.submitClick.emit(
-      this.productsToDefinePrices.map(product => ({
-        ...product,
-        preco: this.priceForms.controls[''+product.id].value
-      }))
-    );
+    const data = this.productsToDefinePrices.map(product => ({
+      ...product,
+      preco: this.priceForms.controls['preco-'+product.id].value,
+      estoqueMinimo: this.priceForms.controls['estoqueMinimo-'+product.id].value
+    }));
+    console.log(data);
+    this.submitClick.emit(data);
     this.ref.close();
   }
 
@@ -73,11 +74,11 @@ export class ModalAdicionarComponent implements OnInit {
       Object.fromEntries([
         ...this.productsToDefinePrices.map((p) => [
           'preco-'+p.id, 
-          new FormControl('', [Validators.required, Validators.min(0)])
+          new FormControl(0, [Validators.required, Validators.min(0)])
         ]),
         ...this.productsToDefinePrices.map((p) => [
           'estoqueMinimo-'+p.id, 
-          new FormControl('', [Validators.required, Validators.min(1)])
+          new FormControl(1, [Validators.required, Validators.min(1)])
         ])
       ])
     );
