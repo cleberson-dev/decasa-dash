@@ -6,7 +6,7 @@ import telefone from 'telefone';
 import { ValidationErrors } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { TreeItem } from '../../components/tree/tree.component';
-import { ProdutoLojista } from '../../types';
+import { Produto, ProdutoLojista, UnidadeMedida } from '../../types';
 
 export type Department = {
   id: number;
@@ -24,6 +24,8 @@ export type Department = {
 })
 export class ProdutosPageComponent implements OnInit {
   produtosLojista: ProdutoLojista[] = [];
+  unidadesMedida: UnidadeMedida[] = [];
+  codigoMask = /^\d+$/;
 
   myForm = this.fb.group({
     categoria: ['', [Validators.required]],
@@ -32,12 +34,12 @@ export class ProdutosPageComponent implements OnInit {
     quantidadeApresentacao: ['', [Validators.required]],
     detalhe: ['', [Validators.required]],
     manualInstrucao: ['', [Validators.required]],
-    videoDemonstrativo: ['', [Validators.required, ]],
-    cnp: ['', [Validators.required,]],
-    pesoGrama: ['', [Validators.required]],
-    altura: ['', [Validators.required]],
-    largura: ['', [Validators.required]],
-    profundidade: ['', [Validators.required]]
+    videoDemonstrativo: ['', [Validators.required]],
+    cnp: ['', [Validators.required]],
+    pesoGrama: ['', [Validators.required, Validators.min(0)]],
+    altura: ['', [Validators.required, Validators.min(0)]],
+    largura: ['', [Validators.required, Validators.min(0)]],
+    profundidade: ['', [Validators.required, Validators.min(0)]]
   });
 
   tabs = {
@@ -160,6 +162,11 @@ export class ProdutosPageComponent implements OnInit {
       .subscribe((produtos: any) => {
         this.produtosLojista = produtos;
       });
+
+    this.apiService.getUnidadesDeMedidas()
+      .subscribe(unidadesMedida => {
+        this.unidadesMedida = unidadesMedida;
+      })
   }
   
   constructor(
@@ -169,22 +176,39 @@ export class ProdutosPageComponent implements OnInit {
   ) {}
 
   onFormSubmit() {
-    const body = {
-      categoria: this.myForm.controls['categoria'].value,
-      unidadeMedida: this.myForm.controls['unidadeMedida'].value,
-      descricao: this.myForm.controls['descricao'].value ,
+    const produto: Produto = {
+      cnp: this.myForm.controls['cnp'].value,
+      descricao: this.myForm.controls['descricao'].value,
+      foto: '',
+      produtoLiberado: false,
+      modelo: {
+        id: 1
+      },
+      categoria: {
+        id: this.myForm.controls['categoria'].value
+      },
+      unidadeMedidaProduto: {
+        id: this.myForm.controls['unidadeMedida'].value
+      },
       quantidadeApresentacao: this.myForm.controls['quantidadeApresentacao'].value,
       detalhe: this.myForm.controls['detalhe'].value,
       manualInstrucao: this.myForm.controls['manualInstrucao'].value,
       videoDemonstrativo: this.myForm.controls['videoDemonstrativo'].value,
-      cnp: this.myForm.controls['cnp'].value,
       pesoGrama: this.myForm.controls['pesoGrama'].value,
-      altura: this.myForm.controls['altura'].value,
-      largura: this.myForm.controls['largura'].value,
-      profundidade: this.myForm.controls['profundidade'].value
+      alturaCm: this.myForm.controls['altura'].value,
+      larguraCm: this.myForm.controls['largura'].value,
+      profundidadeCm: this.myForm.controls['profundidade'].value
     }
 
-    console.log(body);
+    this.apiService.criarProduto(produto)
+      .subscribe(
+        () => {
+          alert('Criado!');
+          this.myForm.reset();
+        },
+        err => {
+          console.error(err);
+        });
   }
 
   changeTab(name: string) {

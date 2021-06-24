@@ -10,7 +10,7 @@
           <nb-list-item class="fornecedores-list-item" *ngFor="let fornecedor of fornecedores">
             <ngx-checkbox [defaultValue]="isFornecedorSelecionado(fornecedor.id)" (change)="onSelect($event, fornecedor)"></ngx-checkbox>
             <div class="fornecedor" style="margin-left: 1rem">
-              <p class="nome">{{ fornecedor.nome }}</p>
+              <p class="nome">{{ fornecedor.nomeFantasia }}</p>
               <p class="detalhes">{{ fornecedor.email }} - {{ fornecedor.celular }}</p>
             </div>
           </nb-list-item>

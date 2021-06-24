@@ -19,35 +19,40 @@ export class CriarPedidosComponent implements OnInit {
       descricao: 'Produto #1',
       modelo: modelos.airMax,
       categoria: categorias.roupas,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      produtoLiberado: false,
     },
     {
       id: 2,
       descricao: 'Produto #2',
       modelo: modelos.airMax,
       categoria: categorias.roupas,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      produtoLiberado: false,
     },
     {
       id: 3,
       descricao: 'Produto #3',
       modelo: modelos.modelo5,
       categoria: categorias.smartphones,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      produtoLiberado: false,
     },
     {
       id: 4,
       descricao: 'Produto #4',
       modelo: modelos.galaxy,
       categoria: categorias.sofas,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      produtoLiberado: false,
     },
     {
       id: 5,
       descricao: 'Produto #5',
       modelo: modelos.airMax,
       categoria: categorias.roupas,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
+      produtoLiberado: false,
     }
   ];
 

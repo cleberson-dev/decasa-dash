@@ -10,9 +10,9 @@ import * as CustomValidators from '../../validators';
 })
 export class ModalFormFornecedorComponent implements OnInit {
   @Input() initialForm: Fornecedor = {
-    nome: '', cnpj: '', logradouro: '', numero: 0, bairro: '',
+    nomeFantasia: '', razaoSocial: '', cnpj: '', logradouro: '', numero: 0, bairro: '',
     cep: '', pontoReferencia: '', celular: '', telefone: '',
-    email: '', inscricaoEstadual: ''
+    email: '', inscricaoEstadual: '', categoriasFornecidas: [], departamentosFornecidos: []
   };
   @Input() title: string = 'Cadastro de Fornecedor';
   @Input() submitText: string = 'Enviar';
@@ -20,7 +20,8 @@ export class ModalFormFornecedorComponent implements OnInit {
   @Output() submitBtnClick = new EventEmitter<FormGroup>();
 
   form = this.fb.group({
-    nome: [this.initialForm.nome, Validators.required],
+    nomeFantasia: [this.initialForm.nomeFantasia, Validators.required],
+    razaoSocial: [this.initialForm.razaoSocial, Validators.required],
     cnpj: [this.initialForm.cnpj, Validators.required, CustomValidators.cnpj],
     logradouro: [this.initialForm.logradouro, Validators.required],
     numero: [this.initialForm.numero, Validators.required],

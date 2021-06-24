@@ -19,6 +19,7 @@
               nbInput
               fullWidth
               id="cnp"
+              [imask]="{ mask: codigoMask }"
             />
             <small class="error" *ngIf="isInvalidControl('cnp')">{{
               getErrorMessage("cnp")
@@ -42,8 +43,9 @@
           <div class="form-group col-4">
             <label for="unidadeMedida" class="label">Unidade de Medida <span>*</span></label>
             <nb-select id="unidadeMedida" fullWidth formControlName="unidadeMedida">
-              <nb-option value="1">unidade-medida #1</nb-option>
-              <nb-option value="2">unidade-medida #2</nb-option>
+              <nb-option *ngFor="let unidade of unidadesMedida" [value]="unidade.id">
+                {{ unidade.descricao }}
+              </nb-option>
             </nb-select>
             <small class="error" *ngIf="isInvalidControl('unidadeMedida')">{{
               getErrorMessage("unidadeMedida")
@@ -53,14 +55,13 @@
         <div class="row">
           <div class="form-group col-6">
             <label for="descricao" class="label">Descrição <span>*</span></label>
-            <textarea
-              rows="5"
+            <input
               required
               formControlName="descricao"
               nbInput
               fullWidth
               id="descricao"
-            ></textarea>
+            />
             <small class="error" *ngIf="isInvalidControl('descricao')">{{
               getErrorMessage("descricao")
             }}</small>
@@ -129,6 +130,8 @@
               nbInput
               fullWidth
               id="pesoGrama"
+              type="number"
+              min="0"
             />
             <small class="error" *ngIf="isInvalidControl('pesoGrama')">{{
               getErrorMessage("pesoGrama")
@@ -142,6 +145,7 @@
               formControlName="altura"
               nbInput
               id="altura"
+              min="0"
             />
             <small class="error" *ngIf="isInvalidControl('altura')">{{
               getErrorMessage("altura")
@@ -155,6 +159,7 @@
               formControlName="largura"
               nbInput
               id="largura"
+              min="0"
             />
             <small class="error" *ngIf="isInvalidControl('largura')">{{
               getErrorMessage("largura")
@@ -168,6 +173,7 @@
               formControlName="profundidade"
               nbInput
               id="profundidade"
+              min="0"
             />
             <small class="error" *ngIf="isInvalidControl('profundidade')">{{
               getErrorMessage("profundidade")

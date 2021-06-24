@@ -58,7 +58,8 @@ const defaultProduct = {
   foto: '',
   manualInstrucao: '',
   videoDemonstrativo: '',
-  quantidadeApresentacao: 1
+  quantidadeApresentacao: 1,
+  produtoLiberado: false
 };
 
 export const produtos: Produto[] = [

@@ -10,37 +10,35 @@ export type Produto = {
   id?: number;
   descricao: string;
   foto: string;
+  quantidadeApresentacao: number;
+  detalhe: string;
+  cnp: string;
+  produtoLiberado: boolean;
   categoria: {
-    id?: number;
-    descricao: string;
-    departamento: {
+    id: number;
+    descricao?: string;
+    departamento?: {
       id?: number;
       descricao: string;
     }
   };
   modelo: {
-    id?: number;
-    descricao: string;
-    marca: {
+    id: number;
+    descricao?: string;
+    marca?: {
       id?: number;
       descricao: string;
     }
   };
-  quantidadeApresentacao: number;
-  detalhe: string;
-  manualInstrucao: string;
-  videoDemonstrativo: string;
-  cnp: string;
+  manualInstrucao?: string;
+  videoDemonstrativo?: string;
   pesoGrama?: number;
-  dimensoes?: {
-    alturaCm?: number;
-    larguraCm?: number;
-    profundidadeCm?: number;
-  }
-  liberado?: boolean;
+  alturaCm?: number;
+  larguraCm?: number;
+  profundidadeCm?: number;
   unidadeMedidaProduto?: {
     id: number;
-    descricao: string;
+    descricao?: string;
     sigla?: string;
   }
 }
@@ -98,3 +96,8 @@ export type ResumidoProdutoLojista = Omit<
   "liberado" | "dimensoes" | "pesoGrama" | "cnp" |
   "videoDemonstrativo" | "manualInstrucao" | "detalhe" | "quantidadeApresentacao"
 >;
+
+export type UnidadeMedida = {
+  id: number;
+  descricao: string;
+}

@@ -188,7 +188,8 @@ export class MapaComponent implements OnInit {
   openDetalhesFornecedor(dialog: TemplateRef<any>) {
     const fakeFornecedor: Fornecedor = {
       id: 1,
-      nome: 'Fornecedor #1',
+      nomeFantasia: 'Fornecedor #1',
+      razaoSocial: 'Fornecedor #1',
       email: 'fornecedor@decasa.com',
       bairro: 'Bairro #1',
       logradouro: 'Logradouro #1',
@@ -198,7 +199,8 @@ export class MapaComponent implements OnInit {
       pontoReferencia: 'Próximo aquele lugar lá',
       celular: '(99) 99999-9999',
       telefone: '(99) 99999-9999',
-      inscricaoEstadual: '999999'
+      inscricaoEstadual: '999999',
+      categoriasFornecidas: [], departamentosFornecidos: []
     };
     
     const context = {

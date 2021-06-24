@@ -111,7 +111,8 @@ export class PedidosComponent implements OnInit {
 
   onCreateSupplier(form: FormGroup, ref: NbDialogRef<any>) {
     this.fornecedores.push({
-      nome: form.controls['nome'].value,
+      nomeFantasia: form.controls['nome'].value,
+      razaoSocial: form.controls['nome'].value,
       cnpj: form.controls['cnpj'].value,
       bairro: form.controls['bairro'].value,
       celular: form.controls['celular'].value,
@@ -121,7 +122,8 @@ export class PedidosComponent implements OnInit {
       numero: form.controls['numero'].value,
       pontoReferencia: form.controls['pontoReferencia'].value,
       telefone: form.controls['telefone'].value,
-      inscricaoEstadual: form.controls['inscricaoEstadual'].value
+      inscricaoEstadual: form.controls['inscricaoEstadual'].value,
+      categoriasFornecidas: [], departamentosFornecidos: []
     });
     ref.close();
   }

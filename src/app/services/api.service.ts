@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Fornecedor, Produto, ProdutoLojista } from '../types';
+import { Fornecedor, Produto, ProdutoLojista, UnidadeMedida } from '../types';
 import { Department } from '../pages/produtos/produtos.component';
 
 type Options = {
@@ -164,5 +164,16 @@ export class ApiService {
     const url = `${this.url}/produtos/cnp/${cnp}/lojista/${lojista}`;
 
     return this.http.get<Produto>(url);
+  }
+
+  getUnidadesDeMedidas() {
+    const url = this.url + '/unidadesMedidas';
+
+    return this.http.get<UnidadeMedida[]>(url);
+  }
+
+  criarProduto(produto: Produto) {
+    const url = this.url + '/produtos';
+    return this.http.post(url, produto);
   }
 }
