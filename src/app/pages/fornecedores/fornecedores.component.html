@@ -12,7 +12,7 @@
     *ngFor="let fornecedor of fornecedores"
   >
     <nb-card-body class="fornecedor-body">
-      <p class="nome">{{ fornecedor.nome }}</p>
+      <p class="nome">{{ fornecedor.nomeFantasia }}</p>
       <p class="details">{{ fornecedor.celular }} - {{ fornecedor.email }}</p>
     </nb-card-body>
   </nb-card>
@@ -41,13 +41,22 @@
         <nb-card-body class="card-body">
           <div class="row">
             <div class="col-5">
-              <label>Nome</label>
-              <input nbInput fullWidth formControlName="nome" />
-              <small *ngIf="isControlInvalid('nome')" class="error">
-                {{ getErrorMessage("nome") }}
+              <label>Nome Fantasia</label>
+              <input nbInput fullWidth formControlName="nomeFantasia" />
+              <small *ngIf="isControlInvalid('nomeFantasia')" class="error">
+                {{ getErrorMessage("nomeFantasia") }}
               </small>
             </div>
             <div class="col-5">
+              <label>Razão Social</label>
+              <input nbInput fullWidth formControlName="razaoSocial" />
+              <small *ngIf="isControlInvalid('razaoSocial')" class="error">
+                {{ getErrorMessage("razaoSocial") }}
+              </small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
               <label>CNPJ</label>
               <input
                 nbInput
@@ -59,8 +68,6 @@
                 {{ getErrorMessage("cnpj") }}
               </small>
             </div>
-          </div>
-          <div class="row">
             <div class="col-4">
               <label>E-mail</label>
               <input nbInput fullWidth type="email" formControlName="email" />
@@ -68,6 +75,8 @@
                 {{ getErrorMessage("email") }}
               </small>
             </div>
+          </div>
+          <div class="row">
             <div class="col-3">
               <label>Celular</label>
               <input
@@ -118,8 +127,8 @@
             </div>
             <div class="col-4">
               <label>Categorias</label>
-              <nb-select multiple fullWidth formControlName="categorias" [disabled]="(departments$ | async).length === 0">
-                <nb-option-group [title]="dep.name" *ngFor="let dep of (departments$ | async)">
+              <nb-select multiple fullWidth formControlName="categorias" [disabled]="departments.length === 0">
+                <nb-option-group [title]="dep.name" *ngFor="let dep of departments">
                   <nb-option *ngFor="let cat of dep.categories" [value]="cat.id">{{ cat.name }}</nb-option>
                 </nb-option-group>
               </nb-select>

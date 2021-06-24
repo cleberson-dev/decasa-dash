@@ -1,12 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { CepService } from '../../services/cep.service';
 import { Fornecedor } from '../../types';
 import * as CustomValidators from '../../validators';
-import { Observable, of } from 'rxjs';
 import { Department } from '../produtos/produtos.component';
 
 const defaultData = {
@@ -31,7 +30,7 @@ export class FornecedoresComponent implements OnInit {
   fornecedores: Fornecedor[] = [];
   ufs: ApiUF[] = [];
   municipios: ApiMunicipio[] = [];
-  departments$: Observable<Department[]> = of([
+  departments: Department[] = [
     {
       id: 1,
       name: 'Departamento 1',
@@ -48,14 +47,15 @@ export class FornecedoresComponent implements OnInit {
         { id: 4, name: 'Categoria 2' },
       ]
     },
-  ]);
+  ];
   
   formTitle = '';
   formSubmitText = '';
   formType = '';
   formFornecedor = this.fb.group({
     id: [''],
-    nome: ['', [Validators.required]],
+    nomeFantasia: ['', [Validators.required]],
+    razaoSocial: ['', [Validators.required]],
     cnpj: ['', [Validators.required, CustomValidators.cnpj]],
     logradouro: ['', [Validators.required]],
     numero: ['', [Validators.required]],
@@ -92,10 +92,10 @@ export class FornecedoresComponent implements OnInit {
       });
 
     // TODO: CONSUMIR API QUANDO BUGS FOREM CORRIGIDOS
-    // this.api.getDepartments()
-    //   .subscribe(deps => {
-    //     this.departments$ = of(deps);
-    //   });
+    this.api.getDepartments()
+      .subscribe(deps => {
+        this.departments = deps;
+      });
   }
 
   openCreate(dialog: TemplateRef<any>) {
@@ -116,9 +116,16 @@ export class FornecedoresComponent implements OnInit {
   }
 
   handleFormSubmit(ref: NbDialogRef<any>) {
+    const categoriasFornecidas = this.formFornecedor.controls['categorias'].value
+      .map(catId => ({ id: catId }));
+    
+    const departamentosFornecidos = this.formFornecedor.controls['categorias'].value.map(catId => {
+      const dep = this.departments.find(dep => !!dep.categories.find(cat => cat.id === catId));
+      return { id: dep.id }
+    });
+
     const fornecedor: Fornecedor = {
       id: this.formFornecedor.controls['id'].value || undefined,
-      nome: this.formFornecedor.controls['nome'].value,
       cnpj: this.formFornecedor.controls['cnpj'].value,
       bairro: this.formFornecedor.controls['bairro'].value,
       celular: this.formFornecedor.controls['celular'].value,
@@ -134,9 +141,12 @@ export class FornecedoresComponent implements OnInit {
       inscricaoEstadual: this.formFornecedor.controls['inscricaoEstadual'].value,
       ufRg: {
         id: this.formFornecedor.controls['uf'].value
-      }
+      },
+      nomeFantasia: this.formFornecedor.controls['nomeFantasia'].value,
+      razaoSocial: this.formFornecedor.controls['razaoSocial'].value,
+      categoriasFornecidas, departamentosFornecidos
     };
-
+    
     console.log('Submitting this: ', fornecedor);
 
     if (this.formType === 'editar') {

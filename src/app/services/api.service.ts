@@ -108,8 +108,7 @@ export class ApiService {
   criarFornecedor(novoFornecedor: Fornecedor) {
     const url = this.url + '/fornecedores/';
 
-    const body = {
-      nome: novoFornecedor.nome,
+    const body: Fornecedor = {
       cnpj: novoFornecedor.cnpj,
       logradouro: novoFornecedor.logradouro,
       bairro: novoFornecedor.bairro,
@@ -123,6 +122,10 @@ export class ApiService {
       inscricaoEstadual: novoFornecedor.inscricaoEstadual,
       ufRg: { id: novoFornecedor.ufRg.id },
       usuario: { id: 1823 },
+      categoriasFornecidas: novoFornecedor.categoriasFornecidas,
+      departamentosFornecidos: novoFornecedor.categoriasFornecidas,
+      razaoSocial: novoFornecedor.razaoSocial,
+      nomeFantasia: novoFornecedor.nomeFantasia
     };
 
     return this.http.post(url, body);

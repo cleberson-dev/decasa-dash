@@ -47,7 +47,6 @@ export type Produto = {
 
 export type Fornecedor = {
   id?: number; 
-  nome: string;
   cnpj: string;
   logradouro: string;
   numero: number;
@@ -65,12 +64,28 @@ export type Fornecedor = {
     nome?: string;
     ativo?: boolean;
   };
-  usuario?: number;
+  usuario?: {
+    id: number;
+  };
   ufRg?: {
     id: number;
     nome?: string;
   };
   inscricaoEstadual: string;
+  categoriasFornecidas: {
+    id: number;
+    descricao?: string;
+    departamento?: {
+      id: number;
+      descricao?: string;
+    }
+  }[];
+  departamentosFornecidos: {
+    id: number;
+    descricao?: string;
+  }[];
+  nomeFantasia: string;
+  razaoSocial: string;
 }
 
 export type ProdutoLojista = Produto & {
