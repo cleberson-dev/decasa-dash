@@ -24,12 +24,20 @@ nav {
       border-radius: 3px;
     }
 
-    &.active div {
+    &.disabled {
+      pointer-events: none;
+    }
+  }
+
+  a.active {
+    color: #598bff;
+
+    div {
       border-bottom-color: #598bff;
     }
+  }
 
-    &.active {
-      color: #598bff;
-    }
+  a:not(.disabled):not(.active):hover div {
+    border-bottom-color: #8f9bb3;
   }
 }

@@ -1,7 +1,7 @@
 <nb-card class="card">
   <nav>
     <a 
-      *ngFor="let tab of tabs" [class]="{ active: tab.active }"
+      *ngFor="let tab of tabs" [class]="{ active: tab.active, disabled: !tab.link }"
       [routerLink]="tab.link"
     >
       <div>

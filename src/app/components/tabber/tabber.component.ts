@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export type Tab = {
   title: string;
-  link: string;
+  link?: string;
   active?: boolean;
 }
 
