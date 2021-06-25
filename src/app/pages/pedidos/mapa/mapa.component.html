@@ -53,7 +53,7 @@
               icon="info-outline" 
               (click)="openDetalhesFornecedor(dialog)"
             ></nb-icon>
-            {{ fornecedor }}
+            {{ fornecedor.id }}
           </th>
           <th>Últimas compras</th>
         </tr>
@@ -82,25 +82,25 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let row of data; let i = index"
+          *ngFor="let detalhe of pedido.detalhesPedidos; let i = index"
           [class]="{ 'product-selected': isProductSelected(i) }"
         >
-          <td>{{ row.produto.codigo }}</td>
+          <td>{{ getProduto(detalhe.produto.id).cnp }}</td>
+          <!-- (click)="openRowDetails(dialog, detalhe)" -->
           <td 
-            (click)="openRowDetails(dialog, row)"
             class="clickable"
           >
-            {{ row.produto.nome }}
+            {{ getProduto(detalhe.produto.id).descricao }}
           </td>
-          <td>{{ row.produto.unidade }}</td>
-          <td>{{ row.produto.quantidade }}</td>
+          <td>{{ getProduto(detalhe.produto.id).unidadeMedidaProduto.descricao }}</td>
+          <td>{{ detalhe.quantidade }}</td>
           <td
-            *ngFor="let preco of row.precos; let j = index"
+            *ngFor="let preco of detalhe.precos; let j = index"
             [class]="{
-              menor: j === row.menorPrecoIdx,
+              menor: j === detalhe.menorPrecoIdx,
               preco: true,
               'menor-fornecedor': j === menorSomaIdx,
-              selecionado: j === row.selecionado,
+              selecionado: j === detalhe.selecionado,
               clickable: !!preco,
               hovered: j === hoveredFornecedorIdx
             }"
@@ -110,9 +110,9 @@
           </td>
           <td [class]="[
             'last-prices', 
-            getPriceStatus(row.precos[row.menorPrecoIdx], row.precoUltimasCompras)
+            getPriceStatus(detalhe.precos[detalhe.menorPrecoIdx], detalhe.precoUltimasCompras)
           ]">
-            {{ row.precoUltimasCompras }}
+            {{ detalhe.precoUltimasCompras }}
           </td>
         </tr>
       </tbody>

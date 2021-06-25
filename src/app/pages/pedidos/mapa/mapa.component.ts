@@ -1,7 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { Tab } from '../../../components/tabber/tabber.component';
-import { Fornecedor } from '../../../types';
+import { ApiService } from '../../../services/api.service';
+import { Fornecedor, Produto } from '../../../types';
 
 type MapRow = {
   produto: {
@@ -22,6 +23,28 @@ enum PriceStatus {
   Neutral = "neutro"
 }
 
+
+type CustomPedido = {
+  id: number;
+  lojista: {
+    id: number;
+  };
+  detalhesPedidos: {
+    id?: number;
+    produto: {
+      id: number;
+    };
+    quantidade: number;
+    precoUltimasCompras: number;
+    precos?: number[];
+    menorPrecoIdx?: number;
+    selecionado?: number;
+  }[];
+  fornecedores: {
+    id: number;
+  }[];
+}
+
 @Component({
   selector: 'ngx-mapa',
   templateUrl: './mapa.component.html',
@@ -30,7 +53,32 @@ enum PriceStatus {
 export class MapaComponent implements OnInit {
   easyButtonsValue = '';
 
-  fornecedores = ['F1', 'F2', 'F3', 'F4'];
+  fornecedores: Fornecedor[] = [];
+  produtos: Produto[] = [];
+
+  pedido: CustomPedido = {
+    id: 1,
+    lojista: { id: 3 },
+    detalhesPedidos: [
+      { 
+        produto: { id: 23 }, 
+        quantidade: 3, 
+        precos: [1.49],
+        precoUltimasCompras: 9.99,
+        menorPrecoIdx: 0
+      },
+      { 
+        produto: { id: 22 }, 
+        quantidade: 2,
+        precos: [2.98],
+        precoUltimasCompras: 9.99,
+        menorPrecoIdx: 0
+      },
+    ],
+    fornecedores: [
+      { id: 19 }
+    ],
+  };
 
   data: MapRow[] = [
     { 
@@ -80,7 +128,7 @@ export class MapaComponent implements OnInit {
     }
   ];
 
-  somaFornecedores: (number | undefined)[] = new Array(this.data[0].precos.length).fill(0);
+  somaFornecedores: (number | undefined)[] = new Array(this.pedido.detalhesPedidos[0].precos.length).fill(0);
   menorSomaIdx: number;
 
   hoveredFornecedorIdx?: number;
@@ -93,24 +141,25 @@ export class MapaComponent implements OnInit {
   ];
 
   constructor(
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private apiService: ApiService
   ) { }
 
   ngOnInit(): void {
-    for (let i = 0; i < this.data.length; i += 1) {
-      const { precos } = this.data[i];
+    for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
+      const { precos } = this.pedido.detalhesPedidos[i];
 
       for (let j = 0; j < precos.length; j += 1) {
-        this.somaFornecedores[j] += this.data[i].precos[j] || 0;
+        this.somaFornecedores[j] += this.pedido.detalhesPedidos[i].precos[j] || 0;
 
         if (precos[j] === undefined) continue;
-        if (this.data[i].menorPrecoIdx === undefined) {
-          this.data[i].menorPrecoIdx = j;
+        if (this.pedido.detalhesPedidos[i].menorPrecoIdx === undefined) {
+          this.pedido.detalhesPedidos[i].menorPrecoIdx = j;
           continue;
         }
 
-        if (precos[j] < precos[this.data[i].menorPrecoIdx]) {
-          this.data[i].menorPrecoIdx = j;
+        if (precos[j] < precos[this.pedido.detalhesPedidos[i].menorPrecoIdx]) {
+          this.pedido.detalhesPedidos[i].menorPrecoIdx = j;
         }
       }
     }
@@ -125,7 +174,20 @@ export class MapaComponent implements OnInit {
       return prevIdx;
     }, 
     undefined);
-    console.log(this.somaFornecedores, this.menorSomaIdx);
+
+    for (let detalhe of this.pedido.detalhesPedidos) {
+      this.apiService.getProduto(detalhe.produto.id)
+        .subscribe(produto => {
+          this.produtos.push(produto);
+        });
+    }
+
+    for (let fornecedor of this.pedido.fornecedores) {
+      this.apiService.getFornecedor(fornecedor.id)
+        .subscribe(fornecedor => {
+          this.fornecedores.push(fornecedor);
+        });
+    }
   }
 
   openRowDetails(dialog: TemplateRef<any>, row: MapRow) {
@@ -163,24 +225,24 @@ export class MapaComponent implements OnInit {
   selectProductSupplier(rowIdx: number, fornecedorIdx: number) {
     this.easyButtonsValue = '';
     
-    if (this.data[rowIdx].selecionado === fornecedorIdx) {
-      this.data[rowIdx].selecionado = undefined;
+    if (this.pedido.detalhesPedidos[rowIdx].selecionado === fornecedorIdx) {
+      this.pedido.detalhesPedidos[rowIdx].selecionado = undefined;
       return;
     }
     
-    this.data[rowIdx].selecionado = fornecedorIdx;
+    this.pedido.detalhesPedidos[rowIdx].selecionado = fornecedorIdx;
   }
 
   onEasyButtonsChange(type: string) {
     this.easyButtonsValue = type;
 
     if (type === 'unitario') {
-      for (let i = 0; i < this.data.length; i += 1) {
-        this.data[i].selecionado = this.data[i].menorPrecoIdx;
+      for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
+        this.pedido.detalhesPedidos[i].selecionado = this.pedido.detalhesPedidos[i].menorPrecoIdx;
       }
     } else if (type === 'global') {
-      for (let i = 0; i < this.data.length; i += 1) {
-        this.data[i].selecionado = this.menorSomaIdx;
+      for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
+        this.pedido.detalhesPedidos[i].selecionado = this.menorSomaIdx;
       }
     }
   }
@@ -212,30 +274,30 @@ export class MapaComponent implements OnInit {
   }
 
   isGloballySelected(i: number) {
-    return this.easyButtonsValue === 'global' && this.data[0].selecionado === i;
+    return this.easyButtonsValue === 'global' && this.pedido.detalhesPedidos[0].selecionado === i;
   }
 
   isProductSelected(i: number): boolean {
-    return this.data[i].selecionado !== undefined;
+    return this.pedido.detalhesPedidos[i].selecionado !== undefined;
   }
 
   get supplierSelected(): number | undefined {
-    if (!this.data[0].selecionado) return undefined;
+    if (!this.pedido.detalhesPedidos[0].selecionado) return undefined;
 
-    const idx = this.data[0].selecionado;
-    return this.data.every(row => row.selecionado === idx) ? idx : undefined; 
+    const idx = this.pedido.detalhesPedidos[0].selecionado;
+    return this.pedido.detalhesPedidos.every(row => row.selecionado === idx) ? idx : undefined; 
   }
 
   selectSupplier(idx: number) {
     if (this.supplierSelected !== undefined && this.supplierSelected === idx) {
-      for (let i = 0; i < this.data.length; i += 1) {
-        this.data[i].selecionado = undefined;
+      for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
+        this.pedido.detalhesPedidos[i].selecionado = undefined;
       }
       return;
     }
     
-    for (let i = 0; i < this.data.length; i += 1) {
-      this.data[i].selecionado = idx;
+    for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
+      this.pedido.detalhesPedidos[i].selecionado = idx;
     }
 
     this.easyButtonsValue = '';
@@ -247,5 +309,9 @@ export class MapaComponent implements OnInit {
     };
 
     this.dialogService.open(dialog, { context });
+  }
+
+  getProduto(produtoId: number) {
+    return this.produtos.find(p => p.id === produtoId);
   }
 }
