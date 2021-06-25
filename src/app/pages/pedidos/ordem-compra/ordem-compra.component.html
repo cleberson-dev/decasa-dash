@@ -28,13 +28,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let row of data">
-            <td>{{ row.props.codigo }}</td>
-            <td class="full">{{ row.props.produto }}</td>
-            <td>{{ row.props.quantidade }}</td>
-            <td>{{ row.props.unidade }}</td>
-            <td>{{ row.props.precoUnitario }}</td>
-            <td>{{ row.subTotal }}</td>
+          <tr *ngFor="let detalhe of compra.detalhesCompras">
+            <td>{{ getProduto(detalhe.produto.id).cnp }}</td>
+            <td class="full">{{ getProduto(detalhe.produto.id).descricao }}</td>
+            <td>{{ detalhe.quantidade }}</td>
+            <td>{{ getProduto(detalhe.produto.id).unidadeMedidaProduto.descricao }}</td>
+            <td>{{ detalhe.valor }}</td>
+            <td>{{ getSubTotal(detalhe.valor, detalhe.quantidade) }}</td>
           </tr>
         </tbody>
       </table>
@@ -44,9 +44,9 @@
 
       <h5>Fornecedor</h5>
       <div class="fornecedor">
-        <p class="nome">{{ fornecedor.nome }}</p>
-        <p><span>Vendedor:</span> {{ fornecedor.vendedor }}</p>
-        <p><span>Tel.:</span> {{ fornecedor.telefone }}</p>
+        <p class="nome">{{ fornecedor.nomeFantasia }}</p>
+        <p><span>Vendedor:</span> --</p>
+        <p><span>Tel.:</span> {{ fornecedor.telefone || fornecedor.celular }}</p>
         <p><span>E-mail:</span> {{ fornecedor.email }}</p>
       </div>
     </nb-card-body>

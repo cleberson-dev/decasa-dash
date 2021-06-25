@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
+import { ApiService } from '../../../services/api.service';
+import { CompraMaterial, Fornecedor, Produto } from '../../../types';
 type RowProps = {
   codigo: string;
   produto: string;
@@ -45,17 +47,48 @@ export class OrdemCompraComponent implements OnInit {
     new Row({ codigo: '00002', produto: 'Produto #2', quantidade: 2, unidade: 'cm', precoUnitario: 1.99 })
   ];
 
-  fornecedor = { nome: 'Centro Elétrico', vendedor: 'João Renato', telefone: '(99) 99999-9999', email: 'email@decasa.com' };
+  compra: CompraMaterial = { 
+    lojista: { id: 2 },
+    fornecedor: { id: 19 },
+    valor: 199,
+    detalhesCompras: [
+      { produto: { id: 23 }, valor: 199, quantidade: 1 }
+    ]
+  }
 
-  constructor() { }
+  fornecedor: Fornecedor;
+  produtos: Produto[] = [];
+
+  constructor(
+    private apiService: ApiService
+  ) { }
 
   ngOnInit(): void {
     this.ocOptions = ['123456/2021', '333333/2021'];
     this.filteredOcOptions$ = of(this.ocOptions);
+    this.apiService.getFornecedor(this.compra.fornecedor.id)
+      .subscribe(fornecedor => {
+        this.fornecedor = fornecedor;    
+      });
+
+    for (const detalheCompra of this.compra.detalhesCompras) {
+      this.apiService.getProduto(detalheCompra.produto.id)
+        .subscribe(produto => {
+          this.produtos.push(produto);    
+        });
+    } 
   }
 
   get precoTotal(): number {
     return this.data.reduce((prev, cur) => prev + cur.subTotal, 0);
+  }
+
+  getSubTotal(precoUnitario: number, quantidade: number) {
+    return precoUnitario * quantidade;
+  }
+
+  getProduto(id: number) {
+    return this.produtos.find(p => p.id === id);
   }
 
   onOCInputChange() {

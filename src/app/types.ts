@@ -101,3 +101,23 @@ export type UnidadeMedida = {
   id: number;
   descricao: string;
 }
+
+export type CompraMaterial = {
+  id?: number;
+  lojista: {
+    id: number;
+  };
+  fornecedor: {
+    id: number;
+  };
+  valor: number;
+  detalhesCompras: {
+    id?: number;
+    produto: {
+      id: number;
+    };
+    valor: number;
+    quantidade: number;
+  }[];
+  dataCompra?: string;
+}

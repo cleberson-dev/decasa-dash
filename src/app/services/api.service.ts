@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Fornecedor, Produto, ProdutoLojista, UnidadeMedida } from '../types';
+import { CompraMaterial, Fornecedor, Produto, ProdutoLojista, UnidadeMedida } from '../types';
 import { Department } from '../pages/produtos/produtos.component';
 
 type AddProdutosItem = {
@@ -195,5 +195,28 @@ export class ApiService {
     }));
 
     return this.http.post(url, body);
+  }
+
+  getComprasPorLojista(lojistaId: number = 2) {
+    const url = this.url + `/comprasMateriais/lojista/${lojistaId}`;
+
+    return this.http.get<PaginatedResource<CompraMaterial>>(url);
+  }
+
+  gerarCompras(compras: CompraMaterial[]) {
+    const url = this.url + '/comprasMateriais';
+
+    return this.http.post(url, compras);
+  }
+
+  getFornecedor(fornecedorId: number) {
+    const url = this.url + '/fornecedores/' + fornecedorId;
+    return this.http.get<Fornecedor>(url);
+  }
+
+  getProduto(produtoId: number) {
+    const url = this.url + '/produtos/' + produtoId;
+
+    return this.http.get<Produto>(url);
   }
 }
