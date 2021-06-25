@@ -107,19 +107,15 @@ export type CompraMaterial = {
   lojista: {
     id: number;
   };
-  fornecedor: {
-    id: number;
-  };
+  fornecedor: Fornecedor;
   valor: number;
+  dataCompra?: string;
   detalhesCompras: {
     id?: number;
-    produto: {
-      id: number;
-    };
+    produto: Produto;
     valor: number;
     quantidade: number;
   }[];
-  dataCompra?: string;
 }
 
 export type Cotacao = {

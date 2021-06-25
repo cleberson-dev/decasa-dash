@@ -1,7 +1,7 @@
 <ngx-tabber [tabs]="tabs"></ngx-tabber>
 
 <nb-card>
-  <div class="card-body-wrapper">
+  <div class="card-body-wrapper" *ngIf="compra">
     <nb-card-body class="oc-card-body">
       <div class="head">
         <p class="mapa">Nº do Mapa: <span>123456/2021</span></p>
@@ -29,10 +29,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let detalhe of compra.detalhesCompras">
-            <td>{{ getProduto(detalhe.produto.id).cnp }}</td>
-            <td class="full">{{ getProduto(detalhe.produto.id).descricao }}</td>
+            <td>{{ detalhe.produto.cnp }}</td>
+            <td class="full">{{ detalhe.produto.descricao }}</td>
             <td>{{ detalhe.quantidade }}</td>
-            <td>{{ getProduto(detalhe.produto.id).unidadeMedidaProduto.descricao }}</td>
+            <td>{{ detalhe.produto.unidadeMedidaProduto.descricao }}</td>
             <td>{{ detalhe.valor }}</td>
             <td>{{ getSubTotal(detalhe.valor, detalhe.quantidade) }}</td>
           </tr>
@@ -44,10 +44,10 @@
 
       <h5>Fornecedor</h5>
       <div class="fornecedor">
-        <p class="nome">{{ fornecedor.nomeFantasia }}</p>
+        <p class="nome">{{ compra.fornecedor.nomeFantasia }}</p>
         <p><span>Vendedor:</span> --</p>
-        <p><span>Tel.:</span> {{ fornecedor.telefone || fornecedor.celular }}</p>
-        <p><span>E-mail:</span> {{ fornecedor.email }}</p>
+        <p><span>Tel.:</span> {{ compra.fornecedor.telefone || compra.fornecedor.celular }}</p>
+        <p><span>E-mail:</span> {{ compra.fornecedor.email }}</p>
       </div>
     </nb-card-body>
   </div>

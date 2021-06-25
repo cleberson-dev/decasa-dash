@@ -65,7 +65,7 @@ const routes: Routes = [{
       component: MapaComponent
     },
     {
-      path: 'pedidos/ordem-compra',
+      path: 'pedidos/compra/:compraId',
       component: OrdemCompraComponent
     },
     {

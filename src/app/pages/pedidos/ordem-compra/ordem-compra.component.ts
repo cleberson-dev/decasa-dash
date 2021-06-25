@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 import { CompraMaterial, Fornecedor, Produto } from '../../../types';
@@ -47,36 +48,21 @@ export class OrdemCompraComponent implements OnInit {
     new Row({ codigo: '00002', produto: 'Produto #2', quantidade: 2, unidade: 'cm', precoUnitario: 1.99 })
   ];
 
-  compra: CompraMaterial = { 
-    lojista: { id: 2 },
-    fornecedor: { id: 19 },
-    valor: 199,
-    detalhesCompras: [
-      { produto: { id: 23 }, valor: 199, quantidade: 1 }
-    ]
-  }
-
-  fornecedor: Fornecedor;
-  produtos: Produto[] = [];
+  compra: CompraMaterial;
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.ocOptions = ['123456/2021', '333333/2021'];
-    this.filteredOcOptions$ = of(this.ocOptions);
-    this.apiService.getFornecedor(this.compra.fornecedor.id)
-      .subscribe(fornecedor => {
-        this.fornecedor = fornecedor;    
+    this.route.paramMap
+      .pipe(
+        flatMap(params => this.apiService.getCompra(Number(params.get('compraId'))))
+      )
+      .subscribe(compra => {
+        this.compra = compra;
       });
-
-    for (const detalheCompra of this.compra.detalhesCompras) {
-      this.apiService.getProduto(detalheCompra.produto.id)
-        .subscribe(produto => {
-          this.produtos.push(produto);    
-        });
-    } 
   }
 
   get precoTotal(): number {
@@ -85,23 +71,5 @@ export class OrdemCompraComponent implements OnInit {
 
   getSubTotal(precoUnitario: number, quantidade: number) {
     return precoUnitario * quantidade;
-  }
-
-  getProduto(id: number) {
-    return this.produtos.find(p => p.id === id);
-  }
-
-  onOCInputChange() {
-
-  }
-
-  onOCAutoChange(e: any) {
-    
-  }
-
-  getFilteredOcOptions(value: string): Observable<string[]> {
-    return of(value).pipe(
-      map(filterString => this.ocOptions.filter(optionValue => optionValue.toLowerCase().includes(filterString.toLowerCase())))
-    )
   }
 }
