@@ -30,8 +30,8 @@ export class PedidosComponent implements OnInit {
 
   tabs: Tab[] = [
     { title: 'Cotação', link: '/pedidos', active: true },
-    { title: 'Mapa', link: '/pedidos/mapa' },
-    { title: 'Ordem de compra', link: '/pedidos/ordem-compra' },
+    { title: 'Mapa' },
+    { title: 'Ordem de compra' },
     { title: 'Acompanhamento', link: '/pedidos/acompanhamento' },
   ];
 
