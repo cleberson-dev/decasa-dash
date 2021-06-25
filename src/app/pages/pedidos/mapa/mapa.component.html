@@ -22,16 +22,17 @@
     </div>
     <table>
       <colgroup>
-        <col class="resizable" />
-        <col class="produtos-col" />
-        <col class="resizable" />
-        <col class="resizable" />
-        <col class="resizable" />
+        <col />
+        <col class="full" />
+        <col />
+        <col />
+        <col *ngFor="let _ of fornecedores" />
+        <col />
       </colgroup>
       <thead>
         <tr>
           <th colspan="4">Pedido (RFQ)</th>
-          <th colspan="4" class="bordered">Fornecedores</th>
+          <th [attr.colspan]="pedido.fornecedores.length" class="bordered">Fornecedores</th>
           <th></th>
         </tr>
         <tr>
@@ -40,7 +41,7 @@
           <th>Un.</th>
           <th>Qtd.</th>
           <th
-            *ngFor="let fornecedor of fornecedores; let i = index"
+            *ngFor="let fornecedor of pedido.fornecedores; let i = index"
             [class]="{
               fornecedor: true,
               bordered: true,
@@ -85,14 +86,14 @@
           *ngFor="let detalhe of pedido.detalhesPedidos; let i = index"
           [class]="{ 'product-selected': isProductSelected(i) }"
         >
-          <td>{{ getProduto(detalhe.produto.id).cnp }}</td>
+          <td>{{ getProduto(detalhe.produto.id)?.cnp || "--" }}</td>
           <!-- (click)="openRowDetails(dialog, detalhe)" -->
           <td 
             class="clickable"
           >
-            {{ getProduto(detalhe.produto.id).descricao }}
+            {{ getProduto(detalhe.produto.id)?.descricao || "--" }}
           </td>
-          <td>{{ getProduto(detalhe.produto.id).unidadeMedidaProduto.descricao }}</td>
+          <td>{{ getProduto(detalhe.produto.id)?.unidadeMedidaProduto.descricao || "--" }}</td>
           <td>{{ detalhe.quantidade }}</td>
           <td
             *ngFor="let preco of detalhe.precos; let j = index"

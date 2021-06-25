@@ -58,17 +58,17 @@ td.preco {
   width: fit-content;
 }
 
-.resizable {
+col {
   width: fit-content;
+}
+
+col.full {
+  width: 100%;
 }
 
 th {
   text-overflow: ellipsis;
   overflow-x: hidden;
-}
-
-.produtos-col {
-  width: 100%;
 }
 
 thead tr:first-child th {
