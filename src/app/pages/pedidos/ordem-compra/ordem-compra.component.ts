@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
@@ -52,7 +53,8 @@ export class OrdemCompraComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -60,9 +62,13 @@ export class OrdemCompraComponent implements OnInit {
       .pipe(
         flatMap(params => this.apiService.getCompra(Number(params.get('compraId'))))
       )
-      .subscribe(compra => {
-        this.compra = compra;
-      });
+      .subscribe(
+        compra => (this.compra = compra),
+        ({ error, status }) => {
+          if (status === 500) this.toastrService.danger(error.titulo, 'Algo deu errado =(');
+          console.error(error);
+        }
+      );
   }
 
   get precoTotal(): number {

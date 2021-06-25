@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { flatMap } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
@@ -131,7 +131,8 @@ export class MapaComponent implements OnInit {
   constructor(
     private dialogService: NbDialogService,
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastrService: NbToastrService,
   ) { }
 
   get controle(): string {
@@ -200,7 +201,12 @@ export class MapaComponent implements OnInit {
       .pipe(
         flatMap(params => this.apiService.getCotacoesPorPedido(Number(params.get('pedidoId'))))
       )
-    .subscribe(this.transformCotacoes);
+    .subscribe(
+      this.transformCotacoes,
+      ({ error, status }) => {
+        if (status === 500) this.toastrService.danger(error.titulo || 'Sem o que dizer...', 'Algo deu errado =(');
+      }
+    );
 
 
 
