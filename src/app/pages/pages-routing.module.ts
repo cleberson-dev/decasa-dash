@@ -61,7 +61,7 @@ const routes: Routes = [{
       component: CriarPedidosComponent
     },
     {
-      path: 'pedidos/mapa',
+      path: 'pedidos/:pedidoId/mapa',
       component: MapaComponent
     },
     {

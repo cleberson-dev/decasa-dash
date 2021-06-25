@@ -1,8 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
+import { flatMap } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
-import { Fornecedor, Produto } from '../../../types';
+import { Cotacao, Fornecedor, Produto } from '../../../types';
 
 type MapRow = {
   produto: {
@@ -31,18 +33,17 @@ type CustomPedido = {
   };
   detalhesPedidos: {
     id?: number;
-    produto: {
-      id: number;
-    };
+    produto: Produto;
     quantidade: number;
-    precoUltimasCompras: number;
-    precos?: number[];
+    precoUltimasCompras?: number;
+    precos?: {
+      fornecedorId: number;
+      valor: number;
+    }[];
     menorPrecoIdx?: number;
     selecionado?: number;
   }[];
-  fornecedores: {
-    id: number;
-  }[];
+  fornecedores: Fornecedor[];
 }
 
 @Component({
@@ -59,25 +60,8 @@ export class MapaComponent implements OnInit {
   pedido: CustomPedido = {
     id: 1,
     lojista: { id: 3 },
-    detalhesPedidos: [
-      { 
-        produto: { id: 23 }, 
-        quantidade: 3, 
-        precos: [1.49],
-        precoUltimasCompras: 9.99,
-        menorPrecoIdx: 0
-      },
-      { 
-        produto: { id: 22 }, 
-        quantidade: 2,
-        precos: [2.98],
-        precoUltimasCompras: 9.99,
-        menorPrecoIdx: 0
-      },
-    ],
-    fornecedores: [
-      { id: 19 }
-    ],
+    detalhesPedidos: [],
+    fornecedores: []
   };
 
   data: MapRow[] = [
@@ -128,7 +112,11 @@ export class MapaComponent implements OnInit {
     }
   ];
 
-  somaFornecedores: (number | undefined)[] = new Array(this.pedido.detalhesPedidos[0].precos.length).fill(0);
+  somaFornecedores: (number | undefined)[] = 
+    this.pedido.detalhesPedidos.length > 0 ? 
+      new Array(this.pedido.detalhesPedidos[0]?.precos.length).fill(0) 
+      : [];
+  
   menorSomaIdx: number;
 
   hoveredFornecedorIdx?: number;
@@ -142,16 +130,20 @@ export class MapaComponent implements OnInit {
 
   constructor(
     private dialogService: NbDialogService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private route: ActivatedRoute
   ) { }
 
+  get controle(): string {
+    return `${String(this.pedido.id).padStart(6, '0')}/2021`;
+  }
 
   defineProductCheapestPrice() {
     for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
       const { precos } = this.pedido.detalhesPedidos[i];
 
       for (let j = 0; j < precos.length; j += 1) {
-        this.somaFornecedores[j] += this.pedido.detalhesPedidos[i].precos[j] || 0;
+        this.somaFornecedores[j] += this.pedido.detalhesPedidos[i].precos[j].valor || 0;
 
         if (precos[j] === undefined) continue;
         if (this.pedido.detalhesPedidos[i].menorPrecoIdx === undefined) {
@@ -179,9 +171,43 @@ export class MapaComponent implements OnInit {
     undefined);
   }
 
+  transformCotacoes(cotacoes: Cotacao[]) {
+    for (const cotacao of cotacoes) {
+      const fornecedorIdx = this.pedido.fornecedores.findIndex(f => f.id === cotacao.fornecedor.id);
+      if (fornecedorIdx === -1) {
+        this.pedido.fornecedores.push(cotacao.fornecedor);
+      }
+      
+      const detalhePedidoIdx = this.pedido.detalhesPedidos.findIndex(detalhe => detalhe.produto.id === cotacao.detalhePedido.produto.id);
+      if (detalhePedidoIdx === -1) {
+        this.pedido.detalhesPedidos.push({ 
+          produto: cotacao.detalhePedido.produto,
+          quantidade: cotacao.detalhePedido.quantidade,
+          precos: []
+        });
+      }
+
+      this.pedido.detalhesPedidos[detalhePedidoIdx].precos.push({ 
+        fornecedorId: cotacao.fornecedor.id as number, 
+        valor: cotacao.preco 
+      });
+    }
+    console.log(this.pedido);
+  }
+
   ngOnInit(): void {
+    this.route.paramMap
+      .pipe(
+        flatMap(params => this.apiService.getCotacoesPorPedido(Number(params.get('pedidoId'))))
+      )
+    .subscribe(this.transformCotacoes);
+
+
+
     this.defineProductCheapestPrice();
     this.defineCheapestSupplier();
+
+
     
     for (let detalhe of this.pedido.detalhesPedidos) {
       this.apiService.getProduto(detalhe.produto.id)

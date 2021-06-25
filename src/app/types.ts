@@ -121,3 +121,31 @@ export type CompraMaterial = {
   }[];
   dataCompra?: string;
 }
+
+export type Cotacao = {
+  id: number;
+  preco: number;
+  detalhePedido: {
+    produto: Produto;
+    quantidade: number;
+  };
+  fornecedor: Fornecedor;
+  dataCotacao?: string;
+}
+
+export type Pedido = {
+  id: number;
+  lojista: {
+    id: number;
+  };
+  detalhesPedidos: {
+    id?: number;
+    produto: {
+      id: number;
+    };
+    quantidade: number;
+  }[];
+  fornecedores: {
+    id: number;
+  }[];
+}

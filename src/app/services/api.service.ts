@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { CompraMaterial, Fornecedor, Produto, ProdutoLojista, UnidadeMedida } from '../types';
+import { CompraMaterial, Cotacao, Fornecedor, Produto, ProdutoLojista, UnidadeMedida } from '../types';
 import { Department } from '../pages/produtos/produtos.component';
 
 type AddProdutosItem = {
@@ -218,5 +218,10 @@ export class ApiService {
     const url = this.url + '/produtos/' + produtoId;
 
     return this.http.get<Produto>(url);
+  }
+
+  getCotacoesPorPedido(pedidoId: number) {
+    const url = this.url + '/cotacoes/pedido/' + pedidoId;
+    return this.http.get<Cotacao[]>(url);
   }
 }

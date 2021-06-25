@@ -18,7 +18,7 @@
           <nb-radio value="global">Menor global</nb-radio>
         </nb-radio-group>
       </div>
-      <p class="mapa">Nº de Controle: <span>123456/2021</span></p>
+      <p class="mapa">Nº de Controle: <span>{{ controle }}</span></p>
     </div>
     <table>
       <colgroup>
@@ -32,7 +32,11 @@
       <thead>
         <tr>
           <th colspan="4">Pedido (RFQ)</th>
-          <th [attr.colspan]="pedido.fornecedores.length" class="bordered">Fornecedores</th>
+          <th
+            *ngIf="pedido.fornecedores.length > 0" 
+            [attr.colspan]="pedido.fornecedores.length" 
+            class="bordered"
+          >Fornecedores</th>
           <th></th>
         </tr>
         <tr>
@@ -102,16 +106,16 @@
               preco: true,
               'menor-fornecedor': j === menorSomaIdx,
               selecionado: j === detalhe.selecionado,
-              clickable: !!preco,
+              clickable: !!preco.valor,
               hovered: j === hoveredFornecedorIdx
             }"
-            (click)="preco && selectProductSupplier(i, j)"
+            (click)="preco.valor && selectProductSupplier(i, j)"
           >
-            {{ preco ? preco.toFixed(2) : "--" }}
+            {{ preco ? preco.valor.toFixed(2) : "--" }}
           </td>
           <td [class]="[
             'last-prices', 
-            getPriceStatus(detalhe.precos[detalhe.menorPrecoIdx], detalhe.precoUltimasCompras)
+            getPriceStatus(detalhe.precos[detalhe.menorPrecoIdx].valor, detalhe.precoUltimasCompras)
           ]">
             {{ detalhe.precoUltimasCompras }}
           </td>
