@@ -145,7 +145,8 @@ export class MapaComponent implements OnInit {
     private apiService: ApiService
   ) { }
 
-  ngOnInit(): void {
+
+  defineProductCheapestPrice() {
     for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
       const { precos } = this.pedido.detalhesPedidos[i];
 
@@ -163,7 +164,9 @@ export class MapaComponent implements OnInit {
         }
       }
     }
+  }
 
+  defineCheapestSupplier() {
     this.menorSomaIdx = this.somaFornecedores.reduce((prevIdx, curVal, curIdx) => {
       if (
         (prevIdx === undefined && !Number.isNaN(curVal) && curVal !== 0)
@@ -174,7 +177,12 @@ export class MapaComponent implements OnInit {
       return prevIdx;
     }, 
     undefined);
+  }
 
+  ngOnInit(): void {
+    this.defineProductCheapestPrice();
+    this.defineCheapestSupplier();
+    
     for (let detalhe of this.pedido.detalhesPedidos) {
       this.apiService.getProduto(detalhe.produto.id)
         .subscribe(produto => {
