@@ -59,8 +59,8 @@ export class PedidosComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getAllProducts()
-      .subscribe(produtos => {
-        this.produtos = produtos;
+      .subscribe(data => {
+        this.produtos = data.content;
         this.autoOptions = this.produtos.map(p => p.descricao);
         this.suggestedOptions$ = of(this.autoOptions);
       });
@@ -165,7 +165,7 @@ export class PedidosComponent implements OnInit {
 
   onConfirmBtnClick() {
     const body = {
-      lojista: { id: 1 },
+      lojista: { id: 2 },
       detalhesPedidos: this.rows.map(row => ({
         produto: { id: row.produto.id },
         quantidade: row.quantidade
