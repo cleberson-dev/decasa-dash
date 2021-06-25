@@ -10,8 +10,8 @@ export class AcompanhamentoComponent implements OnInit {
 
   tabs: Tab[] = [
     { title: 'Cotação', link: '/pedidos' },
-    { title: 'Mapa', link: '/pedidos/mapa' },
-    { title: 'Ordem de compra', link: '/pedidos/ordem-compra' },
+    { title: 'Mapa' },
+    { title: 'Ordem de compra' },
     { title: 'Acompanhamento', link: '/pedidos/acompanhamento', active: true },
   ];
 
