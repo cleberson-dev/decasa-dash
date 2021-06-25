@@ -54,7 +54,7 @@ export class ApiService {
   }
 
   getProdutosLojista() {
-    return this.http.get<ProdutoLojista[]>(this.url + '/lojistasProdutos');
+    return this.http.get<ProdutoLojista[]>(this.url + '/produtos/lojista/{idDoLojista}');
   }
 
   getDepartments(): Observable<Department[]> {
