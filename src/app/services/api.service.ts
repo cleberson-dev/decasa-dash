@@ -53,8 +53,8 @@ export class ApiService {
     return this.http.get<Produto[]>(this.url + '/produtos');
   }
 
-  getProdutosLojista() {
-    return this.http.get<ProdutoLojista[]>(this.url + '/produtos/lojista/{idDoLojista}');
+  getProdutosLojista(idDoLojista?: number) {
+    return this.http.get<ProdutoLojista[]>(this.url + '/produtos/lojista/' + idDoLojista);
   }
 
   getDepartments(): Observable<Department[]> {
