@@ -48,6 +48,15 @@ export type ApiUF = {
   sigla: string;
 }
 
+export type RegistrarParams = {
+  razaoSocial: string;
+  cnpj: string;
+  rg: string;
+  inscricaoEstadual: string;
+  email: string;
+  senha: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -229,5 +238,9 @@ export class ApiService {
   getCotacoesPorPedido(pedidoId: number) {
     const url = this.url + '/cotacoes/pedido/' + pedidoId;
     return this.http.get<Cotacao[]>(url);
+  }
+
+  registrar(params: RegistrarParams) {
+
   }
 }
