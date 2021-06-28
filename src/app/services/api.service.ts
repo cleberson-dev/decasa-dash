@@ -69,8 +69,8 @@ export class ApiService {
     return this.http.get<PaginatedResource<Produto[]>>(this.url + '/produtos/paginacao');
   }
 
-  getProdutosLojista() {
-    return this.http.get<ProdutoLojista[]>(this.url + '/lojistasProdutos');
+  getProdutosLojista(idDoLojista?: number) {
+    return this.http.get<ProdutoLojista[]>(this.url + '/produtos/lojista/' + idDoLojista);
   }
 
   getDepartments(): Observable<Department[]> {

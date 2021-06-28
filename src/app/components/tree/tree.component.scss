@@ -36,7 +36,7 @@ ul {
 }
 
 button {
-  width: 2rem;
+  min-width: 2rem;
   height: 2rem;
   padding: 0;
   border: none;
@@ -67,4 +67,8 @@ ul > li.active > .wrapper, ul ul > li.active {
 
 .top-list {
   overflow-y: scroll;
+}
+
+nb-icon.status-basic {
+  min-width: 20px;
 }
