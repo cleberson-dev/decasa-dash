@@ -128,7 +128,15 @@
             <div class="col-4">
               <label>Categorias</label>
               <nb-select multiple fullWidth formControlName="categorias" [disabled]="departments.length === 0">
-                <nb-option-group [title]="dep.name" *ngFor="let dep of departments">
+                <nb-option-group 
+                  *ngFor="let dep of departments"
+                  [title]="dep.name"
+                  [class]="{
+                    'department-option-group': true,
+                    selected: isDepartmentSelected(dep.id)
+                  }"
+                  (click)="handleDepClick($event, dep)" 
+                >
                   <nb-option *ngFor="let cat of dep.categories" [value]="cat.id">{{ cat.name }}</nb-option>
                 </nb-option-group>
               </nb-select>

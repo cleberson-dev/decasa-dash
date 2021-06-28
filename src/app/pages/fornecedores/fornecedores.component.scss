@@ -153,3 +153,22 @@ input:disabled {
 .row > p {
   margin-bottom: 0;
 }
+
+.department-option-group {
+  cursor: pointer;
+
+  &.selected {
+    color: #598bff;
+  }
+
+  ::ng-deep {
+    span.option-group-title:hover {
+      color: darken(#8f9bb3, 10%);
+    }
+
+    &.selected {
+      color:#598bff;
+    }
+  }
+  
+}

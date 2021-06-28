@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ControlContainer, FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
@@ -48,6 +48,7 @@ export class FornecedoresComponent implements OnInit {
       ]
     },
   ];
+  selectedDepartments: number[] = [];
   
   formTitle = '';
   formSubmitText = '';
@@ -115,7 +116,8 @@ export class FornecedoresComponent implements OnInit {
     });
   }
 
-  handleFormSubmit(ref: NbDialogRef<any>) {
+
+  getCategoriesAndDepartments() {
     const categoriasFornecidas = this.formFornecedor.controls['categorias'].value
       .map(catId => ({ id: catId }));
     
@@ -124,6 +126,13 @@ export class FornecedoresComponent implements OnInit {
       return { id: dep.id }
     });
 
+    return { categoriasFornecidas, departamentosFornecidos };
+  }
+
+
+  handleFormSubmit(ref: NbDialogRef<any>) {
+    const { categoriasFornecidas, departamentosFornecidos } = this.getCategoriesAndDepartments();
+    
     const fornecedor: Fornecedor = {
       id: this.formFornecedor.controls['id'].value || undefined,
       cnpj: this.formFornecedor.controls['cnpj'].value,
@@ -251,5 +260,35 @@ export class FornecedoresComponent implements OnInit {
 
   onInscricaoBlur() {
     console.log(this.formFornecedor);
+  }
+
+  handleDepClick(event: any, department: Department) {
+    if (event.target.className !== "option-group-title") return;
+
+    const control = this.formFornecedor.controls['categorias'];
+    const categorias = Array.isArray(control.value) ? control.value : [];
+
+    const depIdx = this.selectedDepartments.findIndex(depId => depId === department.id);
+
+    // Must remove categories for a selected department
+    if (depIdx !== -1) {
+      const newCategorias = categorias.filter(catId => {
+        return department.categories.every(depCat => catId !== depCat.id);
+      });
+      control.setValue(newCategorias);
+      this.selectedDepartments.splice(depIdx, 1);
+      return;
+    }
+    
+    const newCategorias = [
+      ...new Set([...categorias, ...department.categories.map(cat => cat.id)])
+    ];
+    control.setValue(newCategorias);
+    this.selectedDepartments.push(department.id);
+  }
+
+
+  isDepartmentSelected(depId: number) {
+    return this.selectedDepartments.includes(depId);
   }
 }
