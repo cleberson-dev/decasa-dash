@@ -240,4 +240,9 @@ export class ApiService {
     
     return this.http.post(url, params);
   }
+
+  buscarProdutoLojista(query: string, lojistaId: number = 2) {
+    const url = this.url + `/produtos/lojista/${lojistaId}/palavrachave/?palavrachave="${query}"`;
+    return this.http.get<PaginatedResource<Produto>>(url);
+  }
 }

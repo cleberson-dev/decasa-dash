@@ -78,9 +78,17 @@ export class PedidosComponent implements OnInit {
 
   onInputChange() {
     const { value } = this.input.nativeElement;
-    this.suggestedOptions$ = of(value).pipe(
-      map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
-    );
+    
+    // this.suggestedOptions$ = of(value).pipe(
+    //   map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
+    // );
+    this.suggestedOptions$ = this.api.buscarProdutoLojista(value)
+      .pipe(
+        map(data => {
+          this.produtos = data.content;
+          return data.content.map(produto => produto.descricao);
+        })
+      );
   }
 
   onPedidoAdd() {
