@@ -46,10 +46,10 @@ export class ApiStatusIndicatorComponent implements OnInit {
 
   get text() {
     const options: Record<APIStatuses, string> = {
-      "loading": "Carregando API",
-      "working": "API funcionando",
-      "not-working": "API não está funcionando",
-      "hovered": "Atualizar API"
+      "loading": "🤔",
+      "working": "😋",
+      "not-working": "🤕",
+      "hovered": "🧐"
     };
 
     return options[this.apiStatus];
