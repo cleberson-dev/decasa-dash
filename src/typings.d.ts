@@ -248,3 +248,22 @@ declare type OrgaoExpedidor = {
   id: number;
   descricao: string;
 };
+
+declare type PaginatedResource<T> = {
+  last: boolean;
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  numberOfElements: number;
+  sort: {
+    direction: string;
+    property: string;
+    ignoreCase: boolean;
+    nullHandling: string;
+    descending: boolean;
+    ascending: boolean;
+  }[];
+  size: number;
+  number: number;
+  content: T[];
+};

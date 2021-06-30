@@ -20,26 +20,7 @@ export type ApiMunicipio = {
   id: number;
   nome: string;
   ativo: boolean;
-}
-
-export type PaginatedResource<T> = {
-  last: boolean;
-  totalElements: number;
-  totalPages: number;
-  first: boolean;
-  numberOfElements: number;
-  sort: {
-    direction: string;
-    property: string;
-    ignoreCase: boolean;
-    nullHandling: string;
-    descending: boolean;
-    ascending: boolean;
-  }[];
-  size: number;
-  number: number;
-  content: T;
-}
+};
 
 export type ApiUF = {
   id: number
