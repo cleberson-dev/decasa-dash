@@ -15,16 +15,21 @@ export class ApiStatusIndicatorComponent implements OnInit {
     private apiService: ApiService,
   ) { }
 
-  ngOnInit(): void {
+  updateStatus() {
+    this.apiStatus = "loading";
     this.apiService.getDepartments()
-        .subscribe(
-          (_) => { // WORKING
-            this.apiStatus = 'working';
-          },
-          (_) => { // SOME ERROR OCCURRED
-            this.apiStatus = 'not-working';
-          }
-        ); 
+      .subscribe(
+        (_) => { // WORKING
+          this.apiStatus = 'working';
+        },
+        (_) => { // SOME ERROR OCCURRED
+          this.apiStatus = 'not-working';
+        }
+      ); 
+  }
+
+  ngOnInit(): void {
+    this.updateStatus();
   }
 
   get color() {

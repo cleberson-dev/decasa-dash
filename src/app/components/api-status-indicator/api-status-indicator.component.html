@@ -1,4 +1,9 @@
-<button nbButton [status]="color" size="small">
+<button 
+  nbButton 
+  [status]="color" 
+  size="small"
+  (click)="updateStatus()"
+>
   <nb-icon [icon]="icon"></nb-icon>
   {{ text }}
 </button>
