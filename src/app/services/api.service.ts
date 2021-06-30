@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CompraMaterial, Cotacao, Fornecedor, Produto, ProdutoLojista, UnidadeMedida } from '../types';
 import { Department } from '../pages/produtos/produtos.component';
@@ -48,13 +48,17 @@ export type ApiUF = {
   sigla: string;
 }
 
-export type RegistrarParams = {
-  razaoSocial: string;
-  cnpj: string;
-  rg: string;
-  inscricaoEstadual: string;
+export type RegistrarLojistaParams = {
   email: string;
   senha: string;
+  telefone: string;
+  celular: string;
+
+  razaoSocial: string;
+  inscricaoEstadual: string;
+  cnpj: string;
+  rg: string;
+  logradouro: string;
 }
 
 @Injectable({
@@ -240,7 +244,30 @@ export class ApiService {
     return this.http.get<Cotacao[]>(url);
   }
 
-  registrar(params: RegistrarParams) {
+  registrarLojista(params: RegistrarLojistaParams) {
+    const usuarioUrl = '/cadastros-0.0.1/cliente';
+    const lojistaUrl = this.url + '/lojistas/';
 
+    const usuarioBody = {
+      email: params.email,
+      senha: params.senha,
+      telefone: params.telefone,
+      celular: params.celular
+    };
+
+    this.http.post(usuarioUrl, usuarioBody)
+      .pipe(
+        mergeMap(_ => {
+          const lojistaBody = {
+            razaoSocial: params.razaoSocial,
+            cnpj: params.cnpj,
+            rg: params.rg,
+            inscricaoEstadual: params.inscricaoEstadual,
+            logradouro: params.logradouro
+          };
+
+          return this.http.post(lojistaUrl, lojistaBody);
+        })
+      );
   }
 }
