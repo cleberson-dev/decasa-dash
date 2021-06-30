@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { flatMap } from 'rxjs/operators';
+import { flatMap, mergeMap } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 
@@ -52,9 +52,6 @@ type CustomPedido = {
 })
 export class MapaComponent implements OnInit {
   easyButtonsValue = '';
-
-  fornecedores: Fornecedor[] = [];
-  produtos: Produto[] = [];
 
   pedido: CustomPedido = {
     id: 1,
@@ -193,12 +190,18 @@ export class MapaComponent implements OnInit {
       });
     }
     console.log(this.pedido);
+    this.defineProductCheapestPrice();
+    this.defineCheapestSupplier();
   }
 
   ngOnInit(): void {
     this.route.paramMap
       .pipe(
-        flatMap(params => this.apiService.getCotacoesPorPedido(Number(params.get('pedidoId'))))
+        mergeMap(params => {
+          const pedidoId = Number(params.get('pedidoId'));
+          this.pedido.id = pedidoId;
+          return this.apiService.getCotacoesPorPedido(pedidoId);
+        })
       )
     .subscribe(
       this.transformCotacoes,
@@ -206,27 +209,6 @@ export class MapaComponent implements OnInit {
         if (status === 500) this.toastrService.danger(error.titulo || 'Sem o que dizer...', 'Algo deu errado =(');
       }
     );
-
-
-
-    this.defineProductCheapestPrice();
-    this.defineCheapestSupplier();
-
-
-    
-    for (let detalhe of this.pedido.detalhesPedidos) {
-      this.apiService.getProduto(detalhe.produto.id)
-        .subscribe(produto => {
-          this.produtos.push(produto);
-        });
-    }
-
-    for (let fornecedor of this.pedido.fornecedores) {
-      this.apiService.getFornecedor(fornecedor.id)
-        .subscribe(fornecedor => {
-          this.fornecedores.push(fornecedor);
-        });
-    }
   }
 
   openRowDetails(dialog: TemplateRef<any>, row: MapRow) {
@@ -235,7 +217,7 @@ export class MapaComponent implements OnInit {
       nome: row.produto.nome,
       quantidade: row.produto.quantidade,
       unidade: row.produto.unidade,
-      precos: row.precos.map((preco, idx) => ({ fornecedor: this.fornecedores[idx], valor: preco })),
+      // precos: row.precos.map((preco, idx) => ({ fornecedor: this.fornecedores[idx], valor: preco })),
       menorPrecoIdx: row.menorPrecoIdx
     };
     
@@ -348,9 +330,5 @@ export class MapaComponent implements OnInit {
     };
 
     this.dialogService.open(dialog, { context });
-  }
-
-  getProduto(produtoId: number) {
-    return this.produtos.find(p => p.id === produtoId);
   }
 }

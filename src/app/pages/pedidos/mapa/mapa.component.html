@@ -26,7 +26,7 @@
         <col class="full" />
         <col />
         <col />
-        <col *ngFor="let _ of fornecedores" />
+        <col *ngFor="let _ of pedido.fornecedores" />
         <col />
       </colgroup>
       <thead>
@@ -90,14 +90,14 @@
           *ngFor="let detalhe of pedido.detalhesPedidos; let i = index"
           [class]="{ 'product-selected': isProductSelected(i) }"
         >
-          <td>{{ getProduto(detalhe.produto.id)?.cnp || "--" }}</td>
+          <td>{{ detalhe.produto.cnp || "--" }}</td>
           <!-- (click)="openRowDetails(dialog, detalhe)" -->
           <td 
             class="clickable"
           >
-            {{ getProduto(detalhe.produto.id)?.descricao || "--" }}
+            {{ detalhe.produto.descricao || "--" }}
           </td>
-          <td>{{ getProduto(detalhe.produto.id)?.unidadeMedidaProduto.descricao || "--" }}</td>
+          <td>{{ detalhe.produto.unidadeMedidaProduto.descricao || "--" }}</td>
           <td>{{ detalhe.quantidade }}</td>
           <td
             *ngFor="let preco of detalhe.precos; let j = index"
