@@ -50,7 +50,7 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   getAllProducts() {
-    return this.http.get<PaginatedResource<Produto[]>>(this.url + '/produtos/paginacao');
+    return this.http.get<PaginatedResource<Produto>>(this.url + '/produtos/paginacao');
   }
 
   getProdutosLojista(idDoLojista?: number) {

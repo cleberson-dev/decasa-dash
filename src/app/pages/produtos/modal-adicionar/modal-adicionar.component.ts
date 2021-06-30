@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
-import { ApiService, PaginatedResource } from '../../../services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { Department } from '../produtos.component';
 import { map } from 'rxjs/operators';
 
