@@ -245,4 +245,9 @@ export class ApiService {
     const url = this.url + `/produtos/lojista/${lojistaId}?palavraChave=${query}`;
     return this.http.get<PaginatedResource<Produto>>(url);
   }
+
+  buscarProduto(query: string) {
+    const url = this.url + `/produtos?palavraChave=${query}`;
+    return this.http.get<PaginatedResource<Produto>>(url);
+  }
 }
