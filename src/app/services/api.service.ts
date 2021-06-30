@@ -41,6 +41,11 @@ export type RegistrarLojistaParams = {
   telefone?: string;
 }
 
+type LogarLojistaParams = {
+  email: string;
+  senha: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -227,10 +232,12 @@ export class ApiService {
   registrarLojista(params: RegistrarLojistaParams) {
     const url = this.url + '/lojistas/';
 
-    this.http.post(url, params);
+    return this.http.post(url, params);
   }
 
-  logarUsuario() {
+  logarLojista(params: LogarLojistaParams) {
+    const url = this.url + '/lojistas/';
     
+    return this.http.post(url, params);
   }
 }
