@@ -68,6 +68,8 @@ export class ApiStatusIndicatorComponent implements OnInit {
 
   onHover() {
     this.previousStatus = this.apiStatus;
+    
+    if (this.apiStatus === "working") return;
     this.apiStatus = "hovered";
   }
 
