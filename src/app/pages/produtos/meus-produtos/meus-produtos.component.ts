@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { NbDialogService, NbMenuItem } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
 import { ApiService } from '../../../services/api.service';
@@ -36,6 +37,8 @@ export class MeusProdutosComponent implements OnInit {
     totalItems: 1,
     itemsPerPage: 1
   }
+
+  searchControl = new FormControl('');
 
   constructor(
     private dialogService: NbDialogService,
@@ -118,5 +121,11 @@ export class MeusProdutosComponent implements OnInit {
       .subscribe(() => {
         this.products.push(...products);
       });
+  }
+
+  onSearch() {
+    const query = this.searchControl.value;
+    this.apiService.buscarProdutoLojista(query)
+      .subscribe(data => alert(data.content.length));
   }
 }
