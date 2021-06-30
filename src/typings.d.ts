@@ -154,3 +154,35 @@ declare type Pedido = {
     id: number;
   }[];
 }
+
+declare type Usuario = {
+  id: number;
+  nome: string;
+  cpf: string;
+  senha: string;
+  email: string;
+  dataCadastro: string;
+  ultimoAcesso: string;
+  resetarSenha: boolean;
+  bloqueado: boolean;
+  dataBloqueio: string;
+  origemCadastro: OrigemCadastro;
+  perfisUsuario: PerfilUsuario[];
+};
+
+declare type PerfilUsuario = {
+  id: number;
+  perfil: Perfil;
+  dataHabilitacao: string;
+};
+
+declare type Perfil = {
+  id: number;
+  nome: string;
+  descricao: string;
+};
+
+declare type OrigemCadastro = {
+  id: number;
+  descricao: string;
+};
