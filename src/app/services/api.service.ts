@@ -225,7 +225,7 @@ export class ApiService {
   }
 
   registrarLojista(params: RegistrarLojistaParams) {
-    const usuarioUrl = '/cadastros-0.0.1/cliente';
+    const usuarioUrl = '/cadastros-0.0.1/prestador';
     const lojistaUrl = this.url + '/lojistas/';
 
     const usuarioBody = {
