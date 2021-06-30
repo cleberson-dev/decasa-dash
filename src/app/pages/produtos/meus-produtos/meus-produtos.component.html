@@ -19,7 +19,10 @@
         <nb-option value="0">Mais vendidos</nb-option>
         <nb-option value="1">Ordem Alfabética</nb-option>
       </nb-select>
-      <input nbInput placeholder="Pesquise aqui..." />
+      <div class="search-bar">
+        <input nbInput placeholder="Pesquise aqui..." />
+        <button nbButton ghost><nb-icon icon="search-outline"></nb-icon></button>
+      </div>
     </div>
     <div *ngIf="loading; else notLoading" class="loading-container">
       <app-spring-spinner
