@@ -4,7 +4,6 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { flatMap } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
-import { Cotacao, Fornecedor, Produto } from '../../../types';
 
 type MapRow = {
   produto: {

@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ResumidoProdutoLojista } from '../../types';
-
 
 type Option = {
   title: string;

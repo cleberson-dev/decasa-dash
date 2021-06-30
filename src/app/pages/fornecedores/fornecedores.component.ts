@@ -4,7 +4,6 @@ import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { CepService } from '../../services/cep.service';
-import { Fornecedor } from '../../types';
 import * as CustomValidators from '../../validators';
 import { Department } from '../produtos/produtos.component';
 

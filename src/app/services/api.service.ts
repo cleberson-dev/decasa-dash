@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, mergeMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { CompraMaterial, Cotacao, Fornecedor, Produto, ProdutoLojista, UnidadeMedida } from '../types';
 import { Department } from '../pages/produtos/produtos.component';
 
 type AddProdutosItem = {

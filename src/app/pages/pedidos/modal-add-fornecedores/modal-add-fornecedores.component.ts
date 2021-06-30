@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { ApiService } from '../../../services/api.service';
-import { Fornecedor } from '../../../types';
 
 type SelectableFornecedor = Fornecedor & { selected?: boolean; };
 

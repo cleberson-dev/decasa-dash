@@ -2,7 +2,6 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { categorias, departamentos, marcas, modelos } from '../../../fake-data';
-import { Fornecedor, ResumidoProdutoLojista } from '../../../types';
 import { Department } from '../../produtos/produtos.component';
 
 type DialogContentType = "addProducts" | "addSuppliers" | "createSupplier";

@@ -1,5 +1,4 @@
 import { createAction, props } from "@ngrx/store";
-import { ProdutoLojista } from "../../types";
 
 type FetchPayload = {
   number: number;

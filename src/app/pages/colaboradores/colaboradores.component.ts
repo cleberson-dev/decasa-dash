@@ -1,7 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
-import { Colaborador } from '../../types';
 
 @Component({
   selector: 'ngx-colaboradores',

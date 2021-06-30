@@ -4,7 +4,6 @@ import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
-import { Fornecedor, Produto } from '../../types';
 import * as fake from '../../fake-data';
 import { ApiService } from '../../services/api.service';
 

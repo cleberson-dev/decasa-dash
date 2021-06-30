@@ -6,7 +6,6 @@ import telefone from 'telefone';
 import { ValidationErrors } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { TreeItem } from '../../components/tree/tree.component';
-import { Produto, ProdutoLojista, UnidadeMedida } from '../../types';
 
 export type Department = {
   id: number;

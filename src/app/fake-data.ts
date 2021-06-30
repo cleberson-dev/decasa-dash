@@ -1,5 +1,3 @@
-import { Produto } from "./types";
-
 type Entity = {
   [key: string]: any
 }

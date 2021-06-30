@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Fornecedor } from '../../types';
 import * as CustomValidators from '../../validators';
 
 @Component({

@@ -1,5 +1,4 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { ProdutoLojista } from '../../types';
 import * as ProdutosPlataformaActions from '../actions/produtos-plataforma.actions';
 
 

@@ -5,7 +5,6 @@ import { Observable, of } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
-import { CompraMaterial, Fornecedor, Produto } from '../../../types';
 type RowProps = {
   codigo: string;
   produto: string;

@@ -3,7 +3,6 @@ import { NbDialogService, NbMenuItem } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
 import { ApiService } from '../../../services/api.service';
 import { Department } from '../produtos.component';
-import { ResumidoProdutoLojista } from '../../../types';
 
 @Component({
   selector: 'tab-meus-produtos',
