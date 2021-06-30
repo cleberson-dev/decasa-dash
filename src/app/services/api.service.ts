@@ -31,14 +31,14 @@ export type ApiUF = {
 export type RegistrarLojistaParams = {
   email: string;
   senha: string;
-  telefone: string;
   celular: string;
-
   razaoSocial: string;
   inscricaoEstadual: string;
   cnpj: string;
   rg: string;
   logradouro: string;
+  idPerfil: number;
+  telefone?: string;
 }
 
 @Injectable({
@@ -225,29 +225,12 @@ export class ApiService {
   }
 
   registrarLojista(params: RegistrarLojistaParams) {
-    const usuarioUrl = '/cadastros-0.0.1/prestador';
-    const lojistaUrl = this.url + '/lojistas/';
+    const url = this.url + '/lojistas/';
 
-    const usuarioBody = {
-      email: params.email,
-      senha: params.senha,
-      telefone: params.telefone,
-      celular: params.celular
-    };
+    this.http.post(url, params);
+  }
 
-    this.http.post(usuarioUrl, usuarioBody)
-      .pipe(
-        mergeMap(_ => {
-          const lojistaBody = {
-            razaoSocial: params.razaoSocial,
-            cnpj: params.cnpj,
-            rg: params.rg,
-            inscricaoEstadual: params.inscricaoEstadual,
-            logradouro: params.logradouro
-          };
-
-          return this.http.post(lojistaUrl, lojistaBody);
-        })
-      );
+  logarUsuario() {
+    
   }
 }
