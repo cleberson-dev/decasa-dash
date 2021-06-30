@@ -186,3 +186,65 @@ declare type OrigemCadastro = {
   id: number;
   descricao: string;
 };
+
+declare type Lojista = {
+  id: number;
+  municipio: Municipio;
+  estadoCivil: EstadoCivil;
+  sexo: Sexo;
+  orgaoExpedidor: OrgaoExpedidor;
+  ufRg: Uf;
+  usuario: Usuario;
+  nome: string;
+  cnpj: string;
+  cpf: string;
+  logradouro: string;
+  numero: string;
+  bairro: string;
+  cep: string;
+  pontoReferencia: string;
+  celular: string;
+  telefone: string;
+  email: string;
+  dataCadastro: string;
+  rg: string;
+  dataRg: string;
+  inscricaoEstadual: string;
+};
+
+declare type Municipio = {
+  id: number;
+  nome: string;
+  codigoIbge: number;
+  ativo: boolean;
+  uf: Uf;
+};
+
+declare type Uf = {
+  id: number;
+  nome: string;
+  sigla: string;
+  pais: Pais;
+};
+
+declare type Pais = {
+  id: number;
+  nome: string;
+  sigla: string;
+  pais: Pais;
+};
+
+declare type EstadoCivil = {
+  id: number;
+  descricao: string;
+};
+
+declare type Sexo = {
+  id: number;
+  descricao: string;
+};
+
+declare type OrgaoExpedidor = {
+  id: number;
+  descricao: string;
+};
