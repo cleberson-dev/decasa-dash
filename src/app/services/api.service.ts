@@ -242,7 +242,7 @@ export class ApiService {
   }
 
   buscarProdutoLojista(query: string, lojistaId: number = 2) {
-    const url = this.url + `/produtos/lojista/${lojistaId}/palavrachave/?palavrachave="${query}"`;
+    const url = this.url + `/produtos/lojista/${lojistaId}?palavraChave=${query}`;
     return this.http.get<PaginatedResource<Produto>>(url);
   }
 }
