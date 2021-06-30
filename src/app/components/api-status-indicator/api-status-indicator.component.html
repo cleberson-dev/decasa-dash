@@ -3,6 +3,8 @@
   [status]="color" 
   size="small"
   (click)="updateStatus()"
+  (mouseover)="onHover()"
+  (mouseout)="onLeave()"
 >
   <nb-icon [icon]="icon"></nb-icon>
   {{ text }}
