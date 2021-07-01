@@ -5,11 +5,12 @@
       (click)="!isExpandable(node) && handleItem(node.value)"
   >
     <div class="wrapper">
-      <button 
+      <button
         (click)="toggle(node)"
         [disabled]="!isExpandable(node)"
       >
-        <nb-icon 
+        <nb-icon
+          class="arrow-icon"
           *ngIf="isExpandable(node)" 
           [icon]="node.expanded ? 'arrow-ios-downward' : 'arrow-ios-forward'">
         </nb-icon>
