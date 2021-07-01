@@ -46,6 +46,13 @@ type LogarLojistaParams = {
   senha: string;
 }
 
+type CriarColaboradorParams = {
+  nome: string;
+  perfil: number;
+  cpf: string;
+  senha: string;
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -255,5 +262,11 @@ export class ApiService {
     const url = this.url + `/produtos/maisVendido?idLojista=${lojistaId}`;
 
     return this.http.get<Produto[]>(url);
+  }
+
+  criarColaborador(params: CriarColaboradorParams) {
+    const url = this.url + '/colaboradores/';
+
+    return this.http.post(url, params);
   }
 }
