@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NbDialogRef } from '@nebular/theme';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { ApiService } from '../../../services/api.service';
 import { Department } from '../produtos.component';
 
@@ -20,39 +20,50 @@ export class ModalAdicionarComponent implements OnInit {
   productsToDefinePrices: Produto[] = [];
   priceForms: FormGroup = new FormGroup({});
   loading: boolean = false;
-  // selectedCategory: string = 'mais-vendidos';
+  searchControl = new FormControl('');
+  pagination: PaginationHeader;
+  selectedCategory: string = 'todos';
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastrService: NbToastrService,
   ) {}
 
   ngOnInit(): void {
     this.loading = true;
     this.apiService.getAllProducts()
-      .subscribe(data => {
-        this.produtos = data.content.map(produto => ({
-          ...produto,
-          foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
-        }));
-      });
+      .subscribe(this.handleProductFetch);
     this.loading = false;
   }
 
-  selectedCategoryChange(e: any) {
-    if (e === 'mais-vendidos') {
-      this.apiService.getProdutosMaisVendidos()
-      .subscribe(data => {
-        this.produtos = data.content.map(produto => ({
-          ...produto,
-          foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
-        }));
-      });
+  handleProductFetch(data: PaginatedResource<Produto>) {
+    this.produtos = data.content.map(produto => ({
+      ...produto,
+      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
+    }));
+    this.pagination = { ...data };
+  }
+
+  handleError(err: any) {
+    this.toastrService.danger(err);
+  }
+
+  selectedCategoryOptionsChange(option: string) {
+    this.selectedCategory = option;
+    switch (option) {
+      case 'mais-vendidos':
+        this.apiService.getProdutosMaisVendidos()
+          .subscribe(this.handleProductFetch, this.handleError);
+        break;
+      case 'todos':
+        this.apiService.getAllProducts()
+          .subscribe(this.handleProductFetch, this.handleError);
+        break;
+      default:
+        const categoriaId =  Number(option);
+        this.apiService.getProdutosPorCategoria(categoriaId)
+          .subscribe(this.handleProductFetch, this.handleError);
     }
-    const categoriaId =  Number(e);
-    this.apiService.getProdutosPorCategoria(categoriaId)
-      .subscribe(data => {
-        this.produtos = data.content.map(p => ({ ...p, foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg' }));
-      });
   }
 
   handleSubmitClick() {
@@ -98,5 +109,22 @@ export class ModalAdicionarComponent implements OnInit {
 
   get mappedProducts() { // ????
     return this.produtos.map((produto): ProdutoLojista => ({ produto }))
+  }
+
+  searchProducts() {
+    const query = this.searchControl.value;
+    const category = this.selectedCategory;
+    
+    if (['mais-vendidos', 'todos'].includes(category)) {
+      this.apiService.buscarProduto(query)
+      .subscribe(data => {
+        alert('achou! ' + data.content.length);
+        this.produtos = data.content;
+      });
+      return;
+    }
+
+    this.apiService.buscarProdutoPorCategoria(query, Number(category))
+      .subscribe(this.handleProductFetch, this.handleError);
   }
 }

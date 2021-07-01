@@ -67,12 +67,12 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   getAllProducts(paginationOptions?: PaginationOptions) {
-    const page = paginationOptions?.page || 1;
+    const page = (paginationOptions?.page || 1) - 1;
     const size = paginationOptions?.size || 10;
 
     let url = this.url + '/produtos/paginacao';
     url += '?page=' + page;
-    url += '?size=' + size;
+    url += '&size=' + size;
 
     return this.http.get<PaginatedResource<Produto>>(url);
   }
@@ -185,7 +185,7 @@ export class ApiService {
   }
 
   getProdutosMaisVendidos(paginationOptions?: PaginationOptions) {
-    const page = paginationOptions?.page || 1;
+    const page = (paginationOptions?.page || 1) - 1;
     const size = paginationOptions?.size || 10;
     
     let url = this.url + '/produtos/maisVendido/';
@@ -197,7 +197,7 @@ export class ApiService {
 
 
   getProdutosLojistaMaisVendidos(lojistaId: number, paginationOptions?: PaginationOptions) {
-    const page = paginationOptions?.page || 1;
+    const page = (paginationOptions?.page || 1) - 1;
     const size = paginationOptions?.size || 10;
     
     let url = this.url + '/produtos/maisVendido/?idLojista=' + lojistaId;
@@ -298,6 +298,18 @@ export class ApiService {
 
   buscarProduto(query: string) {
     const url = this.url + `/produtos?palavraChave=${query}`;
+    return this.http.get<PaginatedResource<Produto>>(url);
+  }
+
+  buscarProdutoPorCategoria(query: string, categoriaId: number, paginationOptions?: PaginationOptions) {
+    const page = (paginationOptions?.page || 1) - 1;
+    const size = paginationOptions?.size || 10;
+
+    let url = this.url + '/produtos/categorias/' + categoriaId;
+    url += '?palavraChave=' + query;
+    url += '&page=' + page;
+    url += '&size=' + size;
+
     return this.http.get<PaginatedResource<Produto>>(url);
   }
 

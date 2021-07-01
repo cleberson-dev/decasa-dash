@@ -78,3 +78,13 @@ table {
   justify-content: center;
   align-items: center;
 }
+
+.search-bar {
+  position: relative;
+
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
