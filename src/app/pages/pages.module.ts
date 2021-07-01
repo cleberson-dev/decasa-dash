@@ -64,6 +64,7 @@ import { CuponsComponent } from './clientes/cupons/cupons.component';
 import { ComprasComponent } from './clientes/compras/compras.component';
 import { DevolucoesComponent } from './clientes/devolucoes/devolucoes.component';
 import { EnderecosComponent } from './clientes/enderecos/enderecos.component';
+import { SolicitarComponent } from './produtos/solicitar/solicitar.component';
 
 @NgModule({
   imports: [
@@ -130,7 +131,8 @@ import { EnderecosComponent } from './clientes/enderecos/enderecos.component';
     CuponsComponent,
     ComprasComponent,
     DevolucoesComponent,
-    EnderecosComponent
+    EnderecosComponent,
+    SolicitarComponent
   ]
 })
 export class PagesModule {

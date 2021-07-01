@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@an
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { ApiService } from '../../../services/api.service';
-import { Department } from '../produtos.component';
+import { Department } from '../solicitar/solicitar.component';
 
 @Component({
   selector: 'ngx-modal-adicionar',

@@ -5,7 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { CepService } from '../../services/cep.service';
 import * as CustomValidators from '../../validators';
-import { Department } from '../produtos/produtos.component';
+import { Department } from '../produtos/solicitar/solicitar.component';
 
 const defaultData = {
   bairro: 'Bairro #1',
