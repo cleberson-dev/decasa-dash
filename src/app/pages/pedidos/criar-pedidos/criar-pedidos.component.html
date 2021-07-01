@@ -88,7 +88,7 @@
             <nb-list-item [class]="{ selected: isProductSelected(produto.id) }" *ngFor="let produto of filteredProducts">
               <ngx-checkbox [defaultValue]="!!isProductSelected(produto.id)" (change)="onProductCheck(produto.id, $event)"></ngx-checkbox>
               <div class="product">
-                <ngx-produto-lojista [produtoLojista]="produto"></ngx-produto-lojista>
+                <ngx-produto [produto]="produto.produto"></ngx-produto>
               </div>
             </nb-list-item>
           </nb-list>

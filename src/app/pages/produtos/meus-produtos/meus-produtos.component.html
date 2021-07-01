@@ -44,9 +44,9 @@
       <div class="product-list" style="height: 325px">
         <nb-list *ngIf="produtosLojista.length > 0; else noProducts">
           <nb-list-item *ngFor="let product of produtosLojista"> 
-            <ngx-produto-lojista   
-              [produtoLojista]="product"
-            ></ngx-produto-lojista>
+            <ngx-produto   
+              [produto]="product.produto"
+            ></ngx-produto>
           </nb-list-item>
         </nb-list>
         <ng-template #noProducts> 

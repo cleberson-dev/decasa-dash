@@ -24,7 +24,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { ProdutosPageComponent } from './produtos/produtos.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IMaskModule } from 'angular-imask';
-import { ProdutoLojistaComponent } from '../components/produto-lojista/produto-lojista.component';
+import { ProdutoComponent } from '../components/produto/produto.component';
 import { TreeComponent } from '../components/tree/tree.component';
 import { NotFoundComponent } from '../components/not-found/not-found.component';
 import { MeusProdutosComponent } from './produtos/meus-produtos/meus-produtos.component';
@@ -95,7 +95,7 @@ import { SolicitarComponent } from './produtos/solicitar/solicitar.component';
   declarations: [
     PagesComponent,
     ProdutosPageComponent,
-    ProdutoLojistaComponent,
+    ProdutoComponent,
     TreeComponent,
     NotFoundComponent,
     MeusProdutosComponent,

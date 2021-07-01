@@ -37,6 +37,7 @@ export class ModalAdicionarComponent implements OnInit {
   }
 
   handleProductFetch(data: PaginatedResource<Produto>) {
+    console.log(data.content);
     this.produtos = data.content.map(produto => ({
       ...produto,
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
@@ -105,10 +106,6 @@ export class ModalAdicionarComponent implements OnInit {
 
   isProductSelected(productId: number) {
     return this.selectedProducts.some(p => p.id === productId);
-  }
-
-  get mappedProducts() { // ????
-    return this.produtos.map((produto): ProdutoLojista => ({ produto }))
   }
 
   searchProducts() {
