@@ -246,7 +246,7 @@ declare type OrgaoExpedidor = {
   descricao: string;
 };
 
-declare type PaginatedResource<T> = {
+declare type PaginationHeader = {
   last: boolean;
   totalElements: number;
   totalPages: number;
@@ -262,5 +262,6 @@ declare type PaginatedResource<T> = {
   }[];
   size: number;
   number: number;
-  content: T[];
 };
+
+declare type PaginatedResource<T> = PaginationHeader & { content: T[]; };

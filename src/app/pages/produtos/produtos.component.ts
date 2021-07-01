@@ -44,7 +44,7 @@ export class ProdutosPageComponent implements OnInit {
   tabs = {
     meusProdutos: true,
     solicitar: false
-  }
+  };
 
   departments: Department[] = [
     { 
@@ -158,8 +158,8 @@ export class ProdutosPageComponent implements OnInit {
       });
     
     this.apiService.getProdutosLojista()
-      .subscribe((produtos: any) => {
-        this.produtosLojista = produtos;
+      .subscribe(data => {
+        this.produtosLojista = data.content;
       });
 
     this.apiService.getUnidadesDeMedidas()

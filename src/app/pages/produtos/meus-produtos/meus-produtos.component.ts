@@ -32,11 +32,7 @@ export class MeusProdutosComponent implements OnInit {
 
   currentCategory = 1;
   loading: boolean = false;
-  pagination = {
-    currentPage: 1,
-    totalItems: 1,
-    itemsPerPage: 1
-  }
+  pagination: PaginationHeader;
 
   searchControl = new FormControl('');
 
@@ -46,12 +42,12 @@ export class MeusProdutosComponent implements OnInit {
   ) {
   }
 
-  onPageChange(page: number) {
+  onPageChange(changedPage: number) {
     this.apiService
       .getProdutosLojistaPorCategoria(
         this.currentCategory,
         2,
-        { page }
+        { page: changedPage }
       )
       .subscribe(this.handleFetch);
   }
@@ -80,11 +76,7 @@ export class MeusProdutosComponent implements OnInit {
       foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
     }));
 
-    this.pagination = {
-      ...this.pagination,
-      itemsPerPage: data.size,
-      totalItems: data.totalElements 
-    }
+    this.pagination = { ...data };
   }
 
   ngOnInit(): void {

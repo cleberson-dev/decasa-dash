@@ -55,9 +55,10 @@
           </div>
         </ng-template>
         <pagination
-          [currentPage]="pagination.currentPage"
-          [totalItems]="pagination.totalItems"
-          [itemsPerPage]="pagination.itemsPerPage"
+          *ngIf="pagination"
+          [currentPage]="pagination.number"
+          [totalItems]="pagination.totalElements"
+          [itemsPerPage]="pagination.size"
           (pageChange)="onPageChange($event)"
         ></pagination>
       </div>
