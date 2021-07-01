@@ -66,8 +66,15 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getAllProducts() {
-    return this.http.get<PaginatedResource<Produto>>(this.url + '/produtos/paginacao');
+  getAllProducts(paginationOptions?: PaginationOptions) {
+    const page = paginationOptions?.page || 1;
+    const size = paginationOptions?.size || 10;
+
+    let url = this.url + '/produtos/paginacao';
+    url += '?page=' + page;
+    url += '?size=' + size;
+
+    return this.http.get<PaginatedResource<Produto>>(url);
   }
 
   getProdutosPorCategoria(categoriaId: number) {
