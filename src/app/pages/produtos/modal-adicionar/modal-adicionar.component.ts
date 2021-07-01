@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
 import { ApiService } from '../../../services/api.service';
 import { Department } from '../produtos.component';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-modal-adicionar',
@@ -18,7 +17,7 @@ export class ModalAdicionarComponent implements OnInit {
 
   produtos: Produto[] = [];
   selectedProducts: Produto[] = [];
-  productsToDefinePrices: ResumidoProdutoLojista[] = [];
+  productsToDefinePrices: Produto[] = [];
   priceForms: FormGroup = new FormGroup({});
   loading: boolean = false;
   // selectedCategory: string = 'mais-vendidos';
@@ -49,8 +48,8 @@ export class ModalAdicionarComponent implements OnInit {
         }));
       });
     }
-
-    this.apiService.getProductsByCategory(Number(e))
+    const categoriaId =  Number(e);
+    this.apiService.getProdutosPorCategoria(categoriaId)
       .subscribe(data => {
         this.produtos = data.content.map(p => ({ ...p, foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg' }));
       });
@@ -95,5 +94,9 @@ export class ModalAdicionarComponent implements OnInit {
 
   isProductSelected(productId: number) {
     return this.selectedProducts.some(p => p.id === productId);
+  }
+
+  get mappedProducts() { // ????
+    return this.produtos.map((produto): ProdutoLojista => ({ produto }))
   }
 }

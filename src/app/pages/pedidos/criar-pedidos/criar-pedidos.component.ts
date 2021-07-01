@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
-import { categorias, departamentos, marcas, modelos } from '../../../fake-data';
+import { ApiService } from '../../../services/api.service';
 import { Department } from '../../produtos/produtos.component';
 
 type DialogContentType = "addProducts" | "addSuppliers" | "createSupplier";
@@ -12,48 +12,7 @@ type DialogContentType = "addProducts" | "addSuppliers" | "createSupplier";
   styleUrls: ['./criar-pedidos.component.scss']
 })
 export class CriarPedidosComponent implements OnInit {
-  produtos: ResumidoProdutoLojista[] = [
-    {
-      id: 1,
-      descricao: 'Produto #1',
-      modelo: modelos.airMax,
-      categoria: categorias.roupas,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      produtoLiberado: false,
-    },
-    {
-      id: 2,
-      descricao: 'Produto #2',
-      modelo: modelos.airMax,
-      categoria: categorias.roupas,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      produtoLiberado: false,
-    },
-    {
-      id: 3,
-      descricao: 'Produto #3',
-      modelo: modelos.modelo5,
-      categoria: categorias.smartphones,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      produtoLiberado: false,
-    },
-    {
-      id: 4,
-      descricao: 'Produto #4',
-      modelo: modelos.galaxy,
-      categoria: categorias.sofas,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      produtoLiberado: false,
-    },
-    {
-      id: 5,
-      descricao: 'Produto #5',
-      modelo: modelos.airMax,
-      categoria: categorias.roupas,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg',
-      produtoLiberado: false,
-    }
-  ];
+  produtos: ProdutoLojista[] = [];
 
   departments: Department[] = [];
 
@@ -63,7 +22,7 @@ export class CriarPedidosComponent implements OnInit {
     ['Cleberson', 'Ferreira Rodrigues Junior']
   ];
 
-  addedProducts: ResumidoProdutoLojista[] = [];
+  addedProducts: ProdutoLojista[] = [];
 
   selectedCategory = '';
 
@@ -71,15 +30,16 @@ export class CriarPedidosComponent implements OnInit {
 
   fornecedores: Fornecedor[] = []
 
-  selectedProducts: ResumidoProdutoLojista[] = [];
+  selectedProducts: ProdutoLojista[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private apiService: ApiService,
   ) { }
 
   get filteredProducts() {
-    return this.selectedCategory === "" ? this.produtos : this.produtos.filter(produto => String(produto.categoria.id) === String(this.selectedCategory))
+    return this.selectedCategory === "" ? this.produtos : this.produtos.filter(({ produto }) => String(produto.categoria.id) === String(this.selectedCategory))
   }
 
   uncheckAllProducts() {
@@ -87,7 +47,10 @@ export class CriarPedidosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.apiService.getProdutosLojista()
+      .subscribe(data => {
+        this.produtos = data.content;
+      });
   }
 
   open(dialog: TemplateRef<any>, type: DialogContentType) {

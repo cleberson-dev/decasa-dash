@@ -48,7 +48,7 @@ export class MeusProdutosComponent implements OnInit {
 
   onPageChange(page: number) {
     this.apiService
-      .getProductsByCategory(
+      .getProdutosLojistaPorCategoria(
         this.currentCategory,
         2,
         { page }
@@ -96,7 +96,7 @@ export class MeusProdutosComponent implements OnInit {
   onItemSelected(value: string) {
     console.log('Item clicked', value);
     this.currentCategory = Number(value);
-    this.apiService.getProductsByCategory(this.currentCategory)
+    this.apiService.getProdutosLojistaPorCategoria(this.currentCategory)
       .subscribe(this.handleFetch);
   }
 

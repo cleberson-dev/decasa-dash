@@ -96,10 +96,10 @@ declare type Fornecedor = {
 }
 
 declare type ProdutoLojista = {
-  id: number;
-  lojista: Lojista;
+  id?: number;
+  lojista?: Lojista;
   produto: Produto;
-  valor: number;
+  valor?: number;
   estoqueMinimo?: number;
 };
 

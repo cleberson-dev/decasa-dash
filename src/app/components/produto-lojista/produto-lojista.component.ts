@@ -10,7 +10,7 @@ type Option = {
   styleUrls: ['./produto-lojista.component.scss']
 })
 export class ProdutoLojistaComponent implements OnInit {
-  @Input() produto: ResumidoProdutoLojista;
+  @Input() produtoLojista: ProdutoLojista;
   @Input() options: Option[] = [];
   
   constructor() { }
@@ -20,7 +20,7 @@ export class ProdutoLojistaComponent implements OnInit {
 
   get formattedPrice(): string {
     const exp = /\d+\.\d{2}/;
-    return 'R$' + `${this.produto.preco.toFixed(2)}`.match(exp)[0].replace('.', ',');
+    return 'R$' + `${this.produtoLojista.valor.toFixed(2)}`.match(exp)[0].replace('.', ',');
   }
 
 }

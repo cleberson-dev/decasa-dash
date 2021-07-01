@@ -65,6 +65,12 @@ export class ApiService {
     return this.http.get<PaginatedResource<Produto>>(this.url + '/produtos/paginacao');
   }
 
+  getProdutosPorCategoria(categoriaId: number) {
+    const url = this.url + '/produtos/categoria/' + categoriaId;
+    
+    return this.http.get<PaginatedResource<Produto>>(url);
+  }
+
   getProdutosLojista(idDoLojista: number = 2) {
     const url = this.url + '/lojistasProdutos?idLojista=' + idDoLojista;
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
@@ -98,7 +104,7 @@ export class ApiService {
     );
   }
 
-  getProductsByCategory(categoriaId: number, lojistaId: number = 2, options?: Options) {
+  getProdutosLojistaPorCategoria(categoriaId: number, lojistaId: number = 2, options?: Options) {
     let url = this.url + '/lojistasProdutos/categoria/' + categoriaId;
     url += '?page=' + ((options?.page || 1) - 1);
     url += '&size=' + (options?.itemsPerPage || 10);

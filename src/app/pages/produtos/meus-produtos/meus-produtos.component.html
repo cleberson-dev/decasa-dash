@@ -38,10 +38,10 @@
     </div>
     <ng-template #notLoading>
       <div class="product-list" style="height: 325px">
-        <nb-list *ngIf="products.length > 0; else noProducts">
-          <nb-list-item *ngFor="let product of products"> 
+        <nb-list *ngIf="produtosLojista.length > 0; else noProducts">
+          <nb-list-item *ngFor="let product of produtosLojista"> 
             <ngx-produto-lojista   
-              [produto]="product"
+              [produtoLojista]="product"
             ></ngx-produto-lojista>
           </nb-list-item>
         </nb-list>

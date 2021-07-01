@@ -29,10 +29,10 @@
           style="width: 80vw; min-height: 50vh"
         >
           <nb-list *ngIf="produtos.length > 0; else noItems">
-            <nb-list-item [class]="{ selected: isProductSelected(produto.id) }" *ngFor="let produto of produtos">
+            <nb-list-item [class]="{ selected: isProductSelected(produto.id) }" *ngFor="let produto of mappedProducts">
               <ngx-checkbox [defaultValue]="!!isProductSelected(produto.id)" (change)="onProductCheck(produto.id, $event)"></ngx-checkbox>
               <div class="product">
-                <ngx-produto-lojista [produto]="produto"></ngx-produto-lojista>
+                <ngx-produto-lojista [produtoLojista]="produto"></ngx-produto-lojista>
               </div>
             </nb-list-item>
           </nb-list>
