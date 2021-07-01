@@ -52,29 +52,8 @@ export class MeusProdutosComponent implements OnInit {
       .subscribe(this.handleFetch);
   }
 
-  handleFetch(data: any) {
-    this.produtosLojista = data.content.map(p => ({
-      id: p.id,
-      nome: p.descricao,
-      marca: {
-        id: p.modelo.marca.id,
-        nome: p.modelo.marca.descricao
-      },
-      modelo: {
-        id: p.modelo.id,
-        nome: p.modelo.descricao
-      },
-      categoria: {
-        id: p.categoria.id,
-        nome: p.categoria.descricao
-      },
-      departamento: {
-        id: p.categoria.departamento.id,
-        nome: p.categoria.departamento.descricao
-      },
-      selected: false,
-      foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
-    }));
+  handleFetch(data: PaginatedResource<ProdutoLojista>) {
+    this.produtosLojista = data.content;
 
     this.pagination = { ...data };
   }

@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, throttle } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
 import * as fake from '../../fake-data';
 import { ApiService } from '../../services/api.service';
@@ -142,22 +142,18 @@ export class PedidosComponent implements OnInit {
 
   onCodigoBlur() {
     const codigo = this.novoPedidoForm.controls['codigo'].value;
-    const product = this.produtos.find(({ produto }) => produto.cnp === codigo);
+    this.api.findProdutoByCnp(codigo)
+      .subscribe((produto) => {
+        if (!produto) return this.resetForm();
 
-    if (product) return;
-
-    this.resetForm();
+        this.novoPedidoForm.controls['codigo'].setValue(produto.cnp);
+        this.novoPedidoForm.controls['nome'].setValue(produto.descricao);
+        this.novoPedidoForm.controls['unidade'].setValue(produto.unidadeMedidaProduto.descricao || 'unidade');
+      });
   }
 
   onCodigoChange() {
     const codigo = this.novoPedidoForm.controls['codigo'].value;
-    const product = this.produtos.find(({ produto }) => produto.cnp === codigo).produto;
-
-    if (!product) return;
-
-    this.novoPedidoForm.controls['codigo'].setValue(product.cnp);
-    this.novoPedidoForm.controls['nome'].setValue(product.descricao);
-    this.novoPedidoForm.controls['unidade'].setValue(product.unidadeMedidaProduto.descricao || 'unidade');
   }
 
   onNomeBlur() {

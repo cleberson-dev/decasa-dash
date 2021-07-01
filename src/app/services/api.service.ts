@@ -207,9 +207,8 @@ export class ApiService {
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   };
 
-  findProdutoByCnp(cnp: string) {
-    const lojista = 1; // HARDCODED, REPLACE IT LATER
-    const url = `${this.url}/produtos/cnp/${cnp}/lojista/${lojista}`;
+  findProdutoByCnp(cnp: string, lojistaId: number = 2) {
+    const url = `${this.url}/produtos/cnp/${cnp}/lojista/${lojistaId}`;
 
     return this.http.get<Produto>(url);
   }
