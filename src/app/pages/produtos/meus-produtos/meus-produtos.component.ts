@@ -123,9 +123,14 @@ export class MeusProdutosComponent implements OnInit {
       });
   }
 
-  onSearch() {
+  searchProducts() {
     const query = this.searchControl.value;
     this.apiService.buscarProdutoLojista(query)
-      .subscribe(data => alert(data.content.length));
+      .subscribe(data => alert(`Consulta: ${query} | Resultados: ${data.content.length}`));
+  }
+
+  onSearchKeyDown(e: KeyboardEvent) {
+    if (e.code !== 'Enter') return;
+    this.searchProducts();
   }
 }

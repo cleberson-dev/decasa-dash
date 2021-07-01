@@ -20,8 +20,13 @@
         <nb-option value="1">Ordem Alfabética</nb-option>
       </nb-select>
       <div class="search-bar">
-        <input nbInput [formControl]="searchControl" placeholder="Pesquise aqui..." />
-        <button nbButton ghost (click)="onSearch()"><nb-icon icon="search-outline"></nb-icon></button>
+        <input 
+          nbInput 
+          [formControl]="searchControl" 
+          placeholder="Pesquise aqui..."
+          (keydown)="onSearchKeyDown($event)"
+        />
+        <button nbButton ghost (click)="searchProducts()"><nb-icon icon="search-outline"></nb-icon></button>
       </div>
     </div>
     <div *ngIf="loading; else notLoading" class="loading-container">
