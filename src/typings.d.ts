@@ -95,16 +95,13 @@ declare type Fornecedor = {
   razaoSocial: string;
 }
 
-declare type ProdutoLojista = Produto & {
-  preco?: number;
+declare type ProdutoLojista = {
+  id: number;
+  lojista: Lojista;
+  produto: Produto;
+  valor: number;
   estoqueMinimo?: number;
-}
-
-declare type ResumidoProdutoLojista = Omit<
-  ProdutoLojista,
-  "liberado" | "dimensoes" | "pesoGrama" | "cnp" |
-  "videoDemonstrativo" | "manualInstrucao" | "detalhe" | "quantidadeApresentacao"
->;
+};
 
 declare type UnidadeMedida = {
   id: number;

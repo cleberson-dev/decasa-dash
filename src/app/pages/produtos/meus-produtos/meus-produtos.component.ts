@@ -16,7 +16,7 @@ export class MeusProdutosComponent implements OnInit {
   @Output() requestClick = new EventEmitter();
   
   currentProductsPage: number;
-  products: ResumidoProdutoLojista[] = [];
+  produtosLojista: ProdutoLojista[] = [];
   
   smartGroup: NbMenuItem[] = [
     { 
@@ -50,13 +50,14 @@ export class MeusProdutosComponent implements OnInit {
     this.apiService
       .getProductsByCategory(
         this.currentCategory,
+        2,
         { page }
       )
       .subscribe(this.handleFetch);
   }
 
   handleFetch(data: any) {
-    this.products = data.content.map(p => ({
+    this.produtosLojista = data.content.map(p => ({
       id: p.id,
       nome: p.descricao,
       marca: {
@@ -87,11 +88,9 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.apiService
-    //   .getProductsByCategory(
-    //     this.currentCategory + '',
-    //   )
-    //   .subscribe(this.handleFetch);
+    this.apiService
+      .getProdutosLojista()
+      .subscribe(this.handleFetch);
   }
 
   onItemSelected(value: string) {
@@ -110,16 +109,17 @@ export class MeusProdutosComponent implements OnInit {
     ref.close();
   }
 
-  onSubmitHandler(products: ResumidoProdutoLojista[]) {
+  onSubmitHandler(products: ProdutoLojista[]) {
+    const lojistaId = products[0].lojista.id;
     this.apiService
       .addProdutos(products.map(p => ({
-        lojistaId: 2,
+        lojistaId,
         produtoId: p.id as number,
-        preco: p.preco,
-        estoqueMinimo: p.estoqueMinimo
+        preco: p.valor,
+        estoqueMinimo: p.estoqueMinimo || 1
       })))
       .subscribe(() => {
-        this.products.push(...products);
+        this.produtosLojista.push(...products);
       });
   }
 

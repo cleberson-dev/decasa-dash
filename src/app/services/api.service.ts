@@ -65,8 +65,9 @@ export class ApiService {
     return this.http.get<PaginatedResource<Produto>>(this.url + '/produtos/paginacao');
   }
 
-  getProdutosLojista(idDoLojista?: number) {
-    return this.http.get<ProdutoLojista[]>(this.url + '/produtos/lojista/' + idDoLojista);
+  getProdutosLojista(idDoLojista: number = 2) {
+    const url = this.url + '/lojistasProdutos?idLojista=' + idDoLojista;
+    return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   }
 
   getDepartments(): Observable<Department[]> {
@@ -97,12 +98,13 @@ export class ApiService {
     );
   }
 
-  getProductsByCategory(id: number, options?: Options) {
-    let url = this.url + '/produtos/categoria/' + id;
+  getProductsByCategory(categoriaId: number, lojistaId: number = 2, options?: Options) {
+    let url = this.url + '/lojistasProdutos/categoria/' + categoriaId;
     url += '?page=' + ((options?.page || 1) - 1);
     url += '&size=' + (options?.itemsPerPage || 10);
+    url += '&idLojista=' + lojistaId;
 
-    return this.http.get<PaginatedResource<any>>(url);
+    return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   }
 
   getFornecedores(): Observable<Fornecedor[]> {
