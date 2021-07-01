@@ -11,10 +11,11 @@ import { Department } from '../produtos.component';
   styleUrls: ['./meus-produtos.component.scss']
 })
 export class MeusProdutosComponent implements OnInit {
-  @Input() departments: Department[];
-  @Input() departmentTree: TreeItem[];
   @Output() requestClick = new EventEmitter();
-  
+  departments: Department[];
+  departmentTree: TreeItem[];
+  loadingDepartments: boolean = true;
+
   currentProductsPage: number;
   produtosLojista: ProdutoLojista[] = [];
   
@@ -39,8 +40,7 @@ export class MeusProdutosComponent implements OnInit {
   constructor(
     private dialogService: NbDialogService,
     private apiService: ApiService
-  ) {
-  }
+  ) {}
 
   onPageChange(changedPage: number) {
     this.apiService
@@ -80,6 +80,23 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.apiService.getDepartments()
+      .subscribe(departments => {
+        this.departments = departments;
+
+        this.departmentTree = this.departments.map(department => ({
+          name: department.name,
+          icon: 'bookmark',
+          value: department.id + '',
+          children: department.categories.map(cat => ({
+            name: cat.name, value: cat.id + '', icon: 'folder-outline', active: false
+          }))
+        }));
+
+        this.loadingDepartments = false;
+      });
+
+
     this.apiService
       .getProdutosLojista()
       .subscribe(this.handleFetch);

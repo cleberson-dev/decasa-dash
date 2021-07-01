@@ -41,8 +41,8 @@ export class ModalAdicionarComponent implements OnInit {
   selectedCategoryChange(e: any) {
     if (e === 'mais-vendidos') {
       this.apiService.getProdutosMaisVendidos()
-      .subscribe(produtos => {
-        this.produtos = produtos.map(produto => ({
+      .subscribe(data => {
+        this.produtos = data.content.map(produto => ({
           ...produto,
           foto: 'https://media.benessereblog.it/5/57c/latte-e-formaggi.jpg'
         }));

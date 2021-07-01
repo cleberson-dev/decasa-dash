@@ -45,7 +45,7 @@ export class PedidosComponent implements OnInit {
 
   fornecedores: Fornecedor[] = [];
 
-  produtos: Produto[] = [];
+  produtos: ProdutoLojista[] = [];
   
   codigoMask = /^\d+$/;
 
@@ -57,10 +57,10 @@ export class PedidosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.api.getAllProducts()
+    this.api.getProdutosLojistaMaisVendidos(2)
       .subscribe(data => {
         this.produtos = data.content;
-        this.autoOptions = this.produtos.map(p => p.descricao);
+        this.autoOptions = this.produtos.map(({ produto }) => produto.descricao);
         this.suggestedOptions$ = of(this.autoOptions);
       });
   }
@@ -69,7 +69,7 @@ export class PedidosComponent implements OnInit {
     this.suggestedOptions$ = of($event).pipe(
       map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
     );
-    const selectedProduct = this.produtos.find(p => p.descricao.toLowerCase().includes($event.toLowerCase()));
+    const { produto: selectedProduct } = this.produtos.find(({ produto }) => produto.descricao.toLowerCase().includes($event.toLowerCase()));
     if (!selectedProduct) return;
 
     this.novoPedidoForm.controls['codigo'].setValue(selectedProduct.cnp);
@@ -82,18 +82,18 @@ export class PedidosComponent implements OnInit {
     // this.suggestedOptions$ = of(value).pipe(
     //   map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
     // );
-    this.suggestedOptions$ = this.api.buscarProdutoLojista(value)
+    this.suggestedOptions$ = this.api.buscarProdutoLojista(value, 2, { page: 1, size: 5 })
       .pipe(
         map(data => {
           this.produtos = data.content;
-          return data.content.map(produto => produto.descricao);
+          return data.content.map(({ produto }) => produto.descricao);
         })
       );
   }
 
   onPedidoAdd() {
     const row = {
-      produto: this.produtos.find(p => p.cnp === this.novoPedidoForm.controls['codigo'].value),
+      produto: this.produtos.find(({ produto }) => produto.cnp === this.novoPedidoForm.controls['codigo'].value).produto,
       quantidade: this.novoPedidoForm.controls['quantidade'].value
     };
 
@@ -142,7 +142,7 @@ export class PedidosComponent implements OnInit {
 
   onCodigoBlur() {
     const codigo = this.novoPedidoForm.controls['codigo'].value;
-    const product = this.produtos.find(p => p.cnp === codigo);
+    const product = this.produtos.find(({ produto }) => produto.cnp === codigo);
 
     if (product) return;
 
@@ -151,7 +151,7 @@ export class PedidosComponent implements OnInit {
 
   onCodigoChange() {
     const codigo = this.novoPedidoForm.controls['codigo'].value;
-    const product = this.produtos.find(p => p.cnp === codigo);
+    const product = this.produtos.find(({ produto }) => produto.cnp === codigo).produto;
 
     if (!product) return;
 
@@ -162,7 +162,7 @@ export class PedidosComponent implements OnInit {
 
   onNomeBlur() {
     const name = this.novoPedidoForm.controls['nome'].value;
-    const product = this.produtos.find(p => p.descricao === name);
+    const product = this.produtos.find(({ produto }) => produto.descricao === name);
     if (!product) {
       this.novoPedidoForm.controls['nome'].setErrors({ noProduct: true });
     } else {

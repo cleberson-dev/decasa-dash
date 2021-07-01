@@ -2,8 +2,6 @@
   <nb-tabset fullWidth>
     <nb-tab tabTitle="Meus produtos" style="padding: 0;" [active]="tabs.meusProdutos">
       <tab-meus-produtos
-        [departments]="departments"
-        [departmentTree]="departmentTree"
         (requestClick)="changeTab($event)"
       ></tab-meus-produtos>
     </nb-tab>
@@ -33,8 +31,6 @@
                   {{ cat.name }}
                 </nb-option>
               </nb-option-group>
-              
-              
             </nb-select>
             <small class="error" *ngIf="isInvalidControl('categoria')">{{
               getErrorMessage("categoria")

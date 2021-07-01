@@ -3,11 +3,15 @@
     <nb-menu [items]="smartGroup"></nb-menu>
     
     <h5 class="category-title">Departamentos</h5>
-    <ngx-tree 
+    <ngx-tree
+      *ngIf="!loadingDepartments && departmentTree.length > 0"
       [items]="departmentTree" 
       (itemSelected)="onItemSelected($event)"
       class="department-tree"
     ></ngx-tree>
+    <!-- <ng-template #notLoadingDeps>
+      <sa-spinner-circular [enabled]="true"></sa-spinner-circular>
+    </ng-template> -->
   </div>
   <div class="right">
     <div class="actions"> 
@@ -45,7 +49,7 @@
             ></ngx-produto-lojista>
           </nb-list-item>
         </nb-list>
-        <ng-template #noProducts>
+        <ng-template #noProducts> 
           <div class="no-items">
             <p style="font-size: 2rem; font-weight: bold;">Sem itens</p>
             <button nbButton status="primary" (click)="open(dialog)">

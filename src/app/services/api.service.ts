@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Department } from '../pages/produtos/produtos.component';
 
@@ -52,6 +52,11 @@ type CriarColaboradorParams = {
   cpf: string;
   senha: string;
 };
+
+type PaginationOptions = {
+  page?: number;
+  size?: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -172,12 +177,28 @@ export class ApiService {
     return this.http.get<ApiUF[]>(url);
   }
 
+  getProdutosMaisVendidos(paginationOptions?: PaginationOptions) {
+    const page = paginationOptions?.page || 1;
+    const size = paginationOptions?.size || 10;
+    
+    let url = this.url + '/produtos/maisVendido/';
+    url += '&page=' + page;
+    url += '&size=' + size;
 
-  getProdutosMaisVendidos() {
-    const url = this.url + '/produtos/maisVendido';
+    return this.http.get<PaginatedResource<Produto>>(url);
+  };
 
-    return this.http.get<Produto[]>(url);
-  }
+
+  getProdutosLojistaMaisVendidos(lojistaId: number, paginationOptions?: PaginationOptions) {
+    const page = paginationOptions?.page || 1;
+    const size = paginationOptions?.size || 10;
+    
+    let url = this.url + '/produtos/maisVendido/?idLojista=' + lojistaId;
+    url += '&page=' + page;
+    url += '&size=' + size;
+
+    return this.http.get<PaginatedResource<ProdutoLojista>>(url);
+  };
 
   findProdutoByCnp(cnp: string) {
     const lojista = 1; // HARDCODED, REPLACE IT LATER
@@ -256,9 +277,16 @@ export class ApiService {
     return this.http.post(url, params);
   }
 
-  buscarProdutoLojista(query: string, lojistaId: number = 2) {
-    const url = this.url + `/produtos/lojista/${lojistaId}?palavraChave=${query}`;
-    return this.http.get<PaginatedResource<Produto>>(url);
+  buscarProdutoLojista(query: string, lojistaId: number = 2, paginationOpts?: PaginationOptions) {
+    const page = paginationOpts?.page || 1;
+    const size = paginationOpts?.size || 10;
+
+    let url = this.url + '/produtos/lojista/' + lojistaId;
+    url += '?palavraChave=' + query;
+    url += '&page=' + page;
+    url += '&size=' + size;
+
+    return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   }
 
   buscarProduto(query: string) {
