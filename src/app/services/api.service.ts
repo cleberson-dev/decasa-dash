@@ -330,4 +330,10 @@ export class ApiService {
 
     return this.http.get(url);
   }
+
+  getLojista(lojistaId: number = 2) {
+    const url = this.url + '/lojistas/' + lojistaId;
+
+    return this.http.get<Lojista>(url);
+  }
 }

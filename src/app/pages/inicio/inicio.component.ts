@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { IMaskFactory } from 'angular-imask'
+import { ApiService } from '../../services/api.service';
 
 
 type Loja = {
@@ -36,12 +37,12 @@ export class InicioComponent implements OnInit {
   });
 
   loja = {
-    nome: 'Minha Loja',
-    razaoSocial: 'Minha Loja Ltda.',
-    cnpj: '05.734.638/0001-70',
-    inscricaoEstadual: '12092522-2',
-    endereco: 'Av. Jerônimo de Albuquerque',
-    telefone: '(99) 99999-9999'
+    nome: '...',
+    razaoSocial: '...',
+    cnpj: '...',
+    inscricaoEstadual: '...',
+    endereco: '...',
+    telefone: '...'
   };
 
   lojas: (Loja & { collapsed?: boolean; })[] = [
@@ -70,9 +71,18 @@ export class InicioComponent implements OnInit {
   constructor(
     private dialogService: NbDialogService,
     private fb: FormBuilder,
+    private apiService: ApiService
   ) { }
 
   ngOnInit(): void {
+    this.apiService.getLojista()
+      .subscribe(lojista => {
+        this.loja.inscricaoEstadual = lojista.inscricaoEstadual;
+        this.loja.endereco = lojista.logradouro;
+        this.loja.telefone = lojista.telefone;
+        this.loja.cnpj = lojista.cnpj;
+        this.loja.nome = lojista.nome;
+      });
   }
 
   openAddLojaModal(dialog: TemplateRef<any>) {
