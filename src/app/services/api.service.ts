@@ -269,4 +269,10 @@ export class ApiService {
 
     return this.http.post(url, params);
   }
+
+  listarColaboradores(lojistaId: number = 2) {
+    const url = this.url + '/colaboradores/?lojistaId=' + lojistaId;
+
+    return this.http.get(url);
+  }
 }
