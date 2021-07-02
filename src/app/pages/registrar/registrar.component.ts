@@ -59,4 +59,14 @@ export class RegistrarComponent implements OnInit {
     
     return ' ';
   }
+
+  isInvalid(controlName: string) {
+    const control = this.registerForm.controls[controlName];
+    
+    if (controlName === 'senha2' && this.registerForm.errors?.notSamePassword && (control.touched || control.dirty)) {
+      return true;
+    }
+
+    return control.invalid && (control.touched || control.dirty);
+  }
 }

@@ -19,7 +19,8 @@
    NbInputModule,
    NbIconModule,
    NbButtonModule,
-   NbCheckboxModule
+   NbCheckboxModule,
+   NbPopoverModule,
  } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './pages/login/login.component';
@@ -59,7 +60,8 @@ import { IMaskModule } from 'angular-imask';
      NbCheckboxModule,
      StoreModule.forRoot({ produtosPlataforma: fromProdutosPlataforma.reducer }),
      ReactiveFormsModule,
-     IMaskModule
+     IMaskModule,
+     NbPopoverModule,
    ],
    bootstrap: [AppComponent],
    schemas: [CUSTOM_ELEMENTS_SCHEMA],

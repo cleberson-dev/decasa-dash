@@ -1,3 +1,5 @@
+$dangerColor: #ff708d;
+
 .label-with-link {
   display: flex;
   justify-content: space-between;
@@ -62,10 +64,15 @@ label {
 
 span.error {
   font-size: 0.8rem;
-  color: red;
+  color: $dangerColor;
+  padding: 5px;
 }
 
 .register-card-header {
   display: flex;
   justify-content: space-between;
+}
+
+input.invalid {
+  border: 1px solid $dangerColor !important;
 }

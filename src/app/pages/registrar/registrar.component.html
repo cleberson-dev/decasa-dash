@@ -7,7 +7,13 @@
             <nb-icon status="primary" icon="arrow-back"></nb-icon>
           </button>
         </a>
-        <button nbButton type="submit" status="primary" form="registerForm" [disabled]="registerForm.invalid">
+        <button
+          nbButton
+          type="submit"
+          status="primary"
+          form="registerForm"
+          [disabled]="registerForm.invalid"
+        >
           Registrar
           <nb-icon icon="arrow-forward"></nb-icon>
         </button>
@@ -17,71 +23,168 @@
           <div class="register-page">
             <h1>Registrar-se</h1>
             <p>Seja um lojista agora mesmo! Preencha os campos abaixo.</p>
-            <form id="registerForm" [formGroup]="registerForm" (submit)="onRegisterFormSubmit()">
+            <form
+              id="registerForm"
+              [formGroup]="registerForm"
+              (submit)="onRegisterFormSubmit()"
+            >
               <div class="row">
                 <div class="col-6">
                   <label>Razão Social</label>
-                  <input nbInput fullWidth formControlName="razaoSocial" />
-                  <span class="error">{{ getErrorMessage('razaoSocial') }}</span>
+                  <input
+                    nbInput
+                    [nbPopover]="razaoSocialError"
+                    fullWidth
+                    formControlName="razaoSocial"
+                    [class]="{ 'invalid': isInvalid('razaoSocial') }"
+                  />
+                  <ng-template #razaoSocialError>
+                    <span class="error">{{
+                      getErrorMessage("razaoSocial")
+                    }}</span>
+                  </ng-template>
                 </div>
                 <div class="col-6">
                   <label>CNPJ</label>
-                  <input nbInput fullWidth formControlName="cnpj" [imask]="{ mask: '00.000.000/0000-00' }"  />
-                  <span class="error">{{ getErrorMessage('cnpj') }}</span>
+                  <input
+                    nbInput
+                    fullWidth
+                    formControlName="cnpj"
+                    [imask]="{ mask: '00.000.000/0000-00' }"
+                    [nbPopover]="cnpjError"
+                    [class]="{ 'invalid': isInvalid('cnpj') }"
+                    />
+                    <ng-template #cnpjError>
+                      <span class="error">{{ getErrorMessage("cnpj") }}</span>
+                    </ng-template>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
-                  <label>RG</label>
-                  <input nbInput fullWidth formControlName="rg" />
-                  <span class="error">{{ getErrorMessage('rg') }}</span>
+                <div class="row">
+                  <div class="col-4">
+                    <label>RG</label>
+                    <input
+                    nbInput
+                    fullWidth
+                    formControlName="rg"
+                    [nbPopover]="rgError"
+                    [class]="{ 'invalid': isInvalid('rg') }"
+                    />
+                    <ng-template #rgError>
+                      <span class="error">{{ getErrorMessage("rg") }}</span>
+                    </ng-template>
+                  </div>
+                  
+                  <div class="col-4">
+                    <label>Inscrição Estadual</label>
+                    <input
+                    nbInput
+                    fullWidth
+                    formControlName="inscricaoEstadual"
+                    [nbPopover]="inscricaoEstadualError"
+                    [class]="{ 'invalid': isInvalid('inscricaoEstadual') }"
+                    />
+                    <ng-template #inscricaoEstadualError>
+                      <span class="error">{{
+                        getErrorMessage("inscricaoEstadual")
+                      }}</span>
+                    </ng-template>
+                  </div>
                 </div>
-                
-                <div class="col-4">
-                  <label>Inscrição Estadual</label>
-                  <input nbInput fullWidth formControlName="inscricaoEstadual" />
-                  <span class="error">{{ getErrorMessage('inscricaoEstadual') }}</span>
+                <div class="row">
+                  <div class="col-4">
+                    <label>E-mail</label>
+                    <input
+                    nbInput
+                    fullWidth
+                    type="email"
+                    formControlName="email"
+                    [nbPopover]="emailError"
+                    [class]="{ 'invalid': isInvalid('email') }"
+                    />
+                    <ng-template #emailError>
+                      <span class="error">{{ getErrorMessage("email") }}</span>
+                    </ng-template>
+                  </div>
+                  <div class="col-4">
+                    <label>Senha</label>
+                    <input
+                    nbInput
+                    fullWidth
+                    type="password"
+                    formControlName="senha"
+                    [nbPopover]="senhaError"
+                    [class]="{ 'invalid': isInvalid('senha') }"
+                    />
+                    <ng-template #senhaError>
+                      <span class="error">{{ getErrorMessage("senha") }}</span>
+                    </ng-template>
+                  </div>
+                  <div class="col-4">
+                    <label>Confirmar Senha</label>
+                    <input
+                    nbInput
+                    fullWidth
+                    type="password"
+                    formControlName="senha2"
+                    [nbPopover]="senha2Error"
+                    [class]="{ 'invalid': isInvalid('senha2') }"
+                    />
+                    <ng-template #senha2Error>
+                      <span class="error">{{ getErrorMessage("senha2") }}</span>
+                    </ng-template>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-4">
-                  <label>E-mail</label>
-                  <input nbInput fullWidth type="email" formControlName="email" />
-                  <span class="error">{{ getErrorMessage('email') }}</span>
+                <div class="row">
+                  <div class="col-6">
+                    <label>Logradouro</label>
+                    <input
+                    nbInput
+                    fullWidth
+                    formControlName="logradouro"
+                    [nbPopover]="logradouroError"
+                    [class]="{ 'invalid': isInvalid('logradouro') }"
+                    />
+                    <ng-template #logradouroError>
+                      <span class="error">{{
+                        getErrorMessage("logradouro")
+                      }}</span>
+                    </ng-template>
+                  </div>
+                  <div class="col-3">
+                    <label>Celular</label>
+                    <input
+                    nbInput
+                    fullWidth
+                    formControlName="celular"
+                    [imask]="{ mask: '(00) 00000-0000' }"
+                    [nbPopover]="celularError"
+                    [class]="{ 'invalid': isInvalid('celular') }"
+                    />
+                    <ng-template #celularError>
+                      <span class="error">{{ getErrorMessage("celular") }}</span>
+                    </ng-template>
+                  </div>
+                  <div class="col-3">
+                    <label>Telefone</label>
+                    <input
+                    nbInput
+                    fullWidth
+                    formControlName="telefone"
+                    [imask]="{ mask: '(00) 00000-0000' }"
+                    [nbPopover]="telefoneError"
+                    [class]="{ 'invalid': isInvalid('razaoSocial') }"
+                    />
+                    <ng-template #telefoneError>
+                      <span class="error">{{ getErrorMessage("telefone") }}</span>
+                    </ng-template>
+                  </div>
                 </div>
-                <div class="col-4">
-                  <label>Senha</label>
-                  <input nbInput fullWidth type="password" formControlName="senha" />
-                  <span class="error">{{ getErrorMessage('senha') }}</span>
-                </div>
-                <div class="col-4">
-                  <label>Confirmar Senha</label>
-                  <input nbInput fullWidth type="password" formControlName="senha2" />
-                  <span class="error">{{ getErrorMessage('senha2') }}</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label>Logradouro</label>
-                  <input nbInput fullWidth formControlName="logradouro" />
-                  <span class="error">{{ getErrorMessage('logradouro') }}</span>
-                </div>
-                <div class="col-3">
-                  <label>Celular</label>
-                  <input nbInput fullWidth formControlName="celular" [imask]="{ mask: '(00) 00000-0000' }" />
-                  <span class="error">{{ getErrorMessage('celular') }}</span>
-                </div>
-                <div class="col-3">
-                  <label>Telefone</label>
-                  <input nbInput fullWidth formControlName="telefone" [imask]="{ mask: '(00) 00000-0000' }" />
-                  <span class="error">{{ getErrorMessage('telefone') }}</span>
-                </div>
-              </div>
-            </form>
+              </form>
+            </div>
+            <div class="illustration"></div>
           </div>
-          <div class="illustration"></div>
-        </div>
-      </nb-card-body>
-    </nb-card>
-  </nb-layout-column>
-</nb-layout>
+        </nb-card-body>
+      </nb-card>
+    </nb-layout-column>
+  </nb-layout>
+  
