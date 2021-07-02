@@ -29,6 +29,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { ApiStatusIndicatorComponent } from './components/api-status-indicator/api-status-indicator.component';
+import { IMaskModule } from 'angular-imask';
+
 
 @NgModule({
    declarations: [AppComponent, LoginComponent, RegistrarComponent],
@@ -56,7 +58,8 @@ import { ApiStatusIndicatorComponent } from './components/api-status-indicator/a
      NbButtonModule,
      NbCheckboxModule,
      StoreModule.forRoot({ produtosPlataforma: fromProdutosPlataforma.reducer }),
-     ReactiveFormsModule
+     ReactiveFormsModule,
+     IMaskModule
    ],
    bootstrap: [AppComponent],
    schemas: [CUSTOM_ELEMENTS_SCHEMA],

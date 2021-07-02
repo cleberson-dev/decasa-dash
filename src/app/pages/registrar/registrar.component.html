@@ -13,54 +13,54 @@
           <div class="register-page">
             <h1>Registrar-se</h1>
             <p>Seja um lojista agora mesmo! Preencha os campos abaixo.</p>
-            <form>
+            <form [formGroup]="registerForm" (submit)="onRegisterFormSubmit()">
               <div class="row">
                 <div class="col-6">
                   <label>Razão Social</label>
-                  <input nbInput fullWidth />
+                  <input nbInput fullWidth formControlName="razaoSocial" />
                 </div>
                 <div class="col-6">
                   <label>CNPJ</label>
-                  <input nbInput fullWidth />
+                  <input nbInput fullWidth formControlName="cnpj" [imask]="{ mask: '00.000.000/0000-00' }"  />
                 </div>
               </div>
               <div class="row">
                 <div class="col-4">
                   <label>RG</label>
-                  <input nbInput fullWidth />
+                  <input nbInput fullWidth formControlName="rg" />
                 </div>
       
                 <div class="col-4">
                   <label>Inscrição Estadual</label>
-                  <input nbInput fullWidth />
+                  <input nbInput fullWidth formControlName="inscricaoEstadual" />
                 </div>
               </div>
               <div class="row">
                 <div class="col-4">
                   <label>E-mail</label>
-                  <input nbInput fullWidth type="email" />
+                  <input nbInput fullWidth type="email" formControlName="email" />
                 </div>
                 <div class="col-4">
                   <label>Senha</label>
-                  <input nbInput fullWidth type="password" />
+                  <input nbInput fullWidth type="password" formControlName="senha" />
                 </div>
                 <div class="col-4">
                   <label>Confirmar Senha</label>
-                  <input nbInput fullWidth type="password" />
+                  <input nbInput fullWidth type="password" formControlName="senha2" />
                 </div>
               </div>
               <div class="row">
                 <div class="col-6">
                   <label>Logradouro</label>
-                  <input nbInput fullWidth />
+                  <input nbInput fullWidth formControlName="logradouro" />
                 </div>
                 <div class="col-3">
                   <label>Celular</label>
-                  <input nbInput fullWidth />
+                  <input nbInput fullWidth formControlName="celular" [imask]="{ mask: '(00) 00000-0000' }" />
                 </div>
                 <div class="col-3">
                   <label>Telefone</label>
-                  <input nbInput fullWidth />
+                  <input nbInput fullWidth formControlName="telefone" [imask]="{ mask: '(00) 00000-0000' }" />
                 </div>
               </div>
               <button nbButton status="primary" type="submit">

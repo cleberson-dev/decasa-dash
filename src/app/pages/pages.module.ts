@@ -23,7 +23,6 @@ import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ProdutosPageComponent } from './produtos/produtos.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IMaskModule } from 'angular-imask';
 import { ProdutoComponent } from '../components/produto/produto.component';
 import { TreeComponent } from '../components/tree/tree.component';
 import { NotFoundComponent } from '../components/not-found/not-found.component';
@@ -76,7 +75,6 @@ import { SolicitarComponent } from './produtos/solicitar/solicitar.component';
     NbButtonModule,
     ReactiveFormsModule,
     NbDatepickerModule,
-    IMaskModule,
     NbSelectModule,
     NbSpinnerModule,
     NbTabsetModule,
