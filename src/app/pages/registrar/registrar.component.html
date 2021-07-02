@@ -1,19 +1,23 @@
 <nb-layout windowMode>
   <nb-layout-column>
     <nb-card>
-      <nb-card-header>
+      <nb-card-header class="register-card-header">
         <a routerLink="/">
           <button nbButton ghost>
             <nb-icon status="primary" icon="arrow-back"></nb-icon>
           </button>
         </a>
+        <button nbButton type="submit" status="primary" form="registerForm" [disabled]="registerForm.invalid">
+          Registrar
+          <nb-icon icon="arrow-forward"></nb-icon>
+        </button>
       </nb-card-header>
       <nb-card-body style="padding: 0">
         <div class="wrapper">
           <div class="register-page">
             <h1>Registrar-se</h1>
             <p>Seja um lojista agora mesmo! Preencha os campos abaixo.</p>
-            <form [formGroup]="registerForm" (submit)="onRegisterFormSubmit()">
+            <form id="registerForm" [formGroup]="registerForm" (submit)="onRegisterFormSubmit()">
               <div class="row">
                 <div class="col-6">
                   <label>Razão Social</label>
@@ -73,9 +77,6 @@
                   <span class="error">{{ getErrorMessage('telefone') }}</span>
                 </div>
               </div>
-              <button nbButton status="primary" type="submit">
-                Registrar
-              </button>
             </form>
           </div>
           <div class="illustration"></div>
