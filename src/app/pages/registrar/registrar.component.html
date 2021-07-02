@@ -18,49 +18,59 @@
                 <div class="col-6">
                   <label>Razão Social</label>
                   <input nbInput fullWidth formControlName="razaoSocial" />
+                  <span class="error">{{ getErrorMessage('razaoSocial') }}</span>
                 </div>
                 <div class="col-6">
                   <label>CNPJ</label>
                   <input nbInput fullWidth formControlName="cnpj" [imask]="{ mask: '00.000.000/0000-00' }"  />
+                  <span class="error">{{ getErrorMessage('cnpj') }}</span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-4">
                   <label>RG</label>
                   <input nbInput fullWidth formControlName="rg" />
+                  <span class="error">{{ getErrorMessage('rg') }}</span>
                 </div>
-      
+                
                 <div class="col-4">
                   <label>Inscrição Estadual</label>
                   <input nbInput fullWidth formControlName="inscricaoEstadual" />
+                  <span class="error">{{ getErrorMessage('inscricaoEstadual') }}</span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-4">
                   <label>E-mail</label>
                   <input nbInput fullWidth type="email" formControlName="email" />
+                  <span class="error">{{ getErrorMessage('email') }}</span>
                 </div>
                 <div class="col-4">
                   <label>Senha</label>
                   <input nbInput fullWidth type="password" formControlName="senha" />
+                  <span class="error">{{ getErrorMessage('senha') }}</span>
                 </div>
                 <div class="col-4">
                   <label>Confirmar Senha</label>
                   <input nbInput fullWidth type="password" formControlName="senha2" />
+                  <span class="error">{{ getErrorMessage('senha2') }}</span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-6">
                   <label>Logradouro</label>
                   <input nbInput fullWidth formControlName="logradouro" />
+                  <span class="error">{{ getErrorMessage('logradouro') }}</span>
                 </div>
                 <div class="col-3">
                   <label>Celular</label>
                   <input nbInput fullWidth formControlName="celular" [imask]="{ mask: '(00) 00000-0000' }" />
+                  <span class="error">{{ getErrorMessage('celular') }}</span>
                 </div>
                 <div class="col-3">
                   <label>Telefone</label>
                   <input nbInput fullWidth formControlName="telefone" [imask]="{ mask: '(00) 00000-0000' }" />
+                  <span class="error">{{ getErrorMessage('telefone') }}</span>
                 </div>
               </div>
               <button nbButton status="primary" type="submit">

@@ -39,4 +39,24 @@ export class RegistrarComponent implements OnInit {
 
     return senha === senha2 ? null : { notSamePassword: true };
   }
+
+  getErrorMessage(controlName: string) {
+    if (controlName === 'senha2' && this.registerForm.errors?.notSamePassword) {
+      return 'Senhas não batem';
+    }
+    
+    const control = this.registerForm.controls[controlName];
+
+    if (control.invalid  && (control.touched || control.dirty)) {
+      const [error] = Object.keys(control.errors);
+
+      const messages: Record<string, string> = {
+        required: 'Campo obrigatório'
+      };
+  
+      return messages[error] || 'Campo inválido';
+    }
+    
+    return ' ';
+  }
 }
