@@ -183,24 +183,32 @@ export class FornecedoresComponent implements OnInit {
     this.formTitle = 'Editar fornecedor';
     this.formSubmitText = 'Editar';
     this.formType = 'editar';
-    this.formFornecedor.patchValue({
-      id: context.fornecedor.id,
-      nomeFantasia: context.fornecedor.nomeFantasia,
-      razaoSocial: context.fornecedor.razaoSocial,
-      cnpj: context.fornecedor.cnpj,
-      logradouro: context.fornecedor.logradouro,
-      numero: context.fornecedor.numero,
-      bairro: context.fornecedor.bairro,
-      cep: context.fornecedor.cep,
-      pontoReferencia: context.fornecedor.pontoReferencia,
-      celular: context.fornecedor.celular,
-      telefone: context.fornecedor.telefone,
-      email: context.fornecedor.email,
-      municipioEndereco: context.fornecedor.municipioEndereco.id,
-      inscricaoEstadual: context.fornecedor.inscricaoEstadual,
-      categorias: context.fornecedor.categoriasFornecidas?.map(c => c.id) || []
-    });
-    context.type = 'form';
+
+    this.api.getMunicipiosByUf(context.fornecedor.ufRg.id)
+      .subscribe(municipios => {
+        this.municipios = municipios;
+
+        this.formFornecedor.patchValue({
+          id: context.fornecedor.id,
+          nomeFantasia: context.fornecedor.nomeFantasia,
+          razaoSocial: context.fornecedor.razaoSocial,
+          cnpj: context.fornecedor.cnpj,
+          logradouro: context.fornecedor.logradouro,
+          numero: context.fornecedor.numero,
+          bairro: context.fornecedor.bairro,
+          cep: context.fornecedor.cep,
+          pontoReferencia: context.fornecedor.pontoReferencia,
+          celular: context.fornecedor.celular,
+          telefone: context.fornecedor.telefone,
+          email: context.fornecedor.email,
+          municipioEndereco: context.fornecedor.municipioEndereco.id,
+          inscricaoEstadual: context.fornecedor.inscricaoEstadual,
+          categorias: context.fornecedor.categoriasFornecidas?.map(c => c.id) || [],
+          uf: context.fornecedor.ufRg.id
+        });
+        context.type = 'form';
+      });
+
   }
 
   isControlInvalid(controlName: string) {
@@ -297,5 +305,15 @@ export class FornecedoresComponent implements OnInit {
 
   isDepartmentSelected(depId: number) {
     return this.selectedDepartments.some(dep => dep.id === depId);
+  }
+
+  onFormBackBtn(context: any, ref: NbDialogRef<any>) {
+    switch (context.type) {
+      case "editar":
+        context.type = "detalhes";
+        break;
+      default:
+        ref.close();
+    }
   }
 }
