@@ -1,24 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { ControlContainer, FormBuilder, Validators } from '@angular/forms';
-import { NbDialogRef, NbDialogService } from '@nebular/theme';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { FormBuilder, Validators } from '@angular/forms';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { CepService } from '../../services/cep.service';
 import * as CustomValidators from '../../validators';
 import { Department } from '../produtos/solicitar/solicitar.component';
-
-const defaultData = {
-  bairro: 'Bairro #1',
-  celular: '(99) 99999-9999',
-  cep: '65284-000',
-  cnpj: '123.123.123.123',
-  email: 'email@decasa.com',
-  logradouro: 'Rua 1º de Abril',
-  numero: 123,
-  pontoReferencia: 'Próximo a casa do lado',
-  telefone: '(99) 99999-9999',
-  cpfRepresentante: '123.123.123-12'
-}
 
 @Component({
   selector: 'ngx-fornecedores',
@@ -29,24 +15,7 @@ export class FornecedoresComponent implements OnInit {
   fornecedores: Fornecedor[] = [];
   ufs: ApiUF[] = [];
   municipios: ApiMunicipio[] = [];
-  departments: Department[] = [
-    {
-      id: 1,
-      name: 'Departamento 1',
-      categories: [
-        { id: 1, name: 'Categoria 1' },
-        { id: 2, name: 'Categoria 2' },
-      ]
-    },
-    {
-      id: 2,
-      name: 'Departamento 2',
-      categories: [
-        { id: 3, name: 'Categoria 1' },
-        { id: 4, name: 'Categoria 2' },
-      ]
-    },
-  ];
+  departments: Department[] = [];
   selectedDepartments: Department[] = [];
   
   formTitle = '';
@@ -76,7 +45,8 @@ export class FornecedoresComponent implements OnInit {
     private dialogService: NbDialogService,
     private api: ApiService,
     private fb: FormBuilder,
-    private cepService: CepService
+    private cepService: CepService,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -160,19 +130,31 @@ export class FornecedoresComponent implements OnInit {
 
     if (this.formType === 'editar') {
       this.api.editFornecedor(fornecedor)
-        .subscribe(() => {
-          const editedFornecedorIdx = this.fornecedores.findIndex(f => f.id === fornecedor.id);
-          this.fornecedores[editedFornecedorIdx] = fornecedor;
-          this.resetForm();
-          ref.close();
-        });
-    } else if (this.formType === 'criar') {
-      this.api.criarFornecedor({ id: undefined, ...fornecedor })
-        .subscribe(() => {
-          this.fornecedores.push(fornecedor);
-          this.resetForm();
-          ref.close();
-        });
+        .subscribe(
+          () => {
+            const editedFornecedorIdx = this.fornecedores.findIndex(f => f.id === fornecedor.id);
+            this.fornecedores[editedFornecedorIdx] = fornecedor;
+            this.resetForm();
+            ref.close();
+          }, 
+          ({ error }) => {
+            console.error(error);
+            this.toastrService.danger(error.titulo, 'Algo deu errado =(');
+          } 
+          );
+        } else if (this.formType === 'criar') {
+          this.api.criarFornecedor({ id: undefined, ...fornecedor })
+          .subscribe(
+            () => {
+              this.fornecedores.push(fornecedor);
+              this.resetForm();
+              ref.close();
+            },
+            ({ error }) => {
+              console.error(error.titulo);
+              this.toastrService.danger(error.titulo, 'Algo deu errado =(');
+            }
+        );
     }
   }
   
