@@ -308,12 +308,11 @@ export class FornecedoresComponent implements OnInit {
   }
 
   onFormBackBtn(context: any, ref: NbDialogRef<any>) {
-    switch (context.type) {
-      case "editar":
-        context.type = "detalhes";
-        break;
-      default:
-        ref.close();
+    if (this.formType === "editar") {
+      context.type = "detalhes";
+      return;
     }
+
+    ref.close();
   }
 }
