@@ -173,13 +173,14 @@ export class FornecedoresComponent implements OnInit {
     ref.close();
   }
 
-  onEdit(context: any) {
+  onEdit(context: { fornecedor: Fornecedor; type: string; }) {
     this.formTitle = 'Editar fornecedor';
     this.formSubmitText = 'Editar';
     this.formType = 'editar';
     this.formFornecedor.patchValue({
       id: context.fornecedor.id,
-      nome: context.fornecedor.nome,
+      nomeFantasia: context.fornecedor.nomeFantasia,
+      razaoSocial: context.fornecedor.razaoSocial,
       cnpj: context.fornecedor.cnpj,
       logradouro: context.fornecedor.logradouro,
       numero: context.fornecedor.numero,
@@ -191,6 +192,8 @@ export class FornecedoresComponent implements OnInit {
       email: context.fornecedor.email,
       municipioEndereco: context.fornecedor.municipioEndereco.id,
       inscricaoEstadual: context.fornecedor.inscricaoEstadual,
+      categoriasFornecidas: context.fornecedor.categoriasFornecidas.map(c => c.id),
+      departamentosFornecidos: context.fornecedor.departamentosFornecidos.map(d => d.id)
     });
     context.type = 'form';
   }
