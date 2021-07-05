@@ -41,14 +41,14 @@
             [valor]="produtoLojista.valor"
           ></ngx-produto>
         </nb-list-item>
-        <pagination
-          *ngIf="pagination"
-          [currentPage]="pagination.number"
-          [totalItems]="pagination.totalElements"
-          [itemsPerPage]="pagination.size"
-          (pageChange)="onPageChange($event)"
-        ></pagination>
       </nb-list>
+      <pagination
+        *ngIf="pagination"
+        [currentPage]="pagination.number + 1"
+        [totalItems]="pagination.totalElements"
+        [itemsPerPage]="pagination.size"
+        (pageChange)="onPageChange($event)"
+      ></pagination>
       <!-- <ng-template #noProducts> 
         <div class="no-items">
           <p style="font-size: 2rem; font-weight: bold;">Sem itens</p>
