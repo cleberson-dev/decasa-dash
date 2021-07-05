@@ -254,7 +254,11 @@
     <p>
       Ponto de Referência: <span>{{ context.fornecedor.pontoReferencia }}</span>
     </p>
-    <p>Município: <span>{{ context.fornecedor.municipioEndereco.nome }}</span></p>
+    <div class="row">
+      <p class="col-6">Município: <span>{{ context.fornecedor.municipioEndereco.nome }}</span></p>
+      <p class="col-6" *ngIf="context.fornecedor.ufRg">
+        Estado: <span>{{ context.fornecedor.ufRg.nome | ngxCapitalize }} ({{ context.fornecedor.ufRg.sigla }})</span></p>
+    </div>
     <div class="row">
       <p class="col-6">
         Celular: <span>{{ context.fornecedor.celular }}</span>
