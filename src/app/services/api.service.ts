@@ -58,6 +58,19 @@ type PaginationOptions = {
   size?: number;
 }
 
+type CriarPedidoParams = {
+  lojista: {
+    id: number;
+  };
+  detalhesPedidos: {
+    produto: { id: number; };
+    quantidade: number;
+  }[];
+  fornecedores: {
+    id: number;
+  }[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -334,5 +347,11 @@ export class ApiService {
     const url = this.url + '/lojistas/' + lojistaId;
 
     return this.http.get<Lojista>(url);
+  }
+
+  criarPedido(params: CriarPedidoParams) {
+    const url = this.url + '/pedidos';
+
+    return this.http.post<{ id: number; dataCadastro: number; lojista: Lojista; }>(url, params);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
 import { map, throttle } from 'rxjs/operators';
@@ -52,12 +53,13 @@ export class PedidosComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialogService: NbDialogService,
-    private api: ApiService
+    private api: ApiService,
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
-    this.api.getProdutosLojistaMaisVendidos(2)
+    this.api.getProdutosLojista(2)
       .subscribe(data => {
         this.produtos = data.content;
         this.autoOptions = this.produtos.map(({ produto }) => produto.descricao);
@@ -176,7 +178,13 @@ export class PedidosComponent implements OnInit {
       fornecedores: this.fornecedores.map(f => ({ id: f.id }))
     }
 
-    console.log('Pedido', body);
+    this.api.criarPedido(body)
+      .subscribe(
+        data => {
+          this.router.navigate(['/pedidos', data.id, 'mapa' ]);
+        }, 
+        console.error
+      );
   }
 
   get isPedidoInvalid() {
