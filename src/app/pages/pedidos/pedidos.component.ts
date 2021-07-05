@@ -69,7 +69,7 @@ export class PedidosComponent implements OnInit {
     this.suggestedOptions$ = of($event).pipe(
       map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
     );
-    const { produto: selectedProduct } = this.produtos.find(({ produto }) => produto.descricao.toLowerCase().includes($event.toLowerCase()));
+    const selectedProduct = this.produtos.find(({ produto }) => produto.descricao.toLowerCase().includes($event.toLowerCase())).produto;
     if (!selectedProduct) return;
 
     this.novoPedidoForm.controls['codigo'].setValue(selectedProduct.cnp);
