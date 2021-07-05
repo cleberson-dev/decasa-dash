@@ -14,6 +14,8 @@ export class ProdutoComponent implements OnInit {
   @Input() options: Option[] = [];
   @Input() valor: number | undefined = undefined;
   @Input() estoque: number | undefined = undefined;
+
+  defaultImage = "https://www.eppendorf.com/fileadmin/General/MyEppendorf/Productregistration/Update_January_2021/Shop_ICON_Final.jpg";
   
   constructor() { }
 
