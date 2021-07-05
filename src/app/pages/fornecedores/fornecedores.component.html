@@ -6,6 +6,9 @@
 ></ngx-spinner>
 
 <div *ngIf="fornecedores.length > 0; else elseBlock" class="fornecedores-list">
+  <button (click)="openCreate(dialog)" class="criar-btn">
+    <nb-card class="fornecedor action-btn"> + </nb-card>
+  </button>
   <nb-card
     class="fornecedor"
     (click)="openDetails(dialog, fornecedor)"
@@ -16,9 +19,6 @@
       <p class="details">{{ fornecedor.celular }} - {{ fornecedor.email }}</p>
     </nb-card-body>
   </nb-card>
-  <button (click)="openCreate(dialog)" class="criar-btn">
-    <nb-card class="fornecedor action-btn"> + </nb-card>
-  </button>
 </div>
 <ng-template #elseBlock>
   <div class="no-items">
