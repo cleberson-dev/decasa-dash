@@ -223,9 +223,14 @@
       <h3 class="title">Detalhes do Fornecedor</h3>
     </div>
 
-    <p>
-      Nome: <span>{{ context.fornecedor.nome }}</span>
-    </p>
+    <div class="row">
+      <p class="col-6">
+        Nome Fantasia: <span>{{ context.fornecedor.nomeFantasia || "[SEM NOME]" }}</span>
+      </p>
+      <p class="col-6">
+        Razão Social: <span>{{ context.fornecedor.razaoSocial }}</span>
+      </p>
+    </div>
     <p>
       CPNJ: <span>{{ context.fornecedor.cnpj }}</span>
     </p>
