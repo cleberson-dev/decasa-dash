@@ -12,7 +12,7 @@
     *ngFor="let fornecedor of fornecedores"
   >
     <nb-card-body class="fornecedor-body">
-      <p class="nome">{{ fornecedor.nomeFantasia }}</p>
+      <p class="nome">{{ fornecedor.nomeFantasia || "[SEM NOME]" }}</p>
       <p class="details">{{ fornecedor.celular }} - {{ fornecedor.email }}</p>
     </nb-card-body>
   </nb-card>

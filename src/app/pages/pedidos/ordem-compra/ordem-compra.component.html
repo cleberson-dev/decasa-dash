@@ -44,7 +44,7 @@
 
       <h5>Fornecedor</h5>
       <div class="fornecedor">
-        <p class="nome">{{ compra.fornecedor.nomeFantasia }}</p>
+        <p class="nome">{{ compra.fornecedor.nomeFantasia || "[SEM NOME]" }}</p>
         <p><span>Vendedor:</span> --</p>
         <p><span>Tel.:</span> {{ compra.fornecedor.telefone || compra.fornecedor.celular }}</p>
         <p><span>E-mail:</span> {{ compra.fornecedor.email }}</p>
