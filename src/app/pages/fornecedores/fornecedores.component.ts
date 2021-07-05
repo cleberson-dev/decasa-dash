@@ -163,15 +163,38 @@ export class FornecedoresComponent implements OnInit {
         .subscribe(() => {
           const editedFornecedorIdx = this.fornecedores.findIndex(f => f.id === fornecedor.id);
           this.fornecedores[editedFornecedorIdx] = fornecedor;
+          this.resetForm();
+          ref.close();
         });
     } else if (this.formType === 'criar') {
       this.api.criarFornecedor({ id: undefined, ...fornecedor })
         .subscribe(() => {
           this.fornecedores.push(fornecedor);
+          this.resetForm();
+          ref.close();
         });
     }
-
-    ref.close();
+  }
+  
+  resetForm() {
+    this.formFornecedor.patchValue({
+      id: '',
+      nomeFantasia: '',
+      razaoSocial: '',
+      cnpj: '',
+      logradouro: '',
+      numero: '',
+      bairro: '',
+      cep: '',
+      pontoReferencia: '',
+      celular: '',
+      telefone: '',
+      email: '',
+      municipioEndereco: '',
+      inscricaoEstadual: '',
+      categorias: []
+    });
+    this.selectedDepartments = [];
   }
 
   onEdit(context: { fornecedor: Fornecedor; type: string; }) {
