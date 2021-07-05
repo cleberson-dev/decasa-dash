@@ -215,72 +215,80 @@
     </div>
   </form>
 
-  <div class="fornecedor-detalhes" *ngIf="context.type === 'detalhes'">
-    <div class="header">
-      <button nbButton ghost (click)="ref.close()">
+  <nb-card class="fornecedor-detalhes" *ngIf="context.type === 'detalhes'">
+    <nb-card-header class="fornecedor-detalhes-header">
+      <span>Detalhes do Fornecedor</span>
+      <div>
+        <button nbButton (click)="onEdit(context)" size="small">
+          <nb-icon icon="edit-outline"></nb-icon>
+          Editar
+        </button>
+        <button
+          nbButton
+          status="danger"
+          size="small"
+          (click)="onBlock(context.fornecedor.id, ref)"
+          style="margin-left: 10px;"
+        >
+          <nb-icon icon="trash-outline"></nb-icon>
+          Remover
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <p class="col-6">
+          Nome Fantasia: <span>{{ context.fornecedor.nomeFantasia || "[SEM NOME]" }}</span>
+        </p>
+        <p class="col-6">
+          Razão Social: <span>{{ context.fornecedor.razaoSocial }}</span>
+        </p>
+      </div>
+      <p>
+        CPNJ: <span>{{ context.fornecedor.cnpj }}</span>
+      </p>
+      <p>
+        E-mail: <span>{{ context.fornecedor.email }}</span>
+      </p>
+      <p>
+        CEP: <span>{{ context.fornecedor.cep }}</span>
+      </p>
+      <p>
+        Logradouro: <span>{{ context.fornecedor.logradouro }}</span>
+      </p>
+      <div class="row">
+        <p class="col-6">
+          Bairro: <span>{{ context.fornecedor.bairro }}</span>
+        </p>
+        <p class="col-6">
+          Número: <span>{{ context.fornecedor.numero }}</span>
+        </p>
+      </div>
+      <p>
+        Ponto de Referência: <span>{{ context.fornecedor.pontoReferencia }}</span>
+      </p>
+      <div class="row">
+        <p class="col-6">Município: <span>{{ context.fornecedor.municipioEndereco.nome }}</span></p>
+        <p class="col-6" *ngIf="context.fornecedor.ufRg">
+          Estado: <span>{{ context.fornecedor.ufRg.nome | ngxCapitalize }} ({{ context.fornecedor.ufRg.sigla }})</span></p>
+      </div>
+      <div class="row">
+        <p class="col-6">
+          Celular: <span>{{ context.fornecedor.celular }}</span>
+        </p>
+        <p class="col-6">
+          Telefone: <span>{{ context.fornecedor.telefone }}</span>
+        </p>
+      </div>
+      <p>
+        Inscrição Estadual: <span>{{ context.fornecedor.inscricaoEstadual }}</span>
+      </p>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()">
         <nb-icon icon="arrow-back"></nb-icon>
+        Voltar
       </button>
-      <h3 class="title">Detalhes do Fornecedor</h3>
-    </div>
-
-    <div class="row">
-      <p class="col-6">
-        Nome Fantasia: <span>{{ context.fornecedor.nomeFantasia || "[SEM NOME]" }}</span>
-      </p>
-      <p class="col-6">
-        Razão Social: <span>{{ context.fornecedor.razaoSocial }}</span>
-      </p>
-    </div>
-    <p>
-      CPNJ: <span>{{ context.fornecedor.cnpj }}</span>
-    </p>
-    <p>
-      E-mail: <span>{{ context.fornecedor.email }}</span>
-    </p>
-    <p>
-      CEP: <span>{{ context.fornecedor.cep }}</span>
-    </p>
-    <p>
-      Logradouro: <span>{{ context.fornecedor.logradouro }}</span>
-    </p>
-    <div class="row">
-      <p class="col-6">
-        Bairro: <span>{{ context.fornecedor.bairro }}</span>
-      </p>
-      <p class="col-6">
-        Número: <span>{{ context.fornecedor.numero }}</span>
-      </p>
-    </div>
-    <p>
-      Ponto de Referência: <span>{{ context.fornecedor.pontoReferencia }}</span>
-    </p>
-    <div class="row">
-      <p class="col-6">Município: <span>{{ context.fornecedor.municipioEndereco.nome }}</span></p>
-      <p class="col-6" *ngIf="context.fornecedor.ufRg">
-        Estado: <span>{{ context.fornecedor.ufRg.nome | ngxCapitalize }} ({{ context.fornecedor.ufRg.sigla }})</span></p>
-    </div>
-    <div class="row">
-      <p class="col-6">
-        Celular: <span>{{ context.fornecedor.celular }}</span>
-      </p>
-      <p class="col-6">
-        Telefone: <span>{{ context.fornecedor.telefone }}</span>
-      </p>
-    </div>
-    <p>
-      Inscrição Estadual: <span>{{ context.fornecedor.inscricaoEstadual }}</span>
-    </p>
-    <div style="margin-top: 1rem">
-      <button nbButton fullWidth (click)="onEdit(context)">Editar</button>
-      <button
-        nbButton
-        fullWidth
-        status="danger"
-        style="margin-top: 10px"
-        (click)="onBlock(context.fornecedor.id, ref)"
-      >
-        Bloquear
-      </button>
-    </div>
-  </div>
+    </nb-card-footer>
+  </nb-card>
 </ng-template>

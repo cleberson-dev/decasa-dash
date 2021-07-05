@@ -69,29 +69,20 @@ button.criar-btn {
 
 
 .fornecedor-detalhes {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: white;
-  width: 30vw;
-  height: 100vh;
-  padding: 1rem;
+  width: 70vw;
+  max-height: 90vh;
   overflow-y: scroll;
 
-  .header {
+  .fornecedor-detalhes-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #DCDCDC;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
   }
 
-  .title {
-    padding: 0;
-    margin: 0;
-    font-size: 1.2rem;
+  .fornecedor-detalhes-body {
+    overflow-y: scroll;
   }
+
 
   p {
     font-weight: bold;
@@ -99,7 +90,7 @@ button.criar-btn {
     span {
       display: flex;
       font-weight: normal;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
   }
 }
