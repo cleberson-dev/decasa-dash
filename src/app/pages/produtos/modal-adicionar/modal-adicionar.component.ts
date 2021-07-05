@@ -10,6 +10,12 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { ApiService } from '../../../services/api.service';
 import { Department } from '../solicitar/solicitar.component';
 
+type AddProductItem = {
+  produto: Produto;
+  valor: number;
+  estoqueMinimo: number;
+};
+
 @Component({
   selector: 'ngx-modal-adicionar',
   templateUrl: './modal-adicionar.component.html',
@@ -19,7 +25,7 @@ export class ModalAdicionarComponent implements OnInit {
   @Input() ref: NbDialogRef<any>;
   @Input() departments: Department[];
   @Output() requestProductBtnClick = new EventEmitter();
-  @Output() submitClick = new EventEmitter();
+  @Output() submitClick = new EventEmitter<AddProductItem[]>();
 
   produtos: Produto[] = [];
   selectedProducts: Produto[] = [];
@@ -75,14 +81,13 @@ export class ModalAdicionarComponent implements OnInit {
   }
 
   handleSubmitClick() {
-    const data = this.productsToDefinePrices.map((product) => ({
-      ...product,
-      preco: this.priceForms.controls['preco-' + product.id].value,
+    const body = this.productsToDefinePrices.map(produto => ({
+      produto,
+      valor: this.priceForms.controls['preco-' + produto.id].value,
       estoqueMinimo:
-        this.priceForms.controls['estoqueMinimo-' + product.id].value,
+        this.priceForms.controls['estoqueMinimo-' + produto.id].value,
     }));
-    console.log(data);
-    this.submitClick.emit(data);
+    this.submitClick.emit(body);
     this.ref.close();
   }
 

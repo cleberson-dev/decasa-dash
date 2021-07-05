@@ -4,10 +4,9 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Department } from '../pages/produtos/solicitar/solicitar.component';
 
-type AddProdutosItem = {
-  produtoId: number;
-  lojistaId: number; 
-  preco: number; 
+type AddProductItem = {
+  produto: Produto;
+  valor: number;
   estoqueMinimo: number;
 };
 
@@ -237,13 +236,13 @@ export class ApiService {
     return this.http.post(url, produto);
   }
 
-  addProdutos(items: AddProdutosItem[]) {
+  addProdutos(items: AddProductItem[], lojistaId: number = 2) {
     const url = this.url + '/lojistasProdutos';
 
     const body = items.map(item => ({
-      lojista: { id: item.lojistaId },
-      produto: { id: item.produtoId },
-      valor: item.preco,
+      lojista: { id: lojistaId },
+      produto: { id: item.produto.id as number },
+      valor: item.valor,
       estoqueMinimo: item.estoqueMinimo
     }));
 

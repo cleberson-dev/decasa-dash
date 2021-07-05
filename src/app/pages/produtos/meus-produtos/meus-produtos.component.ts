@@ -5,6 +5,12 @@ import { TreeItem } from '../../../components/tree/tree.component'
 import { ApiService } from '../../../services/api.service';
 import { Department } from '../solicitar/solicitar.component';
 
+type AddProductItem = {
+  produto: Produto;
+  valor: number;
+  estoqueMinimo: number;
+};
+
 @Component({
   selector: 'tab-meus-produtos',
   templateUrl: './meus-produtos.component.html',
@@ -100,17 +106,16 @@ export class MeusProdutosComponent implements OnInit {
     ref.close();
   }
 
-  onSubmitHandler(products: ProdutoLojista[]) {
-    const lojistaId = products[0].lojistaDTO.id;
+  onSubmitHandler(items: AddProductItem[]) {
+    const lojistaId = 2;
     this.apiService
-      .addProdutos(products.map(p => ({
-        lojistaId,
-        produtoId: p.id as number,
-        preco: p.valor,
-        estoqueMinimo: p.estoqueMinimo || 1
-      })))
+      .addProdutos(items, lojistaId)
       .subscribe(() => {
-        this.produtosLojista.push(...products);
+        this.produtosLojista.push(...items.map((item): ProdutoLojista => ({
+          lojistaDTO: { id: lojistaId },
+          valor: item.valor,
+          produto: item.produto
+        })));
       });
   }
 
