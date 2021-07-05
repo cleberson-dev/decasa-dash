@@ -46,6 +46,13 @@
               </div>
             </nb-list-item>
           </nb-list>
+          <pagination
+            *ngIf="pagination"
+            [currentPage]="pagination.number + 1"
+            [totalItems]="pagination.totalElements"
+            [itemsPerPage]="pagination.size"
+            (pageChange)="onPageChange($event)"
+          ></pagination>
           <ng-template #noItems>
             <div class="no-items">
               <p style="font-size: 2rem; font-weight: bold;">Sem itens</p>

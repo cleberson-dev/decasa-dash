@@ -141,4 +141,13 @@ export class ModalAdicionarComponent implements OnInit {
         this.pagination = { ...data };
       }, this.handleError);
   }
+
+  onPageChange(changedPage: number) {
+    this.apiService
+      .getAllProducts({ page: changedPage })
+      .subscribe(data => {
+        this.produtos = [...data.content];
+        this.pagination = { ...data };
+      });
+  }
 }
