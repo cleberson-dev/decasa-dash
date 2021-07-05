@@ -18,4 +18,7 @@ export class FinanceiroComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onPrintClick() {
+    window.print();
+  }
 }
