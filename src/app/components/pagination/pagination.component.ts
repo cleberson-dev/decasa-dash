@@ -8,13 +8,14 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 export class PaginationComponent implements OnInit {
   @Input() currentPage: number = 1;
   @Input() totalItems: number;
-  @Input() itemsPerPage: number;
+  @Input() itemsPerPage: number = 10;
   @Input() showCounter: boolean = false;
   @Output() pageChange = new EventEmitter<number>();
 
   pageNumbers: number[] = [];
 
   get totalPages(): number {
+    if (this.itemsPerPage === 0) return 1;
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
 
@@ -33,5 +34,6 @@ export class PaginationComponent implements OnInit {
     for (let i = 1; i <= this.totalPages; i += 1) {
       this.pageNumbers.push(i);
     }
+    console.log(this);
   }
 }
