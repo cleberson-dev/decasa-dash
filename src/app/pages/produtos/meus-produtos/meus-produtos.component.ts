@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { ApplicationRef, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NbDialogService, NbMenuItem } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
@@ -39,7 +39,7 @@ export class MeusProdutosComponent implements OnInit {
 
   constructor(
     private dialogService: NbDialogService,
-    private apiService: ApiService
+    private apiService: ApiService,
   ) {}
 
   onPageChange(changedPage: number) {
@@ -49,13 +49,10 @@ export class MeusProdutosComponent implements OnInit {
         2,
         { page: changedPage }
       )
-      .subscribe(this.handleFetch);
-  }
-
-  handleFetch(data: PaginatedResource<ProdutoLojista>) {
-    this.produtosLojista = data.content;
-
-    this.pagination = { ...data };
+      .subscribe(data => {
+        this.produtosLojista = [...data.content];
+        this.pagination = { ...data };
+      });
   }
 
   ngOnInit(): void {
@@ -77,15 +74,21 @@ export class MeusProdutosComponent implements OnInit {
 
 
     this.apiService
-      .getProdutosLojista()
-      .subscribe(this.handleFetch);
+      .getProdutosLojista(2)
+      .subscribe(data => {
+        this.produtosLojista = [...data.content];
+        this.pagination = { ...data };
+      });
   }
 
   onItemSelected(value: string) {
     console.log('Item clicked', value);
     this.currentCategory = Number(value);
     this.apiService.getProdutosLojistaPorCategoria(this.currentCategory)
-      .subscribe(this.handleFetch);
+      .subscribe(data => {
+        this.produtosLojista = [...data.content];
+        this.pagination = { ...data };
+      });
   }
 
   open(dialog: TemplateRef<any>) {

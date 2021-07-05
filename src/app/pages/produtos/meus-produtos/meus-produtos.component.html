@@ -33,31 +33,14 @@
         <button nbButton ghost (click)="searchProducts()"><nb-icon icon="search-outline"></nb-icon></button>
       </div>
     </div>
-    <div *ngIf="loading; else notLoading" class="loading-container">
-      <app-spring-spinner
-        [animationDuration]="1000"
-        [size]="60"
-        [color]="'#ff1d5e'"
-      ></app-spring-spinner>
-    </div>
-    <ng-template #notLoading>
-      <div class="product-list" style="height: 325px">
-        <nb-list *ngIf="produtosLojista.length > 0; else noProducts">
-          <nb-list-item *ngFor="let product of produtosLojista"> 
-            <ngx-produto   
-              [produto]="product.produto"
-            ></ngx-produto>
-          </nb-list-item>
-        </nb-list>
-        <ng-template #noProducts> 
-          <div class="no-items">
-            <p style="font-size: 2rem; font-weight: bold;">Sem itens</p>
-            <button nbButton status="primary" (click)="open(dialog)">
-              <nb-icon icon="plus"></nb-icon>
-              Adicionar novos produtos
-            </button>
-          </div>
-        </ng-template>
+    <div class="product-list" style="height: 325px">
+      <nb-list>
+        <nb-list-item *ngFor="let produtoLojista of produtosLojista">
+          <ngx-produto   
+            [produto]="produtoLojista.produto"
+            [valor]="produtoLojista.valor"
+          ></ngx-produto>
+        </nb-list-item>
         <pagination
           *ngIf="pagination"
           [currentPage]="pagination.number"
@@ -65,8 +48,17 @@
           [itemsPerPage]="pagination.size"
           (pageChange)="onPageChange($event)"
         ></pagination>
-      </div>
-  </ng-template>
+      </nb-list>
+      <!-- <ng-template #noProducts> 
+        <div class="no-items">
+          <p style="font-size: 2rem; font-weight: bold;">Sem itens</p>
+          <button nbButton status="primary" (click)="open(dialog)">
+            <nb-icon icon="plus"></nb-icon>
+            Adicionar novos produtos
+          </button>
+        </div>
+      </ng-template> -->
+    </div>
   </div>
 </div>
 

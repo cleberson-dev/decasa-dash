@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { flatMap, mergeMap } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 
@@ -197,7 +197,7 @@ export class MapaComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
       .pipe(
-        mergeMap(params => {
+        concatMap(params => {
           const pedidoId = Number(params.get('pedidoId'));
           this.pedido.id = pedidoId;
           return this.apiService.getCotacoesPorPedido(pedidoId);
