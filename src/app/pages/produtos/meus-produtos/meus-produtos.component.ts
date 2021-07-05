@@ -98,7 +98,7 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   onSubmitHandler(products: ProdutoLojista[]) {
-    const lojistaId = products[0].lojista.id;
+    const lojistaId = products[0].lojistaDTO.id;
     this.apiService
       .addProdutos(products.map(p => ({
         lojistaId,

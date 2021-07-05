@@ -83,8 +83,8 @@ export class ApiService {
     return this.http.get<PaginatedResource<Produto>>(url);
   }
 
-  getProdutosLojista(idDoLojista: number = 2) {
-    const url = this.url + '/lojistasProdutos?idLojista=' + idDoLojista;
+  getProdutosLojista(lojistaId: number = 2) {
+    const url = this.url + '/lojistasProdutos/lojista/' + lojistaId;
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   }
 

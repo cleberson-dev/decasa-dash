@@ -64,6 +64,7 @@ import { ComprasComponent } from './clientes/compras/compras.component';
 import { DevolucoesComponent } from './clientes/devolucoes/devolucoes.component';
 import { EnderecosComponent } from './clientes/enderecos/enderecos.component';
 import { SolicitarComponent } from './produtos/solicitar/solicitar.component';
+import { IMaskModule } from 'angular-imask';
 
 @NgModule({
   imports: [
@@ -89,6 +90,7 @@ import { SolicitarComponent } from './produtos/solicitar/solicitar.component';
     NbButtonGroupModule,
     NbRadioModule,
     NbCheckboxModule,
+    IMaskModule,
   ],
   declarations: [
     PagesComponent,
