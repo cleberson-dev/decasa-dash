@@ -47,7 +47,7 @@ export class FornecedoresComponent implements OnInit {
       ]
     },
   ];
-  selectedDepartments: number[] = [];
+  selectedDepartments: Department[] = [];
   
   formTitle = '';
   formSubmitText = '';
@@ -74,7 +74,6 @@ export class FornecedoresComponent implements OnInit {
 
   constructor(
     private dialogService: NbDialogService,
-    private spinner: NgxSpinnerService,
     private api: ApiService,
     private fb: FormBuilder,
     private cepService: CepService
@@ -91,7 +90,6 @@ export class FornecedoresComponent implements OnInit {
         this.ufs = ufs;
       });
 
-    // TODO: CONSUMIR API QUANDO BUGS FOREM CORRIGIDOS
     this.api.getDepartments()
       .subscribe(deps => {
         this.departments = deps;
@@ -117,15 +115,18 @@ export class FornecedoresComponent implements OnInit {
 
 
   getCategoriesAndDepartments() {
-    const categoriasFornecidas = this.formFornecedor.controls['categorias'].value
-      .map(catId => ({ id: catId }));
+    const flattenedCategories = this.selectedDepartments
+      .map(dep => dep.categories.map(cat => cat.id))
+      .reduce((acc, catId) => acc.concat(catId), []);
     
-    const departamentosFornecidos = this.formFornecedor.controls['categorias'].value.map(catId => {
-      const dep = this.departments.find(dep => !!dep.categories.find(cat => cat.id === catId));
-      return { id: dep.id }
-    });
+    // Categorias que pertencem a um departamento selecionado devem ser excluidas no envio do formulário
+    const formCategories = (this.formFornecedor.controls['categorias'].value as number[])
+      .filter(formCatId => flattenedCategories.every(catId => formCatId !== catId));
 
-    return { categoriasFornecidas, departamentosFornecidos };
+    return { 
+      categoriasFornecidas: formCategories.map(catId => ({ id: catId })), 
+      departamentosFornecidos: this.selectedDepartments.map(dep => ({ id: dep.id })), 
+    };
   }
 
 
@@ -192,8 +193,7 @@ export class FornecedoresComponent implements OnInit {
       email: context.fornecedor.email,
       municipioEndereco: context.fornecedor.municipioEndereco.id,
       inscricaoEstadual: context.fornecedor.inscricaoEstadual,
-      categoriasFornecidas: context.fornecedor.categoriasFornecidas.map(c => c.id),
-      departamentosFornecidos: context.fornecedor.departamentosFornecidos.map(d => d.id)
+      categorias: context.fornecedor.categoriasFornecidas?.map(c => c.id) || []
     });
     context.type = 'form';
   }
@@ -270,9 +270,9 @@ export class FornecedoresComponent implements OnInit {
     const control = this.formFornecedor.controls['categorias'];
     const categorias = Array.isArray(control.value) ? control.value : [];
 
-    const depIdx = this.selectedDepartments.findIndex(depId => depId === department.id);
+    const depIdx = this.selectedDepartments.findIndex(selectedDep => selectedDep.id === department.id);
 
-    // Must remove categories for a selected department
+    // Must remove categories for a department already selected 
     if (depIdx !== -1) {
       const newCategorias = categorias.filter(catId => {
         return department.categories.every(depCat => catId !== depCat.id);
@@ -286,11 +286,11 @@ export class FornecedoresComponent implements OnInit {
       ...new Set([...categorias, ...department.categories.map(cat => cat.id)])
     ];
     control.setValue(newCategorias);
-    this.selectedDepartments.push(department.id);
+    this.selectedDepartments.push(department);
   }
 
 
   isDepartmentSelected(depId: number) {
-    return this.selectedDepartments.includes(depId);
+    return this.selectedDepartments.some(dep => dep.id === depId);
   }
 }
