@@ -155,7 +155,14 @@ export class PedidosComponent implements OnInit {
   }
 
   onCodigoChange() {
-    const codigo = this.novoPedidoForm.controls['codigo'].value;
+    const codigo = String(this.novoPedidoForm.controls['codigo'].value);
+
+    this.api.findProdutoByCnp(codigo)
+      .subscribe(produto => {
+        this.novoPedidoForm.controls['codigo'].setValue(produto.cnp);
+        this.novoPedidoForm.controls['nome'].setValue(produto.descricao);
+        this.novoPedidoForm.controls['unidade'].setValue(produto.unidadeMedidaProduto.descricao || 'unidade');
+      });
   }
 
   onNomeBlur() {
