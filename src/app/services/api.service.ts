@@ -287,7 +287,7 @@ export class ApiService {
     const page = paginationOpts?.page || 1;
     const size = paginationOpts?.size || 10;
 
-    let url = this.url + '/produtos/lojista/' + lojistaId;
+    let url = this.url + '/lojistasProdutos/lojista/' + lojistaId;
     url += '?palavraChave=' + query;
     url += '&page=' + page;
     url += '&size=' + size;
