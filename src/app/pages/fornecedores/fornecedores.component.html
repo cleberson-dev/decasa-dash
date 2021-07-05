@@ -219,7 +219,12 @@
     <nb-card-header class="fornecedor-detalhes-header">
       <span>Detalhes do Fornecedor</span>
       <div>
-        <button nbButton (click)="onEdit(context)" size="small">
+        <button 
+          nbButton 
+          (click)="onEdit(context)" 
+          size="small"
+          [disabled]="editBtnLoading"
+        >
           <nb-icon icon="edit-outline"></nb-icon>
           Editar
         </button>
@@ -229,6 +234,7 @@
           size="small"
           (click)="onBlock(context.fornecedor.id, ref)"
           style="margin-left: 10px;"
+          [disabled]="removeBtnLoading"
         >
           <nb-icon icon="trash-outline"></nb-icon>
           Remover

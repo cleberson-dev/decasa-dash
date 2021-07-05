@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
@@ -40,6 +41,9 @@ export class FornecedoresComponent implements OnInit {
     categorias: ['']
     // RG Representante, CPF Representante, Data RG
   });
+
+  removeBtnLoading: boolean = false;
+  editBtnLoading: boolean = false;
 
   constructor(
     private dialogService: NbDialogService,
@@ -183,11 +187,13 @@ export class FornecedoresComponent implements OnInit {
     this.formTitle = 'Editar fornecedor';
     this.formSubmitText = 'Editar';
     this.formType = 'editar';
-
+    this.editBtnLoading = true;
+    
     this.api.getMunicipiosByUf(context.fornecedor.ufRg.id)
-      .subscribe(municipios => {
+    .subscribe(
+      municipios => {
         this.municipios = municipios;
-
+        
         this.formFornecedor.patchValue({
           id: context.fornecedor.id,
           nomeFantasia: context.fornecedor.nomeFantasia,
@@ -206,8 +212,15 @@ export class FornecedoresComponent implements OnInit {
           categorias: context.fornecedor.categoriasFornecidas?.map(c => c.id) || [],
           uf: context.fornecedor.ufRg.id
         });
+        this.editBtnLoading = false;
         context.type = 'form';
-      });
+      },
+      err => {
+        this.editBtnLoading = false;
+        console.error(err);
+        this.toastrService.danger(err.error.message, 'Algo deu errado');
+      }
+    );
 
   }
 
@@ -239,11 +252,20 @@ export class FornecedoresComponent implements OnInit {
   }
 
   onBlock(fornecedorId: number, ref: NbDialogRef<any>) {
+    this.removeBtnLoading = true;
     this.api.removerFornecedor(fornecedorId)
-      .subscribe(() => {
-        this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedorId);
-      });
-    ref.close();
+      .subscribe(
+        () => {
+          this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedorId);
+          ref.close();
+          this.removeBtnLoading = false;
+        },
+        ({ error }) => {
+          console.error(error.message);
+          this.toastrService.danger(error.message, 'Algo deu errado');
+          this.removeBtnLoading = false;
+        }
+      );
   }
 
   fillAddresses() {
