@@ -2,7 +2,10 @@
 
 <nb-card class="card">
   <nb-card-body class="card-body">
-    <h5>Produtos</h5>
+    <h5>
+      Produtos 
+      <small class="itens-length">{{ rows.length }} itens</small>
+    </h5>
     <table>
       <colgroup>
         <col />
@@ -97,10 +100,15 @@
     </table>
 
     <div class="fornecedores-header">
-      <h5>Fornecedores</h5>
-      <button nbButton size="tiny" status="primary" (click)="openAddFornecedores(dialog)">
+      <h5>Fornecedores </h5>
+      <button 
+        nbButton size="tiny" status="primary" 
+        (click)="openAddFornecedores(dialog)"
+        style="margin-right: 5px;"
+      >
         <nb-icon icon="plus"></nb-icon>
       </button>
+      <small class="itens-length">{{ fornecedores.length }} itens</small>
     </div>
     <p *ngIf="fornecedores.length === 0">Sem itens</p>
     <ul class="fornecedores-selecionados">
