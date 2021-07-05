@@ -12,8 +12,8 @@ type Option = {
 export class ProdutoComponent implements OnInit {
   @Input() produto: Produto;
   @Input() options: Option[] = [];
-  @Input() valor: number | undefined = undefined;
-  @Input() estoque: number | undefined = undefined;
+  @Input() valor?: number;
+  @Input() estoque?: number;
 
   defaultImage = "https://www.eppendorf.com/fileadmin/General/MyEppendorf/Productregistration/Update_January_2021/Shop_ICON_Final.jpg";
   
