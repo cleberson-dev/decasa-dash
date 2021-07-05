@@ -47,7 +47,7 @@
             </nb-list-item>
           </nb-list>
           <pagination
-            *ngIf="pagination"
+            *ngIf="pagination && produtos.length > 0"
             [currentPage]="pagination.number + 1"
             [totalItems]="pagination.totalElements"
             [itemsPerPage]="pagination.size"
