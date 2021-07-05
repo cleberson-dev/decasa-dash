@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
-import { map, throttle } from 'rxjs/operators';
+import { filter, map, throttle } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
 import * as fake from '../../fake-data';
 import { ApiService } from '../../services/api.service';
@@ -26,7 +26,7 @@ type PedidoProduto = {
 export class PedidosComponent implements OnInit {
   @ViewChild('autoInput') input;
   autoOptions: string[];
-  suggestedOptions$: Observable<string[]>;
+  suggestedOptions: string[];
 
   tabs: Tab[] = [
     { title: 'Cotação', link: '/pedidos', active: true },
@@ -63,14 +63,11 @@ export class PedidosComponent implements OnInit {
       .subscribe(data => {
         this.produtos = data.content;
         this.autoOptions = this.produtos.map(({ produto }) => produto.descricao);
-        this.suggestedOptions$ = of(this.autoOptions);
+        this.suggestedOptions = [...this.autoOptions];
       });
   }
 
   onSelectionChange($event: string) {
-    this.suggestedOptions$ = of($event).pipe(
-      map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
-    );
     const selectedProduct = this.produtos.find(({ produto }) => produto.descricao.toLowerCase().includes($event.toLowerCase())).produto;
     if (!selectedProduct) return;
 
@@ -81,16 +78,13 @@ export class PedidosComponent implements OnInit {
   onInputChange() {
     const { value } = this.input.nativeElement;
     
-    // this.suggestedOptions$ = of(value).pipe(
-    //   map(filterString => this.autoOptions.filter(option => option.toLowerCase().includes(filterString.toLowerCase())))
-    // );
-    this.suggestedOptions$ = this.api.buscarProdutoLojista(value, 2, { page: 1, size: 5 })
-      .pipe(
-        map(data => {
-          this.produtos = data.content;
-          return data.content.map(({ produto }) => produto.descricao);
-        })
-      );
+    this.api.buscarProdutoLojista(value, 2, { page: 1, size: 5 })
+      .subscribe(data => {
+        const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
+        this.produtos = filteredProdutos;
+        this.suggestedOptions = filteredProdutos
+          .map(({ produto }) => produto.descricao);
+      });
   }
 
   onPedidoAdd() {
@@ -107,6 +101,13 @@ export class PedidosComponent implements OnInit {
     
     this.rows.unshift(row);
     this.resetForm();
+    this.api.buscarProdutoLojista('', 2, { page: 1, size: 5 })
+      .subscribe(data => {
+        const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
+        this.produtos = filteredProdutos;
+        this.suggestedOptions = filteredProdutos
+          .map(({ produto }) => produto.descricao);
+      });
   }
 
   openAddFornecedores(dialog: TemplateRef<any>) {
@@ -206,7 +207,7 @@ export class PedidosComponent implements OnInit {
     this.novoPedidoForm.reset();
     this.input.nativeElement.value = "";
     this.novoPedidoForm.controls['quantidade'].setValue(1);
-    this.suggestedOptions$ = of(this.autoOptions);
+    this.suggestedOptions = [...this.autoOptions];
   }
 
   removeFornecedor(fornecedorId: number) {
