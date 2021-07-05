@@ -129,10 +129,9 @@ export class ApiService {
   }
 
   getProdutosLojistaPorCategoria(categoriaId: number, lojistaId: number = 2, options?: Options) {
-    let url = this.url + '/lojistasProdutos/categoria/' + categoriaId;
+    let url = this.url + `/lojistasProdutos/lojistaId/${lojistaId}/categoria/${categoriaId}`;
     url += '?page=' + ((options?.page || 1) - 1);
     url += '&size=' + (options?.itemsPerPage || 10);
-    url += '&idLojista=' + lojistaId;
 
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   }
