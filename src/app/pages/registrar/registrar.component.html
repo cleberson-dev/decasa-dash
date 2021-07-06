@@ -179,6 +179,13 @@
                       <nb-option *ngFor="let municipio of municipios" [value]="municipio.id">{{ municipio.nome }}</nb-option>
                     </nb-select>
                   </div>
+                  <div class="col-6">
+                    <label>Ponto de Referência</label>
+                    <input 
+                      nbInput fullWidth
+                      formControlName="pontoReferencia"
+                    />
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-3">
