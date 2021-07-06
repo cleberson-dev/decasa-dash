@@ -1,6 +1,6 @@
 import { ApplicationRef, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NbDialogService, NbMenuItem } from '@nebular/theme';
+import { NbDialogService, NbMenuItem, NbToastrService } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
 import { ApiService } from '../../../services/api.service';
 import { Department } from '../solicitar/solicitar.component';
@@ -46,6 +46,7 @@ export class MeusProdutosComponent implements OnInit {
   constructor(
     private dialogService: NbDialogService,
     private apiService: ApiService,
+    private toastrService: NbToastrService,
   ) {}
 
   onPageChange(changedPage: number) {
@@ -89,12 +90,18 @@ export class MeusProdutosComponent implements OnInit {
 
   onItemSelected(value: string) {
     console.log('Item clicked', value);
-    this.currentCategory = Number(value);
-    this.apiService.getProdutosLojistaPorCategoria(this.currentCategory)
-      .subscribe(data => {
+    this.apiService.getProdutosLojistaPorCategoria(Number(value), 2)
+    .subscribe(
+      data => {
         this.produtosLojista = [...data.content];
         this.pagination = { ...data };
-      });
+        this.currentCategory = Number(value);
+      },
+      ({ error }) => {
+        console.error(error);
+        this.toastrService.danger(error.message || "Sem mensagem", "Algo deu errado");
+      }
+    );
   }
 
   open(dialog: TemplateRef<any>) {
