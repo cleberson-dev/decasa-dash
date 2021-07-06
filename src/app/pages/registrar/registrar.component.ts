@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { CepService } from '../../services/cep.service';
 import * as CustomValidators from '../../validators';
 
 @Component({
@@ -27,6 +28,7 @@ export class RegistrarComponent implements OnInit {
     bairro: ['', [Validators.required]],
     logradouro: ['', [Validators.required]],
     pontoReferencia: ['', [Validators.required]],
+    cep: ['', [Validators.required, CustomValidators.cep]]
   }, { validators: this.checarSenhas });
 
   ufs: ApiUF[] = [];
@@ -37,6 +39,7 @@ export class RegistrarComponent implements OnInit {
     private apiService: ApiService,
     private authService: AuthService,
     private router: Router,
+    private cepService: CepService,
   ) { }
 
   ngOnInit(): void {
@@ -107,6 +110,21 @@ export class RegistrarComponent implements OnInit {
     this.apiService.getMunicipiosByUf(Number(uf))
       .subscribe(municipios => {
         this.municipios = municipios;
+      });
+  }
+
+  fillAddresses() {
+    const control = this.registerForm.controls['cep'];
+    if (control.invalid) return;
+
+    this.cepService.get(String(control.value))
+      .subscribe(data => {
+        this.registerForm.patchValue({
+          uf: this.ufs.find(uf => uf.sigla.toLocaleUpperCase() === data.uf.toUpperCase()).id,
+          logradouro: data.logradouro,
+          bairro: data.bairro,
+          pontoReferencia: data.complemento,
+        });
       });
   }
 }
