@@ -121,20 +121,6 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-2">
-                    <label>UF</label>
-                    <nb-select fullWidth formControlName="uf" (selectedChange)="onUFChange($event)">
-                      <nb-option *ngFor="let uf of ufs" [value]="uf.id">{{ uf.sigla }}</nb-option>
-                    </nb-select>
-                  </div>
-                  <div class="col-4">
-                    <label>Município</label>
-                    <nb-select fullWidth formControlName="municipio" [disabled]="municipios.length === 0">
-                      <nb-option *ngFor="let municipio of municipios" [value]="municipio.id">{{ municipio.nome }}</nb-option>
-                    </nb-select>
-                  </div>
-                </div>
-                <div class="row">
                   <div class="col-3">
                     <label>CEP</label>
                     <input
@@ -142,7 +128,8 @@
                       formControlName="cep"
                       [nbPopover]="cepError"
                       [imask]="{ mask: '00000-000' }"
-                      (keyup)="fillAddresses()"
+                      (change)="fillAddresses()"
+                      (blur)="fillAddresses()"
                     />
                     <ng-template #cepError>
                       <span class="error">{{
@@ -177,6 +164,20 @@
                         getErrorMessage("bairro")
                       }}</span>
                     </ng-template>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-2">
+                    <label>UF</label>
+                    <nb-select fullWidth formControlName="uf" (selectedChange)="onUFChange($event)">
+                      <nb-option *ngFor="let uf of ufs" [value]="uf.id">{{ uf.sigla }}</nb-option>
+                    </nb-select>
+                  </div>
+                  <div class="col-4">
+                    <label>Município</label>
+                    <nb-select #municipioSelect fullWidth formControlName="municipio" [disabled]="municipios.length === 0">
+                      <nb-option *ngFor="let municipio of municipios" [value]="municipio.id">{{ municipio.nome }}</nb-option>
+                    </nb-select>
                   </div>
                 </div>
                 <div class="row">

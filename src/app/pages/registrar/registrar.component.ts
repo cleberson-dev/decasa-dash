@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NbSelectComponent } from '@nebular/theme';
 import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { CepService } from '../../services/cep.service';
@@ -12,6 +13,7 @@ import * as CustomValidators from '../../validators';
   styleUrls: ['./registrar.component.scss']
 })
 export class RegistrarComponent implements OnInit {
+  @ViewChild('municipioSelect') municipioSelect: NbSelectComponent;
   
   registerForm = this.fb.group({
     razaoSocial: ['', [Validators.required]],
@@ -107,6 +109,7 @@ export class RegistrarComponent implements OnInit {
   }
 
   onUFChange(uf: any) {
+    this.registerForm.controls['municipio'].setValue('');
     this.apiService.getMunicipiosByUf(Number(uf))
       .subscribe(municipios => {
         this.municipios = municipios;
@@ -115,16 +118,34 @@ export class RegistrarComponent implements OnInit {
 
   fillAddresses() {
     const control = this.registerForm.controls['cep'];
+    
+    if (control.value === '') {
+      this.registerForm.patchValue({
+        logradouro: '', bairro: '', uf: ''
+      });
+      this.municipios = [];
+      return;
+    };
     if (control.invalid) return;
+
+    this.registerForm.controls['municipio'].setValue('');
 
     this.cepService.get(String(control.value))
       .subscribe(data => {
+        const uf = this.ufs.find(uf => uf.sigla.toLocaleUpperCase() === data.uf.toUpperCase());
+        
         this.registerForm.patchValue({
-          uf: this.ufs.find(uf => uf.sigla.toLocaleUpperCase() === data.uf.toUpperCase()).id,
+          uf: uf.id,
           logradouro: data.logradouro,
           bairro: data.bairro,
           pontoReferencia: data.complemento,
         });
+
+        this.apiService.getMunicipiosByUf(uf.id)
+          .subscribe(municipios => {
+            this.municipios = municipios;
+            this.municipioSelect.button.nativeElement.focus();
+          })
       });
   }
 }
