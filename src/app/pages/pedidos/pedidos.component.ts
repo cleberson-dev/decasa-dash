@@ -152,6 +152,8 @@ export class PedidosComponent implements OnInit {
         this.novoPedidoForm.controls['codigo'].setValue(produto.cnp);
         this.novoPedidoForm.controls['nome'].setValue(produto.descricao);
         this.novoPedidoForm.controls['unidade'].setValue(produto.unidadeMedidaProduto.descricao || 'unidade');
+      }, () => {
+        this.resetForm();
       });
   }
 
@@ -186,10 +188,14 @@ export class PedidosComponent implements OnInit {
       fornecedores: this.fornecedores.map(f => ({ id: f.id }))
     }
 
+    
+
     this.api.criarPedido(body)
       .subscribe(
         data => {
-          this.router.navigate(['/pedidos', data.id, 'mapa' ]);
+          console.log('Enviado: ', body);
+          console.log('Recebido: ', data);
+          // this.router.navigate(['/pedidos', data.id, 'mapa' ]);
         }, 
         console.error
       );
