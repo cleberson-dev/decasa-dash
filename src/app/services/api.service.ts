@@ -291,7 +291,7 @@ export class ApiService {
   logarLojista(params: LogarLojistaParams) {
     const url = this.url + '/lojistas/';
     
-    return this.http.post(url, params);
+    return this.http.post<Lojista>(url, params);
   }
 
   buscarProdutoLojista(query: string, lojistaId: number = 2, paginationOpts?: PaginationOptions) {
