@@ -62,7 +62,7 @@ export class PedidosComponent implements OnInit {
     this.api.getProdutosLojista(2)
       .subscribe(data => {
         this.produtos = data.content;
-        this.autoOptions = this.produtos.map(({ produto }) => produto.descricao);
+        this.autoOptions = this.produtos.map(({ produto }) => `${produto.descricao} (${produto.unidadeMedidaProduto.sigla})`);
         this.suggestedOptions = [...this.autoOptions];
       });
   }
@@ -83,7 +83,7 @@ export class PedidosComponent implements OnInit {
         const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
         this.produtos = filteredProdutos;
         this.suggestedOptions = filteredProdutos
-          .map(({ produto }) => produto.descricao);
+          .map(({ produto }) => `${produto.descricao} (${produto.unidadeMedidaProduto.sigla})`);
       });
   }
 
