@@ -68,7 +68,7 @@ export class PedidosComponent implements OnInit {
   }
 
   onSelectionChange($event: string) {
-    const selectedProduct = this.produtos.find(({ produto }) => produto.descricao.toLowerCase().includes($event.toLowerCase())).produto;
+    const selectedProduct = this.produtos.find(({ produto }) => $event.toLowerCase().includes(produto.descricao.toLowerCase())).produto;
     if (!selectedProduct) return;
 
     this.novoPedidoForm.controls['codigo'].setValue(selectedProduct.cnp);
