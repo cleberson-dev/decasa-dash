@@ -14,28 +14,28 @@ export class ColaboradoresComponent implements OnInit {
       nome: 'Eva',
       resumo: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
       descricao: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
-      foto: '/assets/images/eva.png'
+      foto: '/dashboard/assets/images/eva.png'
     },
     {
       id: 2,
       nome: 'Lee',
       resumo: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
       descricao: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
-      foto: '/assets/images/lee.png'
+      foto: '/dashboard/assets/images/lee.png'
     },
     {
       id: 3,
       nome: 'Jack',
       resumo: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
       descricao: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
-      foto: '/assets/images/jack.png'
+      foto: '/dashboard/assets/images/jack.png'
     },
     {
       id: 4,
       nome: 'Nick',
       resumo: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt!',
       descricao: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis officiis voluptatibus veritatis nihil atque eveniet iste, explicabo vel incidunt! FINAL',
-      foto: '/assets/images/nick.png'
+      foto: '/dashboard/assets/images/nick.png'
     },
   ];
 
