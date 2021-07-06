@@ -107,6 +107,7 @@ export class RegistrarComponent implements OnInit {
   }
 
   onUFChange(uf: any) {
+    this.registerForm.controls['municipio'].setValue('');
     this.apiService.getMunicipiosByUf(Number(uf))
       .subscribe(municipios => {
         this.municipios = municipios;
@@ -117,14 +118,23 @@ export class RegistrarComponent implements OnInit {
     const control = this.registerForm.controls['cep'];
     if (control.invalid) return;
 
+    this.registerForm.controls['municipio'].setValue('');
+
     this.cepService.get(String(control.value))
       .subscribe(data => {
+        const uf = this.ufs.find(uf => uf.sigla.toLocaleUpperCase() === data.uf.toUpperCase());
+        
         this.registerForm.patchValue({
-          uf: this.ufs.find(uf => uf.sigla.toLocaleUpperCase() === data.uf.toUpperCase()).id,
+          uf: uf.id,
           logradouro: data.logradouro,
           bairro: data.bairro,
           pontoReferencia: data.complemento,
         });
+
+        this.apiService.getMunicipiosByUf(uf.id)
+          .subscribe(municipios => {
+            this.municipios = municipios;
+          })
       });
   }
 }
