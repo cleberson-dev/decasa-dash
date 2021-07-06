@@ -5,6 +5,7 @@
   <div class="info">
     <p class="nome">{{ produto.descricao }}</p>
     <p>{{ produto.categoria.descricao }} - {{ produto.categoria.departamento.descricao }}</p>
+    <p>{{ produto.unidadeMedidaProduto.descricao }}</p>
   </div>
   <p *ngIf="valor" class="preco">{{ formattedPrice }} <span>por {{ produto.unidadeMedidaProduto?.descricao || 'unidade' }}</span></p>
   <button *ngIf="options.length > 0" [nbContextMenu]="options" style="align-self: center" nbButton ghost><nb-icon icon="more-vertical"></nb-icon></button>
