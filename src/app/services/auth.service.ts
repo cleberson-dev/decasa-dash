@@ -22,7 +22,7 @@ export class AuthService {
     return JSON.parse(localStorage.getItem(AuthService.storageKey));
   }
 
-  get isLogado(): boolean {
+  get estaLogado(): boolean {
     return !!localStorage.getItem(AuthService.storageKey);
   }
 }

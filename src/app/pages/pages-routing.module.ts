@@ -37,7 +37,7 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      redirectTo: 'login',
+      redirectTo: 'inicio',
       pathMatch: 'full',
     },
     {
