@@ -36,7 +36,7 @@ export type RegistrarLojistaParams = {
   cnpj: string;
   rg: string;
   logradouro: string;
-  idPerfil: number;
+  idPerfil?: number;
   telefone?: string;
 }
 
@@ -285,7 +285,7 @@ export class ApiService {
   registrarLojista(params: RegistrarLojistaParams) {
     const url = this.url + '/lojistas/';
 
-    return this.http.post(url, params);
+    return this.http.post<Lojista>(url, params);
   }
 
   logarLojista(params: LogarLojistaParams) {

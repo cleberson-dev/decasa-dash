@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 import * as CustomValidators from '../../validators';
 
 @Component({
@@ -23,14 +26,33 @@ export class RegistrarComponent implements OnInit {
   }, { validators: this.checarSenhas });
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private authService: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
   }
 
   onRegisterFormSubmit() {
-
+    this.apiService
+      .registrarLojista({
+        razaoSocial: String(this.registerForm.controls['razaoSocial'].value),
+        cnpj: String(this.registerForm.controls['cnpj'].value),
+        rg: String(this.registerForm.controls['rg'].value),
+        inscricaoEstadual: String(this.registerForm.controls['inscricaoEstadual'].value),
+        email: String(this.registerForm.controls['email'].value),
+        senha: String(this.registerForm.controls['senha'].value),
+        logradouro: String(this.registerForm.controls['logradouro'].value),
+        celular: String(this.registerForm.controls['celular'].value),
+        telefone: String(this.registerForm.controls['telefone'].value),
+        idPerfil: Number(this.registerForm.controls['idPerfil'].value),
+      })
+      .subscribe(lojista => {
+        this.authService.save(lojista);
+        this.router.navigate(['/inicio']);
+      });
   }
 
   checarSenhas(group: FormGroup) {
