@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import * as CustomValidators from '../../validators';
 
@@ -15,15 +15,22 @@ export class RegistrarComponent implements OnInit {
   registerForm = this.fb.group({
     razaoSocial: ['', [Validators.required]],
     cnpj: ['', [Validators.required, CustomValidators.cnpj]],
-    rg: ['', [Validators.required]],
+    // rg: ['', [Validators.required]],
     inscricaoEstadual: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     senha: ['', [Validators.required]],
     senha2: ['', [Validators.required]],
-    logradouro: ['', [Validators.required]],
     celular: ['', [Validators.required, CustomValidators.cellphone]],
     telefone: ['', [CustomValidators.phone]],
+    uf: ['', [Validators.required]],
+    municipio: ['', [Validators.required]],
+    bairro: ['', [Validators.required]],
+    logradouro: ['', [Validators.required]],
+    pontoReferencia: ['', [Validators.required]],
   }, { validators: this.checarSenhas });
+
+  ufs: ApiUF[] = [];
+  municipios: ApiMunicipio[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +40,10 @@ export class RegistrarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.apiService.getUfs()
+      .subscribe(ufs => {
+        this.ufs = ufs;
+      });
   }
 
   onRegisterFormSubmit() {
@@ -40,7 +51,7 @@ export class RegistrarComponent implements OnInit {
       .registrarLojista({
         razaoSocial: String(this.registerForm.controls['razaoSocial'].value),
         cnpj: String(this.registerForm.controls['cnpj'].value),
-        rg: String(this.registerForm.controls['rg'].value),
+        // rg: String(this.registerForm.controls['rg'].value),
         inscricaoEstadual: String(this.registerForm.controls['inscricaoEstadual'].value),
         email: String(this.registerForm.controls['email'].value),
         senha: String(this.registerForm.controls['senha'].value),
@@ -90,5 +101,12 @@ export class RegistrarComponent implements OnInit {
     }
 
     return control.invalid && (control.touched || control.dirty);
+  }
+
+  onUFChange(uf: any) {
+    this.apiService.getMunicipiosByUf(Number(uf))
+      .subscribe(municipios => {
+        this.municipios = municipios;
+      });
   }
 }

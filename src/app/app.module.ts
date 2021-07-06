@@ -21,6 +21,7 @@
    NbButtonModule,
    NbCheckboxModule,
    NbPopoverModule,
+   NbSelectModule,
  } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './pages/login/login.component';
@@ -60,6 +61,7 @@ import { IMaskModule } from 'angular-imask';
      ReactiveFormsModule,
      IMaskModule,
      NbPopoverModule,
+     NbSelectModule,
    ],
    bootstrap: [AppComponent],
    schemas: [CUSTOM_ELEMENTS_SCHEMA],

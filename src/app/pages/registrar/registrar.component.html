@@ -61,20 +61,6 @@
                 </div>
                 <div class="row">
                   <div class="col-4">
-                    <label>RG</label>
-                    <input
-                    nbInput
-                    fullWidth
-                    formControlName="rg"
-                    [nbPopover]="rgError"
-                    [class]="{ 'invalid': isInvalid('rg') }"
-                    />
-                    <ng-template #rgError>
-                      <span class="error">{{ getErrorMessage("rg") }}</span>
-                    </ng-template>
-                  </div>
-                  
-                  <div class="col-4">
                     <label>Inscrição Estadual</label>
                     <input
                     nbInput
@@ -135,6 +121,20 @@
                   </div>
                 </div>
                 <div class="row">
+                  <div class="col-2">
+                    <label>UF</label>
+                    <nb-select fullWidth (selectedChange)="onUFChange($event)">
+                      <nb-option *ngFor="let uf of ufs" [value]="uf.id">{{ uf.sigla }}</nb-option>
+                    </nb-select>
+                  </div>
+                  <div class="col-4">
+                    <label>Município</label>
+                    <nb-select fullWidth [disabled]="municipios.length === 0">
+                      <nb-option *ngFor="let municipio of municipios" [value]="municipio.id">{{ municipio.nome }}</nb-option>
+                    </nb-select>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col-6">
                     <label>Logradouro</label>
                     <input
@@ -153,12 +153,12 @@
                   <div class="col-3">
                     <label>Celular</label>
                     <input
-                    nbInput
-                    fullWidth
-                    formControlName="celular"
-                    [imask]="{ mask: '(00) 00000-0000' }"
-                    [nbPopover]="celularError"
-                    [class]="{ 'invalid': isInvalid('celular') }"
+                      nbInput
+                      fullWidth
+                      formControlName="celular"
+                      [imask]="{ mask: '(00) 00000-0000' }"
+                      [nbPopover]="celularError"
+                      [class]="{ 'invalid': isInvalid('celular') }"
                     />
                     <ng-template #celularError>
                       <span class="error">{{ getErrorMessage("celular") }}</span>
