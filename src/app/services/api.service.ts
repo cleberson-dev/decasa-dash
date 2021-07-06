@@ -34,7 +34,7 @@ export type RegistrarLojistaParams = {
   razaoSocial: string;
   inscricaoEstadual: string;
   cnpj: string;
-  rg: string;
+  rg?: string;
   logradouro: string;
   idPerfil?: number;
   telefone?: string;
