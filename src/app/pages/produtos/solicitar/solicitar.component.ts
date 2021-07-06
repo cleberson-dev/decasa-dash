@@ -181,4 +181,26 @@ export class SolicitarComponent implements OnInit {
     return messages[firstErrorOccurrence] || 'Campo Inválido';
   }
 
+
+  onAddPhotos() {
+    const fileInputEl = document.createElement("input");
+
+    fileInputEl.type = "file";
+    fileInputEl.accept = "image/*";
+    fileInputEl.multiple = true;
+
+    fileInputEl.addEventListener("change", (e: any) => {
+      const formData = new FormData();
+      
+      const files = [...e.path[0].files];
+
+      for (let file of files) {
+        formData.append('fotos[]', file);
+      }
+
+      console.log(formData);
+    });
+
+    fileInputEl.dispatchEvent(new MouseEvent("click"));
+  }
 }

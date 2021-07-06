@@ -1,4 +1,4 @@
-<form (submit)="onFormSubmit()" [formGroup]="myForm">
+<form (submit)="onFormSubmit()" [formGroup]="myForm" enctype="multipart/form-data">
   <div class="row">
     <div class="form-group col-4">
       <label for="cnp" class="label">Código <span>*</span></label>
@@ -168,12 +168,25 @@
     </div>
   </div>
   
-  <button
-    type="submit"
-    nbButton
-    status="primary"
-    [disabled]="myForm.invalid"
-  >
-    Enviar
-  </button>
+  <div class="row">
+    <div class="col-3 form-group">
+      <label class="label">Fotos</label>
+      <button nbButton fullWidth (click)="onAddPhotos()">
+        <nb-icon icon="image"></nb-icon>
+        Adicionar foto
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <button
+        type="submit"
+        nbButton fullWidth
+        status="primary"
+        [disabled]="myForm.invalid"
+      >
+        Adicionar
+      </button>
+    </div>
+  </div>
 </form>
