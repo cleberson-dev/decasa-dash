@@ -27,12 +27,12 @@ export class MeusProdutosComponent implements OnInit {
   
   smartGroup: NbMenuItem[] = [
     { 
-      title: 'Mais Vendidos',
+      title: 'Todos',
       icon: 'grid',
       selected: true,
     },
     { 
-      title: 'Outra',
+      title: 'Mais vendidos',
       icon: 'bar-chart-2-outline'
     },
   ];
