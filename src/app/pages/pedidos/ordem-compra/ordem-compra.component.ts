@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
@@ -54,6 +54,7 @@ export class OrdemCompraComponent implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private toastrService: NbToastrService,
+    private router: Router, 
   ) { }
 
   ngOnInit(): void {
@@ -76,5 +77,9 @@ export class OrdemCompraComponent implements OnInit {
 
   getSubTotal(precoUnitario: number, quantidade: number) {
     return precoUnitario * quantidade;
+  }
+
+  onConfirmBtnClick() {
+    this.router.navigate(['/estoque']);
   }
 }
