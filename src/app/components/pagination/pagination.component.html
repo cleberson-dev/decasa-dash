@@ -9,6 +9,7 @@
 
   <button *ngFor="let page of pageNumbers" type="button"
     [class]="{ current: page === currentPage }"
+    (click)="pageChange.emit(page)"
   >
     {{ page }}
   </button>
