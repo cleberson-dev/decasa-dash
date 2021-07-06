@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
+import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'ngx-login',
@@ -16,7 +19,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private apiService: ApiService,
+    private authService: AuthService,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -25,9 +31,27 @@ export class LoginComponent implements OnInit {
   onFormSubmit(e: any) {
     e.preventDefault();
     
-    if (this.form.invalid) alert('Invalid! -_-');
+    if (this.form.invalid) {
+      this.toastrService.danger('Dados inválidos', 'Não é possível logar');
+      return;
+    }
 
-    this.router.navigate(['/inicio']);
+    const body = {
+      email: String(this.form.controls['email'].value),
+      senha: String(this.form.controls['senha'].value),
+    };
+
+    this.apiService
+      .logarLojista(body)
+      .subscribe(
+        (lojista) => {
+          this.authService.save(lojista);
+          this.router.navigate(['/inicio']);
+        },
+        ({ error }) => {
+          this.toastrService.danger(error.message, 'Não foi possível logar');
+        }
+      );
   }
 
 }
