@@ -21,6 +21,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    .unidade {
+      font-size: 0.7rem;
+    }
   }
   
   .categories {
