@@ -22,7 +22,7 @@ export class RegistrarComponent implements OnInit {
     senha2: ['', [Validators.required]],
     logradouro: ['', [Validators.required]],
     celular: ['', [Validators.required, CustomValidators.cellphone]],
-    telefone: ['', [Validators.required, CustomValidators.phone]],
+    telefone: ['', [CustomValidators.phone]],
   }, { validators: this.checarSenhas });
 
   constructor(
