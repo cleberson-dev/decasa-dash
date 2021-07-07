@@ -127,6 +127,8 @@ export class RegistrarComponent implements OnInit {
       .subscribe(
         municipios => {
           this.municipios = municipios;
+
+          this.municipioSelect.button.nativeElement.click();
         },
         (err) => {
           console.error(err);
