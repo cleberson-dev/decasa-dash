@@ -1,10 +1,16 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
-import { IMaskFactory } from 'angular-imask'
-import { TheadTitlesRowComponent } from 'ng2-smart-table/lib/components/thead/rows/thead-titles-row.component';
 import { ApiService } from '../../services/api.service';
 
+type Company = {
+  nome: string;
+  razaoSocial: string;
+  cnpj: string;
+  inscricaoEstadual: string;
+  endereco: string;
+  telefone: string;
+}
 
 type Loja = {
   nome: string;
@@ -37,14 +43,7 @@ export class InicioComponent implements OnInit {
     telefone: ['', [Validators.required]]
   });
 
-  loja = {
-    nome: '...',
-    razaoSocial: '...',
-    cnpj: '...',
-    inscricaoEstadual: '...',
-    endereco: '...',
-    telefone: '...'
-  };
+  loja: Company;
 
   lojas: (Loja & { collapsed?: boolean; })[] = [
     { 

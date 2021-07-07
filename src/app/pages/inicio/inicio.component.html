@@ -4,17 +4,21 @@
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <div class="info">
           <div class="info-header">
-            <h1>{{ loja.nome }}</h1>
-            <button nbButton size="tiny" style="margin-left: 10px;" (click)="openEditInfoModal(dialog)">
+            <h1>{{ loja?.nome || "..." }}</h1>
+            <button 
+              nbButton size="tiny" style="margin-left: 10px;" 
+              (click)="openEditInfoModal(dialog)"
+              [disabled]="!loja"
+            >
               <nb-icon icon="edit"></nb-icon>
               Editar
             </button>
           </div>
-          <p><span>Razão Social:</span> {{ loja.razaoSocial }}</p>
-          <p><span>CNPJ:</span> {{ loja.cnpj }}</p>
-          <p><span>Inscrição Estadual:</span> {{ loja.inscricaoEstadual }}</p>
-          <p><span>Endereço:</span> {{ loja.endereco }}</p>
-          <p><span>Telefone:</span> {{ loja.telefone }}</p>
+          <p><span>Razão Social:</span> {{ loja?.razaoSocial || "..." }}</p>
+          <p><span>CNPJ:</span> {{ loja?.cnpj || "..." }}</p>
+          <p><span>Inscrição Estadual:</span> {{ loja?.inscricaoEstadual || "..." }}</p>
+          <p><span>Endereço:</span> {{ loja?.endereco || "..." }}</p>
+          <p><span>Telefone:</span> {{ loja?.telefone || "..." }}</p>
         </div>
         <div class="store-logo">
           <div class="edit-area">
