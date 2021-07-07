@@ -267,3 +267,220 @@ declare type PaginationHeader = {
 };
 
 declare type PaginatedResource<T> = PaginationHeader & { content: T[]; };
+
+declare type RecebimentoMaterial = {
+  id: number;
+  compraMaterial: CompraMaterial;
+  dataRecebimento: string;
+  numeroNf: number;
+  dataNf: string;
+  arquivoNf: string;
+};
+
+declare type Cor = {
+  id: number;
+  descricao: string;
+};
+
+declare type TipoPessoa = {
+  id: number;
+  descricao: string;
+};
+
+declare type Cliente = {
+  id: number;
+  nome: string;
+  telefone: string;
+  celular: string;
+  email: string;
+  cpf: string;
+  cnpj: string;
+  rg: string;
+  dataRg: string;
+  dataCadastro: string;
+  sexo: Sexo;
+  estadoCivil: EstadoCivil;
+  orgaoExpedidor: OrgaoExpedidor;
+  ufRg: Uf;
+  usuario: Usuario;
+  tipoPessoa: TipoPessoa;
+  creditoPre: number;
+  dataNascimento: string;
+};
+
+declare type EnderecoCliente = {
+  id: number;
+  domicilio: boolean;
+  logradouro: string;
+  numero: string;
+  bairro: string;
+  cep: string;
+  complemento: string;
+  pontoReferencia: string;
+  latGraus: number;
+  latMinutos: number;
+  latSegundos: number;
+  longGraus: number;
+  longMinutos: number;
+  longSegundos: number;
+  municipio: Municipio;
+  cliente: Cliente;
+  clienteId?: number;
+  ativo: boolean;
+};
+
+declare type NivelFormacao = {
+  id: number;
+  descricao: string;
+};
+
+declare type StatusCadastro = {
+  id: number;
+  descricao: string;
+  ordem: number;
+};
+
+declare type BairroReferencia = {
+  id: number;
+  descricao: string;
+  municipio: Municipio;
+};
+
+declare type Profissao = {
+  id: number;
+  descricao: string;
+};
+
+declare type ProfissaoPrestador = {
+  id: number;
+  experiencia: number;
+  cursoTecnico: boolean;
+  observacao: string;
+  dataExclusao: string;
+  codUsuarioExclusao: number;
+  profissao: Profissao;
+};
+
+declare type Operadora = {
+  id: number;
+  descricao: string;
+};
+
+declare type TelefonePrestador = {
+  id: number;
+  telefone: string;
+  operadora: Operadora;
+  prestador: Prestador;
+};
+
+declare type MunicipioPrestador = {
+  id: number;
+  dataCadastro: string;
+  ativo: boolean;
+  municipio: Municipio;
+  prestador: Prestador;
+};
+
+declare type Prestador = {
+  id: number;
+  nome: string;
+  apelido: string;
+  cnpj: string;
+  cpf: string;
+  rg: string;
+  dataRg: string;
+  pai: string;
+  mae: string;
+  logradouro: string;
+  numero: string;
+  bairro: string;
+  cep: string;
+  pontoReferencia: string;
+  habilitacao: string;
+  email: string;
+  disponivelFeriado: boolean;
+  atendeDomicilio: boolean;
+  naoAtendeDomicilio: boolean;
+  smartphone: boolean;
+  disponivelViagem: boolean;
+  dataCadastro: string;
+  ultimaAtualizacao: string;
+  cadastroRepresentacao: boolean;
+  dataNascimento: string;
+  origemCadastro: OrigemCadastro;
+  tipoPessoa: TipoPessoa;
+  representante?: Prestador;
+  sexo: Sexo;
+  ufRg: Uf;
+  usuario: Usuario;
+  usuarioCadastro: Usuario;
+  municipioEndereco: Municipio;
+  orgaoExpedidor: OrgaoExpedidor;
+  nivelFormacao: NivelFormacao;
+  statusCadastro: StatusCadastro;
+  bairrosReferencia: BairroReferencia[];
+  profissoes: ProfissaoPrestador[];
+  telefones: TelefonePrestador[];
+  municipioPrestador: MunicipioPrestador[];
+  senha?: string;
+  token?: string;
+  codigoPerfil?: number;
+  municipios?: Municipio;
+};
+
+declare type VendaMaterial = {
+  id: number;
+  enderecoCliente: EnderecoCliente;
+  lojista: Lojista;
+  prestador: Prestador;
+  dataVenda: string;
+  desconto: number;
+  valor: number;
+};
+
+declare type DetalheVenda = {
+  id: number;
+  vendaMaterial: VendaMaterial;
+  produto: Produto;
+  valor: number;
+  quantidade: number;
+  descricao: string;
+  quantidadeApresentacao: number;
+  detalhe: string;
+  manualInstrucoes: string;
+  videoDemonstrativo: string;
+  cnp: string;
+  descricaoDepartamento: string;
+  descricaoCategoria: string;
+  siglaUnidadeMedida: string;
+  descricaoModelo: string;
+  descricaoMarca: string;
+  descricaoCor: string;
+};
+
+declare type EntregaMaterial = {
+  id: number;
+  vendaMaterial: VendaMaterial;
+  dataEntrega: string;
+  numeroNf: number;
+  dataNf: string;
+  arquivoNf: string;
+};
+
+declare type DetalheEntrega = {
+  id: number;
+  entregaMaterial: EntregaMaterial;
+  detalheVenda: DetalheVenda;
+}
+
+declare type ItemEstoque = {
+  id: number;
+  recebimentoMaterial: RecebimentoMaterial;
+  cor: Cor;
+  detalheVenda: DetalheVenda;
+  detalheEntrega: DetalheEntrega;
+  produto: Produto;
+  lojista: Lojista;
+  lote: string;
+  numeroSerie;
+}
