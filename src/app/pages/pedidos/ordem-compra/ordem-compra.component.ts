@@ -65,7 +65,7 @@ export class OrdemCompraComponent implements OnInit {
       .subscribe(
         compra => (this.compra = compra),
         ({ error, status }) => {
-          if (status === 500) this.toastrService.danger(error.titulo, 'Algo deu errado =(');
+          if (status === 500) this.toastrService.danger(error.titulo, 'Impossível obter compra');
           console.error(error);
         }
       );

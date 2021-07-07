@@ -55,19 +55,37 @@ export class FornecedoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getFornecedores()
-    .subscribe(fornecedores => {
-      this.fornecedores = fornecedores;
-    });
+    .subscribe(
+      fornecedores => {
+        this.fornecedores = fornecedores;
+      },
+      err => {
+        console.error(err);
+        this.toastrService.danger(err.error.message, 'Impossível obter fornecedores');
+      }
+    );
 
     this.api.getUfs()
-      .subscribe(ufs => {
-        this.ufs = ufs;
-      });
+      .subscribe(
+        ufs => {
+          this.ufs = ufs;
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter UFs');
+        }
+      );
 
     this.api.getDepartments()
-      .subscribe(deps => {
-        this.departments = deps;
-      });
+      .subscribe(
+        deps => {
+          this.departments = deps;
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter departamentos');
+        }
+      );
   }
 
   openCreate(dialog: TemplateRef<any>) {
@@ -143,7 +161,7 @@ export class FornecedoresComponent implements OnInit {
           }, 
           ({ error }) => {
             console.error(error);
-            this.toastrService.danger(error.titulo, 'Algo deu errado =(');
+            this.toastrService.danger(error.titulo, 'Impossível editar fornecedor');
           } 
           );
         } else if (this.formType === 'criar') {
@@ -154,9 +172,10 @@ export class FornecedoresComponent implements OnInit {
               this.resetForm();
               ref.close();
             },
-            ({ error }) => {
-              console.error(error.titulo);
-              this.toastrService.danger(error.titulo, 'Algo deu errado =(');
+            (err) => {
+              console.error(err);
+              if (err.status === 500) this.toastrService.danger(err.error.message, 'Impossível criar fornecedor');
+              this.toastrService.danger(err.error.titulo, 'Impossível criar fornecedor');
             }
         );
     }
@@ -218,7 +237,7 @@ export class FornecedoresComponent implements OnInit {
       err => {
         this.editBtnLoading = false;
         console.error(err);
-        this.toastrService.danger(err.error.message, 'Algo deu errado');
+        this.toastrService.danger(err.error.message, 'Impossível obter municípios por UF');
       }
     );
 
@@ -260,9 +279,9 @@ export class FornecedoresComponent implements OnInit {
           ref.close();
           this.removeBtnLoading = false;
         },
-        ({ error }) => {
-          console.error(error.message);
-          this.toastrService.danger(error.message, 'Algo deu errado');
+        (err) => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível remover fornecedor');
           this.removeBtnLoading = false;
         }
       );
@@ -279,20 +298,32 @@ export class FornecedoresComponent implements OnInit {
     
     const cep = this.formFornecedor.controls['cep'].value;
     this.cepService.get(cep)
-      .subscribe(data => {
-        this.formFornecedor.patchValue({
-          logradouro: data.logradouro,
-          bairro: data.bairro
-        });
-      });
+      .subscribe(
+        data => {
+          this.formFornecedor.patchValue({
+            logradouro: data.logradouro,
+            bairro: data.bairro
+          });
+        },
+        err => {
+          console.error(err);
+          if (err.status === 500) this.toastrService.danger(err.error.message, 'Impossível obter cep');
+        }
+      );
   }
 
   onUFChange(newUf: any) {
     if (newUf === '') return;
     this.api.getMunicipiosByUf(Number(newUf))
-      .subscribe(municipios => {
-        this.municipios = municipios;
-      });
+      .subscribe(
+        municipios => {
+          this.municipios = municipios;
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter municípios por UF');
+        }
+      );
   }
 
   onInscricaoBlur() {

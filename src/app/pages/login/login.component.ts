@@ -48,8 +48,9 @@ export class LoginComponent implements OnInit {
           this.authService.save(lojista);
           this.router.navigate(['/inicio']);
         },
-        ({ error }) => {
-          this.toastrService.danger(error.message, 'Não foi possível logar');
+        (err) => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Não foi possível logar');
         }
       );
   }

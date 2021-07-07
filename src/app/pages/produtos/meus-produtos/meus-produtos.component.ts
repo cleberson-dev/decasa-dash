@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NbDialogService, NbMenuItem, NbToastrService } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
@@ -56,36 +56,54 @@ export class MeusProdutosComponent implements OnInit {
         2,
         { page: changedPage }
       )
-      .subscribe(data => {
-        this.produtosLojista = [...data.content];
-        this.pagination = { ...data };
-      });
+      .subscribe(
+        data => {
+          this.produtosLojista = [...data.content];
+          this.pagination = { ...data };
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista por categoria');
+        }
+      );
   }
 
   ngOnInit(): void {
     this.apiService.getDepartments()
-      .subscribe(departments => {
-        this.departments = departments;
+      .subscribe(
+        departments => {
+          this.departments = departments;
 
-        this.departmentTree = this.departments.map(department => ({
-          name: department.name,
-          icon: 'bookmark',
-          value: department.id + '',
-          children: department.categories.map(cat => ({
-            name: cat.name, value: cat.id + '', icon: 'folder-outline', active: false
-          }))
-        }));
+          this.departmentTree = this.departments.map(department => ({
+            name: department.name,
+            icon: 'bookmark',
+            value: department.id + '',
+            children: department.categories.map(cat => ({
+              name: cat.name, value: cat.id + '', icon: 'folder-outline', active: false
+            }))
+          }));
 
-        this.loadingDepartments = false;
-      });
+          this.loadingDepartments = false;
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter departamentos');
+        }
+      );
 
 
     this.apiService
       .getProdutosLojista(2)
-      .subscribe(data => {
-        this.produtosLojista = [...data.content];
-        this.pagination = { ...data };
-      });
+      .subscribe(
+        data => {
+          this.produtosLojista = [...data.content];
+          this.pagination = { ...data };
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista');
+        }
+      );
   }
 
   onItemSelected(value: string) {
@@ -99,7 +117,7 @@ export class MeusProdutosComponent implements OnInit {
       },
       ({ error }) => {
         console.error(error);
-        this.toastrService.danger(error.message || "Sem mensagem", "Algo deu errado");
+        this.toastrService.danger(error.message || "Sem mensagem", "Impossível obter produtos do lojista por categoria");
       }
     );
   }
@@ -117,19 +135,31 @@ export class MeusProdutosComponent implements OnInit {
     const lojistaId = 2;
     this.apiService
       .addProdutos(items, lojistaId)
-      .subscribe(() => {
-        this.produtosLojista.push(...items.map((item): ProdutoLojista => ({
-          lojistaDTO: { id: lojistaId },
-          valor: item.valor,
-          produto: item.produto
-        })));
-      });
+      .subscribe(
+        () => {
+          this.produtosLojista.push(...items.map((item): ProdutoLojista => ({
+            lojistaDTO: { id: lojistaId },
+            valor: item.valor,
+            produto: item.produto
+          })));
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível adicionar produtos ao catálogo do lojista');
+        }
+      );
   }
 
   searchProducts() {
     const query = this.searchControl.value;
     this.apiService.buscarProdutoLojista(query)
-      .subscribe(data => alert(`Consulta: ${query} | Resultados: ${data.content.length}`));
+      .subscribe(
+        data => alert(`Consulta: ${query} | Resultados: ${data.content.length}`),
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível buscar produtos do lojista');
+        }
+      );
   }
 
   onSearchKeyDown(e: KeyboardEvent) {

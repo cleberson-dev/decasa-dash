@@ -1,7 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NbDialogRef, NbDialogService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { IMaskFactory } from 'angular-imask'
+import { TheadTitlesRowComponent } from 'ng2-smart-table/lib/components/thead/rows/thead-titles-row.component';
 import { ApiService } from '../../services/api.service';
 
 
@@ -71,18 +72,25 @@ export class InicioComponent implements OnInit {
   constructor(
     private dialogService: NbDialogService,
     private fb: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
     this.apiService.getLojista()
-      .subscribe(lojista => {
-        this.loja.inscricaoEstadual = lojista.inscricaoEstadual;
-        this.loja.endereco = lojista.logradouro;
-        this.loja.telefone = lojista.telefone;
-        this.loja.cnpj = lojista.cnpj;
-        this.loja.nome = lojista.nome;
-      });
+      .subscribe(
+        lojista => {
+          this.loja.inscricaoEstadual = lojista.inscricaoEstadual;
+          this.loja.endereco = lojista.logradouro;
+          this.loja.telefone = lojista.telefone;
+          this.loja.cnpj = lojista.cnpj;
+          this.loja.nome = lojista.nome;
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter lojista');
+        }
+      );
   }
 
   openAddLojaModal(dialog: TemplateRef<any>) {

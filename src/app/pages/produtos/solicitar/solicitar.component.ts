@@ -7,6 +7,7 @@ import { cnpj, cpf } from 'cpf-cnpj-validator';
 import { CepService } from '../../../services/cep.service';
 import telefone from 'telefone';  
 import { ValidationErrors } from '@angular/forms';
+import { NbToastrService } from '@nebular/theme';
 
 export type Department = {
   id: number;
@@ -49,27 +50,40 @@ export class SolicitarComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private cepService: CepService,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
     this.apiService.getUnidadesDeMedidas()
-      .subscribe(unidadesMedida => {
-        this.unidadesMedida = unidadesMedida;
-      });
+      .subscribe(
+        unidadesMedida => {
+          this.unidadesMedida = unidadesMedida;
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter unidades de medida');
+        }
+      );
     
     this.apiService.getDepartments()
-      .subscribe(departments => {
-        this.departments = departments;
+      .subscribe(
+        departments => {
+          this.departments = departments;
 
-        this.departmentTree = this.departments.map(department => ({
-          name: department.name,
-          icon: 'bookmark',
-          value: department.id + '',
-          children: department.categories.map(cat => ({
-            name: cat.name, value: cat.id + '', icon: 'folder-outline', active: false
-          }))
-        }));
-      });
+          this.departmentTree = this.departments.map(department => ({
+            name: department.name,
+            icon: 'bookmark',
+            value: department.id + '',
+            children: department.categories.map(cat => ({
+              name: cat.name, value: cat.id + '', icon: 'folder-outline', active: false
+            }))
+          }));
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter departamentos');
+        }   
+      );
   }
 
   onFormSubmit() {
@@ -105,6 +119,7 @@ export class SolicitarComponent implements OnInit {
         },
         err => {
           console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível solicitar novo produto');
         });
   }
 
@@ -193,7 +208,8 @@ export class SolicitarComponent implements OnInit {
       const formData = new FormData();
       
       const files = [...e.path[0].files];
-
+      console.log(files);
+      
       for (let file of files) {
         formData.append('fotos[]', file);
       }

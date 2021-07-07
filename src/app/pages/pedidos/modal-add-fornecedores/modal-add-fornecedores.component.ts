@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { NbDialogRef } from '@nebular/theme';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
+import { TheadTitlesRowComponent } from 'ng2-smart-table/lib/components/thead/rows/thead-titles-row.component';
 import { ApiService } from '../../../services/api.service';
 
 type SelectableFornecedor = Fornecedor & { selected?: boolean; };
@@ -19,15 +20,22 @@ export class ModalAddFornecedoresComponent implements OnInit {
   @Input() selectedFornecedores: Fornecedor[] = [];
 
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
     this.selectedFornecedores.push(...this.initialFornecedores);
     this.api.getFornecedores()
-      .subscribe(fornecedores => {
-        this.fornecedores = fornecedores;
-      });
+      .subscribe(
+        fornecedores => {
+          this.fornecedores = fornecedores;
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter fornecedores');
+        }
+      );
   }
 
   onAdditionBtnClick() {

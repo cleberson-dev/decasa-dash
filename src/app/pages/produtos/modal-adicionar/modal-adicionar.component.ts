@@ -38,15 +38,22 @@ export class ModalAdicionarComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private toastrService: NbToastrService
+    private toastrService: NbToastrService,
   ) {}
 
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.getAllProducts().subscribe((data) => {
-      this.produtos = [...data.content];
-      this.pagination = { ...data };
-    });
+    this.apiService.getAllProducts()
+      .subscribe(
+        (data) => {
+          this.produtos = [...data.content];
+          this.pagination = { ...data };
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter todos os produtos');
+        }
+      );
     this.loading = false;
   }
 
@@ -58,25 +65,45 @@ export class ModalAdicionarComponent implements OnInit {
     this.selectedCategory = option;
     switch (option) {
       case 'mais-vendidos':
-        this.apiService.getProdutosMaisVendidos().subscribe((data) => {
-          this.produtos = [...data.content];
-          this.pagination = { ...data };
-        }, this.handleError);
+        this.apiService.getProdutosMaisVendidos()
+          .subscribe(
+            (data) => {
+              this.produtos = [...data.content];
+              this.pagination = { ...data };
+            },
+            err => {
+              console.error(err);
+              this.toastrService.danger(err.error.message, 'Impossível obter produtos mais vendidos');
+            }
+          );
         break;
       case 'todos':
-        this.apiService.getAllProducts().subscribe((data) => {
-          this.produtos = [...data.content];
-          this.pagination = { ...data };
-        }, this.handleError);
+        this.apiService.getAllProducts()
+          .subscribe(
+            (data) => {
+              this.produtos = [...data.content];
+              this.pagination = { ...data };
+            },
+            err => {
+              console.error(err);
+              this.toastrService.danger(err.error.message, 'Impossível obter todos os produtos');
+            }
+          );
         break;
       default:
         const categoriaId = Number(option);
         this.apiService
           .getProdutosPorCategoria(categoriaId)
-          .subscribe((data) => {
-            this.produtos = [...data.content];
-            this.pagination = { ...data };
-          }, this.handleError);
+          .subscribe(
+            (data) => {
+              this.produtos = [...data.content];
+              this.pagination = { ...data };
+            }, 
+            err => {
+              console.error(err);
+              this.toastrService.danger(err.error.message, 'Impossível obter produtos por categoria');
+            }
+          );
     }
   }
 
@@ -136,18 +163,30 @@ export class ModalAdicionarComponent implements OnInit {
 
     this.apiService
       .buscarProdutoPorCategoria(query, Number(category))
-      .subscribe((data) => {
-        this.produtos = [...data.content];
-        this.pagination = { ...data };
-      }, this.handleError);
+      .subscribe(
+        (data) => {
+          this.produtos = [...data.content];
+          this.pagination = { ...data };
+        }, 
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível buscar produto por categoria');
+        }
+      );
   }
 
   onPageChange(changedPage: number) {
     this.apiService
       .getAllProducts({ page: changedPage })
-      .subscribe(data => {
-        this.produtos = [...data.content];
-        this.pagination = { ...data };
-      });
+      .subscribe(
+        data => {
+          this.produtos = [...data.content];
+          this.pagination = { ...data };
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, `Impossível obter todos os produtos (página: ${changedPage})`);
+        }
+      );
   }
 }

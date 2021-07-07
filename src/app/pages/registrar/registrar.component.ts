@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbSelectComponent } from '@nebular/theme';
+import { NbSelectComponent, NbToastrService } from '@nebular/theme';
 import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { CepService } from '../../services/cep.service';
@@ -42,13 +42,20 @@ export class RegistrarComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private cepService: CepService,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
     this.apiService.getUfs()
-      .subscribe(ufs => {
-        this.ufs = ufs;
-      });
+      .subscribe(
+        ufs => {
+          this.ufs = ufs;
+        },
+        (err) => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter UFs');
+        }
+      );
   }
 
   onRegisterFormSubmit() {
@@ -65,10 +72,16 @@ export class RegistrarComponent implements OnInit {
         telefone: String(this.registerForm.controls['telefone'].value),
         idPerfil: Number(this.registerForm.controls['idPerfil'].value),
       })
-      .subscribe(lojista => {
-        this.authService.save(lojista);
-        this.router.navigate(['/inicio']);
-      });
+      .subscribe(
+        lojista => {
+          this.authService.save(lojista);
+          this.router.navigate(['/inicio']);
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível registrar lojista')
+        }
+      );
   }
 
   checarSenhas(group: FormGroup) {
@@ -111,9 +124,15 @@ export class RegistrarComponent implements OnInit {
   onUFChange(uf: any) {
     this.registerForm.controls['municipio'].setValue('');
     this.apiService.getMunicipiosByUf(Number(uf))
-      .subscribe(municipios => {
-        this.municipios = municipios;
-      });
+      .subscribe(
+        municipios => {
+          this.municipios = municipios;
+        },
+        (err) => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter municípios por UF');
+        }
+      );
   }
 
   fillAddresses() {
@@ -131,21 +150,33 @@ export class RegistrarComponent implements OnInit {
     this.registerForm.controls['municipio'].setValue('');
 
     this.cepService.get(String(control.value))
-      .subscribe(data => {
-        const uf = this.ufs.find(uf => uf.sigla.toLocaleUpperCase() === data.uf.toUpperCase());
-        
-        this.registerForm.patchValue({
-          uf: uf.id,
-          logradouro: data.logradouro,
-          bairro: data.bairro,
-          pontoReferencia: data.complemento,
-        });
+      .subscribe(
+        data => {
+          const uf = this.ufs.find(uf => uf.sigla.toLocaleUpperCase() === data.uf.toUpperCase());
+          
+          this.registerForm.patchValue({
+            uf: uf.id,
+            logradouro: data.logradouro,
+            bairro: data.bairro,
+            pontoReferencia: data.complemento,
+          });
 
-        this.apiService.getMunicipiosByUf(uf.id)
-          .subscribe(municipios => {
-            this.municipios = municipios;
-            this.municipioSelect.button.nativeElement.focus();
-          })
-      });
+          this.apiService.getMunicipiosByUf(uf.id)
+            .subscribe(
+              municipios => {
+                this.municipios = municipios;
+                this.municipioSelect.button.nativeElement.focus();
+              },
+              err => {
+                console.error(err);
+                this.toastrService.danger(err.error.message, 'Impossível obter municípios por UF via CEP');
+              }
+            )
+        },
+        (err) => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter cep');
+        }
+      );
   }
 }

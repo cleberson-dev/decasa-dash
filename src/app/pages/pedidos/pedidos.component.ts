@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbDialogRef, NbDialogService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
 import { filter, map, throttle } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
@@ -55,16 +55,23 @@ export class PedidosComponent implements OnInit {
     private dialogService: NbDialogService,
     private api: ApiService,
     private router: Router,
+    private toastrService: NbToastrService,
   ) {
   }
 
   ngOnInit(): void {
     this.api.getProdutosLojista(2)
-      .subscribe(data => {
-        this.produtos = data.content;
-        this.autoOptions = this.produtos.map(({ produto }) => `${produto.descricao} (${produto.unidadeMedidaProduto.sigla})`);
-        this.suggestedOptions = [...this.autoOptions];
-      });
+      .subscribe(
+        data => {
+          this.produtos = data.content;
+          this.autoOptions = this.produtos.map(({ produto }) => `${produto.descricao} (${produto.unidadeMedidaProduto.sigla})`);
+          this.suggestedOptions = [...this.autoOptions];
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista');
+        }
+      );
   }
 
   onSelectionChange($event: string) {
@@ -79,12 +86,18 @@ export class PedidosComponent implements OnInit {
     const { value } = this.input.nativeElement;
     
     this.api.buscarProdutoLojista(value, 2, { page: 1, size: 5 })
-      .subscribe(data => {
-        const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
-        this.produtos = filteredProdutos;
-        this.suggestedOptions = filteredProdutos
-          .map(({ produto }) => `${produto.descricao} (${produto.unidadeMedidaProduto.sigla})`);
-      });
+      .subscribe(
+        data => {
+          const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
+          this.produtos = filteredProdutos;
+          this.suggestedOptions = filteredProdutos
+            .map(({ produto }) => `${produto.descricao} (${produto.unidadeMedidaProduto.sigla})`);
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível buscar produto do lojista');
+        }
+      );
   }
 
   onPedidoAdd() {
@@ -102,12 +115,18 @@ export class PedidosComponent implements OnInit {
     this.rows.unshift(row);
     this.resetForm();
     this.api.buscarProdutoLojista('', 2, { page: 1, size: 5 })
-      .subscribe(data => {
-        const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
-        this.produtos = filteredProdutos;
-        this.suggestedOptions = filteredProdutos
-          .map(({ produto }) => produto.descricao);
-      });
+      .subscribe(
+        data => {
+          const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
+          this.produtos = filteredProdutos;
+          this.suggestedOptions = filteredProdutos
+            .map(({ produto }) => produto.descricao);
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, `Impossível buscar produto do lojista, consulta vazia`);
+        }
+      );
   }
 
   openAddFornecedores(dialog: TemplateRef<any>) {
@@ -146,26 +165,36 @@ export class PedidosComponent implements OnInit {
   onCodigoBlur() {
     const codigo = this.novoPedidoForm.controls['codigo'].value;
     this.api.findProdutoByCnp(codigo)
-      .subscribe((produto) => {
-        if (!produto) return this.resetForm();
+      .subscribe(
+        (produto) => {
+          if (!produto) return this.resetForm();
 
-        this.novoPedidoForm.controls['codigo'].setValue(produto.cnp);
-        this.novoPedidoForm.controls['nome'].setValue(produto.descricao);
-        this.novoPedidoForm.controls['unidade'].setValue(produto.unidadeMedidaProduto.descricao || 'unidade');
-      }, () => {
-        this.resetForm();
-      });
+          this.novoPedidoForm.controls['codigo'].setValue(produto.cnp);
+          this.novoPedidoForm.controls['nome'].setValue(produto.descricao);
+          this.novoPedidoForm.controls['unidade'].setValue(produto.unidadeMedidaProduto.descricao || 'unidade');
+        }, 
+        (err) => {
+          console.error(err);
+          if (err.status === 500) this.toastrService.danger(err.error.message, 'Impossível encontrar produto por código');
+          this.resetForm();
+        });
   }
 
   onCodigoChange() {
     const codigo = String(this.novoPedidoForm.controls['codigo'].value);
 
     this.api.findProdutoByCnp(codigo)
-      .subscribe(produto => {
-        this.novoPedidoForm.controls['codigo'].setValue(produto.cnp);
-        this.novoPedidoForm.controls['nome'].setValue(produto.descricao);
-        this.novoPedidoForm.controls['unidade'].setValue(produto.unidadeMedidaProduto.descricao || 'unidade');
-      });
+      .subscribe(
+        produto => {
+          this.novoPedidoForm.controls['codigo'].setValue(produto.cnp);
+          this.novoPedidoForm.controls['nome'].setValue(produto.descricao);
+          this.novoPedidoForm.controls['unidade'].setValue(produto.unidadeMedidaProduto.descricao || 'unidade');
+        },
+        err => {
+          console.error(err);
+          if (err.status === 500) this.toastrService.danger(err.error.message, 'Impossível encontrar produto por código');
+        }
+      );
   }
 
   onNomeBlur() {
@@ -197,7 +226,10 @@ export class PedidosComponent implements OnInit {
           console.log('Recebido: ', data);
           // this.router.navigate(['/pedidos', data.id, 'mapa' ]);
         }, 
-        console.error
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível criar pedido');
+        }
       );
   }
 
