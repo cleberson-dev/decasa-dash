@@ -291,7 +291,7 @@ export class ApiService {
   }
 
   logarLojista(params: LogarLojistaParams) {
-    const url = this.url + '/lojistas/';
+    const url = this.url + '/usuarios/';
     
     return this.http.post<Lojista>(url, params);
   }

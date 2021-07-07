@@ -50,7 +50,9 @@ export class LoginComponent implements OnInit {
         },
         (err) => {
           console.error(err);
-          this.toastrService.danger(err.error.message, 'Não foi possível logar');
+          const titulo = 'Não foi possível realizar login';
+          const mensagem = err.status === 500 ? err.error.message : err.error.titulo;
+          this.toastrService.danger(mensagem || 'Sem mensagem disponível', titulo);
         }
       );
   }
