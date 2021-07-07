@@ -70,6 +70,8 @@ type CriarPedidoParams = {
   }[];
 }
 
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -351,5 +353,11 @@ export class ApiService {
     const url = this.url + '/pedidos';
 
     return this.http.post<{ id: number; dataCadastro: number; lojista: Lojista; }>(url, params);
+  }
+
+  getItensEstoquePorCompra(compraId: number) {
+    const url = this.url + '/itensEstoque/compraMaterial/' + compraId;
+
+    return this.http.get<PaginatedResource<ItemEstoque>>(url);
   }
 }
