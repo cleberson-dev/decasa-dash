@@ -52,6 +52,7 @@ export class EstoqueComponent implements OnInit {
 
   compras: CompraMaterial[] = [];
   compraSelecionada: number;
+  buscandoCompra: boolean = false;
 
   constructor(
     private dialogService: NbDialogService,
@@ -127,6 +128,7 @@ export class EstoqueComponent implements OnInit {
   }
 
   onSearchSale() {
+    this.buscandoCompra = true;
     this.apiService
       .getCompra(Number(this.compraSelecionada))
       .subscribe(
@@ -148,10 +150,12 @@ export class EstoqueComponent implements OnInit {
               queryParams,
             }
           );
+          this.buscandoCompra = false;
         },
         err => {
           console.error(err);
           this.toastrService.danger(err.error.message, 'Impossível obter detalhes de compra');
+          this.buscandoCompra = false;
           this.route.queryParams
             .subscribe(params => {
               this.compraSelecionada = Number(params.compra);

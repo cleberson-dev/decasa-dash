@@ -20,7 +20,10 @@
       </div>
       <div class="row">
         <div class="col-2">
-          <button nbButton type="submit" status="primary" fullWidth (click)="onSearchSale()">
+          <button 
+            nbButton type="submit" status="primary" fullWidth
+            (click)="onSearchSale()" [disabled]="buscandoCompra"
+          >
             Buscar
           </button>
         </div>
