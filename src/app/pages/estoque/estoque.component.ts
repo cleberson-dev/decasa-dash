@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { concatMap } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
@@ -59,6 +59,7 @@ export class EstoqueComponent implements OnInit {
     private route: ActivatedRoute,
     private apiService: ApiService,
     private toastrService: NbToastrService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -123,5 +124,39 @@ export class EstoqueComponent implements OnInit {
     }
 
     this.notaArquivo = arquivo;
+  }
+
+  onSearchSale() {
+    this.apiService
+      .getCompra(Number(this.compraSelecionada))
+      .subscribe(
+        compra => {
+          this.data = compra.detalhesCompras.map(detalhe => new Row({
+            codigo: detalhe.produto.cnp,
+            nome: detalhe.produto.descricao,
+            unidade: detalhe.produto.unidadeMedidaProduto.descricao,
+            precoUnitario: detalhe.valor,
+            quantidade: detalhe.quantidade,
+          }));
+
+          const queryParams = { compra: this.compraSelecionada };
+          this.router.navigate(
+            [],
+            {
+              relativeTo: this.route,
+              queryParamsHandling: 'merge',
+              queryParams,
+            }
+          );
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter detalhes de compra');
+          this.route.queryParams
+            .subscribe(params => {
+              this.compraSelecionada = Number(params.compra);
+            });
+        }
+      );
   }
 }

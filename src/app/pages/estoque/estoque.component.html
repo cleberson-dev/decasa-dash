@@ -8,6 +8,8 @@
           <label>Ordem de Compra</label>
           <nb-select fullWidth [(selected)]="compraSelecionada">
             <nb-option *ngFor="let compra of compras" [value]="compra.id">{{ compra.id }}</nb-option>
+            <nb-option [value]="1">1</nb-option>
+            <nb-option [value]="2">2</nb-option>
           </nb-select>
         </div>
         <div class="col-4"></div>
@@ -18,7 +20,7 @@
       </div>
       <div class="row">
         <div class="col-2">
-          <button nbButton type="submit" status="primary" fullWidth>
+          <button nbButton type="submit" status="primary" fullWidth (click)="onSearchSale()">
             Buscar
           </button>
         </div>
