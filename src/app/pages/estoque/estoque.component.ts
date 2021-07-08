@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { concatMap } from 'rxjs/operators';
+import { concatMap, filter } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
 import { ApiService } from '../../services/api.service';
 
@@ -71,6 +71,7 @@ export class EstoqueComponent implements OnInit {
 
     this.route.queryParams
       .pipe(
+        filter(params => !!params.compra && !Number.isNaN(params.compra)),
         concatMap(params => {
           const { compra } = params;
           if (Number.isNaN(compra)) throw Error('Não existe compra');
