@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
-import { flatMap, map } from 'rxjs/operators';
+import { concatMap, filter, flatMap, map } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 type RowProps = {
@@ -60,10 +60,14 @@ export class OrdemCompraComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
       .pipe(
-        flatMap(params => this.apiService.getCompra(Number(params.get('compraId'))))
+        filter(params => !Number.isNaN(params.get('compraId'))),
+        // concatMap(params => this.apiService.getCompra(Number(params.get('compraId')))),
+        concatMap(params => this.apiService.getCompra(Number(params.get('compraId'))))
       )
       .subscribe(
-        compra => (this.compra = compra),
+        compra => {
+          this.compra = compra;
+        },
         ({ error, status }) => {
           if (status === 500) this.toastrService.danger(error.titulo, 'Impossível obter compra');
           console.error(error);
@@ -81,5 +85,15 @@ export class OrdemCompraComponent implements OnInit {
 
   onConfirmBtnClick() {
     this.router.navigate(['/estoque']);
+  }
+
+  get tableData(): Row[] {
+    return this.compra.detalhesCompras.map(detalhe => new Row({
+      codigo: detalhe.produto.cnp,
+      produto: detalhe.produto.descricao,
+      unidade: detalhe.produto.unidadeMedidaProduto.sigla,
+      quantidade: detalhe.quantidade,
+      precoUnitario: detalhe.valor,
+    }));
   }
 }

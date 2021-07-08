@@ -375,4 +375,10 @@ export class ApiService {
 
     return this.http.get<PaginatedResource<VendaMaterial>>(url);
   }
+
+  getCompra(compraId: number) {
+    const url = this.url + '/comprasMateriais/' + compraId;
+
+    return this.http.get<CompraMaterial>(url);
+  }
 }
