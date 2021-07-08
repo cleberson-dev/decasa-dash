@@ -76,15 +76,15 @@ export class EstoqueComponent implements OnInit {
           const { compra } = params;
           if (Number.isNaN(compra)) throw Error('Não existe compra');
           this.compraSelecionada = Number(compra);
-          return this.apiService.getCompra(Number(compra))
+          return this.apiService.getDetalhesCompra(Number(compra))
         })
       )
       .subscribe(
-        compra => {
-          this.data = compra.detalhesCompras.map(detalhe => new Row({
+        data => {
+          this.data = data.content.map(detalhe => new Row({
             codigo: detalhe.produto.cnp,
             nome: detalhe.produto.descricao,
-            unidade: detalhe.produto.unidadeMedidaProduto.descricao,
+            unidade: detalhe.produto.unidadeMedidaProduto.sigla,
             precoUnitario: detalhe.valor,
             quantidade: detalhe.quantidade,
           }));
@@ -131,10 +131,10 @@ export class EstoqueComponent implements OnInit {
   onSearchSale() {
     this.buscandoCompra = true;
     this.apiService
-      .getCompra(Number(this.compraSelecionada))
+      .getDetalhesCompra(Number(this.compraSelecionada))
       .subscribe(
-        compra => {
-          this.data = compra.detalhesCompras.map(detalhe => new Row({
+        data => {
+          this.data = data.content.map(detalhe => new Row({
             codigo: detalhe.produto.cnp,
             nome: detalhe.produto.descricao,
             unidade: detalhe.produto.unidadeMedidaProduto.descricao,

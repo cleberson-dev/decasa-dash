@@ -264,10 +264,10 @@ export class ApiService {
     return this.http.get<PaginatedResource<CompraMaterial>>(url);
   }
 
-  getCompra(compraId: number) {
-    const url = this.url + `/comprasMateriais/${compraId}`;
+  getDetalhesCompra(compraId: number) {
+    const url = this.url + `/detalhesCompras/compraMaterial/${compraId}`;
     
-    return this.http.get<CompraMaterial>(url);
+    return this.http.get<PaginatedResource<DetalheCompra>>(url);
   }
 
   gerarCompras(compras: CompraMaterial[]) {

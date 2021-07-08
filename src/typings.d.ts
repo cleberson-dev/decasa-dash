@@ -110,6 +110,13 @@ declare type UnidadeMedida = {
   descricao: string;
 }
 
+declare type DetalheCompra = {
+  id?: number;
+  produto: Produto;
+  valor: number;
+  quantidade: number;
+};
+
 declare type CompraMaterial = {
   id?: number;
   lojista: {
@@ -118,12 +125,7 @@ declare type CompraMaterial = {
   fornecedor: Fornecedor;
   valor: number;
   dataCompra?: string;
-  detalhesCompras: {
-    id?: number;
-    produto: Produto;
-    valor: number;
-    quantidade: number;
-  }[];
+  detalhesCompras?: DetalheCompra[];
 }
 
 declare type Cotacao = {
