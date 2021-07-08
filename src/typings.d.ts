@@ -209,6 +209,7 @@ declare type Lojista = {
   rg: string;
   dataRg: string;
   inscricaoEstadual: string;
+  razaoSocial: string;
 };
 
 declare type Municipio = {

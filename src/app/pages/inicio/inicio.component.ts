@@ -76,14 +76,17 @@ export class InicioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getLojista()
+    this.apiService.getLojista(2)
       .subscribe(
         lojista => {
-          this.loja.inscricaoEstadual = lojista.inscricaoEstadual;
-          this.loja.endereco = lojista.logradouro;
-          this.loja.telefone = lojista.telefone;
-          this.loja.cnpj = lojista.cnpj;
-          this.loja.nome = lojista.nome;
+          this.loja = {
+            inscricaoEstadual: lojista.inscricaoEstadual,
+            endereco: lojista.logradouro,
+            telefone: lojista.telefone,
+            cnpj: lojista.cnpj,
+            nome: lojista.nome,
+            razaoSocial: lojista.razaoSocial,
+          };
         },
         err => {
           console.error(err);
