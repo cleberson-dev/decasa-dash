@@ -1,4 +1,4 @@
-describe('Página de Login do Lojista', () => {
+describe('Login do Lojista', () => {
   it('Deve somente carregar de forma sucedida', () => {
     cy.visit('/login');
     cy.contains('Entre no Marketplace');
