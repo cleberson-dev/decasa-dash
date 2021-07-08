@@ -30,7 +30,5 @@ export function cellphone(control: AbstractControl): ValidationErrors | null {
 export function phone(control: AbstractControl): ValidationErrors | null {
   const isValid = Boolean(telefone.parse(control.value, { apenasFixo: true }));
 
-  if (!isValid) return { phoneNumber: true };
-
-  return null;
+  return isValid ? null : { phoneNumber: true }; 
 }
