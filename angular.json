@@ -153,10 +153,48 @@
           "options": {
             "tsConfig": [
               "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "src/tsconfig.spec.json",
+              "cypress/tsconfig.json"
             ],
             "typeCheck": true,
             "exclude": []
+          }
+        },
+        "cypress-run": {
+          "builder": "@briebug/cypress-schematic:cypress",
+          "options": {
+            "devServerTarget": "ngx-admin-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-admin-demo:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@briebug/cypress-schematic:cypress",
+          "options": {
+            "devServerTarget": "ngx-admin-demo:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-admin-demo:serve:production"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@briebug/cypress-schematic:cypress",
+          "options": {
+            "devServerTarget": "ngx-admin-demo:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-admin-demo:serve:production"
+            }
           }
         }
       }
@@ -177,9 +215,34 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "e2e/tsconfig.e2e.json"
+              "e2e/tsconfig.e2e.json",
+              "cypress/tsconfig.json"
             ],
             "exclude": []
+          }
+        },
+        "cypress-run": {
+          "builder": "@briebug/cypress-schematic:cypress",
+          "options": {
+            "devServerTarget": "ngx-admin-demo-e2e:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-admin-demo-e2e:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@briebug/cypress-schematic:cypress",
+          "options": {
+            "devServerTarget": "ngx-admin-demo-e2e:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-admin-demo-e2e:serve:production"
+            }
           }
         }
       }
