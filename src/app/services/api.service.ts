@@ -360,4 +360,10 @@ export class ApiService {
 
     return this.http.get<PaginatedResource<ItemEstoque>>(url);
   }
+
+  getVendasMaterialPorLojista(lojistaId: number) {
+    const url = this.url + '/lojista/' + lojistaId;
+
+    return this.http.get<PaginatedResource<VendaMaterial>>(url);
+  }
 }
