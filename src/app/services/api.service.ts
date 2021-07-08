@@ -28,16 +28,24 @@ export type ApiUF = {
 }
 
 export type RegistrarLojistaParams = {
+  razaoSocial: string;
+  nome: string;
+  cnpj: string;
+  inscricaoEstadual: string;
+  cpf: string;
   email: string;
   senha: string;
-  celular: string;
-  razaoSocial: string;
-  inscricaoEstadual: string;
-  cnpj: string;
-  rg?: string;
+  cep: string;
   logradouro: string;
-  idPerfil?: number;
+  bairro: string;
+  ufRg: { id: number; };
+  municipio: { id: number; };
+  pontoReferencia: string;
+  celular: string;
   telefone?: string;
+
+  perfil: { id: number; };
+  rg?: string;
 }
 
 type LogarLojistaParams = {

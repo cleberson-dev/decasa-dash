@@ -45,19 +45,21 @@
                   </ng-template>
                 </div>
                 <div class="col-6">
-                  <label>CNPJ</label>
+                  <label>Nome de Fantasia</label>
                   <input
                     nbInput
+                    [nbPopover]="nomeFantasiaError"
                     fullWidth
-                    formControlName="cnpj"
-                    [imask]="{ mask: '00.000.000/0000-00' }"
-                    [nbPopover]="cnpjError"
-                    [class]="{ 'invalid': isInvalid('cnpj') }"
-                    />
-                    <ng-template #cnpjError>
-                      <span class="error">{{ getErrorMessage("cnpj") }}</span>
-                    </ng-template>
-                  </div>
+                    formControlName="nomeFantasia"
+                    [class]="{ 'invalid': isInvalid('nomeFantasia') }"
+                  />
+                  <ng-template #nomeFantasiaError>
+                    <span class="error">{{
+                      getErrorMessage("nomeFantasia")
+                    }}</span>
+                  </ng-template>
+                </div>
+                
                 </div>
                 <div class="row">
                   <div class="col-4">
@@ -75,6 +77,35 @@
                       }}</span>
                     </ng-template>
                   </div>
+                  <div class="col-4">
+                    <label>CPF</label>
+                    <input
+                      nbInput fullWidth
+                      formControlName="cpf"
+                      [imask]="{ mask: '000.000.000-00' }"
+                      [nbPopover]="cpfError"
+                      [class]="{ 'invalid': isInvalid('cpf') }"
+                    />
+                    <ng-template #cpfError>
+                      <span class="error">{{
+                        getErrorMessage("cpf")
+                      }}</span>
+                    </ng-template>
+                  </div>
+                  <div class="col-4">
+                    <label>CNPJ</label>
+                    <input
+                      nbInput
+                      fullWidth
+                      formControlName="cnpj"
+                      [imask]="{ mask: '00.000.000/0000-00' }"
+                      [nbPopover]="cnpjError"
+                      [class]="{ 'invalid': isInvalid('cnpj') }"
+                      />
+                      <ng-template #cnpjError>
+                        <span class="error">{{ getErrorMessage("cnpj") }}</span>
+                      </ng-template>
+                    </div>
                 </div>
                 <div class="row">
                   <div class="col-4">
@@ -205,12 +236,12 @@
                   <div class="col-3">
                     <label>Telefone</label>
                     <input
-                    nbInput
-                    fullWidth
-                    formControlName="telefone"
-                    [imask]="{ mask: '(00) 00000-0000' }"
-                    [nbPopover]="telefoneError"
-                    [class]="{ 'invalid': isInvalid('razaoSocial') }"
+                      nbInput
+                      fullWidth
+                      formControlName="telefone"
+                      [imask]="{ mask: '(00) 0000-0000' }"
+                      [nbPopover]="telefoneError"
+                      [class]="{ 'invalid': isInvalid('telefone') }"
                     />
                     <ng-template #telefoneError>
                       <span class="error">{{ getErrorMessage("telefone") }}</span>

@@ -17,6 +17,7 @@ export class RegistrarComponent implements OnInit {
   
   registerForm = this.fb.group({
     razaoSocial: ['', [Validators.required]],
+    nomeFantasia: ['', [Validators.required]],
     cnpj: ['', [Validators.required, CustomValidators.cnpj]],
     // rg: ['', [Validators.required]],
     inscricaoEstadual: ['', [Validators.required]],
@@ -24,13 +25,14 @@ export class RegistrarComponent implements OnInit {
     senha: ['', [Validators.required]],
     senha2: ['', [Validators.required]],
     celular: ['', [Validators.required, CustomValidators.cellphone]],
-    telefone: ['', [CustomValidators.phone]],
+    telefone: [''],
     uf: ['', [Validators.required]],
     municipio: ['', [Validators.required]],
     bairro: ['', [Validators.required]],
     logradouro: ['', [Validators.required]],
     pontoReferencia: ['', [Validators.required]],
-    cep: ['', [Validators.required, CustomValidators.cep]]
+    cep: ['', [Validators.required, CustomValidators.cep]],
+    cpf: ['', [Validators.required, CustomValidators.cpf]],
   }, { validators: this.checarSenhas });
 
   ufs: ApiUF[] = [];
@@ -59,21 +61,34 @@ export class RegistrarComponent implements OnInit {
   }
 
   onRegisterFormSubmit() {
+    const body = {
+      razaoSocial: String(this.registerForm.controls['razaoSocial'].value),
+      nome: String(this.registerForm.controls['nomeFantasia'].value),
+      cnpj: String(this.registerForm.controls['cnpj'].value),
+      inscricaoEstadual: String(this.registerForm.controls['inscricaoEstadual'].value),
+      email: String(this.registerForm.controls['email'].value),
+      senha: String(this.registerForm.controls['senha'].value),
+      cep: String(this.registerForm.controls['cep'].value),
+      logradouro: String(this.registerForm.controls['logradouro'].value),
+      bairro: String(this.registerForm.controls['bairro'].value),
+      ufRg: { id: Number(this.registerForm.controls['uf'].value) },
+      municipio: { id: Number(this.registerForm.controls['municipio'].value) },
+      pontoReferencia: String(this.registerForm.controls['pontoReferencia'].value),
+      cpf: String(this.registerForm.controls['cpf'].value),
+      celular: String(this.registerForm.controls['celular'].value),
+      telefone: String(this.registerForm.controls['telefone'].value),
+      perfil: { id: 1 },
+      // rg: String(this.registerForm.controls['rg'].value),
+      // idPerfil: Number(this.registerForm.controls['idPerfil'].value),
+    };
+
+    console.log('Enviando', body);
+    
     this.apiService
-      .registrarLojista({
-        razaoSocial: String(this.registerForm.controls['razaoSocial'].value),
-        cnpj: String(this.registerForm.controls['cnpj'].value),
-        // rg: String(this.registerForm.controls['rg'].value),
-        inscricaoEstadual: String(this.registerForm.controls['inscricaoEstadual'].value),
-        email: String(this.registerForm.controls['email'].value),
-        senha: String(this.registerForm.controls['senha'].value),
-        logradouro: String(this.registerForm.controls['logradouro'].value),
-        celular: String(this.registerForm.controls['celular'].value),
-        telefone: String(this.registerForm.controls['telefone'].value),
-        idPerfil: Number(this.registerForm.controls['idPerfil'].value),
-      })
+      .registrarLojista(body)
       .subscribe(
         lojista => {
+          alert('REGISTRADO!');
           this.authService.save(lojista);
           this.router.navigate(['/inicio']);
         },
@@ -123,6 +138,7 @@ export class RegistrarComponent implements OnInit {
 
   onUFChange(uf: any) {
     this.registerForm.controls['municipio'].setValue('');
+    document.documentElement.style.cursor = "wait";
     this.apiService.getMunicipiosByUf(Number(uf))
       .subscribe(
         municipios => {
@@ -133,6 +149,9 @@ export class RegistrarComponent implements OnInit {
         (err) => {
           console.error(err);
           this.toastrService.danger(err.error.message, 'Impossível obter municípios por UF');
+        },
+        () => {
+          document.documentElement.style.cursor = "default";
         }
       );
   }
