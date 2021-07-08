@@ -16,7 +16,7 @@
             <form (submit)="onFormSubmit($event)" [formGroup]="form">
               <div class="form-control-group">
                 <label>Endereço de e-mail</label>
-                <input nbInput fullWidth formControlName="email" />
+                <input nbInput fullWidth formControlName="email" type="email" />
               </div>
 
               <div class="form-control-group">
@@ -32,7 +32,7 @@
               </div>
 
               <div class="footer">
-                <button nbButton status="primary" type="submit">
+                <button nbButton status="primary" type="submit" [disabled]="form.invalid">
                   Entrar
                 </button>
                 <p style="margin-left: 8px;">
