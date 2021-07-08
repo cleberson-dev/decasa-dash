@@ -70,7 +70,11 @@
   </nb-card-body>
   <nb-card-footer class="estoque-card-footer">
     <div></div>
-    <button nbButton type="button" status="primary" (click)="onConfirmBtnClick(dialog)">
+    <button 
+      nbButton type="button" 
+      status="primary" [disabled]="data.length === 0"
+      (click)="onConfirmBtnClick(dialog)"
+    >
       Confirmar
     </button>
   </nb-card-footer>
