@@ -299,9 +299,10 @@ export class ApiService {
   }
 
   logarLojista(params: LogarLojistaParams) {
-    const url = this.url + '/usuarios/';
+    const { email, senha } = params;
+    const url = `${this.url}/usuarios/email/${email}/senha/${senha}`;
     
-    return this.http.post<Lojista>(url, params);
+    return this.http.get<Lojista>(url);
   }
 
   buscarProdutoLojista(query: string, lojistaId: number = 2, paginationOpts?: PaginationOptions) {
