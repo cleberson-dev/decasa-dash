@@ -1,7 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { NbDialogService } from '@nebular/theme';
+import { ActivatedRoute } from '@angular/router';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { concatMap } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
+import { ApiService } from '../../services/api.service';
 
 type RowProps = {
   codigo: string;
@@ -38,13 +41,7 @@ export class EstoqueComponent implements OnInit {
     { title: 'Tombamento', link: '/estoque/tombamento', active: false },
   ];
 
-  data: Row[] = [
-    new Row({ codigo: '00001', nome: 'Produto #1', unidade: 'cm', quantidade: 5, precoUnitario: 1.99 }),
-    new Row({ codigo: '00002', nome: 'Produto #2', unidade: 'kg', quantidade: 2, precoUnitario: 1.99 }),
-    new Row({ codigo: '00003', nome: 'Produto #3', unidade: 'pacote', quantidade: 5, precoUnitario: 1.99 }),
-    new Row({ codigo: '00004', nome: 'Produto #4', unidade: 'litro', quantidade: 3, precoUnitario: 1.99 }),
-    new Row({ codigo: '00005', nome: 'Produto #5', unidade: 'caixa', quantidade: 5, precoUnitario: 1.99 }),
-  ];
+  data: Row[] = [];
 
   form = this.fb.group({
     notaFiscal: [''],
@@ -53,12 +50,47 @@ export class EstoqueComponent implements OnInit {
 
   notaArquivo = null;
 
+  compras: CompraMaterial[] = [];
+  compraSelecionada: number;
+
   constructor(
     private dialogService: NbDialogService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
+    this.apiService.getComprasPorLojista(2)
+      .subscribe(data => {
+        this.compras = data.content;
+      });
+
+    this.route.queryParams
+      .pipe(
+        concatMap(params => {
+          const { compra } = params;
+          if (Number.isNaN(compra)) throw Error('Não existe compra');
+          this.compraSelecionada = Number(compra);
+          return this.apiService.getCompra(Number(compra))
+        })
+      )
+      .subscribe(
+        compra => {
+          this.data = compra.detalhesCompras.map(detalhe => new Row({
+            codigo: detalhe.produto.cnp,
+            nome: detalhe.produto.descricao,
+            unidade: detalhe.produto.unidadeMedidaProduto.descricao,
+            precoUnitario: detalhe.valor,
+            quantidade: detalhe.quantidade,
+          }));
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter itens de estoque por compra');
+        }
+      );
   }
 
   onConfirmBtnClick(dialog: TemplateRef<any>) {

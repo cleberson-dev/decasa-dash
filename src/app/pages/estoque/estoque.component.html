@@ -6,11 +6,8 @@
       <div class="row">
         <div class="form-group col-4">
           <label>Ordem de Compra</label>
-          <nb-select fullWidth>
-            <nb-option value="2021-654852">2021-654852</nb-option>
-            <nb-option value="2021-654853">2021-654853</nb-option>
-            <nb-option value="2021-654854">2021-654854</nb-option>
-            <nb-option value="2021-654855">2021-654855</nb-option>
+          <nb-select fullWidth [(selected)]="compraSelecionada">
+            <nb-option *ngFor="let compra of compras" [value]="compra.id">{{ compra.id }}</nb-option>
           </nb-select>
         </div>
         <div class="col-4"></div>
