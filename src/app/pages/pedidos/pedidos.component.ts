@@ -224,7 +224,7 @@ export class PedidosComponent implements OnInit {
         data => {
           console.log('Enviado: ', body);
           console.log('Recebido: ', data);
-          // this.router.navigate(['/pedidos', data.id, 'mapa' ]);
+          this.router.navigate(['/pedidos', 'mapa', data.id ]);
         }, 
         err => {
           console.error(err);
