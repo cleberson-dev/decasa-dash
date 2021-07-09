@@ -2,11 +2,9 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
-import { Observable, of } from 'rxjs';
-import { filter, map, throttle } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
-import * as fake from '../../fake-data';
 import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 type Pedido = {
   data: string;
@@ -56,11 +54,12 @@ export class PedidosComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private toastrService: NbToastrService,
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
-    this.api.getProdutosLojista(2)
+    this.api.getProdutosLojista(this.authService.lojista.id)
       .subscribe(
         data => {
           this.produtos = data.content;
@@ -85,7 +84,7 @@ export class PedidosComponent implements OnInit {
   onInputChange() {
     const { value } = this.input.nativeElement;
     
-    this.api.buscarProdutoLojista(value, 2, { page: 1, size: 5 })
+    this.api.buscarProdutoLojista(value, this.authService.lojista.id, { page: 1, size: 5 })
       .subscribe(
         data => {
           const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
@@ -114,7 +113,7 @@ export class PedidosComponent implements OnInit {
     
     this.rows.unshift(row);
     this.resetForm();
-    this.api.buscarProdutoLojista('', 2, { page: 1, size: 5 })
+    this.api.buscarProdutoLojista('', this.authService.lojista.id, { page: 1, size: 5 })
       .subscribe(
         data => {
           const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
@@ -164,7 +163,7 @@ export class PedidosComponent implements OnInit {
 
   onCodigoBlur() {
     const codigo = this.novoPedidoForm.controls['codigo'].value;
-    this.api.findProdutoByCnp(codigo)
+    this.api.findProdutoByCnp(codigo, this.authService.lojista.id)
       .subscribe(
         (produto) => {
           if (!produto) return this.resetForm();
@@ -183,7 +182,7 @@ export class PedidosComponent implements OnInit {
   onCodigoChange() {
     const codigo = String(this.novoPedidoForm.controls['codigo'].value);
 
-    this.api.findProdutoByCnp(codigo)
+    this.api.findProdutoByCnp(codigo, this.authService.lojista.id)
       .subscribe(
         produto => {
           this.novoPedidoForm.controls['codigo'].setValue(produto.cnp);
@@ -209,7 +208,7 @@ export class PedidosComponent implements OnInit {
 
   onConfirmBtnClick() {
     const body = {
-      lojista: { id: 2 },
+      lojista: { id: this.authService.lojista.id },
       detalhesPedidos: this.rows.map(row => ({
         produto: { id: row.produto.id },
         quantidade: row.quantidade
