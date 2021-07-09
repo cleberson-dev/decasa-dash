@@ -63,7 +63,7 @@ export class PedidosComponent implements OnInit {
       .subscribe(
         data => {
           this.produtos = data.content;
-          this.autoOptions = this.produtos.map(({ produto }) => `${produto.descricao} (${produto.unidadeMedidaProduto.sigla})`);
+          this.autoOptions = this.produtos.map(({ produto }) => produto.descricao);
           this.suggestedOptions = [...this.autoOptions];
         },
         err => {
@@ -80,7 +80,7 @@ export class PedidosComponent implements OnInit {
     if (!selectedProduct) return;
 
     this.novoPedidoForm.controls['codigo'].setValue(selectedProduct.cnp);
-    this.novoPedidoForm.controls['unidade'].setValue(selectedProduct.unidadeMedidaProduto?.descricao || 'unidade');
+    this.novoPedidoForm.controls['unidade'].setValue(selectedProduct.unidadeMedidaProduto?.sigla || 'UN');
   }
 
   onInputChange() {
@@ -92,7 +92,7 @@ export class PedidosComponent implements OnInit {
           const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
           this.produtos = filteredProdutos;
           this.suggestedOptions = filteredProdutos
-            .map(({ produto }) => `${produto.descricao} (${produto.unidadeMedidaProduto.sigla})`);
+            .map(({ produto }) => produto.descricao);
         },
         err => {
           console.error(err);
