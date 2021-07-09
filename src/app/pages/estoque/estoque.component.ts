@@ -5,6 +5,7 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { concatMap, filter } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
 import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 type RowProps = {
   codigo: string;
@@ -61,10 +62,11 @@ export class EstoqueComponent implements OnInit {
     private apiService: ApiService,
     private toastrService: NbToastrService,
     private router: Router,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getComprasPorLojista(2)
+    this.apiService.getComprasPorLojista(this.authService.lojista.id)
       .subscribe(data => {
         this.compras = data.content;
       });
@@ -76,12 +78,12 @@ export class EstoqueComponent implements OnInit {
           const { compra } = params;
           if (Number.isNaN(compra)) throw Error('Não existe compra');
           this.compraSelecionada = Number(compra);
-          return this.apiService.getDetalhesCompra(Number(compra))
+          return this.apiService.getCompra(Number(compra))
         })
       )
       .subscribe(
-        data => {
-          this.data = data.content.map(detalhe => new Row({
+        compra => {
+          this.data = compra.detalhesCompras.map(detalhe => new Row({
             codigo: detalhe.produto.cnp,
             nome: detalhe.produto.descricao,
             unidade: detalhe.produto.unidadeMedidaProduto.sigla,
