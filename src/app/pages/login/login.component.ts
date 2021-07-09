@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
         (lojista) => {
           this.authService.save(lojista);
           this.router.navigate(['/inicio']);
+          this.toastrService.success('Logado com sucesso!');
         },
         (err) => {
           console.error(err);

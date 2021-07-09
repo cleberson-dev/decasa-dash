@@ -88,9 +88,9 @@ export class RegistrarComponent implements OnInit {
       .registrarLojista(body)
       .subscribe(
         lojista => {
-          alert('REGISTRADO!');
           this.authService.save(lojista);
           this.router.navigate(['/inicio']);
+          this.toastrService.success('Registrado com sucesso!');
         },
         err => {
           console.error(err);
