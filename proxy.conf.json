@@ -1,16 +1,16 @@
 {
   "/v1/rest/decasa/*": {
-    "target": "http://homologacao.appdecasa.com.br:8080",
+    "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
   },
   "/cadastros-0.0.1/*": {
-    "target": "http://homologacao.appdecasa.com.br:8080",
+    "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
   },
   "/produtos-0.0.1/*": {
-    "target": "http://homologacao.appdecasa.com.br:8080",
+    "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
   }
