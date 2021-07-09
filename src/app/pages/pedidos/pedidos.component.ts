@@ -74,6 +74,8 @@ export class PedidosComponent implements OnInit {
   }
 
   onSelectionChange($event: string) {
+    if (this.produtos.length === 0) return;
+
     const selectedProduct = this.produtos.find(({ produto }) => $event.toLowerCase().includes(produto.descricao.toLowerCase())).produto;
     if (!selectedProduct) return;
 
@@ -100,8 +102,10 @@ export class PedidosComponent implements OnInit {
   }
 
   onPedidoAdd() {
+    console.log(this.novoPedidoForm.controls['codigo'].value);
+    const produto = this.produtos.find(({ produto }) => produto.cnp === this.novoPedidoForm.controls['codigo'].value);
     const row = {
-      produto: this.produtos.find(({ produto }) => produto.cnp === this.novoPedidoForm.controls['codigo'].value).produto,
+      produto: produto.produto,
       quantidade: this.novoPedidoForm.controls['quantidade'].value
     };
 
