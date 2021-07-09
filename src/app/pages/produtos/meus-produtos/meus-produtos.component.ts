@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { NbDialogService, NbMenuItem, NbToastrService } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
 import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
 import { Department } from '../solicitar/solicitar.component';
 
 type AddProductItem = {
@@ -47,13 +48,14 @@ export class MeusProdutosComponent implements OnInit {
     private dialogService: NbDialogService,
     private apiService: ApiService,
     private toastrService: NbToastrService,
+    private authService: AuthService,
   ) {}
 
   onPageChange(changedPage: number) {
     this.apiService
       .getProdutosLojistaPorCategoria(
         this.currentCategory,
-        2,
+        this.authService.lojista.id,
         { page: changedPage }
       )
       .subscribe(
@@ -93,7 +95,7 @@ export class MeusProdutosComponent implements OnInit {
 
 
     this.apiService
-      .getProdutosLojista(2)
+      .getProdutosLojista(this.authService.lojista.id)
       .subscribe(
         data => {
           this.produtosLojista = [...data.content];
@@ -108,7 +110,7 @@ export class MeusProdutosComponent implements OnInit {
 
   onItemSelected(value: string) {
     console.log('Item clicked', value);
-    this.apiService.getProdutosLojistaPorCategoria(Number(value), 2)
+    this.apiService.getProdutosLojistaPorCategoria(Number(value), this.authService.lojista.id)
     .subscribe(
       data => {
         this.produtosLojista = [...data.content];
@@ -132,7 +134,7 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   onSubmitHandler(items: AddProductItem[]) {
-    const lojistaId = 2;
+    const lojistaId = this.authService.lojista.id;
     this.apiService
       .addProdutos(items, lojistaId)
       .subscribe(
@@ -153,7 +155,7 @@ export class MeusProdutosComponent implements OnInit {
 
   searchProducts() {
     const query = this.searchControl.value;
-    this.apiService.buscarProdutoLojista(query)
+    this.apiService.buscarProdutoLojista(query, this.authService.lojista.id)
       .subscribe(
         data => alert(`Consulta: ${query} | Resultados: ${data.content.length}`),
         err => {
