@@ -13,16 +13,18 @@
     </div>
     <ul class="card-list">
       <li *ngFor="let mapa of mapas">
-        <nb-card class="item-card">
-          <nb-card-body class="item-card-body">
-            <p class="title">MC {{ mapa.codigo }}</p>
-            <div class="details">
-              <p><span>Data:</span> {{ mapa.data }}</p>
-              <p><span>Solicitante:</span> {{ mapa.solicitante }}</p>
-              <p><span>Loja:</span> {{ mapa.loja }}</p>
-            </div>
-          </nb-card-body>
-        </nb-card>
+        <a [routerLink]="['/pedidos', 'mapa', mapa.id]">
+          <nb-card class="item-card">
+            <nb-card-body class="item-card-body">
+              <p class="title">MC {{ mapa.codigo }}</p>
+              <div class="details">
+                <p><span>Data:</span> {{ mapa.data }}</p>
+                <p><span>Solicitante:</span> {{ mapa.solicitante || "..." }}</p>
+                <p><span>Loja:</span> {{ mapa.loja || "..." }}</p>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </a>
       </li>
     </ul>
     <div class="acompanhamento-header">

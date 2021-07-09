@@ -394,4 +394,14 @@ export class ApiService {
     
     return this.http.get<PaginatedResource<SolicitacaoPreco>>(url);
   }
+
+  getPedidosPorLojista(lojistaId: number) {
+    const url = this.url + '/pedidos/lojista/' + lojistaId;
+
+    return this.http.get<PaginatedResource<{
+      id: number;
+      lojista: { id: number };
+      dataCadastro: string;
+    }>>(url);
+  }
 }

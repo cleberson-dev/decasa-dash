@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Tab } from '../../../components/tabber/tabber.component';
+import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
+
+type Mapa = { 
+  id: number;
+  codigo: string; 
+  data: string;
+  solicitante?: string; 
+  loja?: string; 
+};
 
 @Component({
   selector: 'ngx-acompanhamento',
@@ -15,10 +25,7 @@ export class AcompanhamentoComponent implements OnInit {
     { title: 'Acompanhamento', link: '/pedidos/acompanhamento', active: true },
   ];
 
-  mapas = [
-    { codigo: '123456/2021', data: '01/01/1999', solicitante: 'Lorem Ipsum', loja: 'Loja #1' },
-    { codigo: '333333/2021', data: '01/01/1999', solicitante: 'Lorem Ipsum', loja: 'Loja #2' },
-  ];
+  mapas: Mapa[] = [];
 
   ordensDeCompra = [
     { 
@@ -52,9 +59,20 @@ export class AcompanhamentoComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
+    this.apiService.getPedidosPorLojista(this.authService.lojista.id)
+      .subscribe(data => {
+        this.mapas = data.content.map(pedido => ({
+          id: pedido.id,
+          codigo: `${pedido.id}`.padStart(6, '0'),
+          data: pedido.dataCadastro,
+        }));
+      })
   }
 
 }
