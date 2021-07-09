@@ -105,7 +105,7 @@ export class ApiService {
     return this.http.get<PaginatedResource<Produto>>(url);
   }
 
-  getProdutosLojista(lojistaId: number = 2) {
+  getProdutosLojista(lojistaId: number) {
     const url = this.url + '/lojistasProdutos/lojista/' + lojistaId;
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   }
@@ -138,8 +138,8 @@ export class ApiService {
     );
   }
 
-  getProdutosLojistaPorCategoria(categoriaId: number, lojistaId: number = 2, options?: Options) {
-    let url = this.url + `/lojistasProdutos/lojistaId/${lojistaId}/categoria/${categoriaId}`;
+  getProdutosLojistaPorCategoria(categoriaId: number, lojistaId: number, options?: Options) {
+    let url = this.url + `/lojistasProdutos/lojista/${lojistaId}/categoria/${categoriaId}`;
     url += '?page=' + ((options?.page || 1) - 1);
     url += '&size=' + (options?.itemsPerPage || 10);
 
@@ -174,7 +174,7 @@ export class ApiService {
       municipioEndereco: { id: novoFornecedor.municipioEndereco.id },
       inscricaoEstadual: novoFornecedor.inscricaoEstadual,
       ufRg: { id: novoFornecedor.ufRg.id },
-      usuario: { id: 1823 },
+      usuario: { id: novoFornecedor.usuario.id },
       categoriasFornecidas: novoFornecedor.categoriasFornecidas,
       departamentosFornecidos: novoFornecedor.categoriasFornecidas,
       razaoSocial: novoFornecedor.razaoSocial,
@@ -228,7 +228,7 @@ export class ApiService {
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   };
 
-  findProdutoByCnp(cnp: string, lojistaId: number = 2) {
+  findProdutoByCnp(cnp: string, lojistaId: number) {
     const url = `${this.url}/produtos/cnp/${cnp}/lojista/${lojistaId}`;
 
     return this.http.get<Produto>(url);
@@ -245,7 +245,7 @@ export class ApiService {
     return this.http.post(url, produto);
   }
 
-  addProdutos(items: AddProductItem[], lojistaId: number = 2) {
+  addProdutos(items: AddProductItem[], lojistaId: number) {
     const url = this.url + '/lojistasProdutos';
 
     const body = items.map(item => ({
@@ -258,7 +258,7 @@ export class ApiService {
     return this.http.post(url, body);
   }
 
-  getComprasPorLojista(lojistaId: number = 2) {
+  getComprasPorLojista(lojistaId: number) {
     const url = this.url + `/comprasMateriais/lojista/${lojistaId}`;
 
     return this.http.get<PaginatedResource<CompraMaterial>>(url);
@@ -305,8 +305,8 @@ export class ApiService {
     return this.http.get<Lojista>(url);
   }
 
-  buscarProdutoLojista(query: string, lojistaId: number = 2, paginationOpts?: PaginationOptions) {
-    const page = paginationOpts?.page || 1;
+  buscarProdutoLojista(query: string, lojistaId: number, paginationOpts?: PaginationOptions) {
+    const page = (paginationOpts?.page || 1) - 1;
     const size = paginationOpts?.size || 10;
 
     let url = this.url + '/lojistasProdutos/lojista/' + lojistaId;
@@ -334,7 +334,7 @@ export class ApiService {
     return this.http.get<PaginatedResource<Produto>>(url);
   }
 
-  buscarProdutosMaisVendidosLojista(lojistaId: number = 2) {
+  buscarProdutosMaisVendidosLojista(lojistaId: number) {
     const url = this.url + `/produtos/maisVendido?idLojista=${lojistaId}`;
 
     return this.http.get<Produto[]>(url);
@@ -346,13 +346,13 @@ export class ApiService {
     return this.http.post(url, params);
   }
 
-  listarColaboradores(lojistaId: number = 2) {
+  listarColaboradores(lojistaId: number) {
     const url = this.url + '/colaboradores/?lojistaId=' + lojistaId;
 
     return this.http.get(url);
   }
 
-  getLojista(lojistaId: number = 2) {
+  getLojista(lojistaId: number) {
     const url = this.url + '/lojistas/' + lojistaId;
 
     return this.http.get<Lojista>(url);
