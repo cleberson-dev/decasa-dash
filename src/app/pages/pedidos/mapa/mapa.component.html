@@ -56,9 +56,9 @@
             <nb-icon 
               class="info" 
               icon="info-outline" 
-              (click)="openDetalhesFornecedor(dialog)"
+              (click)="openDetalhesFornecedor(dialog, fornecedor)"
             ></nb-icon>
-            {{ fornecedor.id }}
+            {{ 'F' + (i + 1) }}
           </th>
           <th>Últimas compras</th>
         </tr>
@@ -201,7 +201,7 @@
   >
     <nb-card-header>Detalhes do Fornecedor</nb-card-header>
     <nb-card-body class="detalhes">
-      <p>Nome: <span>{{ context.fornecedor.nome }}</span></p>
+      <p>Nome: <span>{{ context.fornecedor.nomeFantasia }}</span></p>
       <p>E-mail: <span>{{ context.fornecedor.email }}</span></p>
       <div class="row">
         <p class="col-2">CEP: <span>{{ context.fornecedor.cep }}</span></p>
