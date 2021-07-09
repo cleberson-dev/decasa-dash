@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 type Company = {
   nome: string;
@@ -73,10 +74,11 @@ export class InicioComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private toastrService: NbToastrService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getLojista(2)
+    this.apiService.getLojista(this.authService.lojista.id)
       .subscribe(
         lojista => {
           this.loja = {
