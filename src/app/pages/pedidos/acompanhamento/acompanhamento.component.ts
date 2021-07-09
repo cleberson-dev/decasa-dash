@@ -11,6 +11,15 @@ type Mapa = {
   loja?: string; 
 };
 
+type Compra = {
+  id: number;
+  codigo: string;
+  data: string;
+  preco: number;
+  solicitante?: string; 
+  loja?: string;
+};
+
 @Component({
   selector: 'ngx-acompanhamento',
   templateUrl: './acompanhamento.component.html',
@@ -27,42 +36,14 @@ export class AcompanhamentoComponent implements OnInit {
 
   mapas: Mapa[] = [];
 
-  ordensDeCompra = [
-    { 
-      codigo: '123456/2021',
-      data: '01/01/1999', 
-      solicitante: 'Lorem Ipsum', 
-      loja: 'Loja #1',
-      preco: 99.99
-    },
-    { 
-      codigo: '333123/2021',
-      data: '02/01/1999', 
-      solicitante: 'Lorem Ipsum', 
-      loja: 'Loja #1',
-      preco: 999.99
-    },
-  ];
+  ordensDeCompra: Compra[] = [];
 
-  comprasFinalizadas = [
-    {
-      codigo: '123456/2077',
-      data: '01/01/2077',
-      loja: 'Loja #2',
-      preco: 999.99
-    },
-    {
-      codigo: '123456/2021',
-      data: '01/01/2077',
-      loja: 'Loja #5',
-      preco: 1999.99
-    }
-  ]
+  comprasFinalizadas: Compra[] = [];
 
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.apiService.getPedidosPorLojista(this.authService.lojista.id)
@@ -72,7 +53,17 @@ export class AcompanhamentoComponent implements OnInit {
           codigo: `${pedido.id}`.padStart(6, '0'),
           data: pedido.dataCadastro,
         }));
-      })
+      });
+
+    this.apiService.getComprasPorLojista(this.authService.lojista.id)
+      .subscribe(data => {
+        this.ordensDeCompra = data.content.map(compra => ({
+          id: compra.id,
+          codigo: `${compra.id}`.padStart(6, '0'),
+          data: compra.dataCompra,
+          preco: compra.valor,
+        }));
+      });
   }
 
 }
