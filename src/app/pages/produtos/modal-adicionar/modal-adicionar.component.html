@@ -9,8 +9,8 @@
         >
           <nb-option value="todos">Todos</nb-option>
           <nb-option value="mais-vendidos">Mais vendidos</nb-option>
-          <nb-option-group *ngFor="let dep of departments" [title]="dep.name">
-            <nb-option *ngFor="let cat of dep.categories" [value]="cat.id">{{ cat.name }}</nb-option>
+          <nb-option-group *ngFor="let dep of departments" [title]="dep.name.toUpperCase()">
+            <nb-option *ngFor="let cat of dep.categories" [value]="cat.id">{{ cat.name.toUpperCase() }}</nb-option>
           </nb-option-group>
         </nb-select>
         <div class="search-bar">

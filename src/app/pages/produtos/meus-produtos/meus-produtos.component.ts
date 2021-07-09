@@ -117,14 +117,16 @@ export class MeusProdutosComponent implements OnInit {
         departments => {
           this.departments = departments;
 
-          this.departmentTree = this.departments.map(department => ({
-            name: department.name,
-            icon: 'bookmark',
-            value: department.id + '',
-            children: department.categories.map(cat => ({
-              name: cat.name, value: cat.id + '', icon: 'folder-outline', active: false
+          this.departmentTree = this.departments
+            .map(department => ({
+              name: department.name.toUpperCase(),
+              icon: 'bookmark',
+              value: department.id + '',
+              children: department.categories.map(cat => ({
+                name: cat.name.toUpperCase(), value: cat.id + '', icon: 'folder-outline', active: false
+              }))
             }))
-          }));
+            .sort((a, b) => a.name.localeCompare(b.name));
 
           this.loadingDepartments = false;
         },
@@ -199,7 +201,10 @@ export class MeusProdutosComponent implements OnInit {
     const query = this.searchControl.value;
     this.apiService.buscarProdutoLojista(query, this.authService.lojista.id)
       .subscribe(
-        data => alert(`Consulta: ${query} | Resultados: ${data.content.length}`),
+        data => {
+          this.produtosLojista = [...data.content];
+          this.pagination = { ...data };
+        },
         err => {
           console.error(err);
           this.toastrService.danger(err.error.message, 'Impossível buscar produtos do lojista');
