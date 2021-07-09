@@ -28,7 +28,7 @@
     "desktop": "ng build --base-href ./ && electron electron.js",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "api:update": "cd ~/code/_repos/api-produtos && git pull --ff-only && ./gradlew clean war"
+    "api:update": "cd ~/code/_repos/api-produtos && git pull --ff-only && ./gradlew clean war && ~/code/_repos/wildfly-decasa/bin/jboss-cli.sh --connect command=:reload"
   },
   "private": true,
   "dependencies": {
