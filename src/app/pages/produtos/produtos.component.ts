@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'decasa-produtos',
@@ -14,15 +15,17 @@ export class ProdutosPageComponent implements OnInit {
     solicitar: false
   };
 
-  ngOnInit() {
-    this.apiService.getProdutosLojista()
+  ngOnInit(
+  ) {
+    this.apiService.getProdutosLojista(this.authService.lojista.id)
       .subscribe(data => {
         this.produtosLojista = data.content;
       });
   }
   
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private authService: AuthService,
   ) {}
 
   changeTab(name: string) {

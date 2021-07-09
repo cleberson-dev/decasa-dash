@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
 import { Department } from '../../produtos/solicitar/solicitar.component';
 
 type DialogContentType = "addProducts" | "addSuppliers" | "createSupplier";
@@ -36,6 +37,7 @@ export class CriarPedidosComponent implements OnInit {
     private fb: FormBuilder,
     private dialogService: NbDialogService,
     private apiService: ApiService,
+    private authService: AuthService,
   ) { }
 
   get filteredProducts() {
@@ -47,7 +49,7 @@ export class CriarPedidosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService.getProdutosLojista()
+    this.apiService.getProdutosLojista(this.authService.lojista.id)
       .subscribe(data => {
         this.produtos = data.content;
       });

@@ -169,6 +169,7 @@ export class MapaComponent implements OnInit {
   }
 
   transformCotacoes(cotacoes: Cotacao[]) {
+    console.log(cotacoes);
     for (const cotacao of cotacoes) {
       const fornecedorIdx = this.pedido.fornecedores.findIndex(f => f.id === cotacao.fornecedor.id);
       if (fornecedorIdx === -1) {

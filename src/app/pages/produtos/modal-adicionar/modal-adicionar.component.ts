@@ -8,6 +8,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
 import { Department } from '../solicitar/solicitar.component';
 
 type AddProductItem = {
@@ -39,11 +40,12 @@ export class ModalAdicionarComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private toastrService: NbToastrService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.getAllProducts()
+    this.apiService.getAllProducts(this.authService.lojista.id)
       .subscribe(
         (data) => {
           this.produtos = [...data.content];
@@ -78,7 +80,7 @@ export class ModalAdicionarComponent implements OnInit {
           );
         break;
       case 'todos':
-        this.apiService.getAllProducts()
+        this.apiService.getAllProducts(this.authService.lojista.id)
           .subscribe(
             (data) => {
               this.produtos = [...data.content];
@@ -177,7 +179,7 @@ export class ModalAdicionarComponent implements OnInit {
 
   onPageChange(changedPage: number) {
     this.apiService
-      .getAllProducts({ page: changedPage })
+      .getAllProducts(this.authService.lojista.id, { page: changedPage })
       .subscribe(
         data => {
           this.produtos = [...data.content];

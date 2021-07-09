@@ -88,13 +88,14 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getAllProducts(paginationOptions?: PaginationOptions) {
+  getAllProducts(lojistaId: number, paginationOptions?: PaginationOptions) {
     const page = (paginationOptions?.page || 1) - 1;
     const size = paginationOptions?.size || 10;
 
-    let url = this.url + '/produtos/paginacao';
+    let url = this.url + '/produtos/lojista/' + lojistaId;
     url += '?page=' + page;
     url += '&size=' + size;
+    url += '&naoSelecionado=true';
 
     return this.http.get<PaginatedResource<Produto>>(url);
   }
