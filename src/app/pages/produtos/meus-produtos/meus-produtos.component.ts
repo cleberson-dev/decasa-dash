@@ -140,7 +140,8 @@ export class MeusProdutosComponent implements OnInit {
           this.produtosLojista.push(...items.map((item): ProdutoLojista => ({
             lojistaDTO: { id: lojistaId },
             valor: item.valor,
-            produto: item.produto
+            produto: item.produto,
+            estoqueMinimo: item.estoqueMinimo
           })));
         },
         err => {
