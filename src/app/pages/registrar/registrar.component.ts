@@ -13,7 +13,7 @@ import * as CustomValidators from '../../validators';
   styleUrls: ['./registrar.component.scss']
 })
 export class RegistrarComponent implements OnInit {
-  @ViewChild('municipioSelect') municipioSelect: NbSelectComponent;
+  @ViewChild('autoInput') autoInput;
   
   registerForm = this.fb.group({
     razaoSocial: ['', [Validators.required]],
@@ -37,6 +37,7 @@ export class RegistrarComponent implements OnInit {
 
   ufs: ApiUF[] = [];
   municipios: ApiMunicipio[] = [];
+  municipiosSuggestions: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -143,8 +144,7 @@ export class RegistrarComponent implements OnInit {
       .subscribe(
         municipios => {
           this.municipios = municipios;
-
-          this.municipioSelect.button.nativeElement.click();
+          this.autoInput.nativeElement.focus();
         },
         (err) => {
           console.error(err);
@@ -186,7 +186,7 @@ export class RegistrarComponent implements OnInit {
             .subscribe(
               municipios => {
                 this.municipios = municipios;
-                this.municipioSelect.button.nativeElement.focus();
+                this.municipiosSuggestions = municipios.map(m => m.nome);
               },
               err => {
                 console.error(err);
@@ -199,5 +199,19 @@ export class RegistrarComponent implements OnInit {
           this.toastrService.danger(err.error.message, 'Impossível obter cep');
         }
       );
+  }
+
+  onMunicipioInputChange() {
+    const { value } = this.autoInput.nativeElement;
+
+    this.municipiosSuggestions = this.municipios
+      .map(m => m.nome)
+      .filter(municipio => municipio.toLowerCase().includes(value.toLowerCase()));
+  }
+
+  onSelectionChange(text: string) {
+    this.municipiosSuggestions = this.municipios
+      .map(m => m.nome)
+      .filter(municipio => municipio.toLowerCase().includes(text.toLowerCase()));
   }
 }

@@ -206,9 +206,24 @@
                   </div>
                   <div class="col-4">
                     <label>Município</label>
-                    <nb-select #municipioSelect fullWidth formControlName="municipio" [disabled]="municipios.length === 0">
+                    <input 
+                      #autoInput 
+                      nbInput 
+                      type="text" 
+                      (input)="onMunicipioInputChange()"
+                      [nbAutocomplete]="auto"
+                      fullWidth
+                      formControlName="municipio"
+                      class="municipio"
+                    />
+                    <nb-autocomplete [activeFirst]="false" #auto (selectedChange)="onSelectionChange($event)">
+                      <nb-option *ngFor="let municipio of municipiosSuggestions" [value]="municipio">
+                        {{ municipio }}
+                      </nb-option>
+                    </nb-autocomplete>
+                    <!-- <nb-select #municipioSelect fullWidth formControlName="municipio" [disabled]="municipios.length === 0">
                       <nb-option *ngFor="let municipio of municipios" [value]="municipio.id">{{ municipio.nome }}</nb-option>
-                    </nb-select>
+                    </nb-select> -->
                   </div>
                   <div class="col-6">
                     <label>Ponto de Referência</label>

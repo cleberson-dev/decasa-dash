@@ -76,3 +76,7 @@ span.error {
 input.invalid {
   border: 1px solid $dangerColor !important;
 }
+
+input.municipio {
+  text-transform: uppercase;
+}
