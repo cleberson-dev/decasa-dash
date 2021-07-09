@@ -17,7 +17,7 @@ export type TreeItem = {
 })
 export class TreeComponent implements OnInit {
   @Input() items: TreeItem[] = [];
-  @Output() itemSelected = new EventEmitter<string>();
+  @Output() itemSelected = new EventEmitter<string | undefined>();
 
   constructor() { }
 

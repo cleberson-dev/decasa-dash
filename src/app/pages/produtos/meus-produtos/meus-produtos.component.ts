@@ -1,10 +1,11 @@
 import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NbDialogService, NbMenuItem, NbToastrService } from '@nebular/theme';
+import { NbDialogService, NbMenuItem, NbMenuService, NbToastrService } from '@nebular/theme';
 import { TreeItem } from '../../../components/tree/tree.component'
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { Department } from '../solicitar/solicitar.component';
+import { filter } from 'rxjs/operators';
 
 type AddProductItem = {
   produto: Produto;
@@ -31,14 +32,16 @@ export class MeusProdutosComponent implements OnInit {
       title: 'Todos',
       icon: 'grid',
       selected: true,
+      data: 'todos',
     },
     { 
       title: 'Mais vendidos',
-      icon: 'bar-chart-2-outline'
+      icon: 'bar-chart-2-outline',
+      data: 'mais-vendidos',
     },
   ];
 
-  currentCategory = 1;
+  currentCategory?: number;
   loading: boolean = false;
   pagination: PaginationHeader;
 
@@ -49,6 +52,7 @@ export class MeusProdutosComponent implements OnInit {
     private apiService: ApiService,
     private toastrService: NbToastrService,
     private authService: AuthService,
+    private menuService: NbMenuService,
   ) {}
 
   onPageChange(changedPage: number) {
@@ -71,6 +75,43 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.menuService.onItemClick()
+      .pipe(filter(({ tag }) => tag === 'main-menu'))
+      .subscribe(({ item }) => {
+        this.smartGroup = this.smartGroup.map(menuItem => ({...menuItem, selected: item.data === menuItem.data }));
+        this.currentCategory = undefined;
+        switch (item.data) {
+          case 'todos':
+            this.apiService
+              .getProdutosLojista(this.authService.lojista.id)
+              .subscribe(
+                data => {
+                  this.produtosLojista = [...data.content];
+                  this.pagination = { ...data };
+                },
+                err => {
+                  console.error(err);
+                  this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista');
+                }
+              );
+            break;
+          case 'mais-vendidos':
+          default:
+            this.apiService
+              .getProdutosLojistaMaisVendidos(this.authService.lojista.id)
+              .subscribe(
+                data => {
+                  this.produtosLojista = [...data.content];
+                  this.pagination = { ...data };
+                },
+                err => {
+                  console.error(err);
+                  this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista mais vendidos');
+                }
+              );
+          
+        }
+      })
     this.apiService.getDepartments()
       .subscribe(
         departments => {
@@ -110,6 +151,7 @@ export class MeusProdutosComponent implements OnInit {
 
   onItemSelected(value: string) {
     console.log('Item clicked', value);
+    this.smartGroup = this.smartGroup.map(item => ({ ...item, selected: false }));
     this.apiService.getProdutosLojistaPorCategoria(Number(value), this.authService.lojista.id)
     .subscribe(
       data => {
