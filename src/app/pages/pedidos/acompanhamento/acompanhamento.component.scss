@@ -38,6 +38,10 @@
   }
 }
 
+.item-card {
+  margin-bottom: 0;
+}
+
 .item-card-body {
   padding: 1.1rem;
   background: #f7f9fc;
@@ -51,7 +55,8 @@
 .acompanhamento-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  margin-top: 1rem;
 }
 
 .search-bar {
