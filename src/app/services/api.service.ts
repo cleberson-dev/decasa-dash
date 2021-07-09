@@ -300,7 +300,7 @@ export class ApiService {
 
   logarLojista(params: LogarLojistaParams) {
     const { email, senha } = params;
-    const url = `${this.url}/usuarios/email/${email}/senha/${senha}`;
+    const url = `${this.url}/lojistas/email/${email}/senha/${senha}`;
     
     return this.http.get<Lojista>(url);
   }
