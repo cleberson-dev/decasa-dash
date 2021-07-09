@@ -131,11 +131,13 @@
 
 
   <nb-card-footer class="footer">
-    <button
-      nbButton ghost
-    >
-      Não encontrou? Revisite seu catálogo
-    </button>
+    <a [routerLink]="['/produtos']">
+      <button
+        nbButton ghost
+      >
+        Não encontrou? Revisite seu catálogo
+      </button>
+    </a>
     <button 
       nbButton class="next-btn" status="primary"
       (click)="onConfirmBtnClick()"
