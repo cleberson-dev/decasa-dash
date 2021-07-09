@@ -3,6 +3,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 import { CepService } from '../../services/cep.service';
 import * as CustomValidators from '../../validators';
 import { Department } from '../produtos/solicitar/solicitar.component';
@@ -51,13 +52,14 @@ export class FornecedoresComponent implements OnInit {
     private fb: FormBuilder,
     private cepService: CepService,
     private toastrService: NbToastrService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
-    this.api.getFornecedores()
+    this.api.getFornecedoresPorLojista(this.authService.lojista.id)
     .subscribe(
-      fornecedores => {
-        this.fornecedores = fornecedores;
+      data => {
+        this.fornecedores = data.content;
       },
       err => {
         console.error(err);

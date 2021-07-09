@@ -147,10 +147,10 @@ export class ApiService {
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   }
 
-  getFornecedores(): Observable<Fornecedor[]> {
-    const url = this.url + '/fornecedores';
+  getFornecedoresPorLojista(lojistaId: number) {
+    const url = this.url + '/fornecedores/lojista/' + lojistaId;
 
-    return this.http.get<Fornecedor[]>(url);
+    return this.http.get<PaginatedResource<Fornecedor>>(url);
   }
 
   editFornecedor(fornecedor: Fornecedor) {

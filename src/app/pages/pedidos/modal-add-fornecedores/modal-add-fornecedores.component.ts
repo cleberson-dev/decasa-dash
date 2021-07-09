@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@an
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { TheadTitlesRowComponent } from 'ng2-smart-table/lib/components/thead/rows/thead-titles-row.component';
 import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
 
 type SelectableFornecedor = Fornecedor & { selected?: boolean; };
 
@@ -22,14 +23,15 @@ export class ModalAddFornecedoresComponent implements OnInit {
   constructor(
     private api: ApiService,
     private toastrService: NbToastrService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.selectedFornecedores.push(...this.initialFornecedores);
-    this.api.getFornecedores()
+    this.api.getFornecedoresPorLojista(this.authService.lojista.id)
       .subscribe(
-        fornecedores => {
-          this.fornecedores = fornecedores;
+        data => {
+          this.fornecedores = data.content;
         },
         err => {
           console.error(err);
