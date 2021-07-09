@@ -26,13 +26,13 @@ enum PriceStatus {
 
 
 type CustomPedido = {
-  id: number;
-  lojista: {
+  id?: number;
+  lojista?: {
     id: number;
   };
-  detalhesPedidos: {
+  detalhesPedidos?: {
     id?: number;
-    produto: Produto;
+    produto: Partial<Produto>;
     quantidade: number;
     precoUltimasCompras?: number;
     precos?: {
@@ -42,7 +42,7 @@ type CustomPedido = {
     menorPrecoIdx?: number;
     selecionado?: number;
   }[];
-  fornecedores: Fornecedor[];
+  fornecedores?: Fornecedor[];
 }
 
 @Component({
@@ -53,12 +53,7 @@ type CustomPedido = {
 export class MapaComponent implements OnInit {
   easyButtonsValue = '';
 
-  pedido: CustomPedido = {
-    id: 1,
-    lojista: { id: 3 },
-    detalhesPedidos: [],
-    fornecedores: []
-  };
+  pedido: CustomPedido;
 
   data: MapRow[] = [
     { 
@@ -108,10 +103,8 @@ export class MapaComponent implements OnInit {
     }
   ];
 
-  somaFornecedores: (number | undefined)[] = 
-    this.pedido.detalhesPedidos.length > 0 ? 
-      new Array(this.pedido.detalhesPedidos[0]?.precos.length).fill(0) 
-      : [];
+  somaFornecedores: (number | undefined)[];
+   
   
   menorSomaIdx: number;
 
@@ -132,7 +125,7 @@ export class MapaComponent implements OnInit {
   ) { }
 
   get controle(): string {
-    return `${String(this.pedido.id).padStart(6, '0')}/2021`;
+    return !!this.pedido ? `${String(this.pedido.id).padStart(6, '0')}` : '...';
   }
 
   defineProductCheapestPrice() {
@@ -196,16 +189,53 @@ export class MapaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap
-      .pipe(
-        concatMap(params => {
-          const pedidoId = Number(params.get('pedidoId'));
-          this.pedido.id = pedidoId;
-          return this.apiService.getCotacoesPorPedido(pedidoId);
-        })
-      )
+    this.somaFornecedores = this.pedido && this.pedido.detalhesPedidos.length > 0 ? 
+      new Array(this.pedido.detalhesPedidos[0]?.precos.length).fill(0) 
+      : [];
+
+    const pedidoId$ = this.route.paramMap;
+    pedidoId$.pipe(
+      concatMap(params => {
+
+        const pedidoId = Number(params.get('pedidoId'));
+        return this.apiService.getSolicitacoesPreco(pedidoId);
+      })  
+    )
     .subscribe(
-      this.transformCotacoes,
+      data => {
+        console.log(data);
+        this.pedido = {
+          ...this.pedido,
+          fornecedores: data.content.map(solicitacao => solicitacao.fornecedor)
+        }
+      }
+    )
+    pedidoId$.pipe(
+      concatMap(params => {
+
+        const pedidoId = Number(params.get('pedidoId'));
+        // return this.apiService.getCotacoesPorPedido(pedidoId);
+        return this.apiService.getPedido(pedidoId);
+      })
+    )
+    .subscribe(
+      pedido => {
+        console.log(pedido);
+        this.pedido = {
+          ...this.pedido,
+          id: pedido.id,
+          lojista: {
+            id: pedido.lojista.id as number
+          },
+          detalhesPedidos: pedido.detalhesPedidos.map(detalhe => ({
+            id: detalhe.id as number,
+            produto: detalhe.produto,
+            quantidade: detalhe.quantidade,
+            precos: [],
+          })),
+        };
+        console.log(this.pedido);
+      },
       ({ error, status }) => {
         if (status === 500) this.toastrService.danger(error.titulo || 'Sem o que dizer...', 'Algo deu errado =(');
       }

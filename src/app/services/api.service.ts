@@ -382,4 +382,16 @@ export class ApiService {
 
     return this.http.get<CompraMaterial>(url);
   }
+
+  getPedido(pedidoId: number) {
+    const url = this.url + '/pedidos/' + pedidoId;
+
+    return this.http.get<Pedido>(url);
+  }
+
+  getSolicitacoesPreco(pedidoId: number) {
+    const url = this.url + '/solicitacoesPrecos/pedido/' + pedidoId;
+    
+    return this.http.get<PaginatedResource<SolicitacaoPreco>>(url);
+  }
 }

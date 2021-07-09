@@ -20,7 +20,7 @@
       </div>
       <p class="mapa">Nº de Controle: <span>{{ controle }}</span></p>
     </div>
-    <table>
+    <table *ngIf="pedido">
       <colgroup>
         <col />
         <col class="full" />
@@ -67,7 +67,10 @@
           <th></th>
           <th></th>
           <th></th>
-          <th
+          <th class="supplier-sum" *ngFor="let fornecedor of pedido.fornecedores">
+            Σ ...
+          </th>
+          <!-- <th
             *ngFor="let somaFornecedor of somaFornecedores; let i = index"
             [class]="{ 
               bordered: true, 
@@ -81,7 +84,7 @@
             (mouseout)="hoveredFornecedorIdx = undefined"
           >
             {{ somaFornecedor ? "Σ " + somaFornecedor.toFixed(2) : "--" }}
-          </th>
+          </th> -->
           <th></th>
         </tr>
       </thead>
@@ -97,27 +100,31 @@
           >
             {{ detalhe.produto.descricao || "--" }}
           </td>
-          <td>{{ detalhe.produto.unidadeMedidaProduto.descricao || "--" }}</td>
+          <td>{{ detalhe.produto.unidadeMedidaProduto.sigla || "--" }}</td>
           <td>{{ detalhe.quantidade }}</td>
+          <!-- <td
+          [class]="{
+            menor: j === detalhe.menorPrecoIdx,
+            preco: true,
+            'menor-fornecedor': j === menorSomaIdx,
+            selecionado: j === detalhe.selecionado,
+            clickable: !!preco.valor,
+            hovered: j === hoveredFornecedorIdx
+          }"
+          (click)="preco.valor && selectProductSupplier(i, j)"
+          ></td> -->
           <td
-            *ngFor="let preco of detalhe.precos; let j = index"
-            [class]="{
-              menor: j === detalhe.menorPrecoIdx,
-              preco: true,
-              'menor-fornecedor': j === menorSomaIdx,
-              selecionado: j === detalhe.selecionado,
-              clickable: !!preco.valor,
-              hovered: j === hoveredFornecedorIdx
-            }"
-            (click)="preco.valor && selectProductSupplier(i, j)"
+            *ngFor="let fornecedor of pedido.fornecedores; let j = index"
           >
-            {{ preco ? preco.valor.toFixed(2) : "--" }}
+            --
           </td>
           <td [class]="[
             'last-prices', 
-            getPriceStatus(detalhe.precos[detalhe.menorPrecoIdx].valor, detalhe.precoUltimasCompras)
+            detalhe.precos && detalhe.precos.length > 0 ? 
+              getPriceStatus(detalhe.precos[detalhe.menorPrecoIdx].valor, detalhe.precoUltimasCompras)
+              : ''
           ]">
-            {{ detalhe.precoUltimasCompras }}
+            {{ detalhe.precoUltimasCompras || "..." }}
           </td>
         </tr>
       </tbody>

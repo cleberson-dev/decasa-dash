@@ -141,19 +141,14 @@ declare type Cotacao = {
 
 declare type Pedido = {
   id: number;
-  lojista: {
-    id: number;
-  };
+  dataCadastro: string;
+  lojista: Partial<Lojista>;
   detalhesPedidos: {
     id?: number;
-    produto: {
-      id: number;
-    };
+    produto: Partial<Produto>;
     quantidade: number;
   }[];
-  fornecedores: {
-    id: number;
-  }[];
+  fornecedores?: Partial<Fornecedor>[];
 }
 
 declare type Usuario = {
@@ -485,5 +480,13 @@ declare type ItemEstoque = {
   produto: Produto;
   lojista: Lojista;
   lote: string;
-  numeroSerie;
-}
+  numeroSerie: string;
+};
+
+declare type SolicitacaoPreco = {
+  id: number;
+  fornecedor: Fornecedor;
+  pedido: Pedido;
+  dataSolicitacao: string;
+  emailContato: string;
+};
