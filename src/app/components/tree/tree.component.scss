@@ -20,12 +20,12 @@ ul {
     &:last-child { border-bottom-style: none; }
   }
 
-  ul { 
-    margin-left: 2rem;
+  ul {
+    margin-left: 0;
     & > li {
       cursor: pointer;
       padding: 0.75rem;
-      padding-left: calc(0.75rem - 5px);
+      padding-left: calc(0.75rem - 5px + 2rem);
       border-left: 5px solid transparent;
       border-bottom: 1px solid #edf1f7;
       &:hover { background-color: rgba(0, 0, 0, 0.04); }
