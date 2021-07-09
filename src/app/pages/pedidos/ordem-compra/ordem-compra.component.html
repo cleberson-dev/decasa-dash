@@ -4,8 +4,8 @@
   <div class="card-body-wrapper" *ngIf="compra">
     <nb-card-body class="oc-card-body">
       <div class="head">
-        <p class="mapa">Nº do Mapa: <span>123456/2021</span></p>
-        <p>Nº de Controle: <span>123456/2021</span></p>
+        <!-- <p class="mapa">Nº do Mapa: <span>123456/2021</span></p> -->
+        <p>Nº de Controle: <span>{{ compra.id.toString().padStart(6, '0') }}</span></p>
       </div>
       <h5>Produtos</h5>
       <table *ngIf="compra">
@@ -33,13 +33,13 @@
             <td class="full">{{ row.props.produto }}</td>
             <td>{{ row.props.unidade }}</td>
             <td>{{ row.props.quantidade }}</td>
-            <td>{{ row.props.precoUnitario}}</td>
-            <td>{{ row.subTotal }}</td>
+            <td>{{ row.props.precoUnitario.toFixed(2).replace('.', ',') }}</td>
+            <td>{{ row.subTotal.toFixed(2).replace('.', ',') }}</td>
           </tr>
         </tbody>
       </table>
       <p class="preco-total">
-        Total da OC: <span>R${{ precoTotal.toFixed(2) }}</span>
+        Total da OC: <span>R${{ precoTotal.toFixed(2).replace('.', ',') }}</span>
       </p>
 
       <h5>Fornecedor</h5>
@@ -59,11 +59,15 @@
         Voltar ao mapa
       </button>
     </a>
-    <button 
-      nbButton status="primary"
-      (click)="onConfirmBtnClick()"
+    <a 
+      style="text-decoration: none;" 
+      [routerLink]="['/estoque']" [queryParams]="{ compra: compra.id }"
     >
-      Confirmar
-    </button>
+      <button 
+        nbButton status="primary"
+      >
+        Confirmar
+      </button>
+    </a>
   </nb-card-footer>
 </nb-card>
