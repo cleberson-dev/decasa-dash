@@ -327,6 +327,13 @@ export class MapaComponent implements OnInit {
     return this.precos[`cotacao-p${produtoId}-f${fornecedorId}`];
   }
 
+  getSomaFornecedor(fornecedorId: number) {
+    const regexp = new RegExp(`cotacao-p\\d+-f${fornecedorId}`);
+    return Object.entries(this.precos)
+      .filter(([name]) => regexp.test(name))
+      .reduce((acc, [_, valor]) => acc + (valor || 0), 0);
+  }
+
   onEditHandler() {
     if (!this.isEditingPrices) {
       const controlInfos = this.pedido.fornecedores

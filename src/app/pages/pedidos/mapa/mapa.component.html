@@ -68,7 +68,7 @@
           <th></th>
           <th></th>
           <th class="supplier-sum" *ngFor="let fornecedor of pedido.fornecedores">
-            Σ ...
+            Σ {{ getSomaFornecedor(fornecedor.id).toFixed(2).replace('.', ',') }}
           </th>
           <!-- <th
             *ngFor="let somaFornecedor of somaFornecedores; let i = index"
@@ -126,7 +126,7 @@
               [formControlName]="'cotacao-p' + detalhe.produto.id + '-f' + fornecedor.id"
             />
             <ng-template #notEditingPrices>
-              {{ getPreco(detalhe.produto.id, fornecedor.id) || '--' }}
+              {{ getPreco(detalhe.produto.id, fornecedor.id)?.toFixed(2).replace('.', ',') || '--' }}
             </ng-template>
           </td>
           
