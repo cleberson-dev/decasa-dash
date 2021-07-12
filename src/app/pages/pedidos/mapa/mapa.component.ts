@@ -388,7 +388,7 @@ export class MapaComponent implements OnInit {
   }
 
   selectPrice(produtoId: number, fornecedorId: number) {
-    this.selectedSuppliers[produtoId] = fornecedorId;
+    this.selectedSuppliers[produtoId] = !this.isSupplierSelected(produtoId, fornecedorId) ? fornecedorId : undefined;
   }
 
   isSupplierSelected(produtoId: number, fornecedorId: number) {

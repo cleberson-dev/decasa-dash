@@ -119,7 +119,7 @@
               />
               <ng-template #notEditingPrices>
                 <span
-                  (click)="getPreco(detalhe.produto.id, fornecedor.id) && selectPrice(detalhe.produto.id, fornecedor.id)"
+                  (click)="!!getPreco(detalhe.produto.id, fornecedor.id) && selectPrice(detalhe.produto.id, fornecedor.id)"
                   [class]="{
                     preco: true,
                     selecionado: isSupplierSelected(detalhe.produto.id, fornecedor.id),
