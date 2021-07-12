@@ -75,6 +75,7 @@
               'summed-price': true, 
               'menor-fornecedor': fornecedorMaisBarato === fornecedor.id
             }"
+            (click)="!!getSomaFornecedor(fornecedor.id) && selectSupplier(fornecedor.id)"
           >
             Σ {{ getSomaFornecedor(fornecedor.id).toFixed(2).replace('.', ',') }}
           </th>

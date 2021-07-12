@@ -307,19 +307,12 @@ export class MapaComponent implements OnInit {
     return this.pedido.detalhesPedidos.every(row => row.selecionado === idx) ? idx : undefined; 
   }
 
-  selectSupplier(idx: number) {
-    if (this.supplierSelected !== undefined && this.supplierSelected === idx) {
-      for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
-        this.pedido.detalhesPedidos[i].selecionado = undefined;
-      }
-      return;
-    }
-    
-    for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
-      this.pedido.detalhesPedidos[i].selecionado = idx;
-    }
-
-    this.easyButtonsValue = '';
+  selectSupplier(fornecedorId: number) {
+    Object.entries(this.selectedSuppliers)
+      .forEach(([produtoId]) => {
+        if (!this.precos[`cotacao-p${produtoId}-f${fornecedorId}`]) return;
+        this.selectedSuppliers[produtoId] = fornecedorId;
+      })
   }
 
   openCloseMap(dialog: TemplateRef<any>) {
