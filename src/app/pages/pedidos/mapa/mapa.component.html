@@ -88,7 +88,7 @@
           <th></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody [formGroup]="cotacoesForm">
         <tr
           *ngFor="let detalhe of pedido.detalhesPedidos; let i = index"
           [class]="{ 'product-selected': isProductSelected(i) }"
@@ -116,8 +116,20 @@
           <td
             *ngFor="let fornecedor of pedido.fornecedores; let j = index"
           >
-            --
+            <input 
+              nbInput
+              fieldSize="small" 
+              *ngIf="isEditingPrices; else notEditingPrices"
+              style="width: 6rem;"
+              type="number"
+              min="0"
+              [formControlName]="'cotacao-p' + detalhe.produto.id + '-f' + fornecedor.id"
+            />
+            <ng-template #notEditingPrices>
+              {{ getPreco(detalhe.produto.id, fornecedor.id) || '--' }}
+            </ng-template>
           </td>
+          
           <td [class]="[
             'last-prices', 
             detalhe.precos && detalhe.precos.length > 0 ? 
@@ -131,12 +143,14 @@
     </table>
   </nb-card-body>
   <nb-card-footer class="mapa-card-footer">
-    <!-- <div>
-      <button nbButton>
-        <nb-icon icon="plus" (click)="openAddFornecedores(dialog)"></nb-icon>
-        Adicionar fornecedor
-      </button>
-    </div> -->
+    <button 
+      nbButton 
+      (click)="onEditHandler()"
+      [status]="isEditingPrices ? 'primary' : 'warning'"
+    >
+      <nb-icon [icon]="isEditingPrices ? 'save-outline' : 'edit-2-outline'"></nb-icon>
+      {{ isEditingPrices ? 'Salvar': 'Editar valores' }} 
+    </button>
     <div></div>
     <div>
       <button nbButton status="danger" (click)="openCloseMap(dialog)">Encerrar Mapa</button>

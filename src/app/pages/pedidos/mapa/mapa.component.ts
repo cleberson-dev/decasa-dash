@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { concatMap } from 'rxjs/operators';
@@ -55,60 +56,16 @@ export class MapaComponent implements OnInit {
 
   pedido: CustomPedido;
 
-  data: MapRow[] = [
-    { 
-      produto: {
-        codigo: "1234",
-        nome: "Produto #1",
-        quantidade: 2,
-        unidade: 'cm'
-      },
-      precos: [
-        1.49,
-        undefined,
-        1.99,
-        0.99
-      ],
-      precoUltimasCompras: 9.99,
-    },
-    { 
-      produto: {
-        codigo: "3333",
-        nome: "Produto #2",
-        quantidade: 1,
-        unidade: 'cm'
-      },
-      precos: [
-        2.98,
-        undefined,
-        1.12,
-        3.45
-      ],
-      precoUltimasCompras: 9.99,
-    },
-    { 
-      produto: {
-        codigo: "3355",
-        nome: "Produto #3",
-        quantidade: 5,
-        unidade: 'cm'
-      },
-      precos: [
-        2.1,
-        undefined,
-        2.2,
-        4.1
-      ],
-      precoUltimasCompras: 9.99,
-    }
-  ];
-
   somaFornecedores: (number | undefined)[];
-   
   
   menorSomaIdx: number;
 
   hoveredFornecedorIdx?: number;
+
+  isEditingPrices: boolean = false;
+
+  cotacoes: Cotacao[] = [];
+  precos: { [k: string]: number };
 
   tabs: Tab[] = [
     { title: 'Cotação', link: '/pedidos' },
@@ -116,6 +73,8 @@ export class MapaComponent implements OnInit {
     { title: 'Ordem de compra' },
     { title: 'Acompanhamento', link: '/pedidos/acompanhamento' },
   ];
+
+  cotacoesForm: FormGroup;
 
   constructor(
     private dialogService: NbDialogService,
@@ -240,6 +199,24 @@ export class MapaComponent implements OnInit {
         if (status === 500) this.toastrService.danger(error.titulo || 'Sem o que dizer...', 'Algo deu errado =(');
       }
     );
+
+    pedidoId$
+      .pipe(
+        concatMap(params => {
+          const pedidoId = Number(params.get('pedidoId'));
+
+          return this.apiService.getCotacoesPorPedido(pedidoId);
+        })
+      )
+      .subscribe(cotacoes => {
+        this.cotacoes = cotacoes;
+        this.precos = Object.fromEntries(
+          cotacoes.map(cotacao => [
+            `cotacao-p${cotacao.detalhePedido.produto.id}-f${cotacao.fornecedor.id}`,
+            cotacao.preco
+          ])
+        );
+      });
   }
 
   openRowDetails(dialog: TemplateRef<any>, row: MapRow) {
@@ -344,5 +321,34 @@ export class MapaComponent implements OnInit {
     };
 
     this.dialogService.open(dialog, { context });
+  }
+
+  getPreco(produtoId: number, fornecedorId: number) {
+    return this.precos[`cotacao-p${produtoId}-f${fornecedorId}`];
+  }
+
+  onEditHandler() {
+    if (!this.isEditingPrices) {
+      const controlInfos = this.pedido.fornecedores
+        .map(fornecedor => this.pedido.detalhesPedidos.map(detalhe => ({
+          name: `cotacao-p${detalhe.produto.id}-f${fornecedor.id}`,
+          value: this.getPreco(detalhe.produto.id, fornecedor.id)
+        })))
+        .reduce((acc, info) => acc.concat(info), []);
+    
+      this.cotacoesForm = new FormGroup(
+        Object.fromEntries(
+          controlInfos.map(info => [info.name, new FormControl(info.value, [Validators.min(0)])])
+        )
+      );
+    } else {
+      this.precos = Object.fromEntries(
+        Object.entries(this.cotacoesForm.controls)
+        .map(([name, control]) => [name, control.value || undefined])
+      );
+      console.log(this.precos);
+    }
+
+    this.isEditingPrices = !this.isEditingPrices;
   }
 }
