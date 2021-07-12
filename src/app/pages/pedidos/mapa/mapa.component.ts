@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -340,7 +341,7 @@ export class MapaComponent implements OnInit {
       .reduce((acc, [_, valor]) => acc + (valor || 0), 0);
   }
 
-  getFornecedorMenorPreco(produtoId: number) {
+  getProdutoMenorPreco(produtoId: number) {
     if (this.precos.length === 0) return undefined;
     
     const regexp = new RegExp(`cotacao-p${produtoId}`);
@@ -354,8 +355,18 @@ export class MapaComponent implements OnInit {
       .sort((a, b) => a[1] - b[1])[0][0];
   }
 
-  isFornecedorMenorPreco(produtoId: number, fornecedorId: number) {
-    return this.getFornecedorMenorPreco(produtoId) === `cotacao-p${produtoId}-f${fornecedorId}`;
+  isProdutoMenorPreco(produtoId: number, fornecedorId: number) {
+    return this.getProdutoMenorPreco(produtoId) === `cotacao-p${produtoId}-f${fornecedorId}`;
+  }
+
+  get fornecedorMaisBarato() {
+    const validPrices = Object.entries(this.precos).filter(([_, preco]) => !!preco);
+    if (this.pedido?.fornecedores?.length === 0 || validPrices.length === 0) return undefined;
+
+
+    return this.pedido.fornecedores
+      .map(fornecedor => ({ id: fornecedor.id, valor: this.getSomaFornecedor(fornecedor.id) }))
+      .sort((a, b) => a.valor - b.valor)[0].id;
   }
 
   onEditHandler() {
