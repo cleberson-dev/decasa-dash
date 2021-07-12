@@ -32,7 +32,7 @@ td {
 }
 
 
-th.menor, td.menor {
+th.menor, span.menor {
   background: $menorProdutoCor;
 }
 
@@ -54,7 +54,7 @@ th.menor, td.menor {
   width: 100%;
 }
 
-td.preco {
+span.preco {
   width: fit-content;
 }
 
@@ -247,42 +247,42 @@ tbody tr {
   border-bottom: 1px solid $borderColor;
 }
 
-td.selecionado {
+span.selecionado {
   background: $selectedColor;
   // border: 1px solid black;
   // color: white;
 }
 
-td.clickable {
+span.clickable {
   cursor: pointer;
 }
 
-td.preco:hover, td.preco.hovered {
+span.preco:hover, span.preco.hovered {
   background: lighten($borderColor, 1%);
 }
 
 th.global-selected.hovered:hover,
-td.preco.selecionado.menor-fornecedor.menor.hovered,
-td.preco.selecionado.menor-fornecedor.hovered,
-td.preco.selecionado.menor.hovered,
-td.preco.selecionado.hovered,
-td.preco.selecionado.menor-fornecedor.menor:hover,
-td.preco.selecionado.menor-fornecedor:hover,
-td.preco.selecionado.menor:hover,
-td.preco.selecionado:hover {
+span.preco.selecionado.menor-fornecedor.menor.hovered,
+span.preco.selecionado.menor-fornecedor.hovered,
+span.preco.selecionado.menor.hovered,
+span.preco.selecionado.hovered,
+span.preco.selecionado.menor-fornecedor.menor:hover,
+span.preco.selecionado.menor-fornecedor:hover,
+span.preco.selecionado.menor:hover,
+span.preco.selecionado:hover {
   background: darken($selectedColor, 7%);
 }
 
-td.preco.menor.hovered,
-td.preco.menor.menor-fornecedor.hovered, 
-td.preco.menor:hover,
-td.preco.menor.menor-fornecedor:hover {
+span.preco.menor.hovered,
+span.preco.menor.menor-fornecedor.hovered, 
+span.preco.menor:hover,
+span.preco.menor.menor-fornecedor:hover {
   background: darken($menorProdutoCor, 5%);
 }
 
 th.menor-fornecedor.hovered,
-td.preco.menor-fornecedor.hovered,
-td.preco.menor-fornecedor:hover {
+span.preco.menor-fornecedor.hovered,
+span.preco.menor-fornecedor:hover {
   background: darken($menorFornecedorCor, 5%);
 }
 

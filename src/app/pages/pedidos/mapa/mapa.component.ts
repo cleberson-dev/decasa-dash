@@ -74,7 +74,9 @@ export class MapaComponent implements OnInit {
     { title: 'Acompanhamento', link: '/pedidos/acompanhamento' },
   ];
 
-  cotacoesForm: FormGroup;
+  cotacoesForm = new FormGroup({});
+
+  selectedSuppliers: { [k: number]: number };
 
   constructor(
     private dialogService: NbDialogService,
@@ -166,7 +168,7 @@ export class MapaComponent implements OnInit {
         this.pedido = {
           ...this.pedido,
           fornecedores: data.content.map(solicitacao => solicitacao.fornecedor)
-        }
+        };
       }
     )
     pedidoId$.pipe(
@@ -193,6 +195,10 @@ export class MapaComponent implements OnInit {
             precos: [],
           })),
         };
+
+        this.selectedSuppliers = Object.fromEntries(
+          pedido.detalhesPedidos.map(detalhe => [detalhe.produto.id, undefined])
+        );
         console.log(this.pedido);
       },
       ({ error, status }) => {
@@ -334,6 +340,24 @@ export class MapaComponent implements OnInit {
       .reduce((acc, [_, valor]) => acc + (valor || 0), 0);
   }
 
+  getFornecedorMenorPreco(produtoId: number) {
+    if (this.precos.length === 0) return undefined;
+    
+    const regexp = new RegExp(`cotacao-p${produtoId}`);
+    const entries = Object.entries(this.precos)
+    .filter(([name, value]) => regexp.test(name) && !!value);
+    
+    if (entries.length === 0) return undefined;
+    
+    return Object.entries(this.precos)
+      .filter(([name, value]) => regexp.test(name) && !!value)
+      .sort((a, b) => a[1] - b[1])[0][0];
+  }
+
+  isFornecedorMenorPreco(produtoId: number, fornecedorId: number) {
+    return this.getFornecedorMenorPreco(produtoId) === `cotacao-p${produtoId}-f${fornecedorId}`;
+  }
+
   onEditHandler() {
     if (!this.isEditingPrices) {
       const controlInfos = this.pedido.fornecedores
@@ -357,5 +381,13 @@ export class MapaComponent implements OnInit {
     }
 
     this.isEditingPrices = !this.isEditingPrices;
+  }
+
+  selectPrice(produtoId: number, fornecedorId: number) {
+    this.selectedSuppliers[produtoId] = fornecedorId;
+  }
+
+  isSupplierSelected(produtoId: number, fornecedorId: number) {
+    return this.selectedSuppliers[produtoId] === fornecedorId;
   }
 }

@@ -102,33 +102,36 @@
           </td>
           <td>{{ detalhe.produto.unidadeMedidaProduto.sigla || "--" }}</td>
           <td>{{ detalhe.quantidade }}</td>
-          <!-- <td
-          [class]="{
-            menor: j === detalhe.menorPrecoIdx,
-            preco: true,
-            'menor-fornecedor': j === menorSomaIdx,
-            selecionado: j === detalhe.selecionado,
-            clickable: !!preco.valor,
-            hovered: j === hoveredFornecedorIdx
-          }"
-          (click)="preco.valor && selectProductSupplier(i, j)"
-          ></td> -->
-          <td
-            *ngFor="let fornecedor of pedido.fornecedores; let j = index"
-          >
-            <input 
-              nbInput
-              fieldSize="small" 
-              *ngIf="isEditingPrices; else notEditingPrices"
-              style="width: 6rem;"
-              type="number"
-              min="0"
-              [formControlName]="'cotacao-p' + detalhe.produto.id + '-f' + fornecedor.id"
-            />
-            <ng-template #notEditingPrices>
-              {{ getPreco(detalhe.produto.id, fornecedor.id)?.toFixed(2).replace('.', ',') || '--' }}
-            </ng-template>
-          </td>
+            <td
+              *ngFor="let fornecedor of pedido.fornecedores; let j = index"
+            >
+              <input 
+                nbInput
+                fieldSize="small" 
+                *ngIf="isEditingPrices; else notEditingPrices"
+                style="width: 6rem;"
+                type="number"
+                min="0"
+                [formControlName]="'cotacao-p' + detalhe.produto.id + '-f' + fornecedor.id"
+              />
+              <ng-template #notEditingPrices>
+                <span
+                  (click)="getPreco(detalhe.produto.id, fornecedor.id) && selectPrice(detalhe.produto.id, fornecedor.id)"
+                  [class]="{
+                    preco: true,
+                    selecionado: isSupplierSelected(detalhe.produto.id, fornecedor.id),
+                    clickable: !!getPreco(detalhe.produto.id, fornecedor.id),
+                    menor: isFornecedorMenorPreco(detalhe.produto.id, fornecedor.id),
+                    'menor-fornecedor': j === menorSomaIdx,
+                    hovered: j === hoveredFornecedorIdx
+                  }"
+                >
+                  {{ getPreco(detalhe.produto.id, fornecedor.id)?.toFixed(2).replace('.', ',') || '--' }}
+                </span>
+              </ng-template>
+            </td>
+            
+          
           
           <td [class]="[
             'last-prices', 
