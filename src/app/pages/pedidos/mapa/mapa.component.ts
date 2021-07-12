@@ -394,4 +394,9 @@ export class MapaComponent implements OnInit {
   isSupplierSelected(produtoId: number, fornecedorId: number) {
     return this.selectedSuppliers[produtoId] === fornecedorId;
   }
+
+  handlePriceInput(e: any) {
+    if (e.code !== 'Enter') return;
+    this.onEditHandler();
+  }
 }
