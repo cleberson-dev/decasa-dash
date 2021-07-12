@@ -310,8 +310,7 @@ export class MapaComponent implements OnInit {
   selectSupplier(fornecedorId: number) {
     Object.entries(this.selectedSuppliers)
       .forEach(([produtoId]) => {
-        if (!this.precos[`cotacao-p${produtoId}-f${fornecedorId}`]) return;
-        this.selectedSuppliers[produtoId] = fornecedorId;
+        this.selectedSuppliers[produtoId] = this.precos[`cotacao-p${produtoId}-f${fornecedorId}`] ? fornecedorId : undefined;
       })
   }
 
