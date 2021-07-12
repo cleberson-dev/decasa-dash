@@ -77,7 +77,7 @@ export class MapaComponent implements OnInit {
 
   cotacoesForm = new FormGroup({});
 
-  selectedSuppliers: { [k: number]: number };
+  selectedSuppliers: Record<number, number>;
 
   constructor(
     private dialogService: NbDialogService,
@@ -273,9 +273,22 @@ export class MapaComponent implements OnInit {
     this.easyButtonsValue = type;
 
     if (type === 'unitario') {
-      for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
-        this.pedido.detalhesPedidos[i].selecionado = this.pedido.detalhesPedidos[i].menorPrecoIdx;
-      }
+      this.pedido.detalhesPedidos
+        .forEach(detalhe => {
+          const productPrices = Object.entries(this.precos)
+            .filter(([key, value]) =>!!value && key.includes(`cotacao-p${detalhe.produto.id}`));
+          
+          if (productPrices.length === 0) return;
+          console.log(productPrices);
+
+          this.selectedSuppliers[detalhe.produto.id] = productPrices
+            .map(([key, value]) => ({ 
+              fornecedor: Number(key.slice(key.indexOf('f') + 1)), 
+              valor: value 
+            }))
+            .sort((a, b) => a.valor - b.valor)[0].fornecedor;
+          console.log(this.selectedSuppliers);
+        });
     } else if (type === 'global') {
       for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
         this.pedido.detalhesPedidos[i].selecionado = this.menorSomaIdx;
@@ -397,5 +410,9 @@ export class MapaComponent implements OnInit {
   handlePriceInput(e: any) {
     if (e.code !== 'Enter') return;
     this.onEditHandler();
+  }
+
+  get isThereAnyPrice() {
+    return Object.entries(this.precos).some(([_, preco]) => !!preco);
   }
 }

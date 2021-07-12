@@ -14,8 +14,8 @@
           [value]="easyButtonsValue" 
           (valueChange)="onEasyButtonsChange($event)"
         >
-          <nb-radio value="unitario">Menor preço unitário</nb-radio>
-          <nb-radio value="global">Menor global</nb-radio>
+          <nb-radio value="unitario" [disabled]="!isThereAnyPrice">Menor preço unitário</nb-radio>
+          <nb-radio value="global" [disabled]="!isThereAnyPrice">Menor global</nb-radio>
         </nb-radio-group>
       </div>
       <p class="mapa">Nº de Controle: <span>{{ controle }}</span></p>
