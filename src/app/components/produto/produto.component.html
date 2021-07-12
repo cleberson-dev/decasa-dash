@@ -3,7 +3,7 @@
     <img [src]="defaultImage" alt="Imagem do produto" />
   </div>
   <div class="info">
-    <p class="nome">{{ produto.descricao | uppercase }}</p>
+    <p class="nome">{{ produto.descricao | uppercase }} <small>#{{ produto.cnp }}</small></p>
     <p>{{ produto.categoria.descricao  | uppercase }} - {{ produto.categoria.departamento.descricao | uppercase }}</p>
     <p class="unidade">{{ produto.unidadeMedidaProduto.descricao | uppercase }}</p>
   </div>
