@@ -8,7 +8,7 @@ type Mapa = {
   codigo: string; 
   data: string;
   solicitante?: string; 
-  loja?: string; 
+  loja: number; 
 };
 
 type Compra = {
@@ -55,6 +55,7 @@ export class AcompanhamentoComponent implements OnInit {
           id: pedido.id,
           codigo: `${pedido.id}`.padStart(6, '0'),
           data: pedido.dataCadastro,
+          loja: pedido.lojista.id
         }));
       });
 
@@ -81,5 +82,10 @@ export class AcompanhamentoComponent implements OnInit {
 
   get lojista() {
     return this.authService.lojista;
+  }
+
+  getLojistaById(id: number) {
+    if (id === this.matriz.id) return this.matriz;
+    return this.filiais.find(filial => filial.id === id); 
   }
 }
