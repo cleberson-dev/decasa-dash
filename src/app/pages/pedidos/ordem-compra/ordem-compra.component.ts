@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { concatMap, filter, flatMap, map } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
 type RowProps = {
   codigo: string;
   produto: string;
@@ -50,11 +51,15 @@ export class OrdemCompraComponent implements OnInit {
 
   compra: CompraMaterial;
 
+  matriz: Lojista;
+  filiais: Lojista[] = [];
+
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
     private toastrService: NbToastrService,
     private router: Router, 
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -73,6 +78,15 @@ export class OrdemCompraComponent implements OnInit {
           console.error(error);
         }
       );
+
+    this.matriz = this.authService.isMatriz ? 
+      this.authService.lojista : 
+      this.authService.lojista.lojista;
+
+    this.apiService.getFiliais(this.matriz.id)
+      .subscribe(data => {
+        this.filiais = data.content;
+      });
   }
 
   get precoTotal(): number {

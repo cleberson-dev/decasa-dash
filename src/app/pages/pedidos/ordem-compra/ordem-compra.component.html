@@ -3,6 +3,19 @@
 <nb-card>
   <div class="card-body-wrapper" *ngIf="compra">
     <nb-card-body class="oc-card-body">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group">
+            <label>Loja</label>
+            <nb-select *ngIf="matriz && compra?.lojista.id" fullWidth disabled [selected]="matriz.id">
+              <nb-option *ngIf="matriz" [value]="matriz.id">{{ matriz.razaoSocial }} (Matriz)</nb-option>
+              <nb-option-group *ngIf="filiais.length > 0" title="Filiais">
+                <nb-option *ngFor="let filial of filiais" [value]="filial.id">{{ filial.razaoSocial }}</nb-option>
+              </nb-option-group>
+            </nb-select>
+          </div>
+        </div>
+      </div>
       <div class="head">
         <!-- <p class="mapa">Nº do Mapa: <span>123456/2021</span></p> -->
         <p>Nº de Controle: <span>{{ compra.id.toString().padStart(6, '0') }}</span></p>
