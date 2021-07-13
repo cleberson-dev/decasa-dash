@@ -6,6 +6,7 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { concatMap } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
 
 type MapRow = {
   produto: {
@@ -79,11 +80,15 @@ export class MapaComponent implements OnInit {
 
   selectedSuppliers: Record<number, number>;
 
+  matriz: Lojista;
+  filiais: Lojista[] = [];
+
   constructor(
     private dialogService: NbDialogService,
     private apiService: ApiService,
     private route: ActivatedRoute,
     private toastrService: NbToastrService,
+    private authService: AuthService,
   ) { }
 
   get controle(): string {
@@ -223,6 +228,15 @@ export class MapaComponent implements OnInit {
             cotacao.preco
           ])
         );
+      });
+
+    this.matriz = this.authService.isMatriz ? 
+      this.authService.lojista : 
+      this.authService.lojista.lojista;
+
+    this.apiService.getFiliais(this.matriz.id)
+      .subscribe(data => {
+        this.filiais = data.content;
       });
   }
 
