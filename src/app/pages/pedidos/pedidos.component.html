@@ -2,6 +2,21 @@
 
 <nb-card class="card">
   <nb-card-body class="card-body">
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group">
+          <label>Loja</label>
+          <nb-select fullWidth>
+            <nb-option value="1">Minha loja (Matriz)</nb-option>
+            <nb-option-group title="Filiais">
+              <nb-option value="2">Filial 1</nb-option>
+              <nb-option value="3">Filial 2</nb-option>
+              <nb-option value="4">Filial 3</nb-option>
+            </nb-option-group>
+          </nb-select>
+        </div>
+      </div>
+    </div>
     <h5>
       Produtos 
       <small class="itens-length">{{ rows.length }} itens</small>
