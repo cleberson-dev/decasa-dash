@@ -69,6 +69,8 @@ export class InicioComponent implements OnInit {
   
   codigoMask = /^\d+$/;
 
+  filiais: (Lojista & { collapsed?: boolean; })[] = [];
+
   constructor(
     private dialogService: NbDialogService,
     private fb: FormBuilder,
@@ -95,6 +97,13 @@ export class InicioComponent implements OnInit {
           this.toastrService.danger(err.error.message, 'Impossível obter lojista');
         }
       );
+
+    if (this.authService.isMatriz) {
+      this.apiService.getFiliais(this.authService.lojista.id)
+        .subscribe(data => {
+          this.filiais = data.content;
+        });
+    }
   }
 
   openAddLojaModal(dialog: TemplateRef<any>) {

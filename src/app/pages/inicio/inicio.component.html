@@ -40,25 +40,25 @@
         </button>
       </div>
       <ul class="lista-lojas">
-        <li *ngFor="let loja of lojas">
+        <li *ngFor="let filial of filiais">
           <nb-card class="loja-card">
             <div class="loja-card-wrapper">
               <div>
                 <nb-icon icon="shopping-bag-outline"></nb-icon>
-                {{ loja.nome }} - CNPJ: {{ loja.cnpj }}
+                {{ filial.nome }} - CNPJ: {{ filial.cnpj }}
               </div>
-              <button nbButton ghost (click)="loja.collapsed = !loja.collapsed">
-                <nb-icon [icon]="loja.collapsed ? 'arrow-up' : 'arrow-down'"></nb-icon>
+              <button nbButton ghost (click)="filial.collapsed = !filial.collapsed">
+                <nb-icon [icon]="filial.collapsed ? 'arrow-up' : 'arrow-down'"></nb-icon>
               </button>
             </div>
-           <div *ngIf="loja.collapsed" class="info" style="margin-top: 1rem;">
-            <p><span>Nome:</span> {{ loja.nome }}</p>
-            <p><span>CNPJ:</span> {{ loja.cnpj }}</p>
-            <p><span>Inscrição Estadual:</span> {{ loja.inscricaoEstadual }}</p>
-            <p><span>Código:</span> {{ loja.codigo }}</p>
-            <p><span>Endereço:</span> {{ loja.endereco }}</p>
-            <p><span>Telefone:</span> {{ loja.telefone }}</p>
-            <p><span>Gerente:</span> {{ loja.gerente }}</p>
+           <div *ngIf="filial.collapsed" class="info" style="margin-top: 1rem;">
+            <p><span>Nome:</span> {{ filial.nome }}</p>
+            <p><span>CNPJ:</span> {{ filial.cnpj }}</p>
+            <p><span>Inscrição Estadual:</span> {{ filial.inscricaoEstadual }}</p>
+            <p><span>Código:</span> {{ filial.id }}</p>
+            <p><span>Endereço:</span> {{ filial.logradouro }}</p>
+            <p><span>Telefone:</span> {{ filial.telefone }}</p>
+            <p><span>Gerente:</span> ...</p>
            </div>
           </nb-card>
         </li>
