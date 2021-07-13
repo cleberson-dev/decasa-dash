@@ -95,7 +95,7 @@ export class ApiService {
     let url = this.url + '/produtos/lojista/' + lojistaId;
     url += '?page=' + page;
     url += '&size=' + size;
-    url += '&naoSelecionado=false';
+    url += '&naoSelecionado=true';
 
     return this.http.get<PaginatedResource<Produto>>(url);
   }
