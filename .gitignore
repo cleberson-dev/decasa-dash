@@ -41,3 +41,8 @@ testem.log
 Thumbs.db
 
 update-git.sh
+
+# Using Docker and Nginx for testing purposes
+Dockerfile
+.dockerignore
+nginx.conf
