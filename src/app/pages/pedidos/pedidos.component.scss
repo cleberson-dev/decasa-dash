@@ -47,8 +47,9 @@ th {
   padding: 0.8rem 0;
 }
 
-td {
-  padding: .8rem .6rem;
+td:not(.descricao-produto) {
+  padding: .6rem;
+  text-align: center;
 }
 
 tbody tr:not(:first-child) {
