@@ -7,16 +7,6 @@
             <nb-icon status="primary" icon="arrow-back"></nb-icon>
           </button>
         </a>
-        <button
-          nbButton
-          type="submit"
-          status="primary"
-          form="registerForm"
-          [disabled]="registerForm.invalid"
-        >
-          Registrar
-          <nb-icon icon="arrow-forward"></nb-icon>
-        </button>
       </nb-card-header>
       <nb-card-body style="padding: 0">
         <div class="wrapper">
@@ -261,6 +251,19 @@
                     <ng-template #telefoneError>
                       <span class="error">{{ getErrorMessage("telefone") }}</span>
                     </ng-template>
+                  </div>
+                  <div class="col-3"></div>
+                  <div class="col-3" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                    <button
+                      nbButton
+                      type="submit"
+                      status="primary"
+                      form="registerForm"
+                      [disabled]="registerForm.invalid"
+                      fullWidth
+                    >
+                      Registrar
+                    </button>
                   </div>
                 </div>
               </form>
