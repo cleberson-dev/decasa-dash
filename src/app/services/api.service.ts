@@ -100,8 +100,9 @@ export class ApiService {
     return this.http.get<PaginatedResource<Produto>>(url);
   }
 
-  getProdutosPorCategoria(categoriaId: number) {
-    const url = this.url + '/produtos/categoria/' + categoriaId;
+  getProdutosPorCategoria(categoriaId: number, lojistaId: number) {
+    let url = `${this.url}/produtos/lojista/${lojistaId}/categoria/${categoriaId}`;
+    url += '?naoSelecionado=true';
     
     return this.http.get<PaginatedResource<Produto>>(url);
   }
@@ -206,13 +207,14 @@ export class ApiService {
     return this.http.get<ApiUF[]>(url);
   }
 
-  getProdutosMaisVendidos(paginationOptions?: PaginationOptions) {
+  getProdutosMaisVendidos(lojistaId: number, paginationOptions?: PaginationOptions) {
     const page = (paginationOptions?.page || 1) - 1;
     const size = paginationOptions?.size || 10;
     
     let url = this.url + '/produtos/maisVendido/';
     url += '&page=' + page;
     url += '&size=' + size;
+    url += '&idLojista=' + lojistaId;
 
     return this.http.get<PaginatedResource<Produto>>(url);
   };

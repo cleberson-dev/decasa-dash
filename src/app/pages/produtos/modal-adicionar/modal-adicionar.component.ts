@@ -67,7 +67,7 @@ export class ModalAdicionarComponent implements OnInit {
     this.selectedCategory = option;
     switch (option) {
       case 'mais-vendidos':
-        this.apiService.getProdutosMaisVendidos()
+        this.apiService.getProdutosMaisVendidos(this.authService.lojista.id)
           .subscribe(
             (data) => {
               this.produtos = [...data.content];
@@ -95,7 +95,7 @@ export class ModalAdicionarComponent implements OnInit {
       default:
         const categoriaId = Number(option);
         this.apiService
-          .getProdutosPorCategoria(categoriaId)
+          .getProdutosPorCategoria(categoriaId, this.authService.lojista.id)
           .subscribe(
             (data) => {
               this.produtos = [...data.content];
