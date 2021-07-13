@@ -184,7 +184,7 @@
           </div>
           <div class="row">
             <div class="col-5">
-              <label>Ponto de Referência</label>
+              <label>Complemento</label>
               <input nbInput fullWidth formControlName="pontoReferencia" />
               <small *ngIf="isControlInvalid('pontoReferencia')" class="error">
                 {{ getErrorMessage("pontoReferencia") }}
@@ -271,7 +271,7 @@
         </p>
       </div>
       <p>
-        Ponto de Referência: <span>{{ context.fornecedor.pontoReferencia }}</span>
+        Complemento: <span>{{ context.fornecedor.pontoReferencia }}</span>
       </p>
       <div class="row">
         <p class="col-6">Município: <span>{{ context.fornecedor.municipioEndereco.nome }}</span></p>
