@@ -40,6 +40,9 @@ export class AcompanhamentoComponent implements OnInit {
 
   comprasFinalizadas: Compra[] = [];
 
+  matriz: Lojista;
+  filiais: Lojista[] = [];
+
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
@@ -64,6 +67,19 @@ export class AcompanhamentoComponent implements OnInit {
           preco: compra.valor,
         }));
       });
+
+    this.matriz = this.authService.isMatriz ?
+      this.authService.lojista
+      : this.authService.lojista.lojista;
+    
+    this.apiService.getFiliais(this.matriz.id)
+      .subscribe(data => {
+        this.filiais = data.content;
+      });
   }
 
+
+  get lojista() {
+    return this.authService.lojista;
+  }
 }
