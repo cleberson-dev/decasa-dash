@@ -25,4 +25,8 @@ export class AuthService {
   get estaLogado(): boolean {
     return !!localStorage.getItem(AuthService.storageKey);
   }
+
+  get isMatriz(): boolean {
+    return this.lojista && !this.lojista.lojista;
+  }
 }

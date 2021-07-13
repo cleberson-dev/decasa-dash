@@ -48,6 +48,10 @@ export class PedidosComponent implements OnInit {
   
   codigoMask = /^\d+$/;
 
+  matriz: Lojista;
+  filiais: Lojista[] = [];
+
+
   constructor(
     private fb: FormBuilder,
     private dialogService: NbDialogService,
@@ -71,6 +75,19 @@ export class PedidosComponent implements OnInit {
           this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista');
         }
       );
+
+    this.matriz = this.authService.isMatriz ? 
+      this.authService.lojista : 
+      this.authService.lojista.lojista;
+
+    this.api.getFiliais(this.matriz.id)
+      .subscribe(data => {
+        this.filiais = data.content;
+      });
+  }
+
+  get lojista() {
+    return this.authService.lojista;
   }
 
   onSelectionChange($event: string) {

@@ -404,4 +404,9 @@ export class ApiService {
       dataCadastro: string;
     }>>(url);
   }
+
+  getFiliais(lojistaId: number) {
+    const url = this.url + '/lojistas/matriz/' + lojistaId;
+    return this.http.get<PaginatedResource<Lojista>>(url);
+  }
 }
