@@ -40,7 +40,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
-update-git.sh
+update-git
 
 # Using Docker and Nginx for testing purposes
 Dockerfile
