@@ -73,7 +73,9 @@ export class RegistrarComponent implements OnInit {
       logradouro: String(this.registerForm.controls['logradouro'].value),
       bairro: String(this.registerForm.controls['bairro'].value),
       ufRg: { id: Number(this.registerForm.controls['uf'].value) },
-      municipio: { id: Number(this.registerForm.controls['municipio'].value) },
+      municipio: { 
+        id: this.municipios.find(mun => mun.nome.toLowerCase() === String(this.registerForm.controls['municipio'].value).toLowerCase()).id 
+      },
       pontoReferencia: String(this.registerForm.controls['pontoReferencia'].value),
       cpf: String(this.registerForm.controls['cpf'].value),
       celular: String(this.registerForm.controls['celular'].value),
