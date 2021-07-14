@@ -4,6 +4,7 @@ import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { ApiMunicipio, ApiService, ApiUF, RegistrarLojistaParams } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { CepService } from '../../services/cep.service';
+import * as CustomValidators from '../../validators';
 
 type Company = {
   nome: string;
@@ -36,19 +37,19 @@ export class InicioComponent implements OnInit {
     razaoSocial: ['', [Validators.required]],
     nome: ['', [Validators.required]],
     inscricaoEstadual: ['', [Validators.required]],
-    cpf: ['', [Validators.required]],
-    cnpj: ['', [Validators.required]],
-    email: ['', [Validators.required]],
-    senha: ['', [Validators.required]],
-    senha2: ['', [Validators.required]],
-    cep: ['', [Validators.required]],
+    cpf: ['', [Validators.required, CustomValidators.cpf]],
+    cnpj: ['', [Validators.required, CustomValidators.cnpj]],
+    email: ['', [Validators.required, Validators.email]],
+    senha: ['', [Validators.required, Validators.min(8), Validators.max(16)]],
+    senha2: ['', [Validators.required, Validators.min(8), Validators.max(16)]],
+    cep: ['', [Validators.required, CustomValidators.cep]],
     logradouro: ['', [Validators.required]],
     bairro: ['', [Validators.required]],
     uf: ['', [Validators.required]],
     municipio: ['', [Validators.required]],
     pontoReferencia: ['', [Validators.required]],
-    celular: ['', [Validators.required]],
-    telefone: ['', [Validators.required]],
+    celular: ['', [Validators.required, CustomValidators.cellphone]],
+    telefone: [''],
   });
 
   editInfoForm = this.fb.group({
