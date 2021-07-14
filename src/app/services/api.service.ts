@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Department } from '../pages/produtos/solicitar/solicitar.component';
 
@@ -197,7 +197,10 @@ export class ApiService {
     const headers = {
       'Access-Token': 'G416F208V208U416V1196D780E416U1196Y884W416H1144H1196H364H676X780K936G416G936V832O416G416C416V1144H1196H',
     };
-    return this.http.get<ApiMunicipio[]>(url, { headers });
+    return this.http.get<ApiMunicipio[]>(url, { headers })
+      .pipe(
+        map(municipios => municipios.filter(mun => mun.ativo))
+      );
   }
 
 
