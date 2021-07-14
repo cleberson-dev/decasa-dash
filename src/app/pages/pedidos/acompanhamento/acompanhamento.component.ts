@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NbToastrService } from '@nebular/theme';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
@@ -46,6 +47,7 @@ export class AcompanhamentoComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
+    private toastrService: NbToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +73,7 @@ export class AcompanhamentoComponent implements OnInit {
 
     this.matriz = this.authService.isMatriz ?
       this.authService.lojista
-      : this.authService.lojista.lojista;
+      : this.authService.lojista.lojista as Lojista;
     
     this.apiService.getFiliais(this.matriz.id)
       .subscribe(data => {
@@ -87,5 +89,23 @@ export class AcompanhamentoComponent implements OnInit {
   getLojistaById(id: number) {
     if (id === this.matriz.id) return this.matriz;
     return this.filiais.find(filial => filial.id === id); 
+  }
+
+  onLojistaChange(lojistaId: number) {
+    this.apiService.getPedidosPorLojista(lojistaId)
+      .subscribe(
+        data => {
+          this.mapas = data.content.map(pedido => ({
+            id: pedido.id,
+            codigo: `${pedido.id}`.padStart(6, '0'),
+            data: pedido.dataCadastro,
+            loja: pedido.lojista.id
+          }));
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message || 'Sem mensagem disponível', 'Impossível obter mapas pelo lojista');
+        }
+      )
   }
 }

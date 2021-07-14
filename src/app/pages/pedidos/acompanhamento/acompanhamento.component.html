@@ -5,7 +5,7 @@
     <div class="row">
       <div class="form-group col-4">
         <label>Loja</label>
-        <nb-select fullWidth [selected]="lojista.id">
+        <nb-select fullWidth [selected]="lojista.id" (selectedChange)="onLojistaChange($event)">
           <nb-option *ngIf="matriz" [value]="matriz.id">{{ matriz.razaoSocial }} (Matriz)</nb-option>
           <nb-option-group *ngIf="filiais.length > 0" title="Filiais">
             <nb-option *ngFor="let filial of filiais" [value]="filial.id">{{ filial.razaoSocial }}</nb-option>
