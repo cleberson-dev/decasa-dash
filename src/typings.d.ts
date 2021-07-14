@@ -207,7 +207,7 @@ declare type Lojista = {
   dataRg: string;
   inscricaoEstadual: string;
   razaoSocial: string;
-  lojista?: Lojista;
+  lojista?: Partial<Lojista>;
 };
 
 declare type Municipio = {
