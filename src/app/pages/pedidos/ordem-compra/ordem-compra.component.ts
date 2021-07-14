@@ -81,7 +81,7 @@ export class OrdemCompraComponent implements OnInit {
 
     this.matriz = this.authService.isMatriz ? 
       this.authService.lojista : 
-      this.authService.lojista.lojista;
+      this.authService.lojista.lojista as Lojista;
 
     this.apiService.getFiliais(this.matriz.id)
       .subscribe(data => {
