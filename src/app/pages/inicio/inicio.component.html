@@ -93,7 +93,7 @@
         <div class="row">
           <div class="col-4 form-group">
             <label>Inscrição Estadual</label>
-            <input nbInput fullWidth type="text" formControlName="inscricaoEstadual" />
+            <input nbInput fullWidth type="text" formControlName="inscricaoEstadual" [imask]="{ mask: codigoMask }" />
           </div>
           <div class="col-4 form-group">
             <label>CNPJ</label>
