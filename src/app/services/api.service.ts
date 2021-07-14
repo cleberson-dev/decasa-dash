@@ -411,4 +411,15 @@ export class ApiService {
     const url = this.url + '/lojistas/matriz/' + lojistaId;
     return this.http.get<PaginatedResource<Lojista>>(url);
   }
+
+  criarFilial(matrizId: number, filial: RegistrarLojistaParams) {
+    const url = this.url + '/lojistas/';
+    const body: RegistrarLojistaParams & { lojista: { id: number; } } = {
+      ...filial,
+      lojista: { id: matrizId },
+    };
+    console.log('POST', body);
+
+    return this.http.post<Lojista>(url, body);
+  }
 }
