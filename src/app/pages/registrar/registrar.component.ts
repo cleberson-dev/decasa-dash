@@ -146,6 +146,7 @@ export class RegistrarComponent implements OnInit {
       .subscribe(
         municipios => {
           this.municipios = municipios;
+          this.municipiosSuggestions = municipios.map(m => m.nome);
           this.autoInput.nativeElement.focus();
         },
         (err) => {
