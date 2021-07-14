@@ -32,7 +32,7 @@
 </div>
 <div class="row">
   <nb-card class="col-5 home-card">
-    <nb-card-body>
+    <nb-card-body *ngIf="isMatriz">
       <div class="lojas-header">
         <h1>Filiais</h1>
         <button nbButton status="primary" size="small" (click)="openAddLojaModal(dialog)">
@@ -74,46 +74,108 @@
 </div>
 
 <ng-template #dialog let-context let-ref="dialogRef">
-  <nb-card *ngIf="context.type === 'add-loja'">
+  <nb-card *ngIf="context.type === 'add-filial'">
     <nb-card-header>
       Adicionar nova filial
     </nb-card-header>
-    <nb-card-body>
-      <form class="add-loja-form" [formGroup]="addLojaForm" id="addLojaForm" (submit)="onAddLojaSubmit(ref)">
+    <nb-card-body class="add-filial-card-body">
+      <form class="add-loja-form" [formGroup]="addFilialForm" id="addLojaForm" (submit)="onAddLojaSubmit(ref)">
         <div class="row">
-          <div class="col-5 form-group">
-            <label>Nome</label>
+          <div class="col-6 form-group">
+            <label>Nome de Fantasia</label>
             <input nbInput fullWidth type="text" formControlName="nome" />
           </div>
-          <div class="col-5 form-group">
-            <label>CNPJ</label>
-            <input nbInput fullWidth type="text" formControlName="cnpj" [imask]="{ mask: '00.000.000/0000-00' }" />
+          <div class="col-6 form-group">
+            <label>Razão Social</label>
+            <input nbInput fullWidth type="text" formControlName="razaoSocial" />
           </div>
         </div>
         <div class="row">
-          <div class="col-5 form-group">
+          <div class="col-4 form-group">
             <label>Inscrição Estadual</label>
             <input nbInput fullWidth type="text" formControlName="inscricaoEstadual" />
           </div>
-          <div class="col-5 form-group">
-            <label>Código</label>
-            <input nbInput fullWidth type="text" formControlName="codigo" [imask]="{ mask: codigoMask }" />
+          <div class="col-4 form-group">
+            <label>CNPJ</label>
+            <input nbInput fullWidth type="text" formControlName="cnpj" [imask]="{ mask: '00.000.000/0000-00' }" />
+          </div>
+          <div class="col-4 form-group">
+            <label>CPF</label>
+            <input nbInput fullWidth type="text" formControlName="cpf" [imask]="{ mask: '000.000.000-00' }" />
           </div>
         </div>
         <div class="row">
-          <div class="col-5 form-group">
-            <label>Endereço</label>
-            <input nbInput fullWidth type="text" formControlName="endereco" />
+          <div class="col-4 form-group">
+            <label>E-mail</label>
+            <input nbInput fullWidth type="email" formControlName="email" />
           </div>
           <div class="col-4 form-group">
+            <label>Senha</label>
+            <input nbInput fullWidth type="password" formControlName="senha" />
+          </div>
+          <div class="col-4 form-group">
+            <label>Repita a senha</label>
+            <input nbInput fullWidth type="password" formControlName="senha2" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 form-group">
+            <label>CEP</label>
+            <input
+              nbInput fullWidth type="text" 
+              formControlName="cep" 
+              [imask]="{ mask: '00000-000' }"
+              (change)="fillAddresses()"
+              (blur)="fillAddresses()" 
+            />
+          </div>
+          <div class="col-4 form-group">
+            <label>Logradouro</label>
+            <input nbInput fullWidth type="text" formControlName="logradouro" />
+          </div>
+          <div class="col-4 form-group">
+            <label>Bairro</label>
+            <input nbInput fullWidth type="text" formControlName="bairro" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2 form-group">
+            <label>UF</label>
+            <nb-select fullWidth (selectedChange)="onUFChange($event)" formControlName="uf">
+              <nb-option *ngFor="let uf of ufs" [value]="uf.id">{{ uf.sigla }}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col-4 form-group">
+            <label>Municipio</label>
+            <input 
+              #autoInput 
+              nbInput 
+              type="text" 
+              (input)="onMunicipioInputChange()"
+              [nbAutocomplete]="auto"
+              fullWidth
+              formControlName="municipio"
+              class="municipio"
+            />
+            <nb-autocomplete [activeFirst]="false" #auto (selectedChange)="onSelectionChange($event)">
+              <nb-option *ngFor="let municipio of municipiosSuggestions" [value]="municipio">
+                {{ municipio }}
+              </nb-option>
+            </nb-autocomplete>
+          </div>
+          <div class="col-4 form-group">
+            <label>Complemento</label>
+            <input nbInput fullWidth type="text" formControlName="pontoReferencia" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 form-group">
+            <label>Celular</label>
+            <input nbInput fullWidth type="text" formControlName="celular" [imask]="{ mask: '(00) 00000-0000' }" />
+          </div>
+          <div class="col-3 form-group">
             <label>Telefone</label>
-            <input nbInput fullWidth type="text" formControlName="telefone" [imask]="{ mask: '(00) 00000-0000' }" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-4 form-group">
-            <label>Gerente</label>
-            <input nbInput fullWidth type="text" formControlName="gerente" />
+            <input nbInput fullWidth type="text" formControlName="telefone" [imask]="{ mask: '(00) 0000-0000' }" />
           </div>
         </div>
       </form>
@@ -125,7 +187,7 @@
       </button>
       <button 
         nbButton status="primary" 
-        type="submit" form="addLojaForm" [disabled]="addLojaForm.invalid"
+        type="submit" form="addLojaForm" [disabled]="addFilialForm.invalid"
       >
         Adicionar
       </button>

@@ -102,3 +102,12 @@ h1 {
     margin-top: 0;
   }
 }
+
+.add-filial-card-body {
+  max-height: 70vh;
+  overflow-y: scroll;
+}
+
+input.municipio {
+  text-transform: uppercase;
+}

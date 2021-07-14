@@ -1,8 +1,9 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
-import { ApiService } from '../../services/api.service';
+import { ApiMunicipio, ApiService, ApiUF, RegistrarLojistaParams } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { CepService } from '../../services/cep.service';
 
 type Company = {
   nome: string;
@@ -20,7 +21,7 @@ type Loja = {
   codigo: string;
   endereco: string;
   telefone: string;
-  gerente: string;
+  gerente?: string;
 }
 
 @Component({
@@ -29,14 +30,25 @@ type Loja = {
   styleUrls: ['./inicio.component.scss']
 })
 export class InicioComponent implements OnInit {
-  addLojaForm = this.fb.group({
+  @ViewChild('autoInput') autoInput;
+  
+  addFilialForm = this.fb.group({
+    razaoSocial: ['', [Validators.required]],
     nome: ['', [Validators.required]],
-    cnpj: ['', [Validators.required]],
     inscricaoEstadual: ['', [Validators.required]],
-    codigo: ['', [Validators.required]],
-    endereco: ['', [Validators.required]],
+    cpf: ['', [Validators.required]],
+    cnpj: ['', [Validators.required]],
+    email: ['', [Validators.required]],
+    senha: ['', [Validators.required]],
+    senha2: ['', [Validators.required]],
+    cep: ['', [Validators.required]],
+    logradouro: ['', [Validators.required]],
+    bairro: ['', [Validators.required]],
+    uf: ['', [Validators.required]],
+    municipio: ['', [Validators.required]],
+    pontoReferencia: ['', [Validators.required]],
+    celular: ['', [Validators.required]],
     telefone: ['', [Validators.required]],
-    gerente: ['', [Validators.required]],
   });
 
   editInfoForm = this.fb.group({
@@ -45,31 +57,13 @@ export class InicioComponent implements OnInit {
   });
 
   loja: Company;
-
-  lojas: (Loja & { collapsed?: boolean; })[] = [
-    { 
-      nome: 'Loja 01', 
-      cnpj: '99.999.999/9999-99',
-      codigo: 'Codigo 01',
-      endereco: 'Endereço 01',
-      gerente: 'Gerente 01',
-      inscricaoEstadual: '9999999',
-      telefone: '(99) 99999-9999',
-    },
-    { 
-      nome: 'Loja 02', 
-      cnpj: '88.888.888/8888-88',
-      codigo: 'Codigo 02',
-      endereco: 'Endereço 02',
-      gerente: 'Gerente 02',
-      inscricaoEstadual: '8888888',
-      telefone: '(88) 88888-8888',
-    },
-  ];
+  filiais: (Lojista & { collapsed?: boolean; })[] = [];
   
   codigoMask = /^\d+$/;
 
-  filiais: (Lojista & { collapsed?: boolean; })[] = [];
+  ufs: ApiUF[] = [];
+  municipios: ApiMunicipio[] = [];
+  municipiosSuggestions: string[] = [];
 
   constructor(
     private dialogService: NbDialogService,
@@ -77,6 +71,7 @@ export class InicioComponent implements OnInit {
     private apiService: ApiService,
     private toastrService: NbToastrService,
     private authService: AuthService,
+    private cepService: CepService,
   ) { }
 
   ngOnInit(): void {
@@ -101,36 +96,79 @@ export class InicioComponent implements OnInit {
     if (this.authService.isMatriz) {
       this.apiService.getFiliais(this.authService.lojista.id)
         .subscribe(data => {
+          console.log(data);
           this.filiais = data.content;
         });
     }
+
+    this.apiService.getUfs()
+      .subscribe(
+        (ufs) => {
+          this.ufs = ufs;
+        },
+        (err) => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter UFs');
+        }
+      );
   }
 
   openAddLojaModal(dialog: TemplateRef<any>) {
     const context = { 
-      type: 'add-loja'
+      type: 'add-filial'
     };
 
     this.dialogService.open(dialog, { context });
   }
 
   onAddLojaSubmit(dialog: NbDialogRef<any>) {
-    const loja: Loja = {
-      nome: this.addLojaForm.controls['nome'].value,
-      cnpj: this.addLojaForm.controls['cnpj'].value,
-      codigo: this.addLojaForm.controls['codigo'].value,
-      endereco: this.addLojaForm.controls['endereco'].value,
-      inscricaoEstadual: this.addLojaForm.controls['inscricaoEstadual'].value,
-      gerente: this.addLojaForm.controls['gerente'].value,
-      telefone: this.addLojaForm.controls['telefone'].value
-    };
-    this.lojas.push(loja);
+    const municipio = this.municipios.find(mun => mun.nome.toLowerCase() === String(this.addFilialForm.controls['municipio'].value).toLowerCase());
+    if (!municipio) {
+      this.toastrService.danger('Município Inválido', 'Impossível adicionar filial');
+      return;
+    }
 
-    dialog.close();
+    const lojista: RegistrarLojistaParams = {
+      razaoSocial: String(this.addFilialForm.controls['razaoSocial'].value),
+      nome: String(this.addFilialForm.controls['nome'].value),
+      cnpj: String(this.addFilialForm.controls['cnpj'].value),
+      cpf: String(this.addFilialForm.controls['cpf'].value),
+      inscricaoEstadual: String(this.addFilialForm.controls['inscricaoEstadual'].value),
+      email: String(this.addFilialForm.controls['email'].value),
+      senha: String(this.addFilialForm.controls['senha'].value),
+      cep: String(this.addFilialForm.controls['cep'].value),
+      logradouro: String(this.addFilialForm.controls['logradouro'].value),
+      bairro: String(this.addFilialForm.controls['bairro'].value),
+      ufRg: { id: Number(this.addFilialForm.controls['uf'].value) },
+      municipio: { id: municipio.id },
+      pontoReferencia: String(this.addFilialForm.controls['pontoReferencia'].value),
+      celular: String(this.addFilialForm.controls['celular'].value),
+      telefone: String(this.addFilialForm.controls['telefone'].value),
+      perfil: { id: 1 },
+    };
+    const matrizId = this.authService.lojista.id;
+    
+    console.log('Filial', lojista);
+    console.log('Matriz de id', matrizId);
+    this.apiService
+      .criarFilial(matrizId, lojista)
+      .subscribe(
+        novaFilial => {
+          console.log(novaFilial);
+          this.filiais.push(novaFilial);
+          dialog.close();
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error?.message || "Sem mensagem", 'Impossível criar filial');
+          // dialog.close();
+        }
+      );
+
   }
 
   onAddLojaClose(ref: NbDialogRef<any>) {
-    this.addLojaForm.reset();
+    this.addFilialForm.reset();
     ref.close();
   }
 
@@ -159,5 +197,87 @@ export class InicioComponent implements OnInit {
     };
 
     dialog.close();
+  }
+
+  isMatriz(): boolean {
+    return this.authService.isMatriz;
+  }
+
+  onMunicipioInputChange() {
+    const { value } = this.autoInput.nativeElement;
+
+    this.municipiosSuggestions = this.municipios
+      .map(m => m.nome)
+      .filter(municipio => municipio.toLowerCase().includes(value.toLowerCase()));
+  }
+
+  onSelectionChange(text: string) {
+    this.municipiosSuggestions = this.municipios
+      .map(m => m.nome)
+      .filter(municipio => municipio.toLowerCase().includes(text.toLowerCase()));
+  }
+
+  onUFChange(uf: any) {
+    this.addFilialForm.controls['municipio'].setValue('');
+    document.documentElement.style.cursor = "wait";
+    this.apiService.getMunicipiosByUf(Number(uf))
+      .subscribe(
+        municipios => {
+          this.municipios = municipios;
+          this.autoInput.nativeElement.focus();
+        },
+        (err) => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter municípios por UF');
+        },
+        () => {
+          document.documentElement.style.cursor = "default";
+        }
+      );
+  }
+
+  fillAddresses() {
+    const control = this.addFilialForm.controls['cep'];
+    
+    if (control.value === '') {
+      this.addFilialForm.patchValue({
+        logradouro: '', bairro: '', uf: ''
+      });
+      this.municipios = [];
+      return;
+    };
+    if (control.invalid) return;
+
+    this.addFilialForm.controls['municipio'].setValue('');
+
+    this.cepService.get(String(control.value))
+      .subscribe(
+        data => {
+          const uf = this.ufs.find(uf => uf.sigla.toUpperCase() === data.uf.toUpperCase());
+          
+          this.addFilialForm.patchValue({
+            uf: uf.id,
+            logradouro: data.logradouro,
+            bairro: data.bairro,
+            pontoReferencia: data.complemento,
+          });
+
+          this.apiService.getMunicipiosByUf(uf.id)
+            .subscribe(
+              municipios => {
+                this.municipios = municipios;
+                this.municipiosSuggestions = municipios.map(m => m.nome);
+              },
+              err => {
+                console.error(err);
+                this.toastrService.danger(err.error.message, 'Impossível obter municípios por UF via CEP');
+              }
+            )
+        },
+        (err) => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Impossível obter cep');
+        }
+      );
   }
 }
