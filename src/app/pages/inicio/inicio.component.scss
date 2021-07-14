@@ -66,16 +66,42 @@ h1 {
   list-style: none;
 
   .loja-card {
-    padding: 0.2rem 0.8rem;
     margin-bottom: 8px;
     cursor: default;
   }
 
+  .loja-card-wrapper, .info {
+    padding: 0.4rem 0.8rem;
+  }
+
   .loja-card-wrapper {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    cursor: pointer;
+
+    .filial-icon { 
+      grid-area: icon;
+      align-self: center;
+      font-size: 1.4rem;
+    }
+
+    .description {
+      flex-grow: 1;
+      margin-left: 10px;
+      font-size: 0.8rem;
+
+      .filial-nome {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+    }
+
+    .filial-button {
+      width: 3rem;
+    }
+  }
+
+  .loja-card-wrapper:hover {
+    background: darken(white, 5%);
   }
 }
 

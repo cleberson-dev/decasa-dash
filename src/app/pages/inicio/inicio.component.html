@@ -42,16 +42,17 @@
       <ul class="lista-lojas">
         <li *ngFor="let filial of filiais">
           <nb-card class="loja-card">
-            <div class="loja-card-wrapper">
-              <div>
-                <nb-icon icon="shopping-bag-outline"></nb-icon>
-                {{ filial.nome }} - CNPJ: {{ filial.cnpj }}
+            <div class="loja-card-wrapper" (click)="filial.collapsed = !filial.collapsed">
+              <nb-icon class="filial-icon" icon="shopping-bag-outline"></nb-icon>
+              <div class="description">
+                <div class="filial-nome">{{ filial.nome }}</div> 
+                <div>{{ filial.cnpj }}</div>
               </div>
-              <button nbButton ghost (click)="filial.collapsed = !filial.collapsed">
+              <button class="filial-button" nbButton ghost fullWidth>
                 <nb-icon [icon]="filial.collapsed ? 'arrow-up' : 'arrow-down'"></nb-icon>
               </button>
             </div>
-           <div *ngIf="filial.collapsed" class="info" style="margin-top: 1rem;">
+           <div *ngIf="filial.collapsed" class="info" style="margin-top: 5px;">
             <p><span>Nome:</span> {{ filial.nome }}</p>
             <p><span>CNPJ:</span> {{ filial.cnpj }}</p>
             <p><span>Inscrição Estadual:</span> {{ filial.inscricaoEstadual }}</p>
