@@ -3,6 +3,7 @@ import { NbToastrService } from '@nebular/theme';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
+import { PedidosComponent } from '../pedidos.component';
 
 type Mapa = { 
   id: number;
@@ -67,9 +68,10 @@ export class AcompanhamentoComponent implements OnInit {
           codigo: `${compra.id}`.padStart(6, '0'),
           data: compra.dataCompra,
           preco: compra.valor,
+          loja: this.getLojistaById(compra.lojista.id).nome,
         }));
       });
-      
+
     this.apiService.getCompras(this.authService.lojista.id, false)
       .subscribe(data => {
         this.comprasFinalizadas = data.content.map(compra => ({
@@ -77,6 +79,7 @@ export class AcompanhamentoComponent implements OnInit {
           codigo: `${compra.id}`.padStart(6, '0'),
           data: compra.dataCompra,
           preco: compra.valor,
+          loja: this.getLojistaById(compra.lojista.id).nome,
         }));
       });
 

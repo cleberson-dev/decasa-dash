@@ -55,7 +55,7 @@
             <div class="details">
               <p><span>Data:</span> {{ ordem.data }}</p>
               <p><span>Solicitante:</span> {{ ordem.solicitante }}</p>
-              <p><span>Loja:</span> {{ ordem.loja }}</p>
+              <p><span>Loja:</span> {{ ordem.loja || "..." }}</p>
               <p class="total"><span>Total:</span> R${{ ordem.preco.toFixed(2).replace('.', ',') }}</p>
             </div>
           </nb-card-body>
