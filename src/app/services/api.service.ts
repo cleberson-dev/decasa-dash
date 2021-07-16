@@ -149,9 +149,11 @@ export class ApiService {
   }
 
   getFornecedoresPorLojista(lojistaId: number) {
-    const url = this.url + '/fornecedores/lojista/' + lojistaId;
+    // const url = this.url + '/fornecedores/lojista/' + lojistaId;
+    const url = this.url + '/fornecedores';
 
-    return this.http.get<PaginatedResource<Fornecedor>>(url);
+    // return this.http.get<PaginatedResource<Fornecedor>>(url);
+    return this.http.get<Fornecedor[]>(url);
   }
 
   editFornecedor(fornecedor: Fornecedor) {
@@ -424,5 +426,11 @@ export class ApiService {
     console.log('POST', body);
 
     return this.http.post<Lojista>(url, body);
+  }
+
+  atualizarCotacoes(cotacoes: { id: number; preco: number }[]) {
+    const url = this.url + '/cotacoes/1';
+
+    return this.http.patch<PaginatedResource<Cotacao>>(url, cotacoes);
   }
 }

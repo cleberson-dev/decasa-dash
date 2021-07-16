@@ -31,7 +31,7 @@ export class ModalAddFornecedoresComponent implements OnInit {
     this.api.getFornecedoresPorLojista(this.authService.lojista.id)
       .subscribe(
         data => {
-          this.fornecedores = data.content;
+          this.fornecedores = data;
         },
         err => {
           console.error(err);
