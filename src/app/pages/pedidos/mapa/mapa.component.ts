@@ -328,9 +328,11 @@ export class MapaComponent implements OnInit {
           console.log(this.selectedSuppliers);
         });
     } else if (type === 'global') {
-      for (let i = 0; i < this.pedido.detalhesPedidos.length; i += 1) {
-        this.pedido.detalhesPedidos[i].selecionado = this.menorSomaIdx;
-      }
+      Object.entries(this.selectedSuppliers)
+        .forEach(([produtoId]) => {
+          const fornecedorId = this.fornecedorMaisBarato;
+          this.selectedSuppliers[produtoId] = this.precos[`cotacao-p${produtoId}-f${fornecedorId}`] && fornecedorId;
+        });
     }
   }
 
@@ -426,35 +428,40 @@ export class MapaComponent implements OnInit {
           controlInfos.map(info => [info.name, new FormControl(info.value, [Validators.min(0)])])
         )
       );
-    } else {
-      const entries = Object.entries(this.cotacoesForm.controls)
-        .map(([name, control]) => [name, control.value || undefined])
-        .filter(([_, preco]) => !!preco);
-
-      const inputs = entries.map(([name, preco]) => {
-        const produtoId = Number(/p\d+/.exec(name)[0].slice(1));
-        const fornecedorId = Number(/f\d+/.exec(name)[0].slice(1));
-        
-        return { 
-          produto: produtoId, 
-          fornecedor: fornecedorId, 
-          preco
-        };
-      });
-      const toUpdate = inputs.filter(input => this.cotacoes.some(cotacao => cotacao.fornecedor.id === input.fornecedor && cotacao.detalhePedido.produto.id === input.produto && cotacao.preco !== input.preco));
-      const toCreate = inputs.filter(input => this.cotacoes.every(cotacao => cotacao.fornecedor.id !== input.fornecedor && cotacao.detalhePedido.produto.id !== input.produto));
-      
-      console.log('Cotações Antigas', this.cotacoes);
-      console.log('PATCH', toUpdate);
-      console.log('POST', toCreate);
-
-      this.precos = Object.fromEntries(entries);
-      
-      console.log(this.precos);
-      console.log(this.cotacoes);
+      this.isEditingPrices = !this.isEditingPrices;
+      return;
     }
 
-    this.isEditingPrices = !this.isEditingPrices;
+    const entries = Object.entries(this.cotacoesForm.controls)
+      .map(([name, control]) => [name, control.value || undefined]);
+
+    const cotacoes = entries
+      .filter(([_, preco]) => !!preco)
+      .map(([name, preco]) => {
+        const produtoId = Number(/p\d+/.exec(name)[0].slice(1));
+        const fornecedorId = Number(/f\d+/.exec(name)[0].slice(1));
+
+        return {
+          detalhePedido: {
+            id: this.pedido.detalhesPedidos.find(detalhe => detalhe.produto.id === produtoId).id,
+          },
+          fornecedor: { id: fornecedorId },
+          preco,
+        };
+      });
+
+    this.apiService.atualizarCotacoes(this.pedido.id, cotacoes)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.precos = Object.fromEntries(entries);
+          this.isEditingPrices = !this.isEditingPrices;
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message || "Sem mensagem disponível", "Erro ao salvar cotações");
+        }
+      );
   }
 
   selectPrice(produtoId: number, fornecedorId: number) {

@@ -435,8 +435,12 @@ export class ApiService {
     return this.http.post<Lojista>(url, body);
   }
 
-  atualizarCotacoes(cotacoes: { id: number; preco: number }[]) {
-    const url = this.url + '/cotacoes/1';
+  atualizarCotacoes(pedidoId: number, cotacoes: { 
+    detalhePedido: { id: number; }; 
+    fornecedor: { id: number; }
+    preco: number;
+  }[]) {
+    const url = this.url + '/cotacoes/' + pedidoId;
 
     return this.http.patch<PaginatedResource<Cotacao>>(url, cotacoes);
   }
