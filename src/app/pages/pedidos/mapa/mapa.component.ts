@@ -511,7 +511,7 @@ export class MapaComponent implements OnInit {
         fornecedor: this.pedido.fornecedores.find(fornecedor => fornecedor.id === Number(fornecedorId)),
         detalhesCompras: detalhes,
         lojista: this.pedido.lojista,
-        valor: detalhes.reduce((acc, cur) => acc + cur.valor, 0)
+        valor: detalhes.reduce((acc, cur) => acc + cur.quantidade * cur.valor, 0)
       };
     });
 
