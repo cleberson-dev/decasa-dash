@@ -172,7 +172,13 @@
     <div></div>
     <div>
       <button nbButton status="danger" (click)="openCloseMap(dialog)">Encerrar Mapa</button>
-      <button nbButton status="primary" style="margin-left: 1rem;" [attr.disabled]="true">
+      <button 
+        nbButton 
+        status="primary" 
+        style="margin-left: 1rem;" 
+        [disabled]="!isAnySupplierSelected"
+        (click)="openConfirmationDialog(dialog)"
+      >
         Gerar OC
       </button>
     </div>
@@ -262,5 +268,91 @@
       <button nbButton (click)="ref.close()">Não</button>
       <button nbButton style="margin-left: 1rem;" status="primary" (click)="ref.close()">Sim</button>
     </nb-card-body>
+  </nb-card>
+
+  <nb-card class="purchase-confirm-card" *ngIf="context.type === 'purchase-confirmation'">
+    <nb-card-header class="purchase-confirm-card-header">
+      <div>Deseja realizar {{ compras.length }} compra(s)?</div>
+      <div>
+        <button nbButton ghost size="small" (click)="compraSelecionada = compraSelecionada - 1" [disabled]="compraSelecionada === 0">
+          <nb-icon icon="chevron-left-outline"></nb-icon>
+        </button>
+        Compra {{ compraSelecionada + 1}} de {{ compras.length }}
+        <button nbButton ghost size="small" (click)="compraSelecionada = compraSelecionada + 1" [disabled]="compraSelecionada === compras.length - 1">
+          <nb-icon icon="chevron-right-outline"></nb-icon>
+        </button>
+      </div>
+    </nb-card-header>
+      <div class="card-body-wrapper" *ngIf="compras[compraSelecionada]">
+        <nb-card-body class="oc-card-body">
+          <div class="head">
+            <!-- <p class="mapa">Nº do Mapa: <span>123456/2021</span></p> -->
+            <!-- <p>Nº de Controle: <span>{{ compra.id.toString().padStart(6, '0') }}</span></p> -->
+          </div>
+          <h5>Produtos</h5>
+          <table *ngIf="compras[compraSelecionada]">
+            <colgroup>
+              <col />
+              <col class="full" />
+              <col />
+              <col />
+              <col />
+              <col />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Produto</th>
+                <th>Und.</th>
+                <th>Qtd.</th>
+                <th>Pr. Unit</th>
+                <th>Sub Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of getCompraTableData(compraSelecionada)">
+                <td>{{ row.props.codigo }}</td>
+                <td class="full">{{ row.props.produto }}</td>
+                <td>{{ row.props.unidade }}</td>
+                <td>{{ row.props.quantidade }}</td>
+                <td>{{ row.props.precoUnitario.toFixed(2).replace('.', ',') }}</td>
+                <td>{{ row.subTotal.toFixed(2).replace('.', ',') }}</td>
+              </tr>
+            </tbody>
+          </table>
+    
+          <h5>Fornecedor</h5>
+          <div class="fornecedor">
+            <p class="nome">{{ compras[compraSelecionada].fornecedor.nomeFantasia || "[SEM NOME]" }}</p>
+            <p><span>Vendedor:</span> --</p>
+            <p><span>Tel.:</span> {{ compras[compraSelecionada].fornecedor.telefone || compras[compraSelecionada].fornecedor.celular }}</p>
+            <p><span>E-mail:</span> {{ compras[compraSelecionada].fornecedor.email }}</p>
+          </div>
+        </nb-card-body>
+      </div>
+    
+      <nb-card-footer class="oc-card-footer">
+        <a class="link-btn" (click)="ref.close()">
+          <button nbButton>
+            <nb-icon icon="arrow-back"></nb-icon>
+            Voltar ao mapa
+          </button>
+        </a>
+        <div class="footer-right">
+          <p class="preco-total">
+              Total da OC: <span>R${{ compras[compraSelecionada].valor.toFixed(2).replace('.', ',') }}</span>
+          </p>
+          <a 
+            style="text-decoration: none;" 
+            [routerLink]="['/estoque']"
+          >
+            <button 
+              nbButton status="primary"
+            >
+              Confirmar
+            </button>
+          </a>
+        </div>
+      </nb-card-footer>
   </nb-card>
 </ng-template>

@@ -48,6 +48,26 @@ type CustomPedido = {
   fornecedores?: Fornecedor[];
 }
 
+type RowProps = {
+  codigo: string;
+  produto: string;
+  quantidade: number;
+  unidade: string;
+  precoUnitario: number;
+}
+
+class Row {
+  props: RowProps;
+
+  constructor(props: RowProps) {
+    this.props = props;
+  }
+
+  get subTotal(): number {
+    return this.props.precoUnitario * this.props.quantidade;
+  }
+}
+
 @Component({
   selector: 'ngx-mapa',
   templateUrl: './mapa.component.html',
@@ -82,6 +102,9 @@ export class MapaComponent implements OnInit {
 
   matriz: Lojista;
   filiais: Lojista[] = [];
+
+  compras: CompraMaterial[] = [];
+  compraSelecionada: number = 0;
 
   constructor(
     private dialogService: NbDialogService,
@@ -403,11 +426,31 @@ export class MapaComponent implements OnInit {
         )
       );
     } else {
-      this.precos = Object.fromEntries(
-        Object.entries(this.cotacoesForm.controls)
+      const entries = Object.entries(this.cotacoesForm.controls)
         .map(([name, control]) => [name, control.value || undefined])
-      );
+        .filter(([_, preco]) => !!preco);
+
+      const inputs = entries.map(([name, preco]) => {
+        const produtoId = Number(/p\d+/.exec(name)[0].slice(1));
+        const fornecedorId = Number(/f\d+/.exec(name)[0].slice(1));
+        
+        return { 
+          produto: produtoId, 
+          fornecedor: fornecedorId, 
+          preco
+        };
+      });
+      const toUpdate = inputs.filter(input => this.cotacoes.some(cotacao => cotacao.fornecedor.id === input.fornecedor && cotacao.detalhePedido.produto.id === input.produto && cotacao.preco !== input.preco));
+      const toCreate = inputs.filter(input => this.cotacoes.every(cotacao => cotacao.fornecedor.id !== input.fornecedor && cotacao.detalhePedido.produto.id !== input.produto));
+      
+      console.log('Cotações Antigas', this.cotacoes);
+      console.log('PATCH', toUpdate);
+      console.log('POST', toCreate);
+
+      this.precos = Object.fromEntries(entries);
+      
       console.log(this.precos);
+      console.log(this.cotacoes);
     }
 
     this.isEditingPrices = !this.isEditingPrices;
@@ -428,5 +471,56 @@ export class MapaComponent implements OnInit {
 
   get isThereAnyPrice() {
     return Object.entries(this.precos).some(([_, preco]) => !!preco);
+  }
+
+  get isAnySupplierSelected() {
+    return Object.entries(this.selectedSuppliers)
+      .some(([_, preco]) => !!preco);
+  }
+
+  openConfirmationDialog(dialog: TemplateRef<any>) {
+    const purchases: Record<number, { produto: number; preco: number; }[]> = {};
+    
+    Object.entries(this.selectedSuppliers)
+      .forEach(([produtoId, fornecedorId]) => {
+        const produto = Number(produtoId);
+        purchases[fornecedorId] = [
+          ...(purchases[fornecedorId] ? purchases[fornecedorId] : []), 
+          { produto, preco: this.getPreco(produto, fornecedorId) }
+        ];
+      });
+
+    this.compras = Object.entries(purchases).map(([fornecedorId, produtoIds]) => {
+      const detalhes = this.pedido.detalhesPedidos
+        .filter(detalhe => produtoIds.some(({ produto }) => produto === detalhe.produto.id))
+        .map(detalhe => ({
+          produto: detalhe.produto as Produto,
+          quantidade: detalhe.quantidade,
+          valor: this.precos[`cotacao-p${detalhe.produto.id}-f${fornecedorId}`]
+        }));
+      
+      return {
+        fornecedor: this.pedido.fornecedores.find(fornecedor => fornecedor.id === Number(fornecedorId)),
+        detalhesCompras: detalhes,
+        lojista: this.pedido.lojista,
+        valor: detalhes.reduce((acc, cur) => acc + cur.valor, 0)
+      };
+    });
+
+    this.compraSelecionada = 0;
+    const context = {
+      type: 'purchase-confirmation'
+    };
+    this.dialogService.open(dialog, { context });
+  }
+
+  getCompraTableData(idx: number): Row[] {
+    return this.compras[idx].detalhesCompras.map(detalhe => new Row({
+      codigo: detalhe.produto.cnp,
+      produto: detalhe.produto.descricao,
+      unidade: detalhe.produto.unidadeMedidaProduto.sigla,
+      quantidade: detalhe.quantidade,
+      precoUnitario: detalhe.valor,
+    }));
   }
 }
