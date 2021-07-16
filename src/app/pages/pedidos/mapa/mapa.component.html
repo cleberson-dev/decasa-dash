@@ -342,16 +342,12 @@
           <p class="preco-total">
               Total da OC: <span>R${{ compras[compraSelecionada].valor.toFixed(2).replace('.', ',') }}</span>
           </p>
-          <a 
-            style="text-decoration: none;" 
-            [routerLink]="['/estoque']"
-          >
             <button 
               nbButton status="primary"
+              (click)="onPurchaseConfirmation(ref)"
             >
               Confirmar
             </button>
-          </a>
         </div>
       </nb-card-footer>
   </nb-card>

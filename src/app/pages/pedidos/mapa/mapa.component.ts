@@ -1,8 +1,8 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { concatMap } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
@@ -112,6 +112,7 @@ export class MapaComponent implements OnInit {
     private route: ActivatedRoute,
     private toastrService: NbToastrService,
     private authService: AuthService,
+    private router: Router,
   ) { }
 
   get controle(): string {
@@ -522,5 +523,30 @@ export class MapaComponent implements OnInit {
       quantidade: detalhe.quantidade,
       precoUnitario: detalhe.valor,
     }));
+  }
+
+  onPurchaseConfirmation(ref: NbDialogRef<any>) {
+    const compras = this.compras.map(compra => ({
+      lojista: { id: compra.lojista.id },
+      fornecedor: { id: compra.fornecedor.id },
+      valor: compra.valor,
+      detalhesCompras: compra.detalhesCompras.map(detalhe => ({
+        produto: { id: detalhe.produto.id },
+        valor: detalhe.valor,
+        quantidade: detalhe.quantidade,
+      }))
+    }));
+    this.apiService.gerarCompras(compras)
+      .subscribe(
+        data => {
+          console.log(data);
+          ref.close();
+          this.router.navigate(['/pedidos/acompanhamento']);
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message || "Sem mensagem disponível", "Impossível gerar ordens de compra");
+        }
+      );
   }
 }

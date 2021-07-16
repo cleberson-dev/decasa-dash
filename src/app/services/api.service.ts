@@ -78,6 +78,13 @@ type CriarPedidoParams = {
   }[];
 }
 
+type CriarCompraParams = 
+  Pick<CompraMaterial, "valor">
+  & { 
+    lojista: Pick<Lojista, "id">; 
+    fornecedor: Pick<Fornecedor, "id">;
+    detalhesCompras: (Pick<DetalheCompra, "quantidade" | "valor"> & { produto: Pick<Produto, "id"> })[] 
+  };
 
 
 @Injectable({
@@ -278,7 +285,7 @@ export class ApiService {
     return this.http.get<PaginatedResource<DetalheCompra>>(url);
   }
 
-  gerarCompras(compras: CompraMaterial[]) {
+  gerarCompras(compras: CriarCompraParams[]) {
     const url = this.url + '/comprasMateriais';
 
     return this.http.post(url, compras);
