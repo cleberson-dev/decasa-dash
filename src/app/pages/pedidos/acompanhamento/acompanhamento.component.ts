@@ -37,8 +37,7 @@ export class AcompanhamentoComponent implements OnInit {
 
   mapas: Mapa[] = [];
 
-  ordensDeCompra: Compra[] = [];
-
+  comprasAbertas: Compra[] = [];
   comprasFinalizadas: Compra[] = [];
 
   matriz: Lojista;
@@ -61,9 +60,19 @@ export class AcompanhamentoComponent implements OnInit {
         }));
       });
 
-    this.apiService.getComprasPorLojista(this.authService.lojista.id)
+    this.apiService.getCompras(this.authService.lojista.id)
       .subscribe(data => {
-        this.ordensDeCompra = data.content.map(compra => ({
+        this.comprasAbertas = data.content.map(compra => ({
+          id: compra.id,
+          codigo: `${compra.id}`.padStart(6, '0'),
+          data: compra.dataCompra,
+          preco: compra.valor,
+        }));
+      });
+      
+    this.apiService.getCompras(this.authService.lojista.id, false)
+      .subscribe(data => {
+        this.comprasFinalizadas = data.content.map(compra => ({
           id: compra.id,
           codigo: `${compra.id}`.padStart(6, '0'),
           data: compra.dataCompra,

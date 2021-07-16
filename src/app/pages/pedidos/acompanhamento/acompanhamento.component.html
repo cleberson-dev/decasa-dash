@@ -48,7 +48,7 @@
       </div>
     </div>
     <ul class="card-list">
-      <li *ngFor="let ordem of ordensDeCompra">
+      <li *ngFor="let ordem of comprasAbertas">
         <nb-card>
           <nb-card-body class="item-card-body">
             <p class="title">OC {{ ordem.codigo }}</p>
@@ -73,10 +73,10 @@
       </div>
     </div>
     <ul class="card-list">
-        <li *ngFor = "let finalizada of comprasFinalizadas">
+        <li *ngFor="let finalizada of comprasFinalizadas">
           <nb-card>
             <nb-card-body class="item-card-body">
-              <p class="title">CF {{ finalizada.codigo}}</p>
+              <p class="title">CF {{ finalizada.codigo }}</p>
               <div class="details">
                 <p><span>Data:</span> {{ finalizada.data }} </p>
                 <p><span>Loja:</span> {{ finalizada.loja }} </p>

@@ -273,8 +273,8 @@ export class ApiService {
     return this.http.post(url, body);
   }
 
-  getComprasPorLojista(lojistaId: number) {
-    const url = this.url + `/comprasMateriais/lojista/${lojistaId}`;
+  getCompras(lojistaId: number, emAberto: boolean = true) {
+    const url = this.url + `/comprasMateriais/lojista/${lojistaId}?emAberto=${emAberto}`;
 
     return this.http.get<PaginatedResource<CompraMaterial>>(url);
   }
