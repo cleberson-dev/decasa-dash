@@ -66,7 +66,7 @@ export class EstoqueComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getComprasPorLojista(this.authService.lojista.id)
+    this.apiService.getCompras(this.authService.lojista.id)
       .subscribe(data => {
         this.compras = data.content;
       });
@@ -131,39 +131,41 @@ export class EstoqueComponent implements OnInit {
   }
 
   onSearchSale() {
-    this.buscandoCompra = true;
-    this.apiService
-      .getDetalhesCompra(Number(this.compraSelecionada))
-      .subscribe(
-        data => {
-          this.data = data.content.map(detalhe => new Row({
-            codigo: detalhe.produto.cnp,
-            nome: detalhe.produto.descricao,
-            unidade: detalhe.produto.unidadeMedidaProduto.descricao,
-            precoUnitario: detalhe.valor,
-            quantidade: detalhe.quantidade,
-          }));
+    const queryParams = { compra: this.compraSelecionada };
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.route,
+        queryParamsHandling: 'merge',
+        queryParams,
+      }
+    );
+    
+    // this.apiService
+    //   .getCompra(Number(this.compraSelecionada))
+    //   .subscribe(
+    //     compra => {
+    //       this.data = compra.detalhesCompras.map(detalhe => new Row({
+    //         codigo: detalhe.produto.cnp,
+    //         nome: detalhe.produto.descricao,
+    //         unidade: detalhe.produto.unidadeMedidaProduto.sigla,
+    //         precoUnitario: detalhe.valor,
+    //         quantidade: detalhe.quantidade,
+    //       }));
 
-          const queryParams = { compra: this.compraSelecionada };
-          this.router.navigate(
-            [],
-            {
-              relativeTo: this.route,
-              queryParamsHandling: 'merge',
-              queryParams,
-            }
-          );
-          this.buscandoCompra = false;
-        },
-        err => {
-          console.error(err);
-          this.toastrService.danger(err.error.message, 'Impossível obter detalhes de compra');
-          this.buscandoCompra = false;
-          this.route.queryParams
-            .subscribe(params => {
-              this.compraSelecionada = Number(params.compra);
-            });
-        }
-      );
+          
+          
+    //       this.buscandoCompra = false;
+    //     },
+    //     err => {
+    //       console.error(err);
+    //       this.toastrService.danger(err.error.message, 'Impossível obter detalhes de compra');
+    //       this.buscandoCompra = false;
+    //       this.route.queryParams
+    //         .subscribe(params => {
+    //           this.compraSelecionada = Number(params.compra);
+    //         });
+    //     }
+    //   );
   }
 }
