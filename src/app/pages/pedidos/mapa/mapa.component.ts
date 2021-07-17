@@ -1,4 +1,3 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +6,7 @@ import { concatMap } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
+import { LojistasService } from '../../../services/lojistas.service';
 
 type MapRow = {
   produto: {
@@ -113,6 +113,7 @@ export class MapaComponent implements OnInit {
     private toastrService: NbToastrService,
     private authService: AuthService,
     private router: Router,
+    private lojistasService: LojistasService,
   ) { }
 
   get controle(): string {
@@ -258,7 +259,7 @@ export class MapaComponent implements OnInit {
       this.authService.lojista : 
       this.authService.lojista.lojista as Lojista;
 
-    this.apiService.getFiliais(this.matriz.id)
+    this.lojistasService.filiais
       .subscribe(data => {
         this.filiais = data.content;
       });

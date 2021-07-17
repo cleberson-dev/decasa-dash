@@ -27,27 +27,6 @@ export type ApiUF = {
   sigla: string;
 }
 
-export type RegistrarLojistaParams = {
-  razaoSocial: string;
-  nome: string;
-  cnpj: string;
-  inscricaoEstadual: string;
-  cpf: string;
-  email: string;
-  senha: string;
-  cep: string;
-  logradouro: string;
-  bairro: string;
-  ufRg: { id: number; };
-  municipio: { id: number; };
-  pontoReferencia: string;
-  celular: string;
-  telefone?: string;
-
-  perfil: { id: number; };
-  rg?: string;
-}
-
 type LogarLojistaParams = {
   email: string;
   senha: string;
@@ -196,8 +175,6 @@ export class ApiService {
     return this.http.post(url, compras);
   }
 
-  
-
   getCotacoesPorPedido(pedidoId: number) {
     const url = this.url + '/cotacoes/pedido/' + pedidoId;
     return this.http.get<Cotacao[]>(url);
@@ -246,12 +223,6 @@ export class ApiService {
     return this.http.get(url);
   }
 
-  getLojista(lojistaId: number) {
-    const url = this.url + '/lojistas/' + lojistaId;
-
-    return this.http.get<Lojista>(url);
-  }
-
   criarPedido(params: CriarPedidoParams) {
     const url = this.url + '/pedidos';
 
@@ -296,22 +267,6 @@ export class ApiService {
       lojista: { id: number };
       dataCadastro: string;
     }>>(url);
-  }
-
-  getFiliais(lojistaId: number) {
-    const url = this.url + '/lojistas/matriz/' + lojistaId;
-    return this.http.get<PaginatedResource<Lojista>>(url);
-  }
-
-  criarFilial(matrizId: number, filial: RegistrarLojistaParams) {
-    const url = this.url + '/lojistas/';
-    const body: RegistrarLojistaParams & { lojista: { id: number; } } = {
-      ...filial,
-      lojista: { id: matrizId },
-    };
-    console.log('POST', body);
-
-    return this.http.post<Lojista>(url, body);
   }
 
   atualizarCotacoes(pedidoId: number, cotacoes: { 

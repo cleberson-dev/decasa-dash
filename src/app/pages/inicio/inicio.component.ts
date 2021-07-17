@@ -1,9 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
-import { ApiMunicipio, ApiService, ApiUF, RegistrarLojistaParams } from '../../services/api.service';
+import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { CepService } from '../../services/cep.service';
+import { LojistasService } from '../../services/lojistas.service';
 import * as CustomValidators from '../../validators';
 
 type Company = {
@@ -73,10 +74,11 @@ export class InicioComponent implements OnInit {
     private toastrService: NbToastrService,
     private authService: AuthService,
     private cepService: CepService,
+    private lojistasService: LojistasService,
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getLojista(this.authService.lojista.id)
+    this.lojistasService.atual
       .subscribe(
         lojista => {
           this.loja = {
@@ -95,9 +97,8 @@ export class InicioComponent implements OnInit {
       );
 
     if (this.authService.isMatriz) {
-      this.apiService.getFiliais(this.authService.lojista.id)
+      this.lojistasService.filiais
         .subscribe(data => {
-          console.log(data);
           this.filiais = data.content;
         });
     }
@@ -147,15 +148,11 @@ export class InicioComponent implements OnInit {
       telefone: String(this.addFilialForm.controls['telefone'].value),
       perfil: { id: 1 },
     };
-    const matrizId = this.authService.lojista.id;
     
-    console.log('Filial', lojista);
-    console.log('Matriz de id', matrizId);
-    this.apiService
-      .criarFilial(matrizId, lojista)
+    this.lojistasService
+      .criarFilial(lojista)
       .subscribe(
         novaFilial => {
-          console.log(novaFilial);
           this.filiais.push(novaFilial);
           dialog.close();
         },

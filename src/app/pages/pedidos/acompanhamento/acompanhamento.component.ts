@@ -3,7 +3,7 @@ import { NbToastrService } from '@nebular/theme';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
-import { PedidosComponent } from '../pedidos.component';
+import { LojistasService } from '../../../services/lojistas.service';
 
 type Mapa = { 
   id: number;
@@ -48,6 +48,7 @@ export class AcompanhamentoComponent implements OnInit {
     private apiService: ApiService,
     private authService: AuthService,
     private toastrService: NbToastrService,
+    private lojistasService: LojistasService,
   ) {}
 
   ngOnInit(): void {
@@ -87,7 +88,7 @@ export class AcompanhamentoComponent implements OnInit {
       this.authService.lojista
       : this.authService.lojista.lojista as Lojista;
     
-    this.apiService.getFiliais(this.matriz.id)
+    this.lojistasService.filiais
       .subscribe(data => {
         this.filiais = data.content;
       });

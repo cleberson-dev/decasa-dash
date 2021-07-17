@@ -496,3 +496,24 @@ declare type PaginationOptions = {
   page?: number;
   size?: number;
 };
+
+declare type RegistrarLojistaParams = {
+  razaoSocial: string;
+  nome: string;
+  cnpj: string;
+  inscricaoEstadual: string;
+  cpf: string;
+  email: string;
+  senha: string;
+  cep: string;
+  logradouro: string;
+  bairro: string;
+  ufRg: { id: number; };
+  municipio: { id: number; };
+  pontoReferencia: string;
+  celular: string;
+  telefone?: string;
+
+  perfil: { id: number; };
+  rg?: string;
+};

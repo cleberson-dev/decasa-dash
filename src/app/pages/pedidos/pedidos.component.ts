@@ -5,12 +5,8 @@ import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { Tab } from '../../components/tabber/tabber.component';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { LojistasService } from '../../services/lojistas.service';
 import { ProdutosService } from '../../services/produtos.service';
-
-type Pedido = {
-  data: string;
-  codigo: string;
-}
 
 type PedidoProduto = {
   produto: Produto;
@@ -52,7 +48,6 @@ export class PedidosComponent implements OnInit {
   matriz: Lojista;
   filiais: Lojista[] = [];
 
-
   constructor(
     private fb: FormBuilder,
     private dialogService: NbDialogService,
@@ -61,6 +56,7 @@ export class PedidosComponent implements OnInit {
     private toastrService: NbToastrService,
     private authService: AuthService,
     private produtosService: ProdutosService,
+    private lojistasService: LojistasService,
   ) {
   }
 
@@ -82,7 +78,7 @@ export class PedidosComponent implements OnInit {
       this.authService.lojista : 
       this.authService.lojista.lojista as Lojista;
 
-    this.api.getFiliais(this.matriz.id)
+    this.lojistasService.filiais
       .subscribe(data => {
         this.filiais = data.content;
       });

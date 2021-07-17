@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { Observable, of } from 'rxjs';
-import { concatMap, filter, flatMap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { concatMap, filter } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
+import { LojistasService } from '../../../services/lojistas.service';
+
 type RowProps = {
   codigo: string;
   produto: string;
@@ -60,17 +62,17 @@ export class OrdemCompraComponent implements OnInit {
     private toastrService: NbToastrService,
     private router: Router, 
     private authService: AuthService,
+    private lojistasService: LojistasService,
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap
       .pipe(
         filter(params => !Number.isNaN(params.get('compraId'))),
-        // concatMap(params => this.apiService.getCompra(Number(params.get('compraId')))),
         concatMap(params => this.apiService.getCompra(Number(params.get('compraId'))))
       )
       .subscribe(
-        compra => {
+        (compra) => {
           this.compra = compra;
         },
         ({ error, status }) => {
@@ -83,7 +85,7 @@ export class OrdemCompraComponent implements OnInit {
       this.authService.lojista : 
       this.authService.lojista.lojista as Lojista;
 
-    this.apiService.getFiliais(this.matriz.id)
+    this.lojistasService.filiais
       .subscribe(data => {
         this.filiais = data.content;
       });
