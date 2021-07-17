@@ -5,6 +5,7 @@ import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { Tab } from '../../components/tabber/tabber.component';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { ProdutosService } from '../../services/produtos.service';
 
 type Pedido = {
   data: string;
@@ -59,6 +60,7 @@ export class PedidosComponent implements OnInit {
     private router: Router,
     private toastrService: NbToastrService,
     private authService: AuthService,
+    private produtosService: ProdutosService,
   ) {
   }
 
@@ -184,7 +186,7 @@ export class PedidosComponent implements OnInit {
 
   onCodigoBlur() {
     const codigo = this.novoPedidoForm.controls['codigo'].value;
-    this.api.findProdutoByCnp(codigo, this.authService.lojista.id)
+    this.produtosService.porCodigo(codigo)
       .subscribe(
         (produto) => {
           if (!produto) return this.resetForm();
@@ -203,7 +205,7 @@ export class PedidosComponent implements OnInit {
   onCodigoChange() {
     const codigo = String(this.novoPedidoForm.controls['codigo'].value);
 
-    this.api.findProdutoByCnp(codigo, this.authService.lojista.id)
+    this.produtosService.porCodigo(codigo)
       .subscribe(
         produto => {
           this.novoPedidoForm.controls['codigo'].setValue(produto.cnp);

@@ -7,8 +7,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import { ApiService } from '../../../services/api.service';
-import { AuthService } from '../../../services/auth.service';
+import { ProdutosService } from '../../../services/produtos.service';
 import { Department } from '../solicitar/solicitar.component';
 
 type AddProductItem = {
@@ -38,14 +37,13 @@ export class ModalAdicionarComponent implements OnInit {
   selectedCategory: string = 'todos';
 
   constructor(
-    private apiService: ApiService,
     private toastrService: NbToastrService,
-    private authService: AuthService,
+    private produtosService: ProdutosService,
   ) {}
 
   ngOnInit(): void {
     this.loading = true;
-    this.apiService.getAllProducts(this.authService.lojista.id)
+    this.produtosService.todos()
       .subscribe(
         (data) => {
           this.produtos = [...data.content];
@@ -67,7 +65,7 @@ export class ModalAdicionarComponent implements OnInit {
     this.selectedCategory = option;
     switch (option) {
       case 'mais-vendidos':
-        this.apiService.getProdutosMaisVendidos(this.authService.lojista.id)
+        this.produtosService.maisVendidos()
           .subscribe(
             (data) => {
               this.produtos = [...data.content];
@@ -80,7 +78,7 @@ export class ModalAdicionarComponent implements OnInit {
           );
         break;
       case 'todos':
-        this.apiService.getAllProducts(this.authService.lojista.id)
+        this.produtosService.todos()
           .subscribe(
             (data) => {
               this.produtos = [...data.content];
@@ -94,8 +92,8 @@ export class ModalAdicionarComponent implements OnInit {
         break;
       default:
         const categoriaId = Number(option);
-        this.apiService
-          .getProdutosPorCategoria(categoriaId, this.authService.lojista.id)
+        this.produtosService
+          .porCategoria(categoriaId)
           .subscribe(
             (data) => {
               this.produtos = [...data.content];
@@ -156,15 +154,15 @@ export class ModalAdicionarComponent implements OnInit {
     const category = this.selectedCategory;
 
     if (['mais-vendidos', 'todos'].includes(category)) {
-      this.apiService.buscarProduto(query).subscribe((data) => {
+      this.produtosService.buscarPorDescricao(query).subscribe((data) => {
         alert('achou! ' + data.content.length);
         this.produtos = data.content;
       });
       return;
     }
 
-    this.apiService
-      .buscarProdutoPorCategoria(query, Number(category))
+    this.produtosService
+      .buscarPorDescricaoECategoria(query, Number(category))
       .subscribe(
         (data) => {
           this.produtos = [...data.content];
@@ -178,8 +176,8 @@ export class ModalAdicionarComponent implements OnInit {
   }
 
   onPageChange(changedPage: number) {
-    this.apiService
-      .getAllProducts(this.authService.lojista.id, { page: changedPage })
+    this.produtosService
+      .todos({ page: changedPage })
       .subscribe(
         data => {
           this.produtos = [...data.content];

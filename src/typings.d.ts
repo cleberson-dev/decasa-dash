@@ -491,3 +491,8 @@ declare type SolicitacaoPreco = {
   dataSolicitacao: string;
   emailContato: string;
 };
+
+declare type PaginationOptions = {
+  page?: number;
+  size?: number;
+};

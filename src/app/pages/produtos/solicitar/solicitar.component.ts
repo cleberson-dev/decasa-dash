@@ -8,6 +8,7 @@ import { CepService } from '../../../services/cep.service';
 import telefone from 'telefone';  
 import { ValidationErrors } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
+import { ProdutosService } from '../../../services/produtos.service';
 
 export type Department = {
   id: number;
@@ -51,6 +52,7 @@ export class SolicitarComponent implements OnInit {
     private apiService: ApiService,
     private cepService: CepService,
     private toastrService: NbToastrService,
+    private produtosService: ProdutosService,
   ) { }
 
   ngOnInit(): void {
@@ -111,7 +113,7 @@ export class SolicitarComponent implements OnInit {
       profundidadeCm: this.myForm.controls['profundidade'].value
     }
 
-    this.apiService.criarProduto(produto)
+    this.produtosService.criarProduto(produto)
       .subscribe(
         () => {
           alert('Criado!');

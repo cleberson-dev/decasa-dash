@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Department } from '../pages/produtos/solicitar/solicitar.component';
 
@@ -60,11 +60,6 @@ type CriarColaboradorParams = {
   senha: string;
 };
 
-type PaginationOptions = {
-  page?: number;
-  size?: number;
-}
-
 type CriarPedidoParams = {
   lojista: {
     id: number;
@@ -95,24 +90,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getAllProducts(lojistaId: number, paginationOptions?: PaginationOptions) {
-    const page = (paginationOptions?.page || 1) - 1;
-    const size = paginationOptions?.size || 10;
-
-    let url = this.url + '/produtos/lojista/' + lojistaId;
-    url += '?page=' + page;
-    url += '&size=' + size;
-    url += '&naoSelecionado=true';
-
-    return this.http.get<PaginatedResource<Produto>>(url);
-  }
-
-  getProdutosPorCategoria(categoriaId: number, lojistaId: number) {
-    let url = `${this.url}/produtos/lojista/${lojistaId}/categoria/${categoriaId}`;
-    url += '?naoSelecionado=true';
-    
-    return this.http.get<PaginatedResource<Produto>>(url);
-  }
+  
 
   getProdutosLojista(lojistaId: number) {
     const url = this.url + '/lojistasProdutos/lojista/' + lojistaId;
@@ -219,19 +197,6 @@ export class ApiService {
     return this.http.get<ApiUF[]>(url);
   }
 
-  getProdutosMaisVendidos(lojistaId: number, paginationOptions?: PaginationOptions) {
-    const page = (paginationOptions?.page || 1) - 1;
-    const size = paginationOptions?.size || 10;
-    
-    let url = this.url + '/produtos/maisVendido/';
-    url += '&page=' + page;
-    url += '&size=' + size;
-    url += '&idLojista=' + lojistaId;
-
-    return this.http.get<PaginatedResource<Produto>>(url);
-  };
-
-
   getProdutosLojistaMaisVendidos(lojistaId: number, paginationOptions?: PaginationOptions) {
     const page = (paginationOptions?.page || 1) - 1;
     const size = paginationOptions?.size || 10;
@@ -243,21 +208,10 @@ export class ApiService {
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   };
 
-  findProdutoByCnp(cnp: string, lojistaId: number) {
-    const url = `${this.url}/produtos/cnp/${cnp}/lojista/${lojistaId}`;
-
-    return this.http.get<Produto>(url);
-  }
-
   getUnidadesDeMedidas() {
     const url = this.url + '/unidadesMedidas';
 
     return this.http.get<UnidadeMedida[]>(url);
-  }
-
-  criarProduto(produto: Produto) {
-    const url = this.url + '/produtos';
-    return this.http.post(url, produto);
   }
 
   addProdutos(items: AddProductItem[], lojistaId: number) {
@@ -296,12 +250,6 @@ export class ApiService {
     return this.http.get<Fornecedor>(url);
   }
 
-  getProduto(produtoId: number) {
-    const url = this.url + '/produtos/' + produtoId;
-
-    return this.http.get<Produto>(url);
-  }
-
   getCotacoesPorPedido(pedidoId: number) {
     const url = this.url + '/cotacoes/pedido/' + pedidoId;
     return this.http.get<Cotacao[]>(url);
@@ -330,23 +278,6 @@ export class ApiService {
     url += '&size=' + size;
 
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
-  }
-
-  buscarProduto(query: string) {
-    const url = this.url + `/produtos?palavraChave=${query}`;
-    return this.http.get<PaginatedResource<Produto>>(url);
-  }
-
-  buscarProdutoPorCategoria(query: string, categoriaId: number, paginationOptions?: PaginationOptions) {
-    const page = (paginationOptions?.page || 1) - 1;
-    const size = paginationOptions?.size || 10;
-
-    let url = this.url + '/produtos/categorias/' + categoriaId;
-    url += '?palavraChave=' + query;
-    url += '&page=' + page;
-    url += '&size=' + size;
-
-    return this.http.get<PaginatedResource<Produto>>(url);
   }
 
   buscarProdutosMaisVendidosLojista(lojistaId: number) {
