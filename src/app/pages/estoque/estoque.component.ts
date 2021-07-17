@@ -6,6 +6,7 @@ import { concatMap, filter } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { PedidosService } from '../../services/pedidos.service';
 
 type RowProps = {
   codigo: string;
@@ -63,10 +64,11 @@ export class EstoqueComponent implements OnInit {
     private toastrService: NbToastrService,
     private router: Router,
     private authService: AuthService,
+    private pedidosService: PedidosService,
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getCompras(this.authService.lojista.id)
+    this.pedidosService.compras()
       .subscribe(data => {
         this.compras = data.content;
       });
@@ -78,7 +80,7 @@ export class EstoqueComponent implements OnInit {
           const { compra } = params;
           if (Number.isNaN(compra)) throw Error('Não existe compra');
           this.compraSelecionada = Number(compra);
-          return this.apiService.getCompra(Number(compra))
+          return this.pedidosService.compra(Number(compra))
         })
       )
       .subscribe(

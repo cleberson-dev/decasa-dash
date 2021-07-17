@@ -7,6 +7,7 @@ import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { LojistasService } from '../../../services/lojistas.service';
+import { PedidosService } from '../../../services/pedidos.service';
 
 type MapRow = {
   produto: {
@@ -114,6 +115,7 @@ export class MapaComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private lojistasService: LojistasService,
+    private pedidosService: PedidosService,
   ) { }
 
   get controle(): string {
@@ -190,7 +192,7 @@ export class MapaComponent implements OnInit {
       concatMap(params => {
 
         const pedidoId = Number(params.get('pedidoId'));
-        return this.apiService.getSolicitacoesPreco(pedidoId);
+        return this.pedidosService.solicitacoesPrecoPorPedido(pedidoId);
       })  
     )
     .subscribe(
@@ -207,7 +209,7 @@ export class MapaComponent implements OnInit {
 
         const pedidoId = Number(params.get('pedidoId'));
         // return this.apiService.getCotacoesPorPedido(pedidoId);
-        return this.apiService.getPedido(pedidoId);
+        return this.pedidosService.obter(pedidoId);
       })
     )
     .subscribe(
@@ -242,7 +244,7 @@ export class MapaComponent implements OnInit {
         concatMap(params => {
           const pedidoId = Number(params.get('pedidoId'));
 
-          return this.apiService.getCotacoesPorPedido(pedidoId);
+          return this.pedidosService.cotacoesPorPedido(pedidoId);
         })
       )
       .subscribe(cotacoes => {
@@ -451,7 +453,7 @@ export class MapaComponent implements OnInit {
         };
       });
 
-    this.apiService.atualizarCotacoes(this.pedido.id, cotacoes)
+    this.pedidosService.atualizarCotacoes(this.pedido.id, cotacoes)
       .subscribe(
         data => {
           console.log(data);
@@ -544,7 +546,7 @@ export class MapaComponent implements OnInit {
         quantidade: detalhe.quantidade,
       }))
     }));
-    this.apiService.gerarCompras(compras)
+    this.pedidosService.gerarCompras(compras)
       .subscribe(
         data => {
           console.log(data);

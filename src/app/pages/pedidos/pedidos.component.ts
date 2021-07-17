@@ -6,6 +6,7 @@ import { Tab } from '../../components/tabber/tabber.component';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { LojistasService } from '../../services/lojistas.service';
+import { PedidosService } from '../../services/pedidos.service';
 import { ProdutosService } from '../../services/produtos.service';
 
 type PedidoProduto = {
@@ -57,6 +58,7 @@ export class PedidosComponent implements OnInit {
     private authService: AuthService,
     private produtosService: ProdutosService,
     private lojistasService: LojistasService,
+    private pedidosService: PedidosService,
   ) {
   }
 
@@ -237,7 +239,7 @@ export class PedidosComponent implements OnInit {
 
     
 
-    this.api.criarPedido(body)
+    this.pedidosService.criar(body)
       .subscribe(
         data => {
           console.log('Enviado: ', body);

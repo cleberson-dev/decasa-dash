@@ -4,6 +4,7 @@ import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { LojistasService } from '../../../services/lojistas.service';
+import { PedidosService } from '../../../services/pedidos.service';
 
 type Mapa = { 
   id: number;
@@ -49,10 +50,11 @@ export class AcompanhamentoComponent implements OnInit {
     private authService: AuthService,
     private toastrService: NbToastrService,
     private lojistasService: LojistasService,
+    private pedidosService: PedidosService,
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getPedidosPorLojista(this.authService.lojista.id)
+    this.pedidosService.filtrarPorLojista(this.authService.lojista.id)
       .subscribe(data => {
         this.mapas = data.content.map(pedido => ({
           id: pedido.id,
@@ -62,7 +64,7 @@ export class AcompanhamentoComponent implements OnInit {
         }));
       });
 
-    this.apiService.getCompras(this.authService.lojista.id)
+    this.pedidosService.compras()
       .subscribe(data => {
         this.comprasAbertas = data.content.map(compra => ({
           id: compra.id,
@@ -73,7 +75,7 @@ export class AcompanhamentoComponent implements OnInit {
         }));
       });
 
-    this.apiService.getCompras(this.authService.lojista.id, false)
+    this.pedidosService.compras(false)
       .subscribe(data => {
         this.comprasFinalizadas = data.content.map(compra => ({
           id: compra.id,
@@ -105,7 +107,7 @@ export class AcompanhamentoComponent implements OnInit {
   }
 
   onLojistaChange(lojistaId: number) {
-    this.apiService.getPedidosPorLojista(lojistaId)
+    this.pedidosService.filtrarPorLojista(lojistaId)
       .subscribe(
         data => {
           this.mapas = data.content.map(pedido => ({

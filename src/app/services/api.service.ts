@@ -22,28 +22,6 @@ type CriarColaboradorParams = {
   senha: string;
 };
 
-type CriarPedidoParams = {
-  lojista: {
-    id: number;
-  };
-  detalhesPedidos: {
-    produto: { id: number; };
-    quantidade: number;
-  }[];
-  fornecedores: {
-    id: number;
-  }[];
-}
-
-type CriarCompraParams = 
-  Pick<CompraMaterial, "valor">
-  & { 
-    lojista: Pick<Lojista, "id">; 
-    fornecedor: Pick<Fornecedor, "id">;
-    detalhesCompras: (Pick<DetalheCompra, "quantidade" | "valor"> & { produto: Pick<Produto, "id"> })[] 
-  };
-
-
 @Injectable({
   providedIn: 'root',
 })
@@ -123,29 +101,6 @@ export class ApiService {
     return this.http.post(url, body);
   }
 
-  getCompras(lojistaId: number, emAberto: boolean = true) {
-    const url = this.url + `/comprasMateriais/lojista/${lojistaId}?emAberto=${emAberto}`;
-
-    return this.http.get<PaginatedResource<CompraMaterial>>(url);
-  }
-
-  getDetalhesCompra(compraId: number) {
-    const url = this.url + `/detalhesCompras/compraMaterial/${compraId}`;
-    
-    return this.http.get<PaginatedResource<DetalheCompra>>(url);
-  }
-
-  gerarCompras(compras: CriarCompraParams[]) {
-    const url = this.url + '/comprasMateriais';
-
-    return this.http.post(url, compras);
-  }
-
-  getCotacoesPorPedido(pedidoId: number) {
-    const url = this.url + '/cotacoes/pedido/' + pedidoId;
-    return this.http.get<Cotacao[]>(url);
-  }
-
   buscarProdutoLojista(query: string, lojistaId: number, paginationOpts?: PaginationOptions) {
     const page = (paginationOpts?.page || 1) - 1;
     const size = paginationOpts?.size || 10;
@@ -176,12 +131,6 @@ export class ApiService {
     return this.http.get(url);
   }
 
-  criarPedido(params: CriarPedidoParams) {
-    const url = this.url + '/pedidos';
-
-    return this.http.post<{ id: number; dataCadastro: number; lojista: Lojista; }>(url, params);
-  }
-
   getItensEstoquePorCompra(compraId: number) {
     const url = this.url + '/itensEstoque/compraMaterial/' + compraId;
 
@@ -192,43 +141,5 @@ export class ApiService {
     const url = this.url + '/lojista/' + lojistaId;
 
     return this.http.get<PaginatedResource<VendaMaterial>>(url);
-  }
-
-  getCompra(compraId: number) {
-    const url = this.url + '/comprasMateriais/' + compraId;
-
-    return this.http.get<CompraMaterial>(url);
-  }
-
-  getPedido(pedidoId: number) {
-    const url = this.url + '/pedidos/' + pedidoId;
-
-    return this.http.get<Pedido>(url);
-  }
-
-  getSolicitacoesPreco(pedidoId: number) {
-    const url = this.url + '/solicitacoesPrecos/pedido/' + pedidoId;
-    
-    return this.http.get<PaginatedResource<SolicitacaoPreco>>(url);
-  }
-
-  getPedidosPorLojista(lojistaId: number) {
-    const url = this.url + '/pedidos/lojista/' + lojistaId;
-
-    return this.http.get<PaginatedResource<{
-      id: number;
-      lojista: { id: number };
-      dataCadastro: string;
-    }>>(url);
-  }
-
-  atualizarCotacoes(pedidoId: number, cotacoes: { 
-    detalhePedido: { id: number; }; 
-    fornecedor: { id: number; }
-    preco: number;
-  }[]) {
-    const url = this.url + '/cotacoes/' + pedidoId;
-
-    return this.http.patch<PaginatedResource<Cotacao>>(url, cotacoes);
   }
 }

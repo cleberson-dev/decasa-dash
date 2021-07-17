@@ -7,6 +7,7 @@ import { Tab } from '../../../components/tabber/tabber.component';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { LojistasService } from '../../../services/lojistas.service';
+import { PedidosService } from '../../../services/pedidos.service';
 
 type RowProps = {
   codigo: string;
@@ -63,13 +64,14 @@ export class OrdemCompraComponent implements OnInit {
     private router: Router, 
     private authService: AuthService,
     private lojistasService: LojistasService,
+    private pedidosService: PedidosService,
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap
       .pipe(
         filter(params => !Number.isNaN(params.get('compraId'))),
-        concatMap(params => this.apiService.getCompra(Number(params.get('compraId'))))
+        concatMap(params => this.pedidosService.compra(Number(params.get('compraId'))))
       )
       .subscribe(
         (compra) => {
