@@ -1,9 +1,9 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
-import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
+import { ApiMunicipio, ApiUF } from '../../services/localizacao.service';
 import { AuthService } from '../../services/auth.service';
-import { CepService } from '../../services/cep.service';
+import { LocalizacaoService } from '../../services/localizacao.service';
 import { LojistasService } from '../../services/lojistas.service';
 import * as CustomValidators from '../../validators';
 
@@ -70,11 +70,10 @@ export class InicioComponent implements OnInit {
   constructor(
     private dialogService: NbDialogService,
     private fb: FormBuilder,
-    private apiService: ApiService,
     private toastrService: NbToastrService,
     private authService: AuthService,
-    private cepService: CepService,
     private lojistasService: LojistasService,
+    private localizacaoService: LocalizacaoService,
   ) { }
 
   ngOnInit(): void {
@@ -103,7 +102,7 @@ export class InicioComponent implements OnInit {
         });
     }
 
-    this.apiService.getUfs()
+    this.localizacaoService.ufs
       .subscribe(
         (ufs) => {
           this.ufs = ufs;
@@ -218,7 +217,7 @@ export class InicioComponent implements OnInit {
   onUFChange(uf: any) {
     this.addFilialForm.controls['municipio'].setValue('');
     document.documentElement.style.cursor = "wait";
-    this.apiService.getMunicipiosByUf(Number(uf))
+    this.localizacaoService.municipiosPorUf(Number(uf))
       .subscribe(
         municipios => {
           this.municipios = municipios;
@@ -249,7 +248,7 @@ export class InicioComponent implements OnInit {
 
     this.addFilialForm.controls['municipio'].setValue('');
 
-    this.cepService.get(String(control.value))
+    this.localizacaoService.informacaoCep(String(control.value))
       .subscribe(
         data => {
           const uf = this.ufs.find(uf => uf.sigla.toUpperCase() === data.uf.toUpperCase());
@@ -261,7 +260,7 @@ export class InicioComponent implements OnInit {
             pontoReferencia: data.complemento,
           });
 
-          this.apiService.getMunicipiosByUf(uf.id)
+          this.localizacaoService.municipiosPorUf(uf.id)
             .subscribe(
               municipios => {
                 this.municipios = municipios;

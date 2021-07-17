@@ -15,18 +15,6 @@ type Options = {
   itemsPerPage?: number;
 };
 
-export type ApiMunicipio = {
-  id: number;
-  nome: string;
-  ativo: boolean;
-};
-
-export type ApiUF = {
-  id: number
-  nome: string;
-  sigla: string;
-}
-
 type CriarColaboradorParams = {
   nome: string;
   perfil: number;
@@ -103,23 +91,6 @@ export class ApiService {
     url += '&size=' + (options?.itemsPerPage || 10);
 
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
-  }
-
-  getMunicipiosByUf(ufId: number) {
-    const url = '/cadastros-0.0.1/util/municipios/' + ufId;
-    const headers = {
-      'Access-Token': 'G416F208V208U416V1196D780E416U1196Y884W416H1144H1196H364H676X780K936G416G936V832O416G416C416V1144H1196H',
-    };
-    return this.http.get<ApiMunicipio[]>(url, { headers })
-      .pipe(
-        map(municipios => municipios.filter(mun => mun.ativo))
-      );
-  }
-
-  getUfs() {
-    const url = '/cadastros-0.0.1/util/uf';
-
-    return this.http.get<ApiUF[]>(url);
   }
 
   getProdutosLojistaMaisVendidos(lojistaId: number, paginationOptions?: PaginationOptions) {

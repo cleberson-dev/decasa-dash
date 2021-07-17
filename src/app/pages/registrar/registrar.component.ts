@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild, ViewRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbSelectComponent, NbToastrService } from '@nebular/theme';
-import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
+import { NbToastrService } from '@nebular/theme';
+import { ApiMunicipio, ApiUF, LocalizacaoService } from '../../services/localizacao.service';
 import { AuthService } from '../../services/auth.service';
-import { CepService } from '../../services/cep.service';
 import * as CustomValidators from '../../validators';
 
 @Component({
@@ -19,7 +18,6 @@ export class RegistrarComponent implements OnInit {
     razaoSocial: ['', [Validators.required]],
     nomeFantasia: ['', [Validators.required]],
     cnpj: ['', [Validators.required, CustomValidators.cnpj]],
-    // rg: ['', [Validators.required]],
     inscricaoEstadual: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     senha: ['', [Validators.required]],
@@ -41,15 +39,14 @@ export class RegistrarComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
     private authService: AuthService,
     private router: Router,
-    private cepService: CepService,
     private toastrService: NbToastrService,
+    private localizacaoService: LocalizacaoService,
   ) { }
 
   ngOnInit(): void {
-    this.apiService.getUfs()
+    this.localizacaoService.ufs
       .subscribe(
         ufs => {
           this.ufs = ufs;
@@ -81,8 +78,6 @@ export class RegistrarComponent implements OnInit {
       celular: String(this.registerForm.controls['celular'].value),
       telefone: String(this.registerForm.controls['telefone'].value),
       perfil: { id: 1 },
-      // rg: String(this.registerForm.controls['rg'].value),
-      // idPerfil: Number(this.registerForm.controls['idPerfil'].value),
     };
 
     console.log('Enviando', body);
@@ -142,7 +137,7 @@ export class RegistrarComponent implements OnInit {
   onUFChange(uf: any) {
     this.registerForm.controls['municipio'].setValue('');
     document.documentElement.style.cursor = "wait";
-    this.apiService.getMunicipiosByUf(Number(uf))
+    this.localizacaoService.municipiosPorUf(Number(uf))
       .subscribe(
         municipios => {
           this.municipios = municipios;
@@ -173,7 +168,7 @@ export class RegistrarComponent implements OnInit {
 
     this.registerForm.controls['municipio'].setValue('');
 
-    this.cepService.get(String(control.value))
+    this.localizacaoService.informacaoCep(String(control.value))
       .subscribe(
         data => {
           const uf = this.ufs.find(uf => uf.sigla.toLocaleUpperCase() === data.uf.toUpperCase());
@@ -185,7 +180,7 @@ export class RegistrarComponent implements OnInit {
             pontoReferencia: data.complemento,
           });
 
-          this.apiService.getMunicipiosByUf(uf.id)
+          this.localizacaoService.municipiosPorUf(uf.id)
             .subscribe(
               municipios => {
                 this.municipios = municipios;

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FieldsOptionsService } from './fields-options.service';
+import { LocalizacaoService } from './localizacao.service';
 
-describe('FieldsOptionsService', () => {
-  let service: FieldsOptionsService;
+describe('LocalizacaoService', () => {
+  let service: LocalizacaoService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FieldsOptionsService);
+    service = TestBed.inject(LocalizacaoService);
   });
 
   it('should be created', () => {

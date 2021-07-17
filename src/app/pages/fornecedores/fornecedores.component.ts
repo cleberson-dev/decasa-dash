@@ -1,11 +1,10 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
-import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
-import { AuthService } from '../../services/auth.service';
-import { CepService } from '../../services/cep.service';
+import { ApiService } from '../../services/api.service';
+import { ApiMunicipio, ApiUF } from '../../services/localizacao.service';
 import { FornecedoresService } from '../../services/fornecedores.service';
+import { LocalizacaoService } from '../../services/localizacao.service';
 import * as CustomValidators from '../../validators';
 import { Department } from '../produtos/solicitar/solicitar.component';
 
@@ -51,10 +50,9 @@ export class FornecedoresComponent implements OnInit {
     private dialogService: NbDialogService,
     private api: ApiService,
     private fb: FormBuilder,
-    private cepService: CepService,
     private toastrService: NbToastrService,
-    private authService: AuthService,
     private fornecedoresService: FornecedoresService,
+    private localizacaoService: LocalizacaoService,
   ) { }
 
   ngOnInit(): void {
@@ -69,7 +67,7 @@ export class FornecedoresComponent implements OnInit {
       }
     );
 
-    this.api.getUfs()
+    this.localizacaoService.ufs
       .subscribe(
         ufs => {
           this.ufs = ufs;
@@ -212,7 +210,7 @@ export class FornecedoresComponent implements OnInit {
     this.formType = 'editar';
     this.editBtnLoading = true;
     
-    this.api.getMunicipiosByUf(context.fornecedor.ufRg.id)
+    this.localizacaoService.municipiosPorUf(context.fornecedor.ufRg.id)
     .subscribe(
       municipios => {
         this.municipios = municipios;
@@ -301,7 +299,7 @@ export class FornecedoresComponent implements OnInit {
     }
     
     const cep = this.formFornecedor.controls['cep'].value;
-    this.cepService.get(cep)
+    this.localizacaoService.informacaoCep(cep)
       .subscribe(
         data => {
           this.formFornecedor.patchValue({
@@ -318,7 +316,7 @@ export class FornecedoresComponent implements OnInit {
 
   onUFChange(newUf: any) {
     if (newUf === '') return;
-    this.api.getMunicipiosByUf(Number(newUf))
+    this.localizacaoService.municipiosPorUf(Number(newUf))
       .subscribe(
         municipios => {
           this.municipios = municipios;

@@ -4,11 +4,11 @@ import { TreeItem } from '../../../components/tree/tree.component';
 import { ApiService } from '../../../services/api.service';
 import { AbstractControl } from '@angular/forms';
 import { cnpj, cpf } from 'cpf-cnpj-validator';
-import { CepService } from '../../../services/cep.service';
 import telefone from 'telefone';  
 import { ValidationErrors } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { ProdutosService } from '../../../services/produtos.service';
+import { LocalizacaoService } from '../../../services/localizacao.service';
 
 export type Department = {
   id: number;
@@ -50,9 +50,9 @@ export class SolicitarComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private cepService: CepService,
     private toastrService: NbToastrService,
     private produtosService: ProdutosService,
+    private localizacaoService: LocalizacaoService,
   ) { }
 
   ngOnInit(): void {
@@ -173,7 +173,7 @@ export class SolicitarComponent implements OnInit {
     }
 
     const cep = this.myForm.controls['cep'].value;
-    this.cepService.get(cep)
+    this.localizacaoService.informacaoCep(cep)
       .subscribe(({ localidade: municipio, logradouro, bairro }: any) => {
         this.myForm.patchValue({ 
           municipio, logradouro, bairro 
