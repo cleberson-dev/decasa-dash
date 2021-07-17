@@ -87,8 +87,8 @@ export class RegistrarComponent implements OnInit {
 
     console.log('Enviando', body);
     
-    this.apiService
-      .registrarLojista(body)
+    this.authService
+      .registrar(body)
       .subscribe(
         lojista => {
           this.authService.save(lojista);

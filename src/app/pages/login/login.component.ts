@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit {
       senha: String(this.form.controls['senha'].value),
     };
 
-    this.apiService
-      .logarLojista(body)
+    this.authService
+      .login(body)
       .subscribe(
         (lojista) => {
           this.authService.save(lojista);

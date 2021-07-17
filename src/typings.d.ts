@@ -517,3 +517,8 @@ declare type RegistrarLojistaParams = {
   perfil: { id: number; };
   rg?: string;
 };
+
+type LogarLojistaParams = {
+  email: string;
+  senha: string;
+};

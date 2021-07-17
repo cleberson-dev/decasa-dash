@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { environment as env } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,9 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private static storageKey = 'lojista';
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
   save(lojista: Lojista) {
     localStorage.setItem(AuthService.storageKey, JSON.stringify(lojista));
@@ -28,5 +31,18 @@ export class AuthService {
 
   get isMatriz(): boolean {
     return this.lojista && !this.lojista.lojista;
+  }
+
+  registrar(params: RegistrarLojistaParams) {
+    const url = `${env.API_URL}/lojistas/`;
+
+    return this.http.post<Lojista>(url, params);
+  }
+
+  login(params: LogarLojistaParams) {
+    const { email, senha } = params;
+    const url = `${env.API_URL}/lojistas/email/${email}/senha/${senha}`;
+    
+    return this.http.get<Lojista>(url);
   }
 }

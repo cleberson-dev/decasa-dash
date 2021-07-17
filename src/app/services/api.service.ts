@@ -27,11 +27,6 @@ export type ApiUF = {
   sigla: string;
 }
 
-type LogarLojistaParams = {
-  email: string;
-  senha: string;
-}
-
 type CriarColaboradorParams = {
   nome: string;
   perfil: number;
@@ -178,19 +173,6 @@ export class ApiService {
   getCotacoesPorPedido(pedidoId: number) {
     const url = this.url + '/cotacoes/pedido/' + pedidoId;
     return this.http.get<Cotacao[]>(url);
-  }
-
-  registrarLojista(params: RegistrarLojistaParams) {
-    const url = this.url + '/lojistas/';
-
-    return this.http.post<Lojista>(url, params);
-  }
-
-  logarLojista(params: LogarLojistaParams) {
-    const { email, senha } = params;
-    const url = `${this.url}/lojistas/email/${email}/senha/${senha}`;
-    
-    return this.http.get<Lojista>(url);
   }
 
   buscarProdutoLojista(query: string, lojistaId: number, paginationOpts?: PaginationOptions) {
