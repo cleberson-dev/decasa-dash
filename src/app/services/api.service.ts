@@ -90,8 +90,6 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  
-
   getProdutosLojista(lojistaId: number) {
     const url = this.url + '/lojistasProdutos/lojista/' + lojistaId;
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
@@ -133,52 +131,6 @@ export class ApiService {
     return this.http.get<PaginatedResource<ProdutoLojista>>(url);
   }
 
-  getFornecedoresPorLojista(lojistaId: number) {
-    // const url = this.url + '/fornecedores/lojista/' + lojistaId;
-    const url = this.url + '/fornecedores';
-
-    // return this.http.get<PaginatedResource<Fornecedor>>(url);
-    return this.http.get<Fornecedor[]>(url);
-  }
-
-  editFornecedor(fornecedor: Fornecedor) {
-    const url = this.url + '/fornecedores/' + fornecedor.id;
-
-    return this.http.put(url, fornecedor);
-  }
-
-  criarFornecedor(novoFornecedor: Fornecedor) {
-    const url = this.url + '/fornecedores/';
-
-    const body: Fornecedor = {
-      cnpj: novoFornecedor.cnpj,
-      logradouro: novoFornecedor.logradouro,
-      bairro: novoFornecedor.bairro,
-      numero: novoFornecedor.numero,
-      cep: novoFornecedor.cep,
-      celular: novoFornecedor.celular,
-      telefone: novoFornecedor.telefone,
-      email: novoFornecedor.email,
-      pontoReferencia: novoFornecedor.pontoReferencia,
-      municipioEndereco: { id: novoFornecedor.municipioEndereco.id },
-      inscricaoEstadual: novoFornecedor.inscricaoEstadual,
-      ufRg: { id: novoFornecedor.ufRg.id },
-      usuario: { id: novoFornecedor.usuario.id },
-      categoriasFornecidas: novoFornecedor.categoriasFornecidas,
-      departamentosFornecidos: novoFornecedor.categoriasFornecidas,
-      razaoSocial: novoFornecedor.razaoSocial,
-      nomeFantasia: novoFornecedor.nomeFantasia
-    };
-
-    return this.http.post(url, body);
-  }
-
-  removerFornecedor(id: number) {
-    const url = this.url + '/fornecedores/' + id;
-
-    return this.http.delete(url);
-  }
-
   getMunicipiosByUf(ufId: number) {
     const url = '/cadastros-0.0.1/util/municipios/' + ufId;
     const headers = {
@@ -189,7 +141,6 @@ export class ApiService {
         map(municipios => municipios.filter(mun => mun.ativo))
       );
   }
-
 
   getUfs() {
     const url = '/cadastros-0.0.1/util/uf';
@@ -245,10 +196,7 @@ export class ApiService {
     return this.http.post(url, compras);
   }
 
-  getFornecedor(fornecedorId: number) {
-    const url = this.url + '/fornecedores/' + fornecedorId;
-    return this.http.get<Fornecedor>(url);
-  }
+  
 
   getCotacoesPorPedido(pedidoId: number) {
     const url = this.url + '/cotacoes/pedido/' + pedidoId;

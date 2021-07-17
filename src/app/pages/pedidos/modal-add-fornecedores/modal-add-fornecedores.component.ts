@@ -1,10 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import { TheadTitlesRowComponent } from 'ng2-smart-table/lib/components/thead/rows/thead-titles-row.component';
-import { ApiService } from '../../../services/api.service';
-import { AuthService } from '../../../services/auth.service';
-
-type SelectableFornecedor = Fornecedor & { selected?: boolean; };
+import { NbToastrService } from '@nebular/theme';
+import { FornecedoresService } from '../../../services/fornecedores.service';
 
 @Component({
   selector: 'ngx-modal-add-fornecedores',
@@ -21,14 +17,13 @@ export class ModalAddFornecedoresComponent implements OnInit {
   @Input() selectedFornecedores: Fornecedor[] = [];
 
   constructor(
-    private api: ApiService,
     private toastrService: NbToastrService,
-    private authService: AuthService,
+    private fornecedoresService: FornecedoresService,
   ) { }
 
   ngOnInit(): void {
     this.selectedFornecedores.push(...this.initialFornecedores);
-    this.api.getFornecedoresPorLojista(this.authService.lojista.id)
+    this.fornecedoresService.todos()
       .subscribe(
         data => {
           this.fornecedores = data;

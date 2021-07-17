@@ -5,6 +5,7 @@ import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { ApiMunicipio, ApiService, ApiUF } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { CepService } from '../../services/cep.service';
+import { FornecedoresService } from '../../services/fornecedores.service';
 import * as CustomValidators from '../../validators';
 import { Department } from '../produtos/solicitar/solicitar.component';
 
@@ -53,10 +54,11 @@ export class FornecedoresComponent implements OnInit {
     private cepService: CepService,
     private toastrService: NbToastrService,
     private authService: AuthService,
+    private fornecedoresService: FornecedoresService,
   ) { }
 
   ngOnInit(): void {
-    this.api.getFornecedoresPorLojista(this.authService.lojista.id)
+    this.fornecedoresService.todos()
     .subscribe(
       data => {
         this.fornecedores = data;
@@ -153,7 +155,7 @@ export class FornecedoresComponent implements OnInit {
     console.log('Submitting this: ', fornecedor);
 
     if (this.formType === 'editar') {
-      this.api.editFornecedor(fornecedor)
+      this.fornecedoresService.editar(fornecedor)
         .subscribe(
           () => {
             const editedFornecedorIdx = this.fornecedores.findIndex(f => f.id === fornecedor.id);
@@ -167,7 +169,7 @@ export class FornecedoresComponent implements OnInit {
           } 
           );
         } else if (this.formType === 'criar') {
-          this.api.criarFornecedor({ id: undefined, ...fornecedor })
+          this.fornecedoresService.criar({ id: undefined, ...fornecedor })
           .subscribe(
             () => {
               this.fornecedores.push(fornecedor);
@@ -272,12 +274,12 @@ export class FornecedoresComponent implements OnInit {
     return messages[firstType] || defaultMessage;
   }
 
-  onBlock(fornecedorId: number, ref: NbDialogRef<any>) {
+  onBlock(fornecedorID: number, ref: NbDialogRef<any>) {
     this.removeBtnLoading = true;
-    this.api.removerFornecedor(fornecedorId)
+    this.fornecedoresService.remover(fornecedorID)
       .subscribe(
         () => {
-          this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedorId);
+          this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedorID);
           ref.close();
           this.removeBtnLoading = false;
         },
