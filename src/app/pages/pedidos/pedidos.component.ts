@@ -264,4 +264,11 @@ export class PedidosComponent implements OnInit {
   removeFornecedor(fornecedorId: number) {
     this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedorId);
   }
+
+  changeProductAmount(row: PedidoProduto, type: string) {
+    if (type === "decrease" && row.quantidade === 1) return;
+
+    if (type === "increase") return (row.quantidade = row.quantidade + 1);
+    if (type === "decrease") return (row.quantidade = row.quantidade - 1)
+  }
 }

@@ -98,7 +98,17 @@
           <td>{{ row.produto.cnp }}</td>
           <td class="descricao-produto">{{ row.produto.descricao }}</td>
           <td>{{ row.produto.unidadeMedidaProduto?.sigla || 'unidade' }}</td>
-          <td>{{ row.quantidade }}</td>
+          <td class="quantidade-produto">
+            {{ row.quantidade }}
+            <span class="amount-buttons">
+              <button nbButton ghost size="tiny" (click)="changeProductAmount(row, 'increase')">
+                <nb-icon icon="arrow-up"></nb-icon>
+              </button>
+              <button nbButton ghost size="tiny" (click)="changeProductAmount(row, 'decrease')">
+                <nb-icon icon="arrow-down"></nb-icon>
+              </button>
+            </span>
+          </td>
           <td>
             <button 
               nbButton ghost size="small" status="danger"

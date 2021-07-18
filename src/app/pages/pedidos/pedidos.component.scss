@@ -140,3 +140,16 @@ td.quantidade input {
 .form-group label {
   display: block;
 }
+
+td.quantidade-produto {
+  position: relative;
+
+  .amount-buttons {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 0;
+    right: 0;
+  }
+}
