@@ -63,18 +63,7 @@ export class PedidosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.api.getProdutosLojista(this.authService.lojista.id)
-      .subscribe(
-        data => {
-          this.produtos = data.content;
-          this.autoOptions = this.produtos.map(({ produto }) => produto.descricao);
-          this.suggestedOptions = [...this.autoOptions];
-        },
-        err => {
-          console.error(err);
-          this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista');
-        }
-      );
+    this.atualizarSugestoes();
 
     this.matriz = this.authService.isMatriz ? 
       this.authService.lojista : 
@@ -118,6 +107,21 @@ export class PedidosComponent implements OnInit {
       );
   }
 
+  atualizarSugestoes() {
+    this.api.buscarProdutoLojista('', this.authService.lojista.id, { page: 1, size: 5 })
+      .subscribe(
+        data => {
+          this.produtos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
+          this.suggestedOptions = this.produtos
+            .map(({ produto }) => produto.descricao);
+        },
+        err => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, `Impossível buscar produto do lojista, consulta vazia`);
+        }
+      );
+  }
+
   onPedidoAdd() {
     console.log(this.novoPedidoForm.controls['codigo'].value);
     const produto = this.produtos.find(({ produto }) => produto.cnp === this.novoPedidoForm.controls['codigo'].value);
@@ -133,20 +137,8 @@ export class PedidosComponent implements OnInit {
     }
     
     this.rows.unshift(row);
+    this.atualizarSugestoes();
     this.resetForm();
-    this.api.buscarProdutoLojista('', this.authService.lojista.id, { page: 1, size: 5 })
-      .subscribe(
-        data => {
-          const filteredProdutos = data.content.filter(({ produto }) => this.rows.every(row => row.produto.id !== produto.id));
-          this.produtos = filteredProdutos;
-          this.suggestedOptions = filteredProdutos
-            .map(({ produto }) => produto.descricao);
-        },
-        err => {
-          console.error(err);
-          this.toastrService.danger(err.error.message, `Impossível buscar produto do lojista, consulta vazia`);
-        }
-      );
   }
 
   openAddFornecedores(dialog: TemplateRef<any>) {
@@ -259,6 +251,7 @@ export class PedidosComponent implements OnInit {
 
   removeProduct(codigo: string) {
     this.rows = this.rows.filter(row => row.produto.cnp !== codigo);
+    this.atualizarSugestoes();
   }
 
   resetForm() {
