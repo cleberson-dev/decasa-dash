@@ -29,7 +29,7 @@ export class ModalFormFornecedorComponent implements OnInit {
     pontoReferencia: [this.initialForm.pontoReferencia, Validators.required],
     celular: [this.initialForm.celular, Validators.required],
     telefone: [this.initialForm.telefone, Validators.required],
-    email: [this.initialForm.email, Validators.required, Validators.email],
+    email: [this.initialForm.email, Validators.required, CustomValidators.email],
     // RG Representante, CPF Representante, Data RG
   })
 

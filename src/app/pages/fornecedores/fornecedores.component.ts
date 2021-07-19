@@ -35,7 +35,7 @@ export class FornecedoresComponent implements OnInit {
     pontoReferencia: [''],
     celular: ['', [Validators.required]],
     telefone: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, CustomValidators.email]],
     municipioEndereco: ['', [Validators.required]],
     inscricaoEstadual: ['', [Validators.required]],
     uf: ['', [Validators.required]],

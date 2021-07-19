@@ -40,7 +40,7 @@ export class InicioComponent implements OnInit {
     inscricaoEstadual: ['', [Validators.required]],
     cpf: ['', [Validators.required, CustomValidators.cpf]],
     cnpj: ['', [Validators.required, CustomValidators.cnpj]],
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, CustomValidators.email]],
     senha: ['', [Validators.required, Validators.min(8), Validators.max(16)]],
     senha2: ['', [Validators.required, Validators.min(8), Validators.max(16)]],
     cep: ['', [Validators.required, CustomValidators.cep]],
