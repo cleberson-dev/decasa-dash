@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import { ProdutosService } from '../../../services/produtos.service';
-import { Department } from '../solicitar/solicitar.component';
+import { ProdutosService } from '../../services/produtos.service';
+import { Department } from '../../pages/produtos/solicitar/solicitar.component';
 
 type AddProductItem = {
   produto: Produto;
@@ -17,11 +17,11 @@ type AddProductItem = {
 };
 
 @Component({
-  selector: 'ngx-modal-adicionar',
-  templateUrl: './modal-adicionar.component.html',
-  styleUrls: ['./modal-adicionar.component.scss'],
+  selector: 'modal-adicionar-produto',
+  templateUrl: './adicionar-produto.component.html',
+  styleUrls: ['./adicionar-produto.component.scss'],
 })
-export class ModalAdicionarComponent implements OnInit {
+export class AdicionarProdutoModalComponent implements OnInit {
   @Input() ref: NbDialogRef<any>;
   @Input() departments: Department[];
   @Output() requestProductBtnClick = new EventEmitter();

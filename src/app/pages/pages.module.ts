@@ -29,7 +29,7 @@ import { NotFoundComponent } from '../components/not-found/not-found.component';
 import { MeusProdutosComponent } from './produtos/meus-produtos/meus-produtos.component';
 import { PaginationComponent } from '../components/pagination/pagination.component';
 import { ColaboradoresComponent } from './colaboradores/colaboradores.component';
-import { ModalAdicionarComponent } from './produtos/modal-adicionar/modal-adicionar.component';
+import { AdicionarProdutoModalComponent } from '../modals/adicionar-produto/adicionar-produto.component';
 import { CheckboxComponent } from '../components/checkbox/checkbox.component';
 import { SpringSpinnerModule } from 'angular-epic-spinners';
 import { PedidosComponent } from './pedidos/pedidos.component';
@@ -102,7 +102,7 @@ import { ReaisPipe } from '../pipes/reais.pipe';
     MeusProdutosComponent,
     PaginationComponent,
     ColaboradoresComponent,
-    ModalAdicionarComponent,
+    AdicionarProdutoModalComponent,
     CheckboxComponent,
     PedidosComponent,
     CriarPedidosComponent,

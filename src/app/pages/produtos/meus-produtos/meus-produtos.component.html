@@ -64,10 +64,10 @@
 
 
 <ng-template #dialog let-data let-ref="dialogRef">
-  <ngx-modal-adicionar
+  <modal-adicionar-produto
     [ref]="ref"
     [departments]="departments"
     (requestProductBtnClick)="btnClickHandler(ref)"
     (submitClick)="onSubmitHandler($event)"
-  ></ngx-modal-adicionar>
+  ></modal-adicionar-produto>
 </ng-template>
