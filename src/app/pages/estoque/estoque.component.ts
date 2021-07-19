@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { concatMap, filter } from 'rxjs/operators';
+import { concatMap, filter, map } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
 import { PedidosService } from '../../services/pedidos.service';
 
@@ -57,12 +57,12 @@ export class EstoqueComponent implements OnInit {
   buscandoCompra: boolean = false;
 
   constructor(
-    private dialogService: NbDialogService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private toastrService: NbToastrService,
     private router: Router,
     private pedidosService: PedidosService,
+    private dialogService: NbDialogService,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -74,16 +74,15 @@ export class EstoqueComponent implements OnInit {
     this.route.queryParams
       .pipe(
         filter(params => !!params.compra && !Number.isNaN(params.compra)),
-        concatMap(params => {
-          const { compra } = params;
-          if (Number.isNaN(compra)) throw Error('Não existe compra');
-          this.compraSelecionada = Number(compra);
-          return this.pedidosService.compra(Number(compra))
+        map(params => Number(params.compra)),
+        concatMap(compraID => {
+          this.compraSelecionada = compraID;
+          return this.pedidosService.compra(compraID);
         })
       )
       .subscribe(
-        compra => {
-          this.data = compra.detalhesCompras.map(detalhe => new Row({
+        ({ detalhesCompras }) => {
+          this.data = detalhesCompras.map(detalhe => new Row({
             codigo: detalhe.produto.cnp,
             nome: detalhe.produto.descricao,
             unidade: detalhe.produto.unidadeMedidaProduto.sigla,
@@ -92,7 +91,7 @@ export class EstoqueComponent implements OnInit {
           }));
           this.quantityForm = this.fb.group(
             Object.fromEntries(
-              compra.detalhesCompras.map(detalhe => [`produto-${detalhe.produto.cnp}`, [detalhe.quantidade, [Validators.required, Validators.min(1)]]]))
+              detalhesCompras.map(detalhe => [`produto-${detalhe.produto.cnp}`, [detalhe.quantidade, [Validators.required, Validators.min(1)]]]))
             );
         },
         err => {
@@ -103,9 +102,6 @@ export class EstoqueComponent implements OnInit {
   }
 
   onConfirmBtnClick(dialog: TemplateRef<any>) {
-    console.log('btn clicked');
-    console.log(this.quantityForm);
-
     if (this.form.controls['notaFiscal'].value === '') {
       const context = {
         type: 'confirm-nfe'
@@ -137,42 +133,14 @@ export class EstoqueComponent implements OnInit {
   }
 
   onSearchSale() {
-    const queryParams = { compra: this.compraSelecionada };
     this.router.navigate(
       [],
       {
         relativeTo: this.route,
         queryParamsHandling: 'merge',
-        queryParams,
+        queryParams: { compra: this.compraSelecionada },
       }
     );
-    
-    // this.apiService
-    //   .getCompra(Number(this.compraSelecionada))
-    //   .subscribe(
-    //     compra => {
-    //       this.data = compra.detalhesCompras.map(detalhe => new Row({
-    //         codigo: detalhe.produto.cnp,
-    //         nome: detalhe.produto.descricao,
-    //         unidade: detalhe.produto.unidadeMedidaProduto.sigla,
-    //         precoUnitario: detalhe.valor,
-    //         quantidade: detalhe.quantidade,
-    //       }));
-
-          
-          
-    //       this.buscandoCompra = false;
-    //     },
-    //     err => {
-    //       console.error(err);
-    //       this.toastrService.danger(err.error.message, 'Impossível obter detalhes de compra');
-    //       this.buscandoCompra = false;
-    //       this.route.queryParams
-    //         .subscribe(params => {
-    //           this.compraSelecionada = Number(params.compra);
-    //         });
-    //     }
-    //   );
   }
 
   getControlValue(formGroup: FormGroup, controlName: string) {
