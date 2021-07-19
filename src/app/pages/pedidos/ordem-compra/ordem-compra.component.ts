@@ -2,9 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Observable } from 'rxjs';
-import { concatMap, filter } from 'rxjs/operators';
+import { concatMap, filter, map } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
-import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { LojistasService } from '../../../services/lojistas.service';
 import { PedidosService } from '../../../services/pedidos.service';
@@ -47,18 +46,12 @@ export class OrdemCompraComponent implements OnInit {
     { title: 'Acompanhamento', link: '/pedidos/acompanhamento' },
   ];
 
-  data: Row[] = [
-    new Row({ codigo: '00001', produto: 'Produto #1', quantidade: 4, unidade: 'cm', precoUnitario: 1.99 }),
-    new Row({ codigo: '00002', produto: 'Produto #2', quantidade: 2, unidade: 'cm', precoUnitario: 1.99 })
-  ];
-
   compra: CompraMaterial;
 
   matriz: Lojista;
   filiais: Lojista[] = [];
 
   constructor(
-    private apiService: ApiService,
     private route: ActivatedRoute,
     private toastrService: NbToastrService,
     private router: Router, 
@@ -70,8 +63,9 @@ export class OrdemCompraComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
       .pipe(
-        filter(params => !Number.isNaN(params.get('compraId'))),
-        concatMap(params => this.pedidosService.compra(Number(params.get('compraId'))))
+        filter(params => !!params.get('compraId') && !Number.isNaN(params.get('compraId'))),
+        map(params => Number(params.get('compraId'))),
+        concatMap(compraId => this.pedidosService.compra(compraId))
       )
       .subscribe(
         (compra) => {
@@ -91,14 +85,6 @@ export class OrdemCompraComponent implements OnInit {
       .subscribe(data => {
         this.filiais = data.content;
       });
-  }
-
-  get precoTotal(): number {
-    return this.data.reduce((prev, cur) => prev + cur.subTotal, 0);
-  }
-
-  getSubTotal(precoUnitario: number, quantidade: number) {
-    return precoUnitario * quantidade;
   }
 
   onConfirmBtnClick() {
