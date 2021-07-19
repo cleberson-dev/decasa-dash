@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { Observable } from 'rxjs';
 import { concatMap, filter, map } from 'rxjs/operators';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { AuthService } from '../../../services/auth.service';
@@ -34,11 +33,6 @@ class Row {
   styleUrls: ['./ordem-compra.component.scss']
 })
 export class OrdemCompraComponent implements OnInit {
-  ocOptions: string[];
-  filteredOcOptions$: Observable<string[]>;
-
-  @ViewChild('autoInput') input;
-
   tabs: Tab[] = [
     { title: 'Cotação', link: '/pedidos' },
     { title: 'Mapa', link: '/pedidos/mapa' },
