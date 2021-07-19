@@ -32,3 +32,9 @@ export function phone(control: AbstractControl): ValidationErrors | null {
 
   return isValid ? null : { phoneNumber: true }; 
 }
+
+export function email(control: AbstractControl): ValidationErrors | null {
+  const regexp = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$');
+
+  return regexp.test(control.value) ? null : { email: true };
+}

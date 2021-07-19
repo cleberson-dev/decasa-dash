@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import * as CustomValidators from '../../validators';
 
 @Component({
   selector: 'ngx-login',
@@ -13,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, CustomValidators.email]],
     senha: ['', [Validators.required, Validators.min(8), Validators.max(16)]]
   })
 

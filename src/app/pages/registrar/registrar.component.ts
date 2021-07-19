@@ -19,7 +19,7 @@ export class RegistrarComponent implements OnInit {
     nomeFantasia: ['', [Validators.required]],
     cnpj: ['', [Validators.required, CustomValidators.cnpj]],
     inscricaoEstadual: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, CustomValidators.email]],
     senha: ['', [Validators.required]],
     senha2: ['', [Validators.required]],
     celular: ['', [Validators.required, CustomValidators.cellphone]],
