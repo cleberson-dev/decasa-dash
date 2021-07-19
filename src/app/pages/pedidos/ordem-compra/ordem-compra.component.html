@@ -46,13 +46,13 @@
             <td class="full">{{ row.props.produto }}</td>
             <td>{{ row.props.unidade }}</td>
             <td>{{ row.props.quantidade }}</td>
-            <td>{{ row.props.precoUnitario.toFixed(2).replace('.', ',') }}</td>
-            <td>{{ row.subTotal.toFixed(2).replace('.', ',') }}</td>
+            <td>{{ row.props.precoUnitario|reais }}</td>
+            <td>{{ row.subTotal|reais }}</td>
           </tr>
         </tbody>
       </table>
       <p class="preco-total">
-        Total da OC: <span>R${{ precoTotal.toFixed(2).replace('.', ',') }}</span>
+        Total da OC: <span>R${{ precoTotal|reais }}</span>
       </p>
 
       <h5>Fornecedor</h5>

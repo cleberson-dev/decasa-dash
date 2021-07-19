@@ -7,6 +7,6 @@
     <p>{{ produto.categoria.departamento.descricao  | uppercase }} - {{ produto.categoria.descricao | uppercase }}</p>
     <p class="unidade">{{ produto.unidadeMedidaProduto.descricao | uppercase }}</p>
   </div>
-  <p *ngIf="valor" class="preco">{{ formattedPrice }} <span>por {{ produto.unidadeMedidaProduto?.descricao || 'unidade' }}</span></p>
+  <p *ngIf="valor" class="preco">R${{ valor|reais }} <span>por {{ produto.unidadeMedidaProduto?.descricao || 'unidade' }}</span></p>
   <button *ngIf="options.length > 0" [nbContextMenu]="options" style="align-self: center" nbButton ghost><nb-icon icon="more-vertical"></nb-icon></button>
 </div>

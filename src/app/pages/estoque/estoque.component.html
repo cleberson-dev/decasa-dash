@@ -65,8 +65,8 @@
           <td class="quantidade">
             <input nbInput type="number" fullWidth [defaultValue]="row.props.quantidade" />
           </td>
-          <td>{{ row.props.precoUnitario.toFixed(2).replace('.', ',') }}</td>
-          <td>{{ row.subTotal.toFixed(2).replace('.', ',') }}</td>
+          <td>{{ row.props.precoUnitario|reais }}</td>
+          <td>{{ row.subTotal|reais }}</td>
         </tr>
       </tbody>
     </table>

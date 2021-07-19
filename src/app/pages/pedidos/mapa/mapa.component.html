@@ -89,7 +89,7 @@
             }"
             (click)="!!getSomaFornecedor(fornecedor.id) && selectSupplier(fornecedor.id)"
           >
-            Σ <br/> {{ getSomaFornecedor(fornecedor.id).toFixed(2).replace('.', ',') }}
+            Σ <br/> {{ getSomaFornecedor(fornecedor.id)|reais }}
           </th>
           <!-- <th
             *ngFor="let somaFornecedor of somaFornecedores; let i = index"
@@ -98,7 +98,7 @@
             (mouseover)="hoveredFornecedorIdx = i"
             (mouseout)="hoveredFornecedorIdx = undefined"
           >
-            {{ somaFornecedor ? "Σ " + somaFornecedor.toFixed(2) : "--" }}
+            {{ somaFornecedor ? "Σ " + somaFornecedor/reais : "--" }}
           </th> -->
           <th></th>
         </tr>
@@ -223,7 +223,7 @@
             [class]="{ menor: idx === context.produto.menorPrecoIdx }"
           >
             <span>{{ preco.fornecedor }}</span> 
-            <span>{{ preco.valor ? 'R$' + preco.valor.toFixed(2) : '--' }}</span>
+            <span>{{ preco.valor ? 'R$' + (preco.valor|reais) : '--' }}</span>
           </li>
         </ul>
       </div>
@@ -315,8 +315,8 @@
                 <td class="full">{{ row.props.produto }}</td>
                 <td>{{ row.props.unidade }}</td>
                 <td>{{ row.props.quantidade }}</td>
-                <td>{{ row.props.precoUnitario.toFixed(2).replace('.', ',') }}</td>
-                <td>{{ row.subTotal.toFixed(2).replace('.', ',') }}</td>
+                <td>{{ row.props.precoUnitario|reais }}</td>
+                <td>{{ row.subTotal|reais }}</td>
               </tr>
             </tbody>
           </table>
@@ -340,7 +340,7 @@
         </a>
         <div class="footer-right">
           <p class="preco-total">
-              Total da OC: <span>R${{ compras[compraSelecionada].valor.toFixed(2).replace('.', ',') }}</span>
+              Total da OC: <span>R${{ compras[compraSelecionada].valor|reais }}</span>
           </p>
             <button 
               nbButton status="primary"

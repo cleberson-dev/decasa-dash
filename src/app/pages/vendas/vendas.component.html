@@ -63,7 +63,7 @@
             <td>{{ row.data }}</td>
             <td>{{ row.notaFiscal || "..." }}</td>
             <td class="descricao">{{ row.descricao || "..." }}</td>
-            <td class="valor income">{{ row.valor.toFixed(2).replace('.', ',') }}</td>
+            <td class="valor income">{{ row.valor|reais }}</td>
           </tr>
           <tr *ngIf="row.opened">
             <td></td>
