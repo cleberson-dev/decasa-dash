@@ -38,7 +38,7 @@
       </div>
     </form>
 
-    <table>
+    <table [formGroup]="quantityForm">
       <colgroup>
         <col />
         <col class="full" />
@@ -63,10 +63,10 @@
           <td class="produto">{{ row.props.nome }}</td>
           <td>{{ row.props.unidade }}</td>
           <td class="quantidade">
-            <input nbInput type="number" fullWidth [defaultValue]="row.props.quantidade" />
+            <input nbInput type="number" min="1" fullWidth [formControlName]="'produto-' + row.props.codigo" />
           </td>
           <td>{{ row.props.precoUnitario|reais }}</td>
-          <td>{{ row.subTotal|reais }}</td>
+          <td>{{ (getControlValue(quantityForm, "produto-" + row.props.codigo) * row.props.precoUnitario)|reais }}</td>
         </tr>
       </tbody>
     </table>

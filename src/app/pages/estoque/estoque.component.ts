@@ -1,11 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { concatMap, filter } from 'rxjs/operators';
 import { Tab } from '../../components/tabber/tabber.component';
-import { ApiService } from '../../services/api.service';
-import { AuthService } from '../../services/auth.service';
 import { PedidosService } from '../../services/pedidos.service';
 
 type RowProps = {
@@ -50,6 +48,8 @@ export class EstoqueComponent implements OnInit {
     notaArquivo: ['']
   });
 
+  quantityForm = this.fb.group({});
+
   notaArquivo = null;
 
   compras: CompraMaterial[] = [];
@@ -60,10 +60,8 @@ export class EstoqueComponent implements OnInit {
     private dialogService: NbDialogService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private apiService: ApiService,
     private toastrService: NbToastrService,
     private router: Router,
-    private authService: AuthService,
     private pedidosService: PedidosService,
   ) { }
 
@@ -92,6 +90,10 @@ export class EstoqueComponent implements OnInit {
             precoUnitario: detalhe.valor,
             quantidade: detalhe.quantidade,
           }));
+          this.quantityForm = this.fb.group(
+            Object.fromEntries(
+              compra.detalhesCompras.map(detalhe => [`produto-${detalhe.produto.cnp}`, [detalhe.quantidade, [Validators.required, Validators.min(1)]]]))
+            );
         },
         err => {
           console.error(err);
@@ -102,6 +104,8 @@ export class EstoqueComponent implements OnInit {
 
   onConfirmBtnClick(dialog: TemplateRef<any>) {
     console.log('btn clicked');
+    console.log(this.quantityForm);
+
     if (this.form.controls['notaFiscal'].value === '') {
       const context = {
         type: 'confirm-nfe'
@@ -169,5 +173,9 @@ export class EstoqueComponent implements OnInit {
     //         });
     //     }
     //   );
+  }
+
+  getControlValue(formGroup: FormGroup, controlName: string) {
+    return formGroup.controls[controlName].value;
   }
 }
