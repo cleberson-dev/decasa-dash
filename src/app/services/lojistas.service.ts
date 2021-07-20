@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { concat, merge, Observable } from 'rxjs';
+import { concatMap, map } from 'rxjs/operators';
 import { environment as env } from '../../environments/environment';
 import { AuthService } from './auth.service';
 
@@ -42,4 +44,14 @@ export class LojistasService {
     return this.http.post<Lojista>(url, body);
   }
   
+  get enderecos(): Observable<{ lojaID: number; descricao: string }[]> {
+    return this.porID(this.authService.matrizId)
+      .pipe(
+        map(matriz => ({ lojaID: matriz.id, descricao: `${matriz.logradouro} (Matriz)` })),
+        concatMap((enderecoMatriz): Observable<{ lojaID: number; descricao: string }[]> => this.filiais.pipe(map(data => [
+          enderecoMatriz,
+          ...data.content.map(filial => ({ lojaID: filial.id, descricao: filial.logradouro }))
+        ])))
+      );
+  }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { Observable, of } from 'rxjs';
+import { LojistasService } from '../../../services/lojistas.service';
 
 @Component({
   selector: 'ngx-tombamento',
@@ -34,13 +35,21 @@ export class TombamentoComponent implements OnInit {
 
   codigoMask = /^\d+$/;
 
+  enderecos: { lojaID: number; descricao: string }[] = [];
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private lojistasService: LojistasService,
   ) { }
 
   ngOnInit(): void {
     this.autoOptions = ['Produto #1', 'Produto #2', 'Produto #3'];
     this.suggestedOptions$ = of(this.autoOptions);
+
+    this.lojistasService.enderecos
+      .subscribe(enderecos => {
+        this.enderecos = enderecos;
+      });
   }
 
   onCodigoBlur() {
