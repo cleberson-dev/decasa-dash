@@ -21,8 +21,7 @@ export class TombamentoComponent implements OnInit {
   ];
 
   data = [
-    { codigo: '00001', nome: 'Produto #1', unidade: 'cm', qtVirtual: 1, conferido: 1 },
-    { codigo: '00002', nome: 'Produto #2', unidade: 'caixa', qtVirtual: 3, conferido: 2 }
+    // { codigo: '00001', nome: 'Produto #1', unidade: 'cm', qtVirtual: 1, conferido: 1 },
   ];
 
   form = this.fb.group({

@@ -23,8 +23,7 @@ export class AlertaCompraComponent implements OnInit {
   ];
 
   data = [
-    { codigo: '00001', nome: 'Produto #1', unidade: 'cm', quantidade: 1 },
-    { codigo: '00002', nome: 'Produto #2', unidade: 'caixa', quantidade: 3 }
+    // { codigo: '00001', nome: 'Produto #1', unidade: 'cm', quantidade: 1 },
   ];
 
   form = this.fb.group({

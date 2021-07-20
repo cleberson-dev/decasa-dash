@@ -65,6 +65,7 @@
             <input 
               nbInput fullWidth formControlName="unidade"
               [class]="{ invalid: isInvalidControl('unidade') }"
+              [attr.disabled]="true"
             />
           </td>
           <td>
@@ -78,6 +79,11 @@
             <button nbButton status="primary" fullWidth (click)="onProdutoAdd()" [disabled]="form.invalid">
               <nb-icon icon="plus"></nb-icon>
             </button>
+          </td>
+        </tr>
+        <tr *ngIf="data.length === 0">
+          <td colspan="5" style="text-align: center;">
+            <i>Sem itens</i>
           </td>
         </tr>
         <tr *ngFor="let row of data">
