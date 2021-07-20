@@ -91,7 +91,7 @@ export class EstoqueComponent implements OnInit {
           }));
           this.quantityForm = this.fb.group(
             Object.fromEntries(
-              detalhesCompras.map(detalhe => [`produto-${detalhe.produto.cnp}`, [detalhe.quantidade, [Validators.required, Validators.min(1)]]]))
+              detalhesCompras.map(detalhe => [`produto-${detalhe.produto.cnp}`, [1, [Validators.required, Validators.min(1), Validators.max(detalhe.quantidade)]]]))
             );
         },
         err => {

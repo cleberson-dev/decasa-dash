@@ -63,7 +63,7 @@
           <td class="produto">{{ row.props.nome }}</td>
           <td>{{ row.props.unidade }}</td>
           <td class="quantidade">
-            <input nbInput type="number" min="1" fullWidth [formControlName]="'produto-' + row.props.codigo" />
+            <input nbInput type="number" min="1" [max]="row.props.quantidade" fullWidth [formControlName]="'produto-' + row.props.codigo" />
           </td>
           <td>{{ row.props.precoUnitario|reais }}</td>
           <td>{{ (getControlValue(quantityForm, "produto-" + row.props.codigo) * row.props.precoUnitario)|reais }}</td>
