@@ -11,9 +11,16 @@
   <button 
     nbButton ghost
     *ngIf="options.length > 0" 
-    [nbContextMenu]="options" nbContextMenuTag="product-menu" 
+    [nbContextMenu]="options" [nbContextMenuTag]="'product-'+produto.id+'-menu'" 
     class="dropdown-button"
   >
       <nb-icon icon="more-vertical"></nb-icon>
   </button>
 </div>
+
+<ng-template #dialog let-context let-ref="dialogRef">
+  <modal-produto-detalhes 
+    [produto]="produto"
+    (close)="onDetalhesClose(ref)"
+  ></modal-produto-detalhes>
+</ng-template>

@@ -39,6 +39,7 @@
           <ngx-produto   
             [produto]="produtoLojista.produto"
             [valor]="produtoLojista.valor"
+            (block)="onBlockProduct($event)"
           ></ngx-produto>
         </nb-list-item>
       </nb-list>

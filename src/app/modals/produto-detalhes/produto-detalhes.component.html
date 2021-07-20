@@ -1,0 +1,15 @@
+<nb-card class="detalhes-card">
+  <nb-card-header class="detalhes-card-header">
+    <span>Detalhes do Produto</span>
+    <button 
+      nbButton ghost 
+      status="danger" size="small"
+      (click)="close.emit()"
+    >
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    {{ produto.descricao }}
+  </nb-card-body>
+</nb-card>

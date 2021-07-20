@@ -215,4 +215,8 @@ export class MeusProdutosComponent implements OnInit {
     if (e.code !== 'Enter') return;
     this.searchProducts();
   }
+
+  onBlockProduct(produto: Produto) {
+    alert(produto.id);
+  }
 }
