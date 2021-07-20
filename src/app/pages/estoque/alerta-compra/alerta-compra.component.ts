@@ -35,32 +35,20 @@ export class AlertaCompraComponent implements OnInit {
 
   codigoMask = /^\d+$/;
 
-  enderecos: { lojaID: number; descricao: string }[] = [];
+  enderecos: EnderecoLojista[] = [];
 
   constructor(
     private fb: FormBuilder,
     private lojistaService: LojistasService,
-    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.autoOptions = ['Produto #1', 'Produto #2', 'Produto #3'];
     this.suggestedOptions$ = of(this.autoOptions);
 
-    this.lojistaService.porID(this.authService.matrizId)
-      .subscribe(lojista => {
-        this.enderecos.unshift({
-          lojaID: lojista.id,
-          descricao: `${lojista.logradouro} (Matriz)`,
-        });
-      });
-
-    this.lojistaService.filiais
-      .subscribe(data => {
-        this.enderecos.push(...data.content.map(lojista => ({
-          lojaID: lojista.id,
-          descricao: lojista.logradouro,
-        })));
+    this.lojistaService.enderecos
+      .subscribe(enderecos => {
+        this.enderecos = enderecos;
       });
   }
 

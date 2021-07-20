@@ -518,7 +518,12 @@ declare type RegistrarLojistaParams = {
   rg?: string;
 };
 
-type LogarLojistaParams = {
+declare type LogarLojistaParams = {
   email: string;
   senha: string;
+};
+
+declare type EnderecoLojista = { 
+  lojaID: number; 
+  descricao: string; 
 };
