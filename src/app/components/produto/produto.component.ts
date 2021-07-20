@@ -10,8 +10,8 @@ import { filter } from 'rxjs/operators';
 export class ProdutoComponent implements OnInit {
   @Input() produto: Produto;
   @Input() options: NbMenuItem[] = [
-    { title: 'Bloquear', icon: 'close-outline' },
     { title: 'Detalhes', icon: 'info' },
+    { title: 'Bloquear', icon: 'close-outline' },
   ];
   @Input() valor?: number;
   @Input() estoque?: number;

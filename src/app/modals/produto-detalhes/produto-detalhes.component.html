@@ -10,6 +10,24 @@
     </button>
   </nb-card-header>
   <nb-card-body>
-    {{ produto.descricao }}
+    <div class="detail-row">
+      <p>Nome: <span>{{ produto.descricao|ngxCapitalize }}</span></p>
+      <p>CNP: <span>{{ produto.cnp|ngxCapitalize }}</span></p>
+    </div>
+    <div class="detail-row">
+      <p>Categoria: <span>{{ produto.categoria.descricao|ngxCapitalize }}</span></p>
+      <p>Departamento: <span>{{ produto.categoria.departamento.descricao|ngxCapitalize }}</span></p>
+    </div>
+    <div class="detail-row">
+      <p>Marca: <span>{{ produto.modelo.marca.descricao|ngxCapitalize }}</span></p>
+      <p>Modelo: <span>{{ produto.modelo.descricao|ngxCapitalize }}</span></p>
+    </div>
+    <div class="detail-row">
+      <p>Peso: <span>{{ produto.pesoGrama ? produto.pesoGrama.toFixed(2) + 'g' : 'Não especificado' }}</span></p>
+      <p>Altura: <span>{{ produto.alturaCm ? produto.alturaCm.toFixed(2) + 'cm' : 'Não especificado' }}</span></p>
+      <p>Largura: <span>{{ produto.larguraCm ? produto.larguraCm.toFixed(2) + 'cm' : 'Não especificado' }}</span></p>
+      <p>Profundidade: <span>{{ produto.profundidadeCm ? produto.profundidadeCm.toFixed(2) + 'cm' : 'Não especificado' }}</span></p>
+    </div>
+    <p>Unidade: <span>{{ produto.unidadeMedidaProduto.descricao|ngxCapitalize }} ({{ produto.unidadeMedidaProduto.sigla }})</span></p>
   </nb-card-body>
 </nb-card>
