@@ -8,3 +8,20 @@
   justify-content: space-between;
   align-items: center;
 } 
+
+p {
+  font-weight: 600;
+
+  span {
+    display: block;
+    font-weight: 400;
+  }
+}
+
+.detail-row {
+  display: flex;
+
+  p {
+    margin-right: 4rem;
+  }
+}
