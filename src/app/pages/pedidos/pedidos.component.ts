@@ -123,7 +123,6 @@ export class PedidosComponent implements OnInit {
   }
 
   onPedidoAdd() {
-    console.log(this.novoPedidoForm.controls['codigo'].value);
     const produto = this.produtos.find(({ produto }) => produto.cnp === this.novoPedidoForm.controls['codigo'].value);
     const row = {
       produto: produto.produto,
@@ -234,8 +233,6 @@ export class PedidosComponent implements OnInit {
     this.pedidosService.criar(body)
       .subscribe(
         data => {
-          console.log('Enviado: ', body);
-          console.log('Recebido: ', data);
           this.router.navigate(['/pedidos', 'mapa', data.id ]);
         }, 
         err => {

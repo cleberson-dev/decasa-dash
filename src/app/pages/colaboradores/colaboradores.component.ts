@@ -60,7 +60,6 @@ export class ColaboradoresComponent implements OnInit {
   }
 
   onSubmit(ref: NbDialogRef<any>) {
-    console.log(this.addColaboradorForm);
     const pics = ['eva', 'jack', 'kate', 'lee', 'nick'];
     const id = this.colaboradores.slice(-1)[0].id + 1
     this.colaboradores.push({

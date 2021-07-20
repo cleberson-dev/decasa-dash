@@ -121,7 +121,6 @@ export class ConfiguracoesComponent implements OnInit {
 
 
   saveAll() {
-    console.log(this.enderecos.map(e => e.tipo));
     Object.keys(this.saveStatuses)
       .forEach((key: Modules) => this.handleSave(key));
   }

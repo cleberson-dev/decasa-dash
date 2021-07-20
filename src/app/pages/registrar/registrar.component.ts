@@ -80,8 +80,6 @@ export class RegistrarComponent implements OnInit {
       perfil: { id: 1 },
     };
 
-    console.log('Enviando', body);
-    
     this.authService
       .registrar(body)
       .subscribe(

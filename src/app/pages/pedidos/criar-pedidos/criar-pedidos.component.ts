@@ -74,7 +74,6 @@ export class CriarPedidosComponent implements OnInit {
 
   onFormSubmit(e: any) {
     e.preventDefault();
-    console.log(this.quantityForm);
   }
 
   additionHandler(fornecedores: Fornecedor[], ref: NbDialogRef<any>) {

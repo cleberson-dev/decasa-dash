@@ -156,7 +156,6 @@ export class MapaComponent implements OnInit {
   }
 
   transformCotacoes(cotacoes: Cotacao[]) {
-    console.log(cotacoes);
     for (const cotacao of cotacoes) {
       const fornecedorIdx = this.pedido.fornecedores.findIndex(f => f.id === cotacao.fornecedor.id);
       if (fornecedorIdx === -1) {
@@ -177,7 +176,6 @@ export class MapaComponent implements OnInit {
         valor: cotacao.preco 
       });
     }
-    console.log(this.pedido);
     this.defineProductCheapestPrice();
     this.defineCheapestSupplier();
   }
@@ -197,7 +195,6 @@ export class MapaComponent implements OnInit {
     )
     .subscribe(
       data => {
-        console.log(data);
         this.pedido = {
           ...this.pedido,
           fornecedores: data.content.map(solicitacao => solicitacao.fornecedor)
@@ -214,7 +211,6 @@ export class MapaComponent implements OnInit {
     )
     .subscribe(
       pedido => {
-        console.log(pedido);
         this.pedido = {
           ...this.pedido,
           id: pedido.id,
@@ -232,7 +228,6 @@ export class MapaComponent implements OnInit {
         this.selectedSuppliers = Object.fromEntries(
           pedido.detalhesPedidos.map(detalhe => [detalhe.produto.id, undefined])
         );
-        console.log(this.pedido);
       },
       ({ error, status }) => {
         if (status === 500) this.toastrService.danger(error.titulo || 'Sem o que dizer...', 'Algo deu errado =(');
@@ -320,7 +315,6 @@ export class MapaComponent implements OnInit {
             .filter(([key, value]) =>!!value && key.includes(`cotacao-p${detalhe.produto.id}`));
           
           if (productPrices.length === 0) return;
-          console.log(productPrices);
 
           this.selectedSuppliers[detalhe.produto.id] = productPrices
             .map(([key, value]) => ({ 
@@ -328,7 +322,6 @@ export class MapaComponent implements OnInit {
               valor: value 
             }))
             .sort((a, b) => a.valor - b.valor)[0].fornecedor;
-          console.log(this.selectedSuppliers);
         });
     } else if (type === 'global') {
       Object.entries(this.selectedSuppliers)
@@ -456,7 +449,6 @@ export class MapaComponent implements OnInit {
     this.pedidosService.atualizarCotacoes(this.pedido.id, cotacoes)
       .subscribe(
         data => {
-          console.log(data);
           this.precos = Object.fromEntries(entries);
           this.isEditingPrices = !this.isEditingPrices;
         },
@@ -549,7 +541,6 @@ export class MapaComponent implements OnInit {
     this.pedidosService.gerarCompras(compras)
       .subscribe(
         data => {
-          console.log(data);
           ref.close();
           this.router.navigate(['/pedidos/acompanhamento']);
         },

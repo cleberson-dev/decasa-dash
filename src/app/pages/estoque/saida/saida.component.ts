@@ -74,7 +74,6 @@ export class SaidaComponent implements OnInit {
   }
 
   onConfirmBtnClick(dialog: TemplateRef<any>) {
-    console.log('btn clicked');
     if (this.saidaForm.controls['notaFiscal'].value === '') {
       const context = {
         type: 'confirm-nfe'

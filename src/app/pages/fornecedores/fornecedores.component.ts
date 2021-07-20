@@ -150,8 +150,6 @@ export class FornecedoresComponent implements OnInit {
       categoriasFornecidas, departamentosFornecidos
     };
     
-    console.log('Submitting this: ', fornecedor);
-
     if (this.formType === 'editar') {
       this.fornecedoresService.editar(fornecedor)
         .subscribe(
@@ -329,7 +327,6 @@ export class FornecedoresComponent implements OnInit {
   }
 
   onInscricaoBlur() {
-    console.log(this.formFornecedor);
   }
 
   handleDepClick(event: any, department: Department) {

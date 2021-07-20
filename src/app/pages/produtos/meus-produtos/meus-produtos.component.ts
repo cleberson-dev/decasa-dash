@@ -152,7 +152,6 @@ export class MeusProdutosComponent implements OnInit {
   }
 
   onItemSelected(value: string) {
-    console.log('Item clicked', value);
     this.smartGroup = this.smartGroup.map(item => ({ ...item, selected: false }));
     this.apiService.getProdutosLojistaPorCategoria(Number(value), this.authService.lojista.id)
     .subscribe(

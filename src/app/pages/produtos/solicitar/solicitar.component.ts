@@ -210,13 +210,10 @@ export class SolicitarComponent implements OnInit {
       const formData = new FormData();
       
       const files = [...e.path[0].files];
-      console.log(files);
       
       for (let file of files) {
         formData.append('fotos[]', file);
       }
-
-      console.log(formData);
     });
 
     fileInputEl.dispatchEvent(new MouseEvent("click"));

@@ -34,6 +34,5 @@ export class PaginationComponent implements OnInit {
     for (let i = 1; i <= this.totalPages; i += 1) {
       this.pageNumbers.push(i);
     }
-    console.log(this);
   }
 }
