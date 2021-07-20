@@ -33,6 +33,10 @@ export class AuthService {
     return this.lojista && !this.lojista.lojista;
   }
 
+  get matrizId(): number {
+    return this.isMatriz ? this.lojista.id : this.lojista.lojista.id;
+  }
+
   registrar(params: RegistrarLojistaParams) {
     const url = `${env.API_URL}/lojistas/`;
 

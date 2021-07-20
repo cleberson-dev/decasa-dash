@@ -4,12 +4,10 @@
   <nb-card-body>
     <form>
       <div class="row">
-        <div class="form-group col-3">
+        <div class="form-group col-4">
           <label>Local</label>
           <nb-select fullWidth>
-            <nb-option value="1">Local #1</nb-option>
-            <nb-option value="2">Local #2</nb-option>
-            <nb-option value="3">Local #3</nb-option>
+            <nb-option *ngFor="let endereco of enderecos" [value]="endereco.lojaID">{{ endereco.descricao }}</nb-option>
           </nb-select>
         </div>
       </div>

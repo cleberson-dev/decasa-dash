@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { Observable, of } from 'rxjs';
+import { LojistasService } from '../../../services/lojistas.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'ngx-alerta-compra',
@@ -34,13 +36,33 @@ export class AlertaCompraComponent implements OnInit {
 
   codigoMask = /^\d+$/;
 
+  enderecos: { lojaID: number; descricao: string }[] = [];
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private lojistaService: LojistasService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.autoOptions = ['Produto #1', 'Produto #2', 'Produto #3'];
     this.suggestedOptions$ = of(this.autoOptions);
+
+    this.lojistaService.porID(this.authService.matrizId)
+      .subscribe(lojista => {
+        this.enderecos.unshift({
+          lojaID: lojista.id,
+          descricao: `${lojista.logradouro} (Matriz)`,
+        });
+      });
+
+    this.lojistaService.filiais
+      .subscribe(data => {
+        this.enderecos.push(...data.content.map(lojista => ({
+          lojaID: lojista.id,
+          descricao: lojista.logradouro,
+        })));
+      });
   }
 
   onCodigoBlur() {

@@ -64,3 +64,11 @@ td.quantidade input {
   display: flex;
   justify-content: space-between;
 }
+::ng-deep nb-select button {
+  display: block;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+}
