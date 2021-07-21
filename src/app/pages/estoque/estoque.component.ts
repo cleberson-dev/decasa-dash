@@ -222,4 +222,14 @@ export class EstoqueComponent implements OnInit {
   remove(codigo: string, index: number) {
     this.getProductFormArray('produto-'+codigo).removeAt(index);
   }
+
+  onQuantityKeyDown(e: any, codigo: string, index: number) {
+    const formArrayName = 'produto-' + codigo;
+    const formArray = this.getProductFormArray(formArrayName);
+
+    if (e.key === 'Enter' && !e.repeat && index === formArray.length - 1) {
+      this.onNew(formArrayName);
+      return;
+    }
+  }
 }

@@ -154,6 +154,7 @@
                   nbInput fullWidth formControlName="quantidade" 
                   type="number" 
                   min="1" [max]="getMaximaQuantidade('produto-'+row.props.codigo, i)"
+                  (keydown)="onQuantityKeyDown($event, row.props.codigo, i)"
                 />
               </div>
               <button 
