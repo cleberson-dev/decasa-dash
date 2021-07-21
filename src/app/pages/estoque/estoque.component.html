@@ -123,12 +123,16 @@
             nbButton ghost size="small"
             (click)="onNew('produto-' + row.props.codigo)"
             [disabled]="!canAdd('produto-' + row.props.codigo)"
+            style="margin-left: 8px;"
           >
             <nb-icon icon="plus"></nb-icon>
           </button>
         </h4>
         <small>({{ getControlValue(quantityForm, "produto-" + row.props.codigo) }} itens)</small>
-        <div class="product-form-groups">
+        <p style="width: 100%; text-align: center;" *ngIf="getProductFormArray('produto-' + row.props.codigo).controls.length === 0">
+          <i>Sem itens</i>
+        </p>
+        <div class="product-form-groups" *ngIf="getProductFormArray('produto-' + row.props.codigo).controls.length > 0">
           <div 
             [formArrayName]="'produto-' + row.props.codigo" 
             *ngFor="let _ of getProductFormArray('produto-' + row.props.codigo).controls; let i = index;"
@@ -136,14 +140,14 @@
           >
             <div class="product-form-group-row" [formGroupName]="i">
               <div class="group">
-                <label>Nº de Série</label>
+                <label>Série</label>
                 <input nbInput fullWidth formControlName="serie" [id]="'serie'+i" />
               </div>
               <div class="group">
                 <label>Lote</label>
                 <input nbInput fullWidth formControlName="lote" [id]="'lote'+i" />
               </div>
-              <div class="group" style="width: 5rem;">
+              <div class="group">
                 <label>Quantidade</label>
                 <input 
                   [id]="'quantidade'+i"
