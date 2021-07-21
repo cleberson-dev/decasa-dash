@@ -1,6 +1,6 @@
 <nb-card>
   <nb-tabset fullWidth>
-    <nb-tab tabTitle="Meus produtos" style="padding: 0;" [active]="tabs.meusProdutos">
+    <nb-tab tabTitle="Meus produtos" style="padding: 0; overflow-y: hidden;" [active]="tabs.meusProdutos">
       <tab-meus-produtos
         (requestClick)="changeTab($event)"
       ></tab-meus-produtos>
