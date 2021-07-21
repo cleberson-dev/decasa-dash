@@ -213,7 +213,8 @@ export class EstoqueComponent implements OnInit {
   }
 
   canAdd(nome: string) {
-    const maximum = this.data.find(row => nome.includes(row.props.codigo)).props.quantidade;
+    const maximum = this.getControlValue(this.quantityForm, nome);
+    
     const groupSum = (this.getProductFormArray(nome).value as any[]).reduce((prev, cur) => prev + cur.quantidade, 0);
     
     return groupSum < maximum;
@@ -226,7 +227,7 @@ export class EstoqueComponent implements OnInit {
   }
 
   getMaximaQuantidade(nome: string, index: number) {
-    const max = this.data.find(row => nome.includes(row.props.codigo)).props.quantidade;
+    const max = this.getControlValue(this.quantityForm, nome);
     return max - this.otherSum(nome, index);
   }
 
