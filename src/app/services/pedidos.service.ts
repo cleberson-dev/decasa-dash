@@ -67,7 +67,7 @@ export class PedidosService {
     fornecedor: { id: number; }
     preco: number;
   }[]) {
-    const url = `${env.API_URL}/cotacoes/$${pedidoID}`;
+    const url = `${env.API_URL}/cotacoes/${pedidoID}`;
 
     return this.http.patch<PaginatedResource<Cotacao>>(url, cotacoes);
   }
