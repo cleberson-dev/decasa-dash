@@ -154,6 +154,7 @@
               </div>
               <button 
                 nbButton ghost status="danger"
+                (click)="remove(row.props.codigo, i)"
               >
                 <nb-icon icon="trash"></nb-icon>
               </button>

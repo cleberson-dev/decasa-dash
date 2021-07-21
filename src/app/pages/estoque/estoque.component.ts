@@ -213,4 +213,8 @@ export class EstoqueComponent implements OnInit {
     const max = this.data.find(row => nome.includes(row.props.codigo)).props.quantidade;
     return max - this.otherSum(nome, index);
   }
+
+  remove(codigo: string, index: number) {
+    this.getProductFormArray('produto-'+codigo).removeAt(index);
+  }
 }
