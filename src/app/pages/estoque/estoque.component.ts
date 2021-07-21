@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { concatMap, delay, filter, map } from 'rxjs/operators';
@@ -52,22 +52,7 @@ export class EstoqueComponent implements OnInit {
   });
 
   quantityForm = this.fb.group({});
-  additionalForm = this.fb.group({
-    'produto-1': this.fb.array([
-      this.fb.group({
-        serie: this.fb.control(''),
-        lote: this.fb.control(''),
-        quantidade: this.fb.control(1),
-      })
-    ]),
-    'produto-2': this.fb.array([
-      this.fb.group({
-        serie: this.fb.control(''),
-        lote: this.fb.control(''),
-        quantidade: this.fb.control(1),
-      })
-    ]),
-  });
+  additionalForm = this.fb.group({});
 
   notaArquivo = null;
 
@@ -111,7 +96,7 @@ export class EstoqueComponent implements OnInit {
           }));
           this.quantityForm = this.fb.group(
             Object.fromEntries(
-              detalhesCompras.map(detalhe => [`produto-${detalhe.produto.cnp}`, [1, [Validators.required, Validators.min(1), Validators.max(detalhe.quantidade)]]]))
+              detalhesCompras.map(detalhe => [`produto-${detalhe.produto.cnp}`, [0, [Validators.required, Validators.min(0), Validators.max(detalhe.quantidade)]]]))
             );
         },
         err => {
@@ -197,15 +182,9 @@ export class EstoqueComponent implements OnInit {
 
   onAdditionalInfoOpen(context: any) {
     this.additionalForm = this.fb.group(Object.fromEntries(
-      this.data.map(row => [
+      this.filteredData.map(row => [
         `produto-${row.props.codigo}`, 
-        this.fb.array([
-          this.fb.group({
-            serie: this.fb.control(''),
-            lote: this.fb.control(''),
-            quantidade: this.fb.control(1),
-          })
-        ])
+        this.fb.array([])
       ])
     ));
     
@@ -242,5 +221,16 @@ export class EstoqueComponent implements OnInit {
     if (e.key === 'Enter' && !e.repeat && index === formArray.length - 1) {
       return this.onNew(formArrayName);
     }
+  }
+
+  get filteredData() {
+    return this.data.filter(row => {
+      return this.getControlValue(this.quantityForm, 'produto-' + row.props.codigo) > 0;
+    });
+  }
+
+  get quantitySum() {
+    return Object.entries(this.quantityForm.value)
+      .reduce((prev, [_, cur]) => prev + (cur as number), 0);
   }
 }

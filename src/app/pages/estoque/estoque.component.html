@@ -63,7 +63,7 @@
           <td class="produto">{{ row.props.nome }}</td>
           <td>{{ row.props.unidade }}</td>
           <td class="quantidade">
-            <input nbInput type="number" min="1" [max]="row.props.quantidade" fullWidth [formControlName]="'produto-' + row.props.codigo" />
+            <input nbInput type="number" min="0" [max]="row.props.quantidade" fullWidth [formControlName]="'produto-' + row.props.codigo" />
           </td>
           <td>{{ row.props.precoUnitario|reais }}</td>
           <td>{{ (getControlValue(quantityForm, "produto-" + row.props.codigo) * row.props.precoUnitario)|reais }}</td>
@@ -75,7 +75,8 @@
     <div></div>
     <button 
       nbButton type="button" 
-      status="primary" [disabled]="data.length === 0"
+      status="primary" 
+      [disabled]="data.length === 0 || quantitySum === 0"
       (click)="onConfirmBtnClick(dialog)"
     >
       Confirmar
@@ -116,11 +117,11 @@
   <nb-card *ngIf="context.type === 'additional-info'" class="additional-form">
     <nb-card-header>Quer definir nº de lote e série?</nb-card-header>
     <nb-card-body [formGroup]="additionalForm" class="additional-info-card-body">
-      <div class="product-form" *ngFor="let row of data">
+      <div class="product-form" *ngFor="let row of filteredData">
         <h4 class="product-form-title">
           <span>{{ row.props.nome }}</span>
           <button 
-            nbButton ghost size="small"
+            nbButton size="small"
             (click)="onNew('produto-' + row.props.codigo)"
             [disabled]="!canAdd('produto-' + row.props.codigo)"
             style="margin-left: 8px;"
