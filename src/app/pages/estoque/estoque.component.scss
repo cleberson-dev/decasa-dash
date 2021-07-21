@@ -1,3 +1,5 @@
+@import '~sass/mixins';
+
 $borderColor: #edf1f7;
 
 .form-group {
@@ -67,6 +69,74 @@ td.produto {
 }
 
 .estoque-card-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.additional-form {
+  width: 80vw;
+
+  .product-form-group:not(:first-child) {
+    margin-top: 8px;
+  }
+
+  .group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+}
+
+.additional-info-card-body {
+  min-height: 70vh;
+  max-height: 70vh;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.product-form {
+  // width: 40%;
+  margin-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .product-form-title {
+    font-size: 1rem;
+    margin-bottom: 0;
+    display: flex;
+
+    span {
+      flex-grow: 1;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .product-form-groups {
+    flex-grow: 1;
+    margin-top: 8px;
+    padding-right: 5px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    @include customScroll;
+  }
+
+  .product-form-group-row {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .product-form-group-row .group {
+    width: 10rem;
+    margin-right: 1rem;
+  }
+}
+
+.additional-info-card-footer {
   display: flex;
   justify-content: space-between;
 }

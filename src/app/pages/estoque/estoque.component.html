@@ -96,7 +96,7 @@
       <button 
         nbButton 
         type="button" status="primary" 
-        (click)="ref.close()"
+        (click)="onAdditionalInfoOpen(context)"
         style="margin-left: 1rem;"
       >
         Claro, tenho certeza
@@ -111,5 +111,62 @@
       (change)="onNotaArquivoChange($event)"
       accept="image/*"
     />
+  </nb-card>
+
+  <nb-card *ngIf="context.type === 'additional-info'" class="additional-form">
+    <nb-card-header>Quer definir nº de lote e série?</nb-card-header>
+    <nb-card-body [formGroup]="additionalForm" class="additional-info-card-body">
+      <div class="product-form" *ngFor="let row of data">
+        <h4 class="product-form-title">
+          <span>{{ row.props.nome }}</span>
+          <button 
+            nbButton ghost size="small"
+            (click)="onNew('produto-' + row.props.codigo)"
+            [disabled]="!canAdd('produto-' + row.props.codigo)"
+          >
+            <nb-icon icon="plus"></nb-icon>
+          </button>
+        </h4>
+        <small>({{ getControlValue(quantityForm, "produto-" + row.props.codigo) }} itens)</small>
+        <div class="product-form-groups">
+          <div 
+            [formArrayName]="'produto-' + row.props.codigo" 
+            *ngFor="let _ of getProductFormArray('produto-' + row.props.codigo).controls; let i = index;"
+            class="product-form-group"
+          >
+            <div class="product-form-group-row" [formGroupName]="i">
+              <div class="group">
+                <label>Nº de Série</label>
+                <input nbInput fullWidth formControlName="serie" [id]="'serie'+i" />
+              </div>
+              <div class="group">
+                <label>Lote</label>
+                <input nbInput fullWidth formControlName="lote" [id]="'lote'+i" />
+              </div>
+              <div class="group" style="width: 5rem;">
+                <label>Quantidade</label>
+                <input 
+                  [id]="'quantidade'+i"
+                  nbInput fullWidth formControlName="quantidade" 
+                  type="number" 
+                  min="1" [max]="getMaximaQuantidade('produto-'+row.props.codigo, i)"
+                />
+              </div>
+              <button 
+                nbButton ghost status="danger"
+              >
+                <nb-icon icon="trash"></nb-icon>
+              </button>
+            </div>
+            </div>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="additional-info-card-footer">
+      <div></div>
+      <button nbButton status="primary">
+        Dar entrada
+      </button>
+    </nb-card-footer>
   </nb-card>
 </ng-template>

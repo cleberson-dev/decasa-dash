@@ -1,5 +1,6 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { concatMap, filter, map } from 'rxjs/operators';
@@ -49,6 +50,22 @@ export class EstoqueComponent implements OnInit {
   });
 
   quantityForm = this.fb.group({});
+  additionalForm = this.fb.group({
+    'produto-1': this.fb.array([
+      this.fb.group({
+        serie: this.fb.control(''),
+        lote: this.fb.control(''),
+        quantidade: this.fb.control(1),
+      })
+    ]),
+    'produto-2': this.fb.array([
+      this.fb.group({
+        serie: this.fb.control(''),
+        lote: this.fb.control(''),
+        quantidade: this.fb.control(1),
+      })
+    ]),
+  });
 
   notaArquivo = null;
 
@@ -145,5 +162,55 @@ export class EstoqueComponent implements OnInit {
 
   getControlValue(formGroup: FormGroup, controlName: string) {
     return formGroup.controls[controlName].value;
+  }
+
+  getProductFormArray(nome: string) {
+    return <FormArray> this.additionalForm.get(nome);
+  }
+
+  onNew(nome: string) {
+    this.getProductFormArray(nome).push(
+      this.fb.group({
+        serie: this.fb.control(''),
+        lote: this.fb.control(''),
+        quantidade: this.fb.control(1),
+      })
+    );
+  }
+
+  onAdditionalInfoOpen(context: any) {
+    this.additionalForm = this.fb.group(Object.fromEntries(
+      this.data.map(row => [
+        `produto-${row.props.codigo}`, 
+        this.fb.array([
+          this.fb.group({
+            serie: this.fb.control(''),
+            lote: this.fb.control(''),
+            quantidade: this.fb.control(1),
+          })
+        ])
+      ])
+    ));
+    console.log(this.additionalForm);
+    
+    context.type = 'additional-info';
+  }
+
+  canAdd(nome: string) {
+    const maximum = this.data.find(row => nome.includes(row.props.codigo)).props.quantidade;
+    const groupSum = (this.getProductFormArray(nome).value as any[]).reduce((prev, cur) => prev + cur.quantidade, 0);
+    
+    return groupSum < maximum;
+  }
+
+  otherSum(nome: string, index: number) {
+    return (this.getProductFormArray(nome).value as any[])
+      .filter((_, idx) => idx !== index)
+      .reduce((prev, cur) => prev + cur.quantidade, 0);
+  }
+
+  getMaximaQuantidade(nome: string, index: number) {
+    const max = this.data.find(row => nome.includes(row.props.codigo)).props.quantidade;
+    return max - this.otherSum(nome, index);
   }
 }
