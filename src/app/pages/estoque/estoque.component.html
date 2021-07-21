@@ -46,13 +46,15 @@
         <col />
         <col />
         <col />
+        <col />
       </colgroup>
       <thead>
         <tr>
           <th>Código</th>
           <th>Produto</th>
           <th>Unidade</th>
-          <th>Quantidade</th>
+          <th>Qtd. recebida</th>
+          <th>Qtd. pedida</th>
           <th>Pr. Unit.</th>
           <th>Sub-total</th>
         </tr>
@@ -65,8 +67,9 @@
           <td class="quantidade">
             <input nbInput type="number" min="0" [max]="row.props.quantidade" fullWidth [formControlName]="'produto-' + row.props.codigo" />
           </td>
+          <td>{{ row.props.quantidade }}</td>
           <td>{{ row.props.precoUnitario|reais }}</td>
-          <td>{{ (getControlValue(quantityForm, "produto-" + row.props.codigo) * row.props.precoUnitario)|reais }}</td>
+          <td>{{ (row.props.quantidade * row.props.precoUnitario)|reais }}</td>
         </tr>
       </tbody>
     </table>
