@@ -1,7 +1,7 @@
 <ngx-tabber [tabs]="tabs"></ngx-tabber>
 
 <nb-card>
-  <nb-card-body>
+  <nb-card-body class="estoque-card-body">
     <form [formGroup]="form">
       <div class="row">
         <div class="form-group col-4">
@@ -38,7 +38,7 @@
       </div>
     </form>
 
-    <table [formGroup]="quantityForm">
+    <table [formGroup]="quantityForm" *ngIf="data.length > 0">
       <colgroup>
         <col />
         <col class="full" />
@@ -74,7 +74,7 @@
       </tbody>
     </table>
   </nb-card-body>
-  <nb-card-footer class="estoque-card-footer">
+  <nb-card-footer class="estoque-card-footer" *ngIf="data.length > 0">
     <div></div>
     <button 
       nbButton type="button" 
