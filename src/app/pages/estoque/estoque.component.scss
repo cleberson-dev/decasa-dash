@@ -93,18 +93,19 @@ td.produto {
 .additional-info-card-body {
   min-height: 70vh;
   max-height: 70vh;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: scroll;
   display: flex;
   flex-wrap: nowrap;
+  justify-content: flex-start;
 }
 
 .product-form {
-  width: 50%;
+  min-width: 400px;
+  max-width: 400px;
   margin-right: 2rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 
   .product-form-title {
     font-size: 1rem;
