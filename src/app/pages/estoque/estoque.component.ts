@@ -233,4 +233,19 @@ export class EstoqueComponent implements OnInit {
     return Object.entries(this.quantityForm.value)
       .reduce((prev, [_, cur]) => prev + (cur as number), 0);
   }
+
+  onDarEntrada() {
+    const arrays = this.additionalForm.controls as { [key: string]: FormArray }; 
+    const itens = Object.entries(arrays)
+      .map(([formArrayName, formArray]) => {
+        const produto = this.filteredData.find(row => formArrayName.includes(row.props.codigo));
+
+        const productItems = formArray.value
+          .map(info => new Array(info.quantidade).fill({}).map(() => ({ codigo: produto.props.codigo, serie: info.serie, lote: info.lote })))
+          .reduce((prev, cur) => [...prev, ...cur] , []);
+        return productItems.concat(new Array(this.quantityForm.controls['produto-'+produto.props.codigo].value - productItems.length).fill({}).map(() => ({ codigo: produto.props.codigo, serie: null, lote: null })))
+      })
+      .reduce((prev, cur) => [...prev, ...cur] , []);
+      console.log(itens);
+  }
 }
