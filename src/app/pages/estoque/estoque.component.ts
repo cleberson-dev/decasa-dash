@@ -1,11 +1,13 @@
-import { CurrencyPipe } from '@angular/common';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
-import { concatMap, filter, map } from 'rxjs/operators';
+import { concatMap, delay, filter, map } from 'rxjs/operators';
+
 import { Tab } from '../../components/tabber/tabber.component';
 import { PedidosService } from '../../services/pedidos.service';
+import { DOCUMENT } from '@angular/common';
+import { of } from 'rxjs';
 
 type RowProps = {
   codigo: string;
@@ -80,6 +82,7 @@ export class EstoqueComponent implements OnInit {
     private pedidosService: PedidosService,
     private dialogService: NbDialogService,
     private toastrService: NbToastrService,
+    @Inject(DOCUMENT) private document: Document, 
   ) { }
 
   ngOnInit(): void {
@@ -169,6 +172,8 @@ export class EstoqueComponent implements OnInit {
   }
 
   onNew(nome: string) {
+    if (!this.canAdd(nome)) return;
+
     const formArray = this.getProductFormArray(nome);
     const last = formArray.length > 0 ? 
       formArray.value[formArray.length - 1]
@@ -181,6 +186,13 @@ export class EstoqueComponent implements OnInit {
         quantidade: this.fb.control(1),
       })
     );
+
+    of(null).pipe(delay(100))
+      .subscribe(() => {
+        const selector = `div[ng-reflect-name="${nome}"] ~ div input[formcontrolname="serie"]`;
+        const input = this.document.querySelector<HTMLInputElement>(selector);
+        input.focus();
+      });
   }
 
   onAdditionalInfoOpen(context: any) {
@@ -196,7 +208,6 @@ export class EstoqueComponent implements OnInit {
         ])
       ])
     ));
-    console.log(this.additionalForm);
     
     context.type = 'additional-info';
   }
@@ -228,8 +239,7 @@ export class EstoqueComponent implements OnInit {
     const formArray = this.getProductFormArray(formArrayName);
 
     if (e.key === 'Enter' && !e.repeat && index === formArray.length - 1) {
-      this.onNew(formArrayName);
-      return;
+      return this.onNew(formArrayName);
     }
   }
 }
