@@ -170,12 +170,14 @@ export class EstoqueComponent implements OnInit {
 
   onNew(nome: string) {
     const formArray = this.getProductFormArray(nome);
-    const last = formArray.value[formArray.length - 1];
+    const last = formArray.length > 0 ? 
+      formArray.value[formArray.length - 1]
+      : undefined;
 
     formArray.push(
       this.fb.group({
-        serie: this.fb.control(last.serie),
-        lote: this.fb.control(last.lote),
+        serie: this.fb.control(last?.serie || ''),
+        lote: this.fb.control(last?.lote || ''),
         quantidade: this.fb.control(1),
       })
     );
