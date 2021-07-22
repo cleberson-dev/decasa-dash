@@ -21,6 +21,7 @@ ul li.menu-item {
   box-sizing: content-box;
   overflow-y: scroll;
   overflow-x: hidden;
+  position: relative;
   @include customScroll;
 }
 
@@ -45,6 +46,7 @@ ul li.menu-item {
   overflow-y: scroll;
   padding-bottom: 4rem;
   flex-grow: 1;
+  position: relative;
 
   @include customScroll;
 }

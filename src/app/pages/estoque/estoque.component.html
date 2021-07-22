@@ -33,11 +33,7 @@
         </div>
       </div>
     </form>
-    <ngx-spinner
-      name="compra-spinner"
-      bdColor="rgba(0,0,0,0)" size="medium" 
-      color="#3366ff" type="ball-scale-multiple" [fullScreen]="false"
-    ></ngx-spinner>
+    <loading-spinner name="compra-spinner"></loading-spinner>
     <table [formGroup]="quantityForm" *ngIf="data.length > 0">
       <colgroup>
         <col />

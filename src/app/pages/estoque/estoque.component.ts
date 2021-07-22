@@ -89,7 +89,6 @@ export class EstoqueComponent implements OnInit {
           this.spinner.show("compra-spinner");
           return this.pedidosService.compra(compraID);
         }),
-        delay(5000)
       )
       .subscribe(
         (compra) => {

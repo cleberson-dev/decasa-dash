@@ -6,6 +6,7 @@ import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { Department } from '../solicitar/solicitar.component';
 import { filter } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 type AddProductItem = {
   produto: Produto;
@@ -20,8 +21,8 @@ type AddProductItem = {
 })
 export class MeusProdutosComponent implements OnInit {
   @Output() requestClick = new EventEmitter();
-  departments: Department[];
-  departmentTree: TreeItem[];
+  departments: Department[] = [];
+  departmentTree: TreeItem[] = [];
   loadingDepartments: boolean = true;
 
   currentProductsPage: number;
@@ -53,23 +54,30 @@ export class MeusProdutosComponent implements OnInit {
     private toastrService: NbToastrService,
     private authService: AuthService,
     private menuService: NbMenuService,
+    private spinner: NgxSpinnerService,
   ) {}
 
   onPageChange(changedPage: number) {
+    this.produtosLojista = [];
+    this.pagination = null;
+    this.spinner.show("meus-produtos-spinner");
+    
     this.apiService
-      .getProdutosLojistaPorCategoria(
-        this.currentCategory,
-        this.authService.lojista.id,
-        { page: changedPage }
+    .getProdutosLojistaPorCategoria(
+      this.currentCategory,
+      this.authService.lojista.id,
+      { page: changedPage }
       )
       .subscribe(
         data => {
           this.produtosLojista = [...data.content];
           this.pagination = { ...data };
+          this.spinner.hide("meus-produtos-spinner");
         },
         err => {
           console.error(err);
           this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista por categoria');
+          this.spinner.hide("meus-produtos-spinner");
         }
       );
   }
@@ -80,20 +88,25 @@ export class MeusProdutosComponent implements OnInit {
       .subscribe(({ item }) => {
         this.smartGroup = this.smartGroup.map(menuItem => ({...menuItem, selected: item.data === menuItem.data }));
         this.currentCategory = undefined;
+        this.produtosLojista = [];
+        this.pagination = null;
         switch (item.data) {
           case 'todos':
+            this.spinner.show("meus-produtos-spinner");
             this.apiService
-              .getProdutosLojista(this.authService.lojista.id)
-              .subscribe(
-                data => {
-                  this.produtosLojista = [...data.content];
-                  this.pagination = { ...data };
-                },
-                err => {
-                  console.error(err);
-                  this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista');
-                }
-              );
+            .getProdutosLojista(this.authService.lojista.id)
+            .subscribe(
+              data => {
+                this.produtosLojista = [...data.content];
+                this.pagination = { ...data };
+                this.spinner.hide("meus-produtos-spinner");
+              },
+              err => {
+                console.error(err);
+                this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista');
+                this.spinner.hide("meus-produtos-spinner");
+              }
+            );
             break;
           case 'mais-vendidos':
           default:
@@ -112,6 +125,8 @@ export class MeusProdutosComponent implements OnInit {
           
         }
       })
+
+    this.spinner.show("meus-departamentos-spinner");
     this.apiService.getDepartments()
       .subscribe(
         departments => {
@@ -129,40 +144,51 @@ export class MeusProdutosComponent implements OnInit {
             .sort((a, b) => a.name.localeCompare(b.name));
 
           this.loadingDepartments = false;
+          this.spinner.hide("meus-departamentos-spinner");
         },
         err => {
           console.error(err);
           this.toastrService.danger(err.error.message, 'Impossível obter departamentos');
+          this.spinner.hide("meus-departamentos-spinner");
         }
       );
 
-
+    this.spinner.show("meus-produtos-spinner");
     this.apiService
-      .getProdutosLojista(this.authService.lojista.id)
-      .subscribe(
-        data => {
-          this.produtosLojista = [...data.content];
-          this.pagination = { ...data };
-        },
-        err => {
-          console.error(err);
-          this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista');
-        }
-      );
+    .getProdutosLojista(this.authService.lojista.id)
+    .subscribe(
+      data => {
+        this.produtosLojista = [...data.content];
+        this.pagination = { ...data };
+        this.spinner.hide("meus-produtos-spinner");
+      },
+      err => {
+        console.error(err);
+        this.toastrService.danger(err.error.message, 'Impossível obter produtos do lojista');
+        this.spinner.hide("meus-produtos-spinner");
+      }
+    );
   }
 
   onItemSelected(value: string) {
     this.smartGroup = this.smartGroup.map(item => ({ ...item, selected: false }));
+    
+    this.produtosLojista = [];
+    this.pagination = null;
+    this.spinner.show("meus-produtos-spinner");
+    
     this.apiService.getProdutosLojistaPorCategoria(Number(value), this.authService.lojista.id)
     .subscribe(
       data => {
         this.produtosLojista = [...data.content];
         this.pagination = { ...data };
         this.currentCategory = Number(value);
+        this.spinner.hide("meus-produtos-spinner");
       },
       ({ error }) => {
         console.error(error);
         this.toastrService.danger(error.message || "Sem mensagem", "Impossível obter produtos do lojista por categoria");
+        this.spinner.hide("meus-produtos-spinner");
       }
     );
   }
@@ -198,15 +224,20 @@ export class MeusProdutosComponent implements OnInit {
 
   searchProducts() {
     const query = this.searchControl.value;
+    this.produtosLojista = [];
+    this.pagination = null;
+    this.spinner.show("meus-produtos-spinner");
     this.apiService.buscarProdutoLojista(query, this.authService.lojista.id)
       .subscribe(
         data => {
           this.produtosLojista = [...data.content];
           this.pagination = { ...data };
+          this.spinner.hide("meus-produtos-spinner");
         },
         err => {
           console.error(err);
           this.toastrService.danger(err.error.message, 'Impossível buscar produtos do lojista');
+          this.spinner.hide("meus-produtos-spinner");
         }
       );
   }

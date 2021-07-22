@@ -2,7 +2,8 @@
   <div class="left">
     <nb-menu [items]="smartGroup" tag="main-menu"></nb-menu>
     
-    <h5 class="category-title">Departamentos</h5>
+    <loading-spinner name="meus-departamentos-spinner"></loading-spinner>
+    <h5 *ngIf="departmentTree.length > 0" class="category-title">Departamentos</h5>
     <ngx-tree
       *ngIf="!loadingDepartments && departmentTree.length > 0"
       [items]="departmentTree" 
@@ -34,7 +35,8 @@
       </div>
     </div>
     <div class="product-list">
-      <nb-list>
+      <loading-spinner name="meus-produtos-spinner"></loading-spinner>
+      <nb-list *ngIf="produtosLojista.length > 0">
         <nb-list-item *ngFor="let produtoLojista of produtosLojista">
           <ngx-produto   
             [produto]="produtoLojista.produto"

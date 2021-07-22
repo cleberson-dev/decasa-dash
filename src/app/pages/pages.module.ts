@@ -67,6 +67,7 @@ import { SolicitarComponent } from './produtos/solicitar/solicitar.component';
 import { IMaskModule } from 'angular-imask';
 import { ReaisPipe } from '../pipes/reais.pipe';
 import { ProdutoDetalhesComponent } from '../modals/produto-detalhes/produto-detalhes.component';
+import { LoadingSpinnerComponent } from '../components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   imports: [
@@ -137,6 +138,7 @@ import { ProdutoDetalhesComponent } from '../modals/produto-detalhes/produto-det
     SolicitarComponent,
     ReaisPipe,
     ProdutoDetalhesComponent,
+    LoadingSpinnerComponent,
   ]
 })
 export class PagesModule {
