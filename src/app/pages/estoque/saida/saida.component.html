@@ -13,7 +13,7 @@
               </nb-option>
             </nb-select>
           </div>
-          <button nbButton ghost type="button" (click)="flipStores()">
+          <button [@rotate]="rotationState" nbButton ghost type="button" (click)="flipStores()">
             <nb-icon icon="flip-2"></nb-icon>
           </button>
           <div class="form-group">

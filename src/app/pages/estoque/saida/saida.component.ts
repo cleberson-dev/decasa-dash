@@ -4,11 +4,24 @@ import { Tab } from '../../../components/tabber/tabber.component';
 import { Observable, of } from 'rxjs';
 import { NbDialogService } from '@nebular/theme';
 import { LojistasService } from '../../../services/lojistas.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-saida',
   templateUrl: './saida.component.html',
-  styleUrls: ['./saida.component.scss']
+  styleUrls: ['./saida.component.scss'],
+  animations: [
+    trigger('rotate', [
+      state('normal', style({
+        transform: 'rotate(0deg)'
+      })),
+      state('torn', style({
+        transform: 'rotate(180deg)'
+      })),
+      transition('normal => torn', [animate('0.3s 0s ease-out')]),
+    ]),
+  ],
 })
 export class SaidaComponent implements OnInit {
   @ViewChild('autoInput') input;
@@ -46,6 +59,9 @@ export class SaidaComponent implements OnInit {
   codigoMask = /^\d+$/;
 
   lojas: Lojista[] = [];
+
+
+  isTorn = false;
 
   constructor(
     private fb: FormBuilder,
@@ -104,6 +120,9 @@ export class SaidaComponent implements OnInit {
     const novoDestino = this.headerForm.controls['origem'].value;
     
     this.headerForm.patchValue({ origem: novoOrigem, destino: novoDestino });
+    
+    this.toggleRotation();
+    of(null).pipe(delay(1000)).subscribe(() => this.toggleRotation());
   }
 
   isOrigemDisabled(lojaID: number) {
@@ -112,5 +131,13 @@ export class SaidaComponent implements OnInit {
 
   isDestinoDisabled(lojaID: number) {
     return this.headerForm.controls['origem'].value === lojaID;
+  }
+
+  get rotationState() {
+    return this.isTorn ? 'torn' : 'normal';
+  }
+
+  toggleRotation() {
+    this.isTorn = !this.isTorn;
   }
 }
