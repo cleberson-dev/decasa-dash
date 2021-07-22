@@ -140,4 +140,10 @@ export class SaidaComponent implements OnInit {
   toggleRotation() {
     this.isTorn = !this.isTorn;
   }
+
+  get isFlipDisabled() {
+    const { origem, destino } = this.headerForm.value;
+
+    return !origem || !destino;
+  }
 }
