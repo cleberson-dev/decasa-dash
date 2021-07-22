@@ -2,22 +2,23 @@
 
 <nb-card>
   <nb-card-body>
-    <form>
+    <form [formGroup]="headerForm">
       <div class="row">
         <div class="form-group col-3">
           <label>Origem</label>
-          <nb-select fullWidth>
-            <nb-option value="1">Origem #1</nb-option>
-            <nb-option value="2">Origem #2</nb-option>
-            <nb-option value="3">Origem #3</nb-option>
+          <nb-select fullWidth formControlName="origem">
+            <nb-option *ngFor="let origem of origens" [value]="origem.id">
+              {{ origem.nome }}
+            </nb-option>
           </nb-select>
         </div>
         <div class="col-1"></div>
         <div class="form-group col-3">
           <label>Destino</label>
-          <nb-select fullWidth>
-            <nb-option value="1">Destino #1</nb-option>
-            <nb-option value="2">Destino #2</nb-option>
+          <nb-select fullWidth formControlName="destino">
+            <nb-option *ngFor="let destino of destinos" [value]="destino.id">
+              {{ destino.nome }}
+            </nb-option>
           </nb-select>
         </div>
         <div class="col-1"></div>

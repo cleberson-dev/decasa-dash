@@ -38,23 +38,22 @@ export class LojistasService {
     return this.http.post<Lojista>(url, body);
   }
 
-  get enderecos(): Observable<EnderecoLojista[]> {
+  get todas() {
     return this.porID(this.authService.matrizId).pipe(
-      map((matriz) => ({
-        lojaID: matriz.id,
-        descricao: `${matriz.logradouro} (Matriz)`,
-      })),
-      concatMap((enderecoMatriz) =>
+      concatMap((matriz) =>
         this.filiais.pipe(
-          map((data) => [
-            enderecoMatriz,
-            ...data.content.map((filial) => ({
-              lojaID: filial.id,
-              descricao: filial.logradouro,
-            })),
-          ])
+          map(data => [matriz, ...data.content])
         )
       )
+    );
+  }
+
+  get enderecos(): Observable<EnderecoLojista[]> {
+    return this.todas.pipe(
+      map((lojas) => lojas.map(loja => ({
+        lojaID: loja.id,
+        descricao: loja.logradouro,
+      })))
     );
   }
 }
