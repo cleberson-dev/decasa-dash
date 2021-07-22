@@ -116,13 +116,15 @@ export class SaidaComponent implements OnInit {
   }
 
   flipStores() {
+    if (this.isTorn) return;
+
     const novoOrigem = this.headerForm.controls['destino'].value;
     const novoDestino = this.headerForm.controls['origem'].value;
     
     this.headerForm.patchValue({ origem: novoOrigem, destino: novoDestino });
     
     this.toggleRotation();
-    of(null).pipe(delay(1000)).subscribe(() => this.toggleRotation());
+    of(null).pipe(delay(300)).subscribe(() => this.toggleRotation());
   }
 
   isOrigemDisabled(lojaID: number) {
