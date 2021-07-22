@@ -38,6 +38,7 @@
           class="dialog product-list" 
           style="width: 80vw; min-height: 50vh"
         >
+          <loading-spinner name="produtos-spinner"></loading-spinner>
           <nb-list>
             <nb-list-item [class]="{ selected: isProductSelected(produto.id) }" *ngFor="let produto of produtos">
               <ngx-checkbox [defaultValue]="!!isProductSelected(produto.id)" (change)="onProductCheck(produto.id, $event)"></ngx-checkbox>

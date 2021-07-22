@@ -9,6 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { ProdutosService } from '../../services/produtos.service';
 import { Department } from '../../pages/produtos/solicitar/solicitar.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 type AddProductItem = {
   produto: Produto;
@@ -39,19 +40,23 @@ export class AdicionarProdutoModalComponent implements OnInit {
   constructor(
     private toastrService: NbToastrService,
     private produtosService: ProdutosService,
+    private spinner: NgxSpinnerService,
   ) {}
 
   ngOnInit(): void {
     this.loading = true;
+    this.spinner.show("produtos-spinner");
     this.produtosService.todos()
       .subscribe(
         (data) => {
           this.produtos = [...data.content];
           this.pagination = { ...data };
+          this.spinner.hide("produtos-spinner");
         },
         err => {
           console.error(err);
           this.toastrService.danger(err.error.message, 'Impossível obter todos os produtos');
+          this.spinner.hide("produtos-spinner");
         }
       );
     this.loading = false;
@@ -63,6 +68,11 @@ export class AdicionarProdutoModalComponent implements OnInit {
 
   selectedCategoryOptionsChange(option: string) {
     this.selectedCategory = option;
+    this.produtos = [];
+    this.pagination = null;
+
+    this.spinner.show("produtos-spinner");
+
     switch (option) {
       case 'mais-vendidos':
         this.produtosService.maisVendidos()
@@ -70,10 +80,12 @@ export class AdicionarProdutoModalComponent implements OnInit {
             (data) => {
               this.produtos = [...data.content];
               this.pagination = { ...data };
+              this.spinner.hide("produtos-spinner");
             },
             err => {
               console.error(err);
               this.toastrService.danger(err.error.message, 'Impossível obter produtos mais vendidos');
+              this.spinner.hide("produtos-spinner");
             }
           );
         break;
@@ -83,10 +95,12 @@ export class AdicionarProdutoModalComponent implements OnInit {
             (data) => {
               this.produtos = [...data.content];
               this.pagination = { ...data };
+              this.spinner.hide("produtos-spinner");
             },
             err => {
               console.error(err);
               this.toastrService.danger(err.error.message, 'Impossível obter todos os produtos');
+              this.spinner.hide("produtos-spinner");
             }
           );
         break;
@@ -98,10 +112,12 @@ export class AdicionarProdutoModalComponent implements OnInit {
             (data) => {
               this.produtos = [...data.content];
               this.pagination = { ...data };
+              this.spinner.hide("produtos-spinner");
             }, 
             err => {
               console.error(err);
               this.toastrService.danger(err.error.message, 'Impossível obter produtos por categoria');
+              this.spinner.hide("produtos-spinner");
             }
           );
     }
@@ -153,10 +169,16 @@ export class AdicionarProdutoModalComponent implements OnInit {
     const query = this.searchControl.value;
     const category = this.selectedCategory;
 
+    this.produtos = [];
+    this.pagination = null;
+
+    this.spinner.show("produtos-spinner");
+    
     if (['mais-vendidos', 'todos'].includes(category)) {
       this.produtosService.buscarPorDescricao(query).subscribe((data) => {
         alert('achou! ' + data.content.length);
         this.produtos = data.content;
+        this.spinner.hide("produtos-spinner");
       });
       return;
     }
@@ -167,25 +189,33 @@ export class AdicionarProdutoModalComponent implements OnInit {
         (data) => {
           this.produtos = [...data.content];
           this.pagination = { ...data };
+          this.spinner.hide("produtos-spinner");
         }, 
         err => {
           console.error(err);
           this.toastrService.danger(err.error.message, 'Impossível buscar produto por categoria');
+          this.spinner.hide("produtos-spinner");
         }
       );
   }
 
   onPageChange(changedPage: number) {
+    this.produtos = [];
+    this.pagination = null;
+    this.spinner.show("produtos-spinner");
+
     this.produtosService
       .todos({ page: changedPage })
       .subscribe(
         data => {
           this.produtos = [...data.content];
           this.pagination = { ...data };
+          this.spinner.hide("produtos-spinner");
         },
         err => {
           console.error(err);
           this.toastrService.danger(err.error.message, `Impossível obter todos os produtos (página: ${changedPage})`);
+          this.spinner.hide("produtos-spinner");
         }
       );
   }
