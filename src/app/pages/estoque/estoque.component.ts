@@ -8,6 +8,7 @@ import { Tab } from '../../components/tabber/tabber.component';
 import { PedidosService } from '../../services/pedidos.service';
 import { DOCUMENT } from '@angular/common';
 import { of } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 type RowProps = {
   id: number;
@@ -69,7 +70,8 @@ export class EstoqueComponent implements OnInit {
     private pedidosService: PedidosService,
     private dialogService: NbDialogService,
     private toastrService: NbToastrService,
-    @Inject(DOCUMENT) private document: Document, 
+    @Inject(DOCUMENT) private document: Document,
+    private spinner: NgxSpinnerService, 
   ) { }
 
   ngOnInit(): void {
@@ -84,11 +86,14 @@ export class EstoqueComponent implements OnInit {
         map(params => Number(params.compra)),
         concatMap(compraID => {
           this.compraSelecionada = compraID;
+          this.spinner.show("compra-spinner");
           return this.pedidosService.compra(compraID);
-        })
+        }),
+        delay(5000)
       )
       .subscribe(
         (compra) => {
+          this.spinner.hide("compra-spinner");
           this.compraAtual = compra;
           this.data = compra.detalhesCompras.map(detalhe => new Row({
             id: detalhe.produto.id,
