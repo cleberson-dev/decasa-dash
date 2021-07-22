@@ -1,7 +1,7 @@
 <ngx-tabber [tabs]="tabs"></ngx-tabber>
 
 <nb-card>
-  <nb-card-body>
+  <nb-card-body *ngIf="isMapReady">
     <div class="row">
       <div class="col-4">
         <div class="form-group">
@@ -150,9 +150,8 @@
           
           <td [class]="[
             'last-prices', 
-            detalhe.precos && detalhe.precos.length > 0 ? 
+            detalhe.precos && detalhe.precos.length > 0 && 
               getPriceStatus(detalhe.precos[detalhe.menorPrecoIdx].valor, detalhe.precoUltimasCompras)
-              : ''
           ]">
             {{ detalhe.precoUltimasCompras || "..." }}
           </td>

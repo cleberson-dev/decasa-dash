@@ -109,7 +109,6 @@ export class MapaComponent implements OnInit {
 
   constructor(
     private dialogService: NbDialogService,
-    private apiService: ApiService,
     private route: ActivatedRoute,
     private toastrService: NbToastrService,
     private authService: AuthService,
@@ -477,7 +476,7 @@ export class MapaComponent implements OnInit {
   }
 
   get isAnySupplierSelected() {
-    return Object.entries(this.selectedSuppliers)
+    return !!this.selectedSuppliers && Object.entries(this.selectedSuppliers)
       .some(([_, preco]) => !!preco);
   }
 
@@ -549,5 +548,9 @@ export class MapaComponent implements OnInit {
           this.toastrService.danger(err.error.message || "Sem mensagem disponível", "Impossível gerar ordens de compra");
         }
       );
+  }
+
+  get isMapReady(): boolean {
+    return !!this.pedido && this.cotacoes.length > 0 && !!this.precos && Object.keys(this.precos).length > 0 && this.selectedSuppliers && Object.keys(this.selectedSuppliers).length > 0;
   }
 }
