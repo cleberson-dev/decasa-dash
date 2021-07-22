@@ -4,22 +4,26 @@
   <nb-card-body>
     <form [formGroup]="headerForm">
       <div class="row">
-        <div class="form-group col-3">
-          <label>Origem</label>
-          <nb-select fullWidth formControlName="origem">
-            <nb-option *ngFor="let origem of origens" [value]="origem.id">
-              {{ origem.nome }}
-            </nb-option>
-          </nb-select>
-        </div>
-        <div class="col-1"></div>
-        <div class="form-group col-3">
-          <label>Destino</label>
-          <nb-select fullWidth formControlName="destino">
-            <nb-option *ngFor="let destino of destinos" [value]="destino.id">
-              {{ destino.nome }}
-            </nb-option>
-          </nb-select>
+        <div class="col-7 store-fields">
+          <div class="form-group">
+            <label>Origem</label>
+            <nb-select fullWidth formControlName="origem">
+              <nb-option *ngFor="let loja of lojas" [value]="loja.id" [disabled]="isOrigemDisabled(loja.id)">
+                {{ loja.nome }}
+              </nb-option>
+            </nb-select>
+          </div>
+          <button nbButton ghost type="button" (click)="flipStores()">
+            <nb-icon icon="flip-2"></nb-icon>
+          </button>
+          <div class="form-group">
+            <label>Destino</label>
+            <nb-select fullWidth formControlName="destino">
+              <nb-option *ngFor="let loja of lojas" [value]="loja.id" [disabled]="isDestinoDisabled(loja.id)">
+                {{ loja.nome }}
+              </nb-option>
+            </nb-select>
+          </div>
         </div>
         <div class="col-1"></div>
         <div class="form-group col-4">

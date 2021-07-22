@@ -66,3 +66,11 @@ td.quantidade input {
   display: flex;
   justify-content: space-between;
 }
+
+.store-fields {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 1rem;
+}

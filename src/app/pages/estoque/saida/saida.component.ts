@@ -99,11 +99,18 @@ export class SaidaComponent implements OnInit {
     alert('Confirmado');
   }
 
-  get origens() {
-    return this.lojas.filter(loja => loja.id !== this.headerForm.controls['destino'].value);
+  flipStores() {
+    const novoOrigem = this.headerForm.controls['destino'].value;
+    const novoDestino = this.headerForm.controls['origem'].value;
+    
+    this.headerForm.patchValue({ origem: novoOrigem, destino: novoDestino });
   }
 
-  get destinos() {
-    return this.lojas.filter(loja => loja.id !== this.headerForm.controls['origem'].value)
+  isOrigemDisabled(lojaID: number) {
+    return this.headerForm.controls['destino'].value === lojaID;
+  }
+
+  isDestinoDisabled(lojaID: number) {
+    return this.headerForm.controls['origem'].value === lojaID;
   }
 }
