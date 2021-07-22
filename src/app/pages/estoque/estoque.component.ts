@@ -10,6 +10,7 @@ import { DOCUMENT } from '@angular/common';
 import { of } from 'rxjs';
 
 type RowProps = {
+  id: number;
   codigo: string;
   nome: string;
   unidade: string;
@@ -57,6 +58,7 @@ export class EstoqueComponent implements OnInit {
   notaArquivo = null;
 
   compras: CompraMaterial[] = [];
+  compraAtual: CompraMaterial;
   compraSelecionada: number;
   buscandoCompra: boolean = false;
 
@@ -86,8 +88,10 @@ export class EstoqueComponent implements OnInit {
         })
       )
       .subscribe(
-        ({ detalhesCompras }) => {
-          this.data = detalhesCompras.map(detalhe => new Row({
+        (compra) => {
+          this.compraAtual = compra;
+          this.data = compra.detalhesCompras.map(detalhe => new Row({
+            id: detalhe.produto.id,
             codigo: detalhe.produto.cnp,
             nome: detalhe.produto.descricao,
             unidade: detalhe.produto.unidadeMedidaProduto.sigla,
@@ -96,7 +100,7 @@ export class EstoqueComponent implements OnInit {
           }));
           this.quantityForm = this.fb.group(
             Object.fromEntries(
-              detalhesCompras.map(detalhe => [`produto-${detalhe.produto.cnp}`, [0, [Validators.required, Validators.min(0), Validators.max(detalhe.quantidade)]]]))
+              compra.detalhesCompras.map(detalhe => [`produto-${detalhe.produto.cnp}`, [0, [Validators.required, Validators.min(0), Validators.max(detalhe.quantidade)]]]))
             );
         },
         err => {
@@ -241,11 +245,23 @@ export class EstoqueComponent implements OnInit {
         const produto = this.filteredData.find(row => formArrayName.includes(row.props.codigo));
 
         const productItems = formArray.value
-          .map(info => new Array(info.quantidade).fill({}).map(() => ({ codigo: produto.props.codigo, serie: info.serie, lote: info.lote })))
+          .map(info => new Array(info.quantidade).fill({}).map(() => ({ produto: { id: produto.props.id }, serie: info.serie, lote: info.lote })))
           .reduce((prev, cur) => [...prev, ...cur] , []);
-        return productItems.concat(new Array(this.quantityForm.controls['produto-'+produto.props.codigo].value - productItems.length).fill({}).map(() => ({ codigo: produto.props.codigo, serie: null, lote: null })))
+        return productItems.concat(new Array(this.quantityForm.controls['produto-'+produto.props.codigo].value - productItems.length).fill({}).map(() => ({ produto: { id: produto.props.id }, serie: null, lote: null })))
       })
       .reduce((prev, cur) => [...prev, ...cur] , []);
-      console.log(itens);
+
+    const now = new Date();
+    const correct = (num: number) => num.toString().padStart(2, '0');
+    const recebimentoMaterial = {
+      compraMaterial: { id: this.compraAtual.id },
+      dataRecebimento: `${[now.getDate(), now.getMonth()].map(correct).join('/')}/${now.getFullYear()}`,
+      itensEstoque: itens,
+      numeroNf: null,
+      dataNf: null,
+      arquivoNf: null,
+    };
+    console.log('Recebimento Material')
+    console.log(recebimentoMaterial);
   }
 }
