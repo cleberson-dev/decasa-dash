@@ -10,10 +10,16 @@
             <nb-option *ngFor="let compra of compras" [value]="compra.id">{{ compra.id }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-4"></div>
-        <div class="form-group col-4">
+        <div class="col-5"></div>
+        <div class="form-group col-3" *ngIf="data.length > 0">
           <label>NFe</label>
-          <input nbInput fullWidth formControlName="notaFiscal" />
+          <button 
+            nbButton fullWidth status="warning" type="button"
+            (click)="openFileDialog(dialog)"
+          >
+            <nb-icon icon="archive"></nb-icon>
+            Carregar XML
+          </button>
         </div>
       </div>
       <div class="row">
@@ -23,16 +29,6 @@
             (click)="onSearchSale()" [disabled]="buscandoCompra"
           >
             Buscar
-          </button>
-        </div>
-        <div class="col-7"></div>
-        <div class="col-3">
-          <button 
-            nbButton fullWidth status="warning" type="button"
-            (click)="openFileDialog(dialog)"
-          >
-            <nb-icon icon="archive"></nb-icon>
-            Enviar XML
           </button>
         </div>
       </div>
