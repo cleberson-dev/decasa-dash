@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Tab } from '../../../components/tabber/tabber.component';
-import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
 import { LojistasService } from '../../../services/lojistas.service';
 import { PedidosService } from '../../../services/pedidos.service';
@@ -46,14 +46,18 @@ export class AcompanhamentoComponent implements OnInit {
   filiais: Lojista[] = [];
 
   constructor(
-    private apiService: ApiService,
     private authService: AuthService,
     private toastrService: NbToastrService,
     private lojistasService: LojistasService,
     private pedidosService: PedidosService,
+    private spinner: NgxSpinnerService,
   ) {}
 
   ngOnInit(): void {
+    this.spinner.show("mapas-spinner");
+    this.spinner.show("compras-abertas-spinner");
+    this.spinner.show("compras-finalizadas-spinner");
+
     this.pedidosService.filtrarPorLojista(this.authService.lojista.id)
       .subscribe(data => {
         this.mapas = data.content.map(pedido => ({
@@ -62,6 +66,7 @@ export class AcompanhamentoComponent implements OnInit {
           data: pedido.dataCadastro,
           loja: pedido.lojista.id
         }));
+        this.spinner.hide("mapas-spinner");
       });
 
     this.pedidosService.compras()
@@ -73,6 +78,7 @@ export class AcompanhamentoComponent implements OnInit {
           preco: compra.valor,
           loja: this.getLojistaById(compra.lojista.id).nome,
         }));
+        this.spinner.hide("compras-abertas-spinner");
       });
 
     this.pedidosService.compras(false)
@@ -84,6 +90,7 @@ export class AcompanhamentoComponent implements OnInit {
           preco: compra.valor,
           loja: this.getLojistaById(compra.lojista.id).nome,
         }));
+        this.spinner.hide("compras-finalizadas-spinner");
       });
 
     this.matriz = this.authService.isMatriz ?
@@ -107,6 +114,9 @@ export class AcompanhamentoComponent implements OnInit {
   }
 
   onLojistaChange(lojistaId: number) {
+    this.mapas = [];
+    this.spinner.show("mapas-spinner");
+
     this.pedidosService.filtrarPorLojista(lojistaId)
       .subscribe(
         data => {
@@ -116,10 +126,12 @@ export class AcompanhamentoComponent implements OnInit {
             data: pedido.dataCadastro,
             loja: pedido.lojista.id
           }));
+          this.spinner.hide("mapas-spinner");
         },
         err => {
           console.error(err);
           this.toastrService.danger(err.error.message || 'Sem mensagem disponível', 'Impossível obter mapas pelo lojista');
+          this.spinner.hide("mapas-spinner");
         }
       )
   }

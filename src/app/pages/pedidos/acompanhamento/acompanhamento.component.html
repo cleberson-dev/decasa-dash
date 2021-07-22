@@ -13,82 +13,91 @@
         </nb-select>
       </div>
     </div>
-    <div class="acompanhamento-header">
-      <h5>Mapas de Cotação</h5>
-      <div class="search-bar">
-        <input nbInput placeholder="Pesquise por código" />
-        <button nbButton ghost>
-          <nb-icon icon="search"></nb-icon>
-        </button>
+    <section>
+      <div class="acompanhamento-header">
+        <h5>Mapas de Cotação</h5>
+        <div class="search-bar">
+          <input nbInput placeholder="Pesquise por código" />
+          <button nbButton ghost>
+            <nb-icon icon="search"></nb-icon>
+          </button>
+        </div>
       </div>
-    </div>
-    <ul class="card-list">
-      <li *ngFor="let mapa of mapas">
-        <a [routerLink]="['/pedidos', 'mapa', mapa.id]">
-          <nb-card class="item-card">
-            <nb-card-body class="item-card-body">
-              <p class="title">MC {{ mapa.codigo }}</p>
-              <div class="details">
-                <p><span>Data:</span> {{ mapa.data }}</p>
-                <p><span>Solicitante:</span> {{ mapa.solicitante || "..." }}</p>
-                <p><span>Loja:</span> {{ getLojistaById(mapa.loja)?.nome || "..." }}</p>
-              </div>
-            </nb-card-body>
-          </nb-card>
-        </a>
-      </li>
-    </ul>
-    <div class="acompanhamento-header">
-      <h5>Ordens de compra</h5>
-      <div class="search-bar">
-        <input nbInput placeholder="Pesquise por código" />
-        <button nbButton ghost>
-          <nb-icon icon="search"></nb-icon>
-        </button>
-      </div>
-    </div>
-    <ul class="card-list">
-      <li *ngFor="let ordem of comprasAbertas">
-        <a [routerLink]="['/pedidos', 'compra', ordem.id]">
-          <nb-card class="item-card">
-            <nb-card-body class="item-card-body">
-              <p class="title">OC {{ ordem.codigo }}</p>
-              <div class="details">
-                <p><span>Data:</span> {{ ordem.data }}</p>
-                <p><span>Solicitante:</span> {{ ordem.solicitante }}</p>
-                <p><span>Loja:</span> {{ ordem.loja || "..." }}</p>
-                <p class="total"><span>Total:</span> R${{ ordem.preco|reais }}</p>
-              </div>
-            </nb-card-body>
-          </nb-card>
-        </a>
-      </li>
-    </ul>
+      <loading-spinner name="mapas-spinner"></loading-spinner>
+      <ul class="card-list">
+        <li *ngFor="let mapa of mapas">
+          <a [routerLink]="['/pedidos', 'mapa', mapa.id]">
+            <nb-card class="item-card">
+              <nb-card-body class="item-card-body">
+                <p class="title">MC {{ mapa.codigo }}</p>
+                <div class="details">
+                  <p><span>Data:</span> {{ mapa.data }}</p>
+                  <p><span>Solicitante:</span> {{ mapa.solicitante || "..." }}</p>
+                  <p><span>Loja:</span> {{ getLojistaById(mapa.loja)?.nome || "..." }}</p>
+                </div>
+              </nb-card-body>
+            </nb-card>
+          </a>
+        </li>
+      </ul>
+    </section>
 
-    <div class="acompanhamento-header">
-      <h5>Compras Finalizadas</h5>
-      <div class="search-bar">
-        <input nbInput placeholder="Pesquise por código" />
-        <button nbButton ghost>
-          <nb-icon icon="search"></nb-icon>
-        </button>
+    <section>
+      <div class="acompanhamento-header">
+        <h5>Ordens de compra</h5>
+        <div class="search-bar">
+          <input nbInput placeholder="Pesquise por código" />
+          <button nbButton ghost>
+            <nb-icon icon="search"></nb-icon>
+          </button>
+        </div>
       </div>
-    </div>
-    <ul class="card-list">
-      <li *ngFor="let finalizada of comprasFinalizadas">
-        <a [routerLink]="['/pedidos', 'compra', finalizada.id]">
-          <nb-card class="item-card">
-            <nb-card-body class="item-card-body">
-              <p class="title">CF {{ finalizada.codigo }}</p>
-              <div class="details">
-                <p><span>Data:</span> {{ finalizada.data }} </p>
-                <p><span>Loja:</span> {{ finalizada.loja }} </p>
-                <p><span>Preço:</span> {{ finalizada.preco }} </p>
-              </div>
-            </nb-card-body>
-          </nb-card>
-        </a>
-      </li>
-    </ul>
+      <loading-spinner name="compras-abertas-spinner"></loading-spinner>
+      <ul class="card-list">
+        <li *ngFor="let ordem of comprasAbertas">
+          <a [routerLink]="['/pedidos', 'compra', ordem.id]">
+            <nb-card class="item-card">
+              <nb-card-body class="item-card-body">
+                <p class="title">OC {{ ordem.codigo }}</p>
+                <div class="details">
+                  <p><span>Data:</span> {{ ordem.data }}</p>
+                  <p><span>Solicitante:</span> {{ ordem.solicitante }}</p>
+                  <p><span>Loja:</span> {{ ordem.loja || "..." }}</p>
+                  <p class="total"><span>Total:</span> R${{ ordem.preco|reais }}</p>
+                </div>
+              </nb-card-body>
+            </nb-card>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <div class="acompanhamento-header">
+        <h5>Compras Finalizadas</h5>
+        <div class="search-bar">
+          <input nbInput placeholder="Pesquise por código" />
+          <button nbButton ghost>
+            <nb-icon icon="search"></nb-icon>
+          </button>
+        </div>
+      </div>
+      <loading-spinner name="compras-finalizadas-spinner"></loading-spinner>
+      <ul class="card-list">
+        <li *ngFor="let finalizada of comprasFinalizadas">
+          <a [routerLink]="['/pedidos', 'compra', finalizada.id]">
+            <nb-card class="item-card">
+              <nb-card-body class="item-card-body">
+                <p class="title">CF {{ finalizada.codigo }}</p>
+                <div class="details">
+                  <p><span>Data:</span> {{ finalizada.data }} </p>
+                  <p><span>Loja:</span> {{ finalizada.loja }} </p>
+                  <p><span>Preço:</span> {{ finalizada.preco }} </p>
+                </div>
+              </nb-card-body>
+            </nb-card>
+          </a>
+        </li>
+      </ul>
+    </section>
   </nb-card-body>
 </nb-card>
