@@ -7,6 +7,7 @@ import { FornecedoresService } from '../../services/fornecedores.service';
 import { LocalizacaoService } from '../../services/localizacao.service';
 import * as CustomValidators from '../../validators';
 import { Department } from '../produtos/solicitar/solicitar.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'ngx-fornecedores',
@@ -43,6 +44,8 @@ export class FornecedoresComponent implements OnInit {
     // RG Representante, CPF Representante, Data RG
   });
 
+  loadingFornecedores = true;
+
   removeBtnLoading: boolean = false;
   editBtnLoading: boolean = false;
 
@@ -53,17 +56,25 @@ export class FornecedoresComponent implements OnInit {
     private toastrService: NbToastrService,
     private fornecedoresService: FornecedoresService,
     private localizacaoService: LocalizacaoService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
+    this.spinner.show("fornecedores-spinner");
     this.fornecedoresService.todos()
     .subscribe(
       data => {
         this.fornecedores = data;
+        
+        this.spinner.hide("fornecedores-spinner");
+        this.loadingFornecedores = false;
       },
       err => {
         console.error(err);
         this.toastrService.danger(err.error.message, 'Impossível obter fornecedores');
+        
+        this.spinner.hide("fornecedores-spinner");
+        this.loadingFornecedores = false;
       }
     );
 
