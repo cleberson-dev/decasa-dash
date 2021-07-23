@@ -9,6 +9,7 @@ import { PedidosService } from '../../services/pedidos.service';
 import { DOCUMENT } from '@angular/common';
 import { of } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EstoqueService } from '../../services/estoque.service';
 
 type RowProps = {
   id: number;
@@ -77,7 +78,8 @@ export class EstoqueComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastrService: NbToastrService,
     @Inject(DOCUMENT) private document: Document,
-    private spinner: NgxSpinnerService, 
+    private spinner: NgxSpinnerService,
+    private estoqueService: EstoqueService,
   ) { }
 
   ngOnInit(): void {
@@ -271,24 +273,31 @@ export class EstoqueComponent implements OnInit {
         const produto = this.filteredData.find(row => formArrayName.includes(row.props.codigo));
 
         const productItems = formArray.value
-          .map(info => new Array(info.quantidade).fill({}).map(() => ({ produto: { id: produto.props.id }, serie: info.serie, lote: info.lote })))
+          .map(info => new Array(info.quantidade).fill({}).map(() => ({ produto: { id: produto.props.id }, numeroSerie: info.serie, lote: info.lote })))
           .reduce((prev, cur) => [...prev, ...cur] , []);
-        return productItems.concat(new Array(this.quantityForm.controls['produto-'+produto.props.codigo].value - productItems.length).fill({}).map(() => ({ produto: { id: produto.props.id }, serie: null, lote: null })))
+        return productItems.concat(new Array(this.quantityForm.controls['produto-'+produto.props.codigo].value - productItems.length).fill({}).map(() => ({ produto: { id: produto.props.id }, numeroSerie: null, lote: null })))
       })
       .reduce((prev, cur) => [...prev, ...cur] , []);
-
-    const now = new Date();
-    const correct = (num: number) => num.toString().padStart(2, '0');
-    const recebimentoMaterial = {
+    
+    const body = {
       compraMaterial: { id: this.compraAtual.id },
-      dataRecebimento: `${[now.getDate(), now.getMonth()].map(correct).join('/')}/${now.getFullYear()}`,
       itensEstoque: itens,
       numeroNf: null,
       dataNf: null,
       arquivoNf: null,
     };
-    console.log('Recebimento Material')
-    console.log(recebimentoMaterial);
+    console.log('Sending...', body)
+    this.estoqueService.registrarRecebimentoMaterial(body)
+      .subscribe(
+        (data) => {
+          console.log(data);
+          this.toastrService.success(data, 'Entrada feita com sucesso!');
+        },
+        (err) => {
+          console.error(err);
+          this.toastrService.danger(err.error.message, 'Erro na entrada do estoque');
+        }
+      )
   }
 
   get selectedRow() {
@@ -308,5 +317,26 @@ export class EstoqueComponent implements OnInit {
   get isSearchDisabled() {
     const entered = this.form.controls['compra'].value;
     return this.suggestedCompras.length === 0 || this.suggestedCompras.every(compra => compra !== entered);
+  }
+
+  onNotaFiscalBtn() {
+    const fileInputEl = document.createElement("input");
+
+    fileInputEl.type = "file";
+    fileInputEl.accept = "image/*";
+
+    fileInputEl.addEventListener("change", (e: any) => {
+      const [file] = e.path[0].files;
+      const reader = new FileReader();
+
+      reader.addEventListener("loadend", () => {
+        const b64 = (reader.result as string).replace(/^data:.+;base64,/, '');
+        console.log(b64);
+      });
+
+      reader.readAsDataURL(file);
+    });
+
+    fileInputEl.dispatchEvent(new MouseEvent("click"));
   }
 }
