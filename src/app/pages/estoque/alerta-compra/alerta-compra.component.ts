@@ -35,7 +35,7 @@ export class AlertaCompraComponent implements OnInit {
 
   codigoMask = /^\d+$/;
 
-  enderecos: EnderecoLojista[] = [];
+  lojas: Lojista[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -46,9 +46,9 @@ export class AlertaCompraComponent implements OnInit {
     this.autoOptions = ['Produto #1', 'Produto #2', 'Produto #3'];
     this.suggestedOptions$ = of(this.autoOptions);
 
-    this.lojistaService.enderecos
-      .subscribe(enderecos => {
-        this.enderecos = enderecos;
+    this.lojistaService.todas
+      .subscribe(lojas => {
+        this.lojas = lojas;
       });
   }
 

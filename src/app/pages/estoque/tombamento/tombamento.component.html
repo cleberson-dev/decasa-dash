@@ -7,7 +7,7 @@
         <div class="form-group col-3">
           <label>Local</label>
           <nb-select fullWidth>
-            <nb-option *ngFor="let endereco of enderecos" [value]="endereco.lojaID">{{ endereco.descricao }}</nb-option>
+            <nb-option *ngFor="let loja of lojas" [value]="loja.id">{{ loja.nome }}</nb-option>
           </nb-select>
         </div>
       </div>
