@@ -88,24 +88,26 @@ td.produto {
 .additional-info-card-body {
   min-height: 70vh;
   max-height: 70vh;
-  overflow-y: hidden;
-  overflow-x: scroll;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 7fr 3fr;
+  padding: 0;
 }
 
 .product-form {
-  min-width: 400px;
-  max-width: 400px;
-  margin-right: 2rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 
   .product-form-title {
     font-size: 1rem;
     margin-bottom: 0;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 
     span {
       flex-grow: 1;
@@ -122,6 +124,7 @@ td.produto {
     overflow-x: hidden;
     overflow-y: scroll;
     @include customScroll;
+    width: 100%;
   }
 
   .product-form-group-row {
@@ -140,4 +143,72 @@ td.produto {
 
 .estoque-card-body {
   min-height: 70vh;
+}
+
+.side-menu {
+  border-left: 1px solid #edf1f7;
+}
+
+.product-item {
+  cursor: pointer;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.product-item:not(.selected):hover {
+  background-color: darken(white, 3%);
+}
+
+.product-item.selected {
+  background-color: darken(white, 5%);
+  cursor: default;
+}
+
+.product-item .counter {
+  border-radius: 50%;
+  background-color: #3366ff;
+  border: 1px solid #3366ff;
+  color: white;
+  width: calc(1.6rem - 1px);
+  height: calc(1.6rem - 1px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  margin-right: 8px;
+  line-height: 1px;
+  font-size: 0.75rem;
+
+  opacity: 0.7;
+}
+
+.product-item .counter.empty {
+  background-color: #dcdcdc;
+  border-color: #edf1f7;
+  color: black;
+}
+
+.product-item .counter.invalid {
+  background-color: #ff3d71 !important;
+  border-color: #ff3d71 !important;
+}
+
+.side-menu-title {
+  font-weight: 600; 
+  font-size: 0.875rem; 
+  margin: 10px 1rem;
+  margin-right: 0;
+}
+
+p.product-form-title-stats {
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-align: right;
+
+  span {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #8f9bb3;
+  }
 }

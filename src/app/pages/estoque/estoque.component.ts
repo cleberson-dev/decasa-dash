@@ -63,6 +63,8 @@ export class EstoqueComponent implements OnInit {
   compraSelecionada: number;
   buscandoCompra: boolean = false;
 
+  additionalSelectedProduct = 0;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -195,7 +197,8 @@ export class EstoqueComponent implements OnInit {
         this.fb.array([])
       ])
     ));
-    
+
+    this.additionalSelectedProduct = 0;
     context.type = 'additional-info';
   }
 
@@ -205,6 +208,10 @@ export class EstoqueComponent implements OnInit {
     const groupSum = (this.getProductFormArray(nome).value as any[]).reduce((prev, cur) => prev + cur.quantidade, 0);
     
     return groupSum < maximum;
+  }
+
+  sum(codigo: string) {
+    return (this.getProductFormArray("produto-"+codigo).value as any[]).reduce((prev, cur) => prev + cur.quantidade, 0);
   }
 
   otherSum(nome: string, index: number) {
@@ -267,5 +274,9 @@ export class EstoqueComponent implements OnInit {
     };
     console.log('Recebimento Material')
     console.log(recebimentoMaterial);
+  }
+
+  get selectedRow() {
+    return this.filteredData[this.additionalSelectedProduct];
   }
 }

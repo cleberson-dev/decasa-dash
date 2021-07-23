@@ -116,26 +116,28 @@
   <nb-card *ngIf="context.type === 'additional-info'" class="additional-form">
     <nb-card-header>Quer definir nº de lote e série?</nb-card-header>
     <nb-card-body [formGroup]="additionalForm" class="additional-info-card-body">
-      <div class="product-form" *ngFor="let row of filteredData">
-        <h4 class="product-form-title">
-          <span>{{ row.props.nome }}</span>
+      <section class="product-form">
+        <div class="product-form-title">
           <button 
-            nbButton size="small"
-            (click)="onNew('produto-' + row.props.codigo)"
-            [disabled]="!canAdd('produto-' + row.props.codigo)"
-            style="margin-left: 8px;"
+            nbButton
+            (click)="onNew('produto-' + selectedRow.props.codigo)"
+            [disabled]="!canAdd('produto-' + selectedRow.props.codigo)"
           >
             <nb-icon icon="plus"></nb-icon>
+            Adicionar
           </button>
-        </h4>
-        <small>({{ getControlValue(quantityForm, "produto-" + row.props.codigo) }} itens)</small>
-        <p style="width: 100%; text-align: center;" *ngIf="getProductFormArray('produto-' + row.props.codigo).controls.length === 0">
+          <p class="product-form-title-stats">
+            {{ sum(selectedRow.props.codigo) }}/{{ getControlValue(quantityForm, "produto-"+selectedRow.props.codigo) }}
+            <span>itens</span>
+          </p>
+        </div>
+        <p style="width: 100%; text-align: center;" *ngIf="getProductFormArray('produto-' + selectedRow.props.codigo).controls.length === 0">
           <i>Sem itens</i>
         </p>
-        <div class="product-form-groups" *ngIf="getProductFormArray('produto-' + row.props.codigo).controls.length > 0">
+        <div class="product-form-groups" *ngIf="getProductFormArray('produto-' + selectedRow.props.codigo).controls.length > 0">
           <div 
-            [formArrayName]="'produto-' + row.props.codigo" 
-            *ngFor="let _ of getProductFormArray('produto-' + row.props.codigo).controls; let i = index;"
+            [formArrayName]="'produto-' + selectedRow.props.codigo" 
+            *ngFor="let _ of getProductFormArray('produto-' + selectedRow.props.codigo).controls; let i = index;"
             class="product-form-group"
           >
             <div class="product-form-group-row" [formGroupName]="i">
@@ -153,20 +155,43 @@
                   [id]="'quantidade'+i"
                   nbInput fullWidth formControlName="quantidade" 
                   type="number" 
-                  min="1" [max]="getMaximaQuantidade('produto-'+row.props.codigo, i)"
-                  (keydown)="onQuantityKeyDown($event, row.props.codigo, i)"
+                  min="1" [max]="getMaximaQuantidade('produto-'+selectedRow.props.codigo, i)"
+                  (keydown)="onQuantityKeyDown($event, selectedRow.props.codigo, i)"
                 />
               </div>
               <button 
                 nbButton ghost status="danger"
-                (click)="remove(row.props.codigo, i)"
+                (click)="remove(selectedRow.props.codigo, i)"
               >
                 <nb-icon icon="trash"></nb-icon>
               </button>
             </div>
             </div>
         </div>
-      </div>
+      </section>
+
+      <section class="side-menu">
+        <h5 class="side-menu-title">Selecione o produto desejado</h5>
+        <nb-list>
+          <nb-list-item 
+            *ngFor="let row of filteredData; let i = index;"
+            (click)="additionalSelectedProduct = i"
+            [class]="{
+              'product-item': true,
+              'selected': additionalSelectedProduct === i
+            }"
+          >
+            <div [class]="{
+              counter: true,
+              empty: sum(row.props.codigo) === 0,
+              invalid: sum(row.props.codigo) > getControlValue(quantityForm, 'produto-'+row.props.codigo)
+            }">
+              {{ sum(row.props.codigo) }}
+            </div>
+            <span>{{ row.props.nome }}</span>
+          </nb-list-item>
+        </nb-list>
+      </section>
     </nb-card-body>
     <nb-card-footer class="additional-info-card-footer">
       <button nbButton (click)="ref.close()">
