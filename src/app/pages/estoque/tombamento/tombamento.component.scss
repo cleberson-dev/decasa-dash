@@ -2,6 +2,8 @@ $borderColor: #edf1f7;
 
 .form-group label {
   display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 table {
@@ -63,4 +65,8 @@ td.quantidade input {
 .estoque-card-footer {
   display: flex;
   justify-content: space-between;
+}
+
+.tombamento-card-body {
+  min-height: 60vh;
 }

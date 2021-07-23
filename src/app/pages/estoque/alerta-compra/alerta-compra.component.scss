@@ -2,6 +2,8 @@ $borderColor: #edf1f7;
 
 .form-group label {
   display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 table {
@@ -71,4 +73,8 @@ td.quantidade input {
   white-space: nowrap;
   text-overflow: ellipsis;
   text-align: left;
+}
+
+.alerta-compra-card-body {
+  min-height: 60vh;
 }
