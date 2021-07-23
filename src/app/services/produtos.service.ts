@@ -78,4 +78,16 @@ export class ProdutosService {
 
     return this.http.get<PaginatedResource<Produto>>(url);
   }
+
+  getProdutosEmEstoque(paginationOpts?: PaginationOptions) {
+    const page = (paginationOpts?.page || 1) - 1;
+    const size = paginationOpts?.size || 10;
+    
+    let url = `${env.API_URL}/produtos/lojista/${this.authService.lojista.id}`;
+    url += '?emEstoque=true';
+    url += `&page=${page}`;
+    url += `&size=${size}`;
+
+    return this.http.get<PaginatedResource<Produto>>(url);  
+  }
 }

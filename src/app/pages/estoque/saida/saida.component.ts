@@ -1,11 +1,12 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Tab } from '../../../components/tabber/tabber.component';
-import { Observable, of } from 'rxjs';
-import { NbDialogService } from '@nebular/theme';
+import { of } from 'rxjs';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { LojistasService } from '../../../services/lojistas.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { delay } from 'rxjs/operators';
+import { ProdutosService } from '../../../services/produtos.service';
 
 @Component({
   selector: 'ngx-saida',
@@ -26,7 +27,8 @@ import { delay } from 'rxjs/operators';
 export class SaidaComponent implements OnInit {
   @ViewChild('autoInput') input;
   autoOptions: string[];
-  suggestedOptions$: Observable<string[]>;
+  suggestedProdutos: string[] = [];
+  produtos: Produto[] = [];
 
   tabs: Tab[] = [
     { title: 'Entrada', link: '/estoque', active: false },
@@ -60,22 +62,32 @@ export class SaidaComponent implements OnInit {
 
   lojas: Lojista[] = [];
 
-
   isTorn = false;
 
   constructor(
     private fb: FormBuilder,
     private dialogService: NbDialogService,
     private lojistasService: LojistasService,
+    private produtosService: ProdutosService,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
-    this.autoOptions = ['Produto #1', 'Produto #2', 'Produto #3'];
-    this.suggestedOptions$ = of(this.autoOptions);
     this.lojistasService.todas
       .subscribe(lojas => {
         this.lojas = lojas;
       });
+
+    this.produtosService.getProdutosEmEstoque({ page: 1, size: 5 })
+      .subscribe(
+        (data) => {
+          this.produtos = data.content;
+          this.suggestedProdutos = this.produtos.map(produto => produto.descricao);
+        },
+        (err) => {
+          this.toastrService.danger(err.error.message, 'Impossível obter produtos em estoque');
+        }
+      )
   }
 
   onCodigoBlur() {
