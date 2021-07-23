@@ -6,9 +6,20 @@
       <div class="row">
         <div class="form-group col-3">
           <label>Ordem de Compra</label>
-          <nb-select fullWidth [(selected)]="compraSelecionada">
-            <nb-option *ngFor="let compra of compras" [value]="compra.id">{{ compra.id }}</nb-option>
-          </nb-select>
+          <input 
+            #autoInput 
+            nbInput 
+            type="text" 
+            (input)="onCompraInputChange()"
+            [nbAutocomplete]="auto"
+            fullWidth
+            formControlName="compra"
+          />
+          <nb-autocomplete [activeFirst]="false" #auto (selectedChange)="onCompraSelectedChange($event)">
+            <nb-option *ngFor="let compra of suggestedCompras" [value]="compra">
+              {{ compra }}
+            </nb-option>
+          </nb-autocomplete>
         </div>
         <div class="col-6"></div>
         <div class="form-group col-3" *ngIf="data.length > 0">
@@ -24,7 +35,7 @@
         <div class="col-2">
           <button 
             nbButton type="submit" status="primary" fullWidth
-            (click)="onSearchSale()" [disabled]="buscandoCompra"
+            (click)="onSearchSale()" [disabled]="isSearchDisabled"
           >
             Buscar
           </button>

@@ -50,7 +50,8 @@ export class EstoqueComponent implements OnInit {
 
   form = this.fb.group({
     notaFiscal: [''],
-    notaArquivo: ['']
+    notaArquivo: [''],
+    compra: ['']
   });
 
   quantityForm = this.fb.group({});
@@ -64,7 +65,10 @@ export class EstoqueComponent implements OnInit {
   buscandoCompra: boolean = false;
 
   additionalSelectedProduct = 0;
+  suggestedCompras: string[] = [];
 
+  codigoMask = /^\d+$/;
+  
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -80,6 +84,7 @@ export class EstoqueComponent implements OnInit {
     this.pedidosService.compras()
       .subscribe(data => {
         this.compras = data.content;
+        this.suggestedCompras = this.compras.map(compra => compra.id.toString());
       });
 
     this.route.queryParams
@@ -148,12 +153,14 @@ export class EstoqueComponent implements OnInit {
   }
 
   onSearchSale() {
+    const compraSelecionada = this.form.controls['compra'].value;
+    
     this.router.navigate(
       [],
       {
         relativeTo: this.route,
         queryParamsHandling: 'merge',
-        queryParams: { compra: this.compraSelecionada },
+        queryParams: { compra: compraSelecionada },
       }
     );
   }
@@ -278,5 +285,20 @@ export class EstoqueComponent implements OnInit {
 
   get selectedRow() {
     return this.filteredData[this.additionalSelectedProduct];
+  }
+
+  onCompraSelectedChange(text: string) {
+    this.suggestedCompras = this.compras.filter(compra => `${compra.id}`.toLowerCase().includes(text.toLowerCase())).map(compra => compra.id.toString());
+  }
+
+  onCompraInputChange() {
+    const text = this.form.controls['compra'].value;
+
+    this.suggestedCompras = this.compras.filter(compra => `${compra.id}`.toLowerCase().includes(text.toLowerCase())).map(compra => compra.id.toString());
+  }
+
+  get isSearchDisabled() {
+    const entered = this.form.controls['compra'].value;
+    return this.suggestedCompras.length === 0 || this.suggestedCompras.every(compra => compra !== entered);
   }
 }
