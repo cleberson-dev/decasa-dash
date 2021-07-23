@@ -183,9 +183,9 @@ export class EstoqueComponent implements OnInit {
 
     formArray.push(
       this.fb.group({
-        serie: this.fb.control(last?.serie || ''),
-        lote: this.fb.control(last?.lote || ''),
-        quantidade: this.fb.control(1),
+        serie: [last?.serie || ''],
+        lote: [last?.lote || ''],
+        quantidade: [1, [Validators.min(1)]],
       })
     );
 
@@ -210,9 +210,17 @@ export class EstoqueComponent implements OnInit {
   }
 
   canAdd(nome: string) {
+    const formArray = this.getProductFormArray(nome);
+    
+    const lastFormGroup = formArray.length > 0 ? 
+      formArray.controls[formArray.length - 1]
+      : undefined;
+
+    if (lastFormGroup && [lastFormGroup.value.lote, lastFormGroup.value.serie].every(value => value === '')) return false;
+    
     const maximum = this.getControlValue(this.quantityForm, nome);
     
-    const groupSum = (this.getProductFormArray(nome).value as any[]).reduce((prev, cur) => prev + cur.quantidade, 0);
+    const groupSum = (formArray.value as any[]).reduce((prev, cur) => prev + cur.quantidade, 0);
     
     return groupSum < maximum;
   }
