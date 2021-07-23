@@ -123,6 +123,14 @@
     <div class="row" [formGroup]="saidaForm">
       <div class="form-group col-3" style="margin-top: 2rem;">
         <label>Nota fiscal</label>
+        <input
+          nbInput fullWidth [imask]="{ mask: '000.000' }"
+
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
         <button nbButton status="warning">
           <nb-icon icon="archive"></nb-icon>
           Carregar XML
