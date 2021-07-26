@@ -112,6 +112,7 @@
           <!-- (click)="openRowDetails(dialog, detalhe)" -->
           <td 
             class="clickable"
+            (click)="openRowDetails(dialog, detalhe)"
           >
             {{ detalhe.produto.descricao || "--" }}
           </td>
@@ -199,30 +200,28 @@
         />
         <div class="info">
           <p>Código</p>
-          <span>{{ context.produto.codigo }}</span>
+          <span>{{ context.detalhe.produto?.cnp || "..." }}</span>
           <p>
             Nome
           </p>
-          <span>{{ context.produto.nome }}</span>
+          <span>{{ context.detalhe.produto?.descricao || "..." }}</span>
           <p>
             Unidade
           </p>
-          <span>{{ context.produto.unidade }}</span>
+          <span>{{ context.detalhe.produto?.unidadeMedidaProduto?.descricao || "..." }}</span>
           <p>
             Quantidade
           </p>
-          <span>{{ context.produto.quantidade }}</span>
+          <span>{{ context.detalhe.quantidade }}</span>
         </div>
       </div>
       <div class="bottom">
         <p>Preços</p>
         <ul>
           <li 
-            *ngFor="let preco of context.produto.precos; let idx = index;" 
-            [class]="{ menor: idx === context.produto.menorPrecoIdx }"
+            *ngFor="let preco of context.detalhe.precoUltimasCompras" 
           >
-            <span>{{ preco.fornecedor }}</span> 
-            <span>{{ preco.valor ? 'R$' + (preco.valor|reais) : '--' }}</span>
+            <span>R${{ preco|reais }}</span>
           </li>
         </ul>
       </div>

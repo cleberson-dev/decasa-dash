@@ -34,19 +34,21 @@ type CustomPedido = {
   lojista?: {
     id: number;
   };
-  detalhesPedidos?: {
-    id?: number;
-    produto: Partial<Produto>;
-    quantidade: number;
-    precoUltimasCompras: number[];
-    precos?: {
-      fornecedorId: number;
-      valor: number;
-    }[];
-    menorPrecoIdx?: number;
-    selecionado?: number;
-  }[];
+  detalhesPedidos?: CustomDetalhePedido[];
   fornecedores?: Fornecedor[];
+}
+
+type CustomDetalhePedido = {
+  id?: number;
+  produto: Partial<Produto>;
+  quantidade: number;
+  precoUltimasCompras: number[];
+  precos?: {
+    fornecedorId: number;
+    valor: number;
+  }[];
+  menorPrecoIdx?: number;
+  selecionado?: number;
 }
 
 type RowProps = {
@@ -263,20 +265,11 @@ export class MapaComponent implements OnInit {
       });
   }
 
-  openRowDetails(dialog: TemplateRef<any>, row: MapRow) {
-    const produto = {
-      codigo: row.produto.codigo,
-      nome: row.produto.nome,
-      quantidade: row.produto.quantidade,
-      unidade: row.produto.unidade,
-      // precos: row.precos.map((preco, idx) => ({ fornecedor: this.fornecedores[idx], valor: preco })),
-      menorPrecoIdx: row.menorPrecoIdx
-    };
-    
+  openRowDetails(dialog: TemplateRef<any>, detalhe: CustomDetalhePedido) {
     this.dialogService.open(dialog, { 
       context: { 
         type: 'row-details',
-        produto
+        detalhe
       } 
     });
   }
