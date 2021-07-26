@@ -3,7 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Tab } from '../../../components/tabber/tabber.component';
 import { Observable, of } from 'rxjs';
 import { LojistasService } from '../../../services/lojistas.service';
-import { AuthService } from '../../../services/auth.service';
+import { ProdutosService } from '../../../services/produtos.service';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-alerta-compra',
@@ -37,9 +38,14 @@ export class AlertaCompraComponent implements OnInit {
 
   lojas: Lojista[] = [];
 
+  produtos: Produto[] = [];
+  suggestedProdutos: string[] = [];
+
   constructor(
     private fb: FormBuilder,
     private lojistaService: LojistasService,
+    private produtosService: ProdutosService,
+    private toastrService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +56,17 @@ export class AlertaCompraComponent implements OnInit {
       .subscribe(lojas => {
         this.lojas = lojas;
       });
+
+    this.produtosService.getProdutosEmEstoque({ page: 1, size: 5 })
+      .subscribe(
+        (data) => {
+          this.produtos = data.content;
+          this.suggestedProdutos = this.produtos.map(produto => produto.descricao);
+        },
+        (err) => {
+          this.toastrService.danger(err.error.message, 'Impossível obter produtos em estoque');
+        }
+      );
   }
 
   onCodigoBlur() {
@@ -60,8 +77,14 @@ export class AlertaCompraComponent implements OnInit {
 
   }
 
-  onNomeSelectionChange(event: string) {
-
+  onProdutoSelectionChange(event: string) {
+    const produto = this.produtos.find(produto => produto.descricao.toLowerCase().includes(event.toLowerCase()))
+    
+    this.form.patchValue({
+      codigo: produto.cnp,
+      unidade: produto.unidadeMedidaProduto.sigla,
+      quantidade: 1
+    });
   }
 
   onNomeInputBlur() {

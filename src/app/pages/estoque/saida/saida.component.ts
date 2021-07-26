@@ -87,7 +87,7 @@ export class SaidaComponent implements OnInit {
         (err) => {
           this.toastrService.danger(err.error.message, 'Impossível obter produtos em estoque');
         }
-      )
+      );
   }
 
   onCodigoBlur() {

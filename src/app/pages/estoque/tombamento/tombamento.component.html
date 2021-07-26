@@ -57,9 +57,9 @@
               formControlName="nome"
               [class]="{ invalid: isInvalidControl('nome') }"
             />
-            <nb-autocomplete [activeFirst]="false" #auto (selectedChange)="onNomeSelectionChange($event)">
-              <nb-option *ngFor="let option of suggestedOptions$ | async" [value]="option">
-                {{ option }}
+            <nb-autocomplete [activeFirst]="false" #auto (selectedChange)="onProdutoSelectionChange($event)">
+              <nb-option *ngFor="let produto of suggestedProdutos" [value]="produto">
+                {{ produto }}
               </nb-option>
             </nb-autocomplete>
           </td>
