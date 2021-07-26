@@ -73,7 +73,7 @@
           <td>
             <input 
               nbInput type="number" fullWidth style="width: 90px" 
-              formControlName="qtVirtual"
+              formControlName="qtVirtual" [attr.disabled]="true"
               [class]="{ invalid: isInvalidControl('qtVirtual') }"
             />
           </td>
