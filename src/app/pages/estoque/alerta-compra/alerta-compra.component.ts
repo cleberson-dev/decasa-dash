@@ -92,7 +92,18 @@ export class AlertaCompraComponent implements OnInit {
   }
 
   onProdutoAdd() {
+    const { value } = this.form;
+    const row = {
+      codigo: value.codigo,
+      nome: value.nome,
+      unidade: value.unidade,
+      quantidade: value.quantidade,
+    }
+    this.data.push(row);
 
+    this.form.reset();
+
+    this.input.nativeElement.value = "";
   }
 
   isInvalidControl(controlName: string) {
