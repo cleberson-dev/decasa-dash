@@ -147,6 +147,7 @@ declare type Pedido = {
     id?: number;
     produto: Partial<Produto>;
     quantidade: number;
+    ultimosPrecos: number[];
   }[];
   fornecedores?: Partial<Fornecedor>[];
 }

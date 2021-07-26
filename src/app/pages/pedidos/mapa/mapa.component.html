@@ -151,9 +151,9 @@
           <td [class]="[
             'last-prices', 
             detalhe.precos && detalhe.precos.length > 0 && 
-              getPriceStatus(detalhe.precos[detalhe.menorPrecoIdx].valor, detalhe.precoUltimasCompras)
+              getPriceStatus(detalhe.precos[detalhe.menorPrecoIdx].valor, getAverage(detalhe.precoUltimasCompras))
           ]">
-            {{ detalhe.precoUltimasCompras || "..." }}
+            {{ detalhe.precoUltimasCompras.length > 0 ? (getAverage(detalhe.precoUltimasCompras)|reais) : "..." }}
           </td>
         </tr>
       </tbody>

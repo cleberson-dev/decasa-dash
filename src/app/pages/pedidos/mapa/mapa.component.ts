@@ -38,7 +38,7 @@ type CustomPedido = {
     id?: number;
     produto: Partial<Produto>;
     quantidade: number;
-    precoUltimasCompras?: number;
+    precoUltimasCompras: number[];
     precos?: {
       fornecedorId: number;
       valor: number;
@@ -154,30 +154,31 @@ export class MapaComponent implements OnInit {
     undefined);
   }
 
-  transformCotacoes(cotacoes: Cotacao[]) {
-    for (const cotacao of cotacoes) {
-      const fornecedorIdx = this.pedido.fornecedores.findIndex(f => f.id === cotacao.fornecedor.id);
-      if (fornecedorIdx === -1) {
-        this.pedido.fornecedores.push(cotacao.fornecedor);
-      }
+  // transformCotacoes(cotacoes: Cotacao[]) {
+  //   for (const cotacao of cotacoes) {
+  //     const fornecedorIdx = this.pedido.fornecedores.findIndex(f => f.id === cotacao.fornecedor.id);
+  //     if (fornecedorIdx === -1) {
+  //       this.pedido.fornecedores.push(cotacao.fornecedor);
+  //     }
       
-      const detalhePedidoIdx = this.pedido.detalhesPedidos.findIndex(detalhe => detalhe.produto.id === cotacao.detalhePedido.produto.id);
-      if (detalhePedidoIdx === -1) {
-        this.pedido.detalhesPedidos.push({ 
-          produto: cotacao.detalhePedido.produto,
-          quantidade: cotacao.detalhePedido.quantidade,
-          precos: []
-        });
-      }
+  //     const detalhePedidoIdx = this.pedido.detalhesPedidos.findIndex(detalhe => detalhe.produto.id === cotacao.detalhePedido.produto.id);
+  //     if (detalhePedidoIdx === -1) {
+  //       this.pedido.detalhesPedidos.push({ 
+  //         produto: cotacao.detalhePedido.produto,
+  //         quantidade: cotacao.detalhePedido.quantidade,
+  //         precos: [],
+  //         precoUltimasCompras: cotacao.detalhePedido.
+  //       });
+  //     }
 
-      this.pedido.detalhesPedidos[detalhePedidoIdx].precos.push({ 
-        fornecedorId: cotacao.fornecedor.id as number, 
-        valor: cotacao.preco 
-      });
-    }
-    this.defineProductCheapestPrice();
-    this.defineCheapestSupplier();
-  }
+  //     this.pedido.detalhesPedidos[detalhePedidoIdx].precos.push({ 
+  //       fornecedorId: cotacao.fornecedor.id as number, 
+  //       valor: cotacao.preco 
+  //     });
+  //   }
+  //   this.defineProductCheapestPrice();
+  //   this.defineCheapestSupplier();
+  // }
 
   ngOnInit(): void {
     this.somaFornecedores = this.pedido && this.pedido.detalhesPedidos.length > 0 ? 
@@ -221,6 +222,7 @@ export class MapaComponent implements OnInit {
             produto: detalhe.produto,
             quantidade: detalhe.quantidade,
             precos: [],
+            precoUltimasCompras: detalhe.ultimosPrecos
           })),
         };
 
@@ -552,5 +554,10 @@ export class MapaComponent implements OnInit {
 
   get isMapReady(): boolean {
     return !!this.pedido && this.cotacoes.length > 0 && !!this.precos && Object.keys(this.precos).length > 0 && this.selectedSuppliers && Object.keys(this.selectedSuppliers).length > 0;
+  }
+
+  getAverage(nums: number[]) {
+    if (nums.length === 0) return 0;
+    return nums.reduce((sum, num) => sum + num, 0) / nums.length;
   }
 }
